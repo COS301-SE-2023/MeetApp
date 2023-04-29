@@ -41,4 +41,4 @@
 * [Deployment Model](#)
 
 ## Team Profiles
-* [Team Profiles](https://github.com/COS301-SE-2023/MeetApp/wiki/Team-Profiles)
+* [Team Profiles](https://github.com/COS301-SE-2023/MeetApp/wiki#team-profiles)
