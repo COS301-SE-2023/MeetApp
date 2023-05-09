@@ -27,6 +27,7 @@
 * [Team Profiles](#team-profiles)
 
 ## Project Descritpion 
+MeetApp is a location-powered, social-networking and event-planning application that allows users to discover, attend, and engage with events of all types. With MeetApp, users can browse event listings, RSVP to events, receive notifications about upcoming events, and interact with other attendees through social features such as liking and sharing media content. The app also offers powerful features for event organizers, including the ability to create and manage events, track attendance, and receive feedback from attendees. MeetApp uses machine learning algorithms to recommend events to users based on their location and past attendance, and offers tools for event promotion and sponsorships. Whether you're attending a conference, concert, or meetup, MeetApp provides a comprehensive platform for discovering, planning, and experiencing events like never before.
 ## Demo
 * [Demo 1](https://drive.google.com/drive/folders/1ps4zFMsyaVffrnx9De-d89HhVjqKa4a8?usp=sharing)
 * [Demo 2](https://drive.google.com/drive/folders/1lhjC10czva_b4yBKryF5oluZXzLEgXGw?usp=sharing)
