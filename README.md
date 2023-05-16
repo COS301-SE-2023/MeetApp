@@ -25,6 +25,8 @@
 * [Demo](#demo)
 * [Documentation](#documentation)
 * [Team Profiles](#team-profiles)
+* [Project Board](https://github.com/orgs/COS301-SE-2023/projects/27/views/1)
+
 
 ## Project Descritpion 
 ## Demo
