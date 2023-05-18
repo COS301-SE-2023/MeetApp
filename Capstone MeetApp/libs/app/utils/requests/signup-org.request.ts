@@ -1,4 +1,4 @@
-export interface ISignUpUserRequest {
+export interface ISignUpOrgRequest {
     UserType : string;
     
 }
