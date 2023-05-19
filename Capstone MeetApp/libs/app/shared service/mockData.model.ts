@@ -1,5 +1,5 @@
 import { Category } from "../utils/enums";
-import { IEvent } from "../utils/interfaces";
+import { IEvent, IEvents } from "../utils/interfaces";
 
 const mockEvents: IEvent[] = [
     {
@@ -159,3 +159,4 @@ const mockEvents: IEvent[] = [
         region: 'Pretoria',
       }
     ]
+export default mockEvents;

@@ -1,5 +1,5 @@
 import { IEvent } from './event.interface';
 
 export interface IEvents {
-  posts: IEvent[] | null ;
+  events: IEvent[] | null ;
 }
