@@ -14,7 +14,6 @@ import { ILoginInfo } from '../utils/interfaces';
   providedIn: 'root',
 })
 export class ApiService {
-  // Define API
   apiURL = 'not implemented';
   constructor(private http: HttpClient) {}
  
@@ -23,7 +22,6 @@ export class ApiService {
       'Content-Type': 'application/json',
     }),
   };
-  
   login(loginInfo: ILoginInfo): Observable<ILoginRequest> {
     return this.http
       .post<ILoginRequest>(
@@ -41,8 +39,15 @@ export class ApiService {
     ;
   }
 
+  loginMock(loginInfo: ILoginInfo) {
+    if (loginInfo.username === "techDemo")
+        return false;
+    else
+        return true;
+  }
+
   
+
   
-  
-  
+
 }
