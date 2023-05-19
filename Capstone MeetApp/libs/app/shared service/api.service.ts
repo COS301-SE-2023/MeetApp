@@ -8,15 +8,19 @@ import { ISignUpOrgRequest } from '../utils/requests';
 import { ISignUpOrgResponse } from '../utils/responses';
 import { ISignUpUserRequest } from '../utils/requests';
 import { ISignUpUserResponse } from '../utils/responses';
-import { ILoginInfo, ISignupInfo } from '../utils/interfaces';
+import { IEvents, ILoginInfo, ISignupInfo, IEvent } from '../utils/interfaces';
+import mockEvents from './mockData.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ApiService {
   apiURL = 'not implemented';
-  constructor(private http: HttpClient) {}
- 
+  mockEventsFeed : Array<IEvent> = [];
+  constructor(private http: HttpClient) {
+    this.mockEventsFeed = mockEvents
+  }
+
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -47,9 +51,19 @@ export class ApiService {
   }
 
   signupMock(signupInfo: ISignupInfo) {
-    return {message: 'success', userInfo: signupInfo, userEvents : eventsFeed}
+    return {message: 'success', userInfo: signupInfo}
   }
 
+  getAllEventsMock() {
+    return this.mockEventsFeed;
+  }
+
+  getRegionalEventsMock(region: string){
+    return this.mockEventsFeed.filter(currentEvent => {
+        if (currentEvent.region == region)
+            return currentEvent
+    })
+  }
   
 
   
