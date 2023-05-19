@@ -8,7 +8,7 @@ import { ISignUpOrgRequest } from '../utils/requests';
 import { ISignUpOrgResponse } from '../utils/responses';
 import { ISignUpUserRequest } from '../utils/requests';
 import { ISignUpUserResponse } from '../utils/responses';
-import { ILoginInfo } from '../utils/interfaces';
+import { ILoginInfo, ISignupInfo } from '../utils/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -44,6 +44,10 @@ export class ApiService {
         return false;
     else
         return true;
+  }
+
+  signupMock(signupInfo: ISignupInfo) {
+    return {message: 'success', userInfo: signupInfo, userEvents : eventsFeed}
   }
 
   
