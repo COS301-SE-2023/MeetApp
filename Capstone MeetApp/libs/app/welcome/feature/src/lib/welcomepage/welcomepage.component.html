@@ -1,1 +1,43 @@
-<p>welcomepage works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>meet-app</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      /* Styles specific to index.html */
+      body.index-page {
+           height: 100vh;
+        background-color: #0C134F;
+        /* Add specific styles for index.html here */
+      }
+      
+    </style>
+  </head>
+  <body class="index-page">
+    <h1 class="heading" >
+        Meet-App
+       
+    </h1>
+   
+    <div class="image-container" style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 3%;">
+      <img src="https://media1.giphy.com/media/437XTMGYpd7oRjje6Q/giphy.gif?cid=82a1493bxginscqy4ewxlqboglhngenz40063w7a36llq96z&ep=v1_videos_related&rid=giphy.gif&ct=v" alt="Image 1" style="width: 45%; height: 45%;">
+      
+      
+    
+    </div>
+    
+      <div>
+        <button class="button-user" (click)="onSignUp()">User</button>
+
+    </div>
+    <div>
+      <button class="button-organizer"(click)="onSignUp()" >
+    Organizer</button>
+    </div>
+    
+   
+  </body>
+</html>

@@ -1,1 +1,37 @@
-<p>signup works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<div class="container">
+    <h1 class="heading">Sign Up</h1>
+  
+    <form [formGroup]="loginForm" (ngSubmit)=" onSignUp()">
+        <div class="form-group" >
+            <label for="name">Name</label>
+            <input type="name" id="name" formControlName="name" required>
+          </div>
+      <div class="form-group" >
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" required>
+      </div>
+      <div class="form-group" >
+        <label for="name">Phone Number</label>
+        <input type="number" id="phone number" formControlName="phone number" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" required>
+      </div>
+      <div class="form-group">
+        <label for=" confirm password"> Confirm Password</label>
+        <input type="password" id=" confirm password" formControlName=" confirm password" required>
+      </div>
+  
+      <button type="submit">Next</button>
+    </form>
+  
+   
+  </div>
+
+</html>
+ 

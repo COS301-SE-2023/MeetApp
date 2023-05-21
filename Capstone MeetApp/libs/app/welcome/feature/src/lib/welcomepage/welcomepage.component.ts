@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'capstone-meet-app-welcomepage',
@@ -8,4 +9,10 @@ import { CommonModule } from '@angular/common';
   templateUrl: './welcomepage.component.html',
   styleUrls: ['./welcomepage.component.css'],
 })
-export class WelcomepageComponent {}
+export class WelcomepageComponent {
+  constructor(private router: Router) {}
+
+  onSignUp() {
+    this.router.navigate(['/login']);
+  }
+}

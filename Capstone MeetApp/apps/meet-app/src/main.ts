@@ -1,4 +1,5 @@
 import { bootstrapApplication } from "@angular/platform-browser";
+import { ReactiveFormsModule } from '@angular/forms';
 import {
   provideRouter,
   withEnabledBlockingInitialNavigation,

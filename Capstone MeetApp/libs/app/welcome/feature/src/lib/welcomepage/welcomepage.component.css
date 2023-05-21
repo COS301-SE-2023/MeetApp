@@ -1,0 +1,51 @@
+.heading{  margin-top: 0;
+    display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+       color: white;
+       margin: 0 auto;
+       font-family: 'Roboto', sans-serif;
+
+}
+.button-user{
+    background-color: #D4ADFC;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+      display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+         color: white;
+         margin: 0 auto;
+         margin-top: 70px;
+         
+         width: 45%;   
+         margin-left: 33%;
+         margin-right: 40%;
+         border-radius: 10px;  
+         font-family: 'Roboto  ', sans-serif;
+        
+        }
+        .button-organizer {
+            background-color: #D4ADFC;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            color: white;
+            margin: 0 auto;
+            margin-top: 40px;
+            width: 45%;
+            margin-left: 33%;
+            margin-right: 40%;
+            border-radius: 10px;
+            font-family: 'Roboto', sans-serif;
+          }
+          

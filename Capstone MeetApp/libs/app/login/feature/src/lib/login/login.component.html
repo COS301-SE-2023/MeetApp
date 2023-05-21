@@ -1,1 +1,28 @@
-<p>login works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<div class="container">
+    <h1 class="heading">Log In</h1>
+  
+    <form [formGroup]="loginForm" (ngSubmit)=" onSignUp()">
+      <div class="form-group" >
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" required>
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" required>
+      </div>
+  
+      <button type="submit">Login</button>
+    </form>
+  
+   
+  </div>
+
+</html>
+ 
+  
+  

@@ -1,0 +1,99 @@
+.container {
+    background-color: #0C134F;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 16px;
+    color: white;
+    height: 100vh;
+  }
+  
+  .heading {
+    margin-top: 0;
+    display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+       color: white;
+       margin: 0 auto;
+       font-family: 'Roboto', sans-serif;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+  }
+  
+  label {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+    margin-top: 5%;
+    
+    /* Set the width of the form group to 100% */
+  }
+  
+  input {
+    background-color: #0C134F;
+    color: white;
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 4px;
+    margin-top: 4px;
+    margin-right: 0%; 
+     width: 82vw;                    /* Set the width of the input to 100% */
+    box-sizing: border-box;
+    border-bottom: 3px solid #000000;
+   
+    outline: none;
+    /* Include padding and border in the width calculation */
+  }
+  
+  
+  button {
+    background-color: #D4ADFC;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+       color: white;
+       margin: 0 auto;
+       margin-top: 70px;
+       width: 30%;
+       margin-left: 50%;
+       border-radius: 10px;
+       font-family: 'Roboto', sans-serif;
+  }
+  
+  div:first-child {
+    margin-bottom: 20px;
+  }
+  
+  div:nth-child(2) {
+    margin-top: 20px;
+  }
+  div:nth-child(3) {
+    margin-top: 20px;
+  }
+  div:nth-child(4) {
+    margin-top: 20px;
+  }
+  div:nth-child(5) {
+    margin-top: 20px;
+  }
+  a {
+    color: white;
+    margin-top: 16px;
+  }
+  
