@@ -1,6 +1,7 @@
 ![](https://digiday.com/wp-content/uploads/sites/3/2015/06/DonkeyKong-banner2.gif?w=1030&h=440&crop=1)
-
+<p><h1 align='center'>Tech Titans<br><br></h1>
 <h1 align='center'>MeetApp<br><br></h1>
+</p>
 
 <div align="left">
 <a href= "https://github.com/COS301-SE-2023/MeetApp/pulls">
@@ -9,7 +10,7 @@
 <a href = "https://github.com/COS301-SE-2023/MeetApp/issues">
   <img alt="GitHub Issues" src="https://img.shields.io/github/issues/COS301-SE-2023/MeetApp?style=plastic">
 </a>
-<a href = "https://github.com/COS301-SE-2023/MeetApp/projects/1">
+<a href = "https://github.com/orgs/COS301-SE-2023/projects/27/views/1">
   <img alt="GitHub Issues" src="https://img.shields.io/badge/Project%20Board-1-blue">
 </a>
 <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/COS301-SE-2023/MeetApp?style=plastic">
