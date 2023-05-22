@@ -37,7 +37,7 @@
 
 ## Documentation
 
-* [Requirements and Design (SRS) Document](#)
+* [Requirements and Design (SRS) Document](https://docs.google.com/document/d/1EHkrakkAeITL3uzxEYB2qK57-l74RdiUYAZXCMUeUTg/edit?usp=sharing)
 * [Architectural Structural Design & Requirements](#)
 * [Coding Standards](#)
 * [Testing Standards](#)
