@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 .container {
   background-color: #0C134F;
   display: flex;
@@ -5,7 +9,9 @@
   align-items: flex-start;
   padding: 16px;
   color: white;
-  height: 100vh;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
 .heading {

@@ -1,3 +1,4 @@
+
 .heading{  margin-top: 0;
     display: flex;
       align-items: center;
@@ -22,13 +23,14 @@
          margin: 0 auto;
          margin-top: 70px;
          
-         width: 45%;   
-         margin-left: 33%;
-         margin-right: 40%;
+         width: 55%;   
+         margin-left: 25%;
+         margin-right: 50%;
          border-radius: 10px;  
          font-family: 'Roboto  ', sans-serif;
         
         }
+      
         .button-organizer {
             background-color: #D4ADFC;
             color: white;
@@ -42,9 +44,9 @@
             color: white;
             margin: 0 auto;
             margin-top: 40px;
-            width: 45%;
-            margin-left: 33%;
-            margin-right: 40%;
+            width: 55%;
+            margin-left: 25%;
+            margin-right: 50%;
             border-radius: 10px;
             font-family: 'Roboto', sans-serif;
           }
