@@ -1320,10 +1320,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@esbuild/win32-ia32@0.17.8":
+"@esbuild/win32-x64@0.17.8":
   version "0.17.8"
-  resolved "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.17.8.tgz"
-  integrity sha512-Fqy63515xl20OHGFykjJsMnoIWS+38fqfg88ClvPXyDbLtgXal2DTlhb1TfTX34qWi3u4I7Cq563QcHpqgLx8w==
+  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.8.tgz"
+  integrity sha512-1iuezdyDNngPnz8rLRDO2C/ZZ/emJLb72OsZeqQ6gL6Avko/XCXZw+NuxBSNhBAP13Hie418V7VMt9et1FMvpg==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -1975,6 +1975,11 @@
   dependencies:
     nx-cloud "16.0.5"
 
+"@nrwl/nx-win32-x64-msvc@15.9.4":
+  version "15.9.4"
+  resolved "https://registry.npmjs.org/@nrwl/nx-win32-x64-msvc/-/nx-win32-x64-msvc-15.9.4.tgz"
+  integrity sha512-bogVju4Z/hy1jbppqaTNbmV1R4Kg0R5fKxXAXC2LaL7FL0dup31wPumdV+mXttXBNOBDjV8V/Oz1ZqdmxpOJUw==
+
 "@nrwl/tao@15.9.4":
   version "15.9.4"
   resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-15.9.4.tgz"
@@ -2236,6 +2241,11 @@
     "@phenomnomnominal/tsquery" "~5.0.1"
     tmp "~0.2.1"
     tslib "^2.3.0"
+
+"@nx/nx-win32-x64-msvc@16.0.3":
+  version "16.0.3"
+  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.0.3.tgz"
+  integrity sha512-/Ezru8nlrckLAQ4s7wEAW192DULgWj9YBqREQPV0ddzwjeVC0clsHSXguH8WzMwEU44+IFnqNMJrWK3mZCvZYA==
 
 "@nx/web@16.0.3":
   version "16.0.3"

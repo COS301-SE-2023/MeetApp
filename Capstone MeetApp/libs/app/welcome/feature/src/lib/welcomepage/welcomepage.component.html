@@ -9,13 +9,10 @@
     <style>
       /* Styles specific to index.html */
       body.index-page {
-          height: 100vh;
-          
+        height: 100vh; 
         background-color: black;
-      
-  margin: 0;
-  padding: 0;
-
+        margin: 0;
+        padding: 0;
         /* Add specific styles for index.html here */
       }
       
@@ -24,25 +21,18 @@
   <body class="index-page">
     <h1 class="heading" >
         Meet-App
-       
     </h1>
    
-    <div class="image-container" style="display: flex; justify-content: center; margin-top: 40px; margin-bottom: 3%;">
+    <div class="image-container" style="display: flex; justify-content: center;  margin-bottom: 3%;">
       <img src="https://4kwallpapers.com/images/walls/thumbs_3t/6671.jpg" alt="Image 1" style="width: 58%; height: 58%;">
-      
-      
-    
     </div>
     
-      <div>
-        <button class="button-user" (click)="onSignUp()">User</button>
-
-    </div>
     <div>
-      <button class="button-organizer"(click)="onSignUp()" >
-    Organizer</button>
+        <button class="button-user" (click)="onSignUp()">User</button>
     </div>
-    
-   
+
+    <div>
+      <button class="button-organizer"(click)="onSignUp()" >Organizer</button>
+    </div>
   </body>
 </html>
