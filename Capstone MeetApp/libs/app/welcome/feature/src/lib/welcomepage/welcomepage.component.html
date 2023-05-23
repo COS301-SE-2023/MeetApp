@@ -1,1 +1,51 @@
-<p>welcomepage works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>meet-app</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      /* Styles specific to index.html */
+      body.index-page {
+        height: 100vh; 
+        background-color: black;
+        margin: 0;
+        padding: 0;
+        overflow: hidden ! important;
+
+        /* Add specific styles for index.html here */
+      }
+      body {
+  background-image: url('https://wallpaperaccess.com/full/5819894.jpg');
+  background-size: cover;
+  background-position: center center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+      
+    </style>
+  </head>
+  <body class="index-page">
+    <h1 class="heading" >
+        Meet-App
+    </h1>
+   
+    <!--div class="image-container" style="display: flex; justify-content: center;  margin-bottom: 3%;">
+      <img src="https://4kwallpapers.com/images/walls/thumbs_3t/6671.jpg" alt="Image 1" style="width: 68%; height: 68%;">
+    </div-->
+    
+    <div>
+        <button class="button-user" (click)="onSignUp()">User</button>
+    </div>
+
+    <div>
+      <button class="button-organiser"(click)="onSignUp()" >Organiser</button>
+ </div> 
+ 
+             
+
+  </body>
+</html>
