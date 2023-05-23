@@ -7,11 +7,13 @@ import { HomepageComponent } from 'libs/app/home/feature/src/lib/homepage/homepa
 import { LoginComponent } from 'libs/app/login/feature/src/lib/login/login.component';
 import { SignupComponent } from 'libs/app/signup/feature/src/lib/signup/signup.component';
 import { WelcomepageComponent, } from 'libs/app/Welcome/feature/src/lib/welcomepage/welcomepage.component';
+import {ProfileComponent} from 'libs/app/profile/feature/src/lib/profile/profile.component'
 export const appRoutes: Route[] = [
    { path: "", component: WelcomepageComponent },
    { path: "home", component: HomepageComponent },
    { path: "signup", component: SignupComponent }
    ,{ path: "login", component: LoginComponent }
+   ,{ path: "profile", component: ProfileComponent}
    
 
    
