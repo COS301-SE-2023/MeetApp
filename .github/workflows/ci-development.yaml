@@ -21,9 +21,6 @@ jobs:
         with:
           fetch-depth: 0
       - uses: nrwl/nx-set-shas@v3
-      - name: nodeJS
-        uses: actions/setup-node@v3
-      - run: npm ci
       - run: npm install
       - run: npx nx format:check
       - run: npx nx affected -t lint --parallel=3
