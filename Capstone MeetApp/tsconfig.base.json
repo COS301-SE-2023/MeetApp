@@ -110,6 +110,9 @@
       ],
       "@capstone-meet-app/app/welcome/util": [
         "libs/app/welcome/util/src/index.ts"
+      ],
+      "@capstone-meet-app/app/shared service":[
+        "libs/app/shared service/index.ts"
       ]
     }
   },
