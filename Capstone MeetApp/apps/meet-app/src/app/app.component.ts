@@ -19,5 +19,5 @@ import { HomepageComponent } from 'libs/app/home/feature/src/lib/homepage/homepa
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
- // title = "meet-app";
+  title = "meet-app";
 }

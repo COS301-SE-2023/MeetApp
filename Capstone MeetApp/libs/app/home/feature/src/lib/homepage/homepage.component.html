@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
 <head>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
@@ -106,3 +107,62 @@
 </div>
 </body>
 </html>
+=======
+  <head>
+   
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<style>
+  body {
+background-image: url('');
+background-size: cover;
+background-position: center center;
+min-height: 100vh;
+margin: 0;
+padding: 0;
+}
+
+    /* Add any additional styling for the form, if needed */
+  </style>
+  </head>
+  <body class="container">
+    
+    <div class="heading-container">
+      <i class="fas fa-heart pink"></i>
+      <h1 class="heading">MeetApp</h1>
+      <i class="fas fa-cog pink"></i>
+    </div>
+    
+
+
+      <div class="image-container1">
+          <img src="https://techcrunch.com/wp-content/uploads/2022/07/GettyImages-1392356345.jpg?w=1390&crop=1" alt="item.title + ' Image'" height="300" width="300" >
+      </div>
+<div *ngFor="let item of data"  class="box" >
+  
+  <div class="container1" class="content-container"  >
+    <h2>{{ item.title }}</h2>
+      <div class="image-container">
+        <img src="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi" alt="item.title + ' Image'" height="80" width="80">
+      </div>
+    <p><strong>Where?</strong> {{ item.location }}</p>
+    <p><strong>When?</strong> {{ item.date }}</p>
+    <p>{{ item.description }}<a href="">more...</a></p>
+  </div>
+</div>
+<div class="navigation-bar">
+  <a href="#" class="navigation-item">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="#" class="navigation-item">
+    <i class="fas fa-bell"></i>
+  </a>
+  <a href="#" class="navigation-item">
+    <i class="fas fa-user"></i>
+  </a>
+</div>
+
+</body>
+</html>
+
+      
+>>>>>>> b7bfb988ce6f649f078d2e9a5b958488f8af324d
