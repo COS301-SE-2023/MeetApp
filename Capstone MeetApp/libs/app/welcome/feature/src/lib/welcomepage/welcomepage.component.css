@@ -6,28 +6,34 @@ html{
     align-items: center;
     justify-content: center;
     padding: 16px;
-    color:#AD5DFF;
+    color: white;
     margin: 0 auto;
     font-family: 'Roboto', sans-serif;
 
 }
+
+.bold {
+    font-weight: bold;
+  }
+
 .button-user{
     background-color: #AD5DFF;;
     color: white;
     border: none;
     padding: 8px 16px;
-    cursor: pointer;
+    cursor: pointer; 
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 16px;
     color: white;
     margin: 0 auto;
-    margin-top: 110px;
+    margin-top: 280px;
      
     width: 55%;   
     margin-left: 25%;
     margin-right: 50%;
+    
     border-radius: 10px;  
     font-family: 'Roboto  ', sans-serif;
         

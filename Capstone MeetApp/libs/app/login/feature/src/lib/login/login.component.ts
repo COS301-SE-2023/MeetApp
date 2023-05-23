@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         // Login success
         console.log('Login successful');
         console.log(result);
+        this.router.navigate(['/home']);
        // this.router.navigate(['/signup']);
       } else {
         // Login failed

@@ -49,6 +49,7 @@ export class SignupComponent {
       if (result) {
         // Login success
         console.log('Login successful');
+        this.router.navigate(['/home']);
         console.log(result);
         // this.router.navigate(['/signup']);
       } else {
