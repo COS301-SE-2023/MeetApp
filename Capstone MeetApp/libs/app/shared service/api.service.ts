@@ -16,7 +16,7 @@ import mockEvents from './mockData.model';
 })
 export class ApiService {
   apiURL = 'not implemented';
-  mockEventsFeed : Array<IEvent> = [];
+  mockEventsFeed : Array<IEvent> = []; 
   constructor(private http: HttpClient) {
     this.mockEventsFeed = mockEvents
   }
@@ -44,7 +44,7 @@ export class ApiService {
   }
 
   loginMock(loginInfo: ILoginInfo) {
-    if (loginInfo.username === "techDemo")
+    if (loginInfo.username === "techDemo@gmail.com")
         return false;
     else
         return true;
@@ -58,12 +58,12 @@ export class ApiService {
     return this.mockEventsFeed;
   }
 
-  getRegionalEventsMock(region: string){
+  /*getRegionalEventsMock(region: string){
     return this.mockEventsFeed.filter(currentEvent => {
         if (currentEvent.region == region)
             return currentEvent
     })
-  }
+  }*/
   
 
   
