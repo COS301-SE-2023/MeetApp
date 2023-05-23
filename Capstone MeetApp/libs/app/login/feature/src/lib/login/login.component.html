@@ -20,7 +20,7 @@
     </div>
     
     <div class="holder" style="background-color: #111C20; width: 40%; margin-left: 25%; border-radius: 10px; padding: 16px;">
-      <form [formGroup]="loginForm" (ngSubmit)="onSignUp()">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="email" style="color: white;">Email</label>
           <input type="email" id="email" formControlName="email" required>
@@ -38,9 +38,9 @@
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
           <div style="display: flex; align-items: center; margin-bottom: 10px;">
             <input type="checkbox" id="rememberMe" name="rememberMe" style="margin-right: 5px;">
-            <label for="rememberMe" style="color: white; font-size: 12px;">Remember me</label>
+            <label for="rememberMe" style="color: white; font-size: 12px;font-family: sans-serif; white-space: nowrap;">Remember me</label>
           </div>
-          <a href="#" style="color: white; font-size: 12px;">Forgot password?</a>
+          <a href="#" style="color: white; font-size: 12px; font-family: sans-serif;">Forgot password?</a>
         </div>
       </form>
     </div>

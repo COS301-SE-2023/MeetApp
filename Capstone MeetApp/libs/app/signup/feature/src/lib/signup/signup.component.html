@@ -20,15 +20,14 @@
     </div>
     
     <div class="holder" style="background-color: #111C20; width: 40%; height: 20%; margin-left: 25%; border-radius: 10px; padding: 16px;">
-      <form [formGroup]="loginForm" (ngSubmit)="onSignUp()">
-      
-          <label for="email" style="color: white;">Name</label>
-          <input type="email" id="email" formControlName="email" required>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <label for="name" style="color: white;">Name</label>
+        <input type="text" id="name" formControlName="name" required>
        <label for="email " style="color: white;"> Email</label>
           <input type="email" id="email" formControlName="email" required>
         
-          <label for="email" style="color: white;">Phone Number</label>
-          <input type="email" id="email" formControlName="email" required>
+          <label for="phoneNumber" style="color: white;">Phone Number</label>
+          <input type="tel" id="phoneNumber" formControlName="phoneNumber" required>
        
        
           <label for="password" style="color: white; margin-top:3px">Password</label>
@@ -37,21 +36,23 @@
           " required style>
       
        
-          <label for="email" style="color: white;">Confirm Password</label>
-          <input type="email" id="email" formControlName="email" required style="margin-bottom:30px">
+          <label for="confirmPassword" style="color: white;">Confirm Password</label>
+  <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+
        
           <button type="submit" style="justify-content: center; display: flex; margin: 20px auto; width: 60%; height: 30px; text-align:
            center; background-color: #C396F0;
-           
+           margin-top: 5px;
             border-radius: 6px;
+            color: white;
            ">Submit</button>
 
         <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
           <div style="display: flex; align-items: center; margin-bottom: 10px;">
             <input type="checkbox" id="rememberMe" name="rememberMe" style="margin-right: 5px;">
-            <label for="rememberMe" style="color: white; font-size: 12px; font-family: sans-serif;">Remember me</label>
+            <label for="rememberMe" style="color: white; font-size: 12px; font-family: sans-serif; white-space: nowrap;">Remember me</label>
           </div>
-          <a href="#" style="color: white; font-size: 12px;">Forgot password?</a>
+        
         </div>
       </form>
     </div>
