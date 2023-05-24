@@ -25,12 +25,11 @@ import { IEvent } from 'libs/app/utils/interfaces/event.interface';
   providers: [ApiService]
 })
 export class HomepageComponent {
-<<<<<<< HEAD
+
   results: IEvent[];
   constructor(private router: Router, private apiService: ApiService){
      
     this.results = this.apiService.getAllEventsMock();
-
   }
   
   
@@ -38,43 +37,7 @@ export class HomepageComponent {
     
   
 }
-=======
-  data = [
-    {
-      imageSrc: 'path/to/your/image1.jpg',
-      title: 'Joburg Art Fair 1',
-      location: 'Sandton',
-      date: '8-10 September 2023',
-      description: 'The annual Joburg Art Fair will showcase the best in contemporary African art and design, with 23 galleries and 11'
-    },
-    {
-      imageSrc: 'path/to/your/image1.jpg',
-      title: 'Joburg Art Fair 1',
-      location: 'Sandton',
-      date: '8-10 September 2023',
-      description: 'The annual Joburg Art Fair will showcase the best in contemporary African art and design, with 23 galleries and 11'
-    },
-    {
-      imageSrc: 'path/to/your/image1.jpg',
-      title: 'Joburg Art Fair 1',
-      location: 'Sandton',
-      date: '8-10 September 2023',
-      description: 'The annual Joburg Art Fair will showcase the best in contemporary African art and design, with 23 galleries and 11'
-    },
-    {
-      imageSrc: 'path/to/your/image1.jpg',
-      title: 'Joburg Art Fair 1',
-      location: 'Sandton',
-      date: '8-10 September 2023',
-      description: 'The annual Joburg Art Fair will showcase the best in contemporary African art and design, with 23 galleries and 11'
-    }
-    
-  ];
-}
+  
 
 
 
-
-
-
->>>>>>> b7bfb988ce6f649f078d2e9a5b958488f8af324d

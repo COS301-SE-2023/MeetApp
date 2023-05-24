@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 
->>>>>>> b7bfb988ce6f649f078d2e9a5b958488f8af324d
 .container1 {
     
   float:right;
@@ -82,38 +79,6 @@ html {
      margin: 0 auto;
      font-family: 'Roboto', sans-serif;
      margin-left: 10px; 
+
+
 }
-
-<<<<<<< HEAD
-
-=======
-.navigation-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background-color: #460c68;
-  height: 60px;
-  box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-}
-
-
-.navigation-item {
-  text-decoration: none;
-  color: #f191c1;
-}
-
-.navigation-item i {
-  font-size: 24px;
-}
-
-.navigation-item:hover {
-  color: #9047ad;
-}
->>>>>>> b7bfb988ce6f649f078d2e9a5b958488f8af324d
