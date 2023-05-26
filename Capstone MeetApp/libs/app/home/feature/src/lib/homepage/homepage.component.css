@@ -41,14 +41,14 @@
 
 .fa-heart{
   font-size: 30px; 
-  color: pink;
+  color: #D4ADFC;
   margin-right: 40px; 
 }
 
 
 .fa-cog {
   font-size: 30px; 
-  color: pink;
+  color: #D4ADFC;
   margin-right: 40px; 
 }
 html {
@@ -74,7 +74,7 @@ html {
   min-height: 100vh;
 }
 .pink {
-  color: pink;
+  color: #D4ADFC;
   margin-left: 10px;
 }
 .heading {
@@ -106,7 +106,7 @@ html {
 
 .navigation-item {
   text-decoration: none;
-  color: #f191c1;
+  color: #D4ADFC;
 }
 
 .navigation-item i {
@@ -114,7 +114,7 @@ html {
 }
 
 .navigation-item:hover {
-  color: #9047ad;
+  color: rgb(98, 82, 104);
 }
 
 .search-bar {
