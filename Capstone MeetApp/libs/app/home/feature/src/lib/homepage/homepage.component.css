@@ -6,7 +6,7 @@
 
 
 .box {
-  width: 290px;
+  width: 335px;
   height: 230px;
   border: 2px solid black;
   border-radius: 10px;
@@ -21,7 +21,7 @@
   
   display: flex; /* Use flexbox to center the image */
   justify-content: center; /* Center items horizontally */
- 
+  border-radius: 20px;
 
 }
 
@@ -39,11 +39,17 @@
 }
 
 
-.fa-heart,
-.fa-cog {
-  font-size: 20px; /* Adjust the font size as needed */
+.fa-heart{
+  font-size: 30px; 
   color: pink;
-  margin-right: 10px; /* Adjust the margin as needed */
+  margin-right: 40px; 
+}
+
+
+.fa-cog {
+  font-size: 30px; 
+  color: pink;
+  margin-right: 40px; 
 }
 html {
   height: 100%;
@@ -109,4 +115,28 @@ html {
 
 .navigation-item:hover {
   color: #9047ad;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 5px;
+  margin-bottom: 20px; 
+}
+
+.rounded-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 5px;
+}
+
+.search-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px;
 }

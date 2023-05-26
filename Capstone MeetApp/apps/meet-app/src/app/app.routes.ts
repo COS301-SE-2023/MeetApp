@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+
 import { LoginComponent } from '@capstone-meet-app/app/login/feature';
 import { SignupComponent } from '@capstone-meet-app/app/signup/feature';
 import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
