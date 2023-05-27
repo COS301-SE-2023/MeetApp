@@ -188,7 +188,7 @@
     symbol-observable "4.0.0"
     yargs "17.6.2"
 
-"@angular/common@~15.2.0", "@angular/common@15.2.9":
+"@angular/common@^16.0.0 || ^17.0.0", "@angular/common@~15.2.0", "@angular/common@15.2.9":
   version "15.2.9"
   resolved "https://registry.npmjs.org/@angular/common/-/common-15.2.9.tgz"
   integrity sha512-LM9/UHG2dRrOzlu2KovrFwWIziFMjRxHzSP3Igw6Symw/wIl0kXGq8Fn6RpFP78zmLqnv+IQOoRiby9MCXsI4g==
@@ -218,7 +218,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@>=13.0.0 <16.0.0", "@angular/core@>=14.0.0", "@angular/core@~15.2.0", "@angular/core@15.2.9":
+"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@>=13.0.0 <16.0.0", "@angular/core@>=14.0.0", "@angular/core@~15.2.0", "@angular/core@15.2.9":
   version "15.2.9"
   resolved "https://registry.npmjs.org/@angular/core/-/core-15.2.9.tgz"
   integrity sha512-w46Z1yUXCQfKV7XfnamOoLA2VD0MVUUYVrUjO73mHSskDXSXxfZAEHO9kfUS71Cj35PvhP3mbkqWscpea2WeYg==
@@ -230,6 +230,14 @@
   resolved "https://registry.npmjs.org/@angular/forms/-/forms-15.2.9.tgz"
   integrity sha512-sk0pC2EFi2Ohg5J0q0NYptbT+2WOkoiERSMYA39ncDvlSZBWsNlxpkbGUSck7NIxjK2QfcVN1ldGbHlZTFvtqg==
   dependencies:
+    tslib "^2.3.0"
+
+"@angular/google-maps@^16.0.2":
+  version "16.0.2"
+  resolved "https://registry.npmjs.org/@angular/google-maps/-/google-maps-16.0.2.tgz"
+  integrity sha512-pMn91rarWEu0EHaHIaLOYHHS/89FcqslfMfngby+OGOlLFsfnFDdJlwawfu7XXp0pkwanWqQ7JXjI5mOHjT8/Q==
+  dependencies:
+    "@types/google.maps" "^3.52.4"
     tslib "^2.3.0"
 
 "@angular/language-service@~15.2.0":
@@ -1320,10 +1328,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@esbuild/win32-x64@0.17.8":
+"@esbuild/win32-ia32@0.17.8":
   version "0.17.8"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.8.tgz"
-  integrity sha512-1iuezdyDNngPnz8rLRDO2C/ZZ/emJLb72OsZeqQ6gL6Avko/XCXZw+NuxBSNhBAP13Hie418V7VMt9et1FMvpg==
+  resolved "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.17.8.tgz"
+  integrity sha512-Fqy63515xl20OHGFykjJsMnoIWS+38fqfg88ClvPXyDbLtgXal2DTlhb1TfTX34qWi3u4I7Cq563QcHpqgLx8w==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -1371,20 +1379,20 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@ionic/angular@^7.0.7":
-  version "7.0.7"
-  resolved "https://registry.npmjs.org/@ionic/angular/-/angular-7.0.7.tgz"
-  integrity sha512-dbBhxAt2BDfKcZKVUga0SQM2BcGEV5kGvt342lv3ziCkpyxQqvsmXaH3L4sy8n0/6pyji8jIvC0RM40ZMODvGg==
+"@ionic/angular@^7.0.9":
+  version "7.0.9"
+  resolved "https://registry.npmjs.org/@ionic/angular/-/angular-7.0.9.tgz"
+  integrity sha512-e58ZbWIEWz2PNi82HzEsBNjVZjHmDfoCZdabszpY3T+CbJfbVd16iLATfRS6uWsrxhn77xpVXPpjVV9zSZDxsw==
   dependencies:
-    "@ionic/core" "7.0.7"
+    "@ionic/core" "7.0.9"
     ionicons "^7.0.0"
     jsonc-parser "^3.0.0"
     tslib "^2.3.0"
 
-"@ionic/core@7.0.7":
-  version "7.0.7"
-  resolved "https://registry.npmjs.org/@ionic/core/-/core-7.0.7.tgz"
-  integrity sha512-3ps2j3Utx49CVazKHHWsPS8QBZYujnh6/dwz1ovHIDTq7HXKzUNbMtHm0UAZC2YkW5rE/Pm41CIBMwfFV0ImKg==
+"@ionic/core@7.0.9":
+  version "7.0.9"
+  resolved "https://registry.npmjs.org/@ionic/core/-/core-7.0.9.tgz"
+  integrity sha512-HcDtDUcjYCwQKrPpOOI+FWuMHi0DYbDJCww9qDTW52B6LLXktoPCcCxNI8oiERjabXQNLB38r9yQNDGyrs913w==
   dependencies:
     "@stencil/core" "^3.2.2"
     ionicons "^7.1.0"
@@ -1975,11 +1983,6 @@
   dependencies:
     nx-cloud "16.0.5"
 
-"@nrwl/nx-win32-x64-msvc@15.9.4":
-  version "15.9.4"
-  resolved "https://registry.npmjs.org/@nrwl/nx-win32-x64-msvc/-/nx-win32-x64-msvc-15.9.4.tgz"
-  integrity sha512-bogVju4Z/hy1jbppqaTNbmV1R4Kg0R5fKxXAXC2LaL7FL0dup31wPumdV+mXttXBNOBDjV8V/Oz1ZqdmxpOJUw==
-
 "@nrwl/tao@15.9.4":
   version "15.9.4"
   resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-15.9.4.tgz"
@@ -2242,11 +2245,6 @@
     tmp "~0.2.1"
     tslib "^2.3.0"
 
-"@nx/nx-win32-x64-msvc@16.0.3":
-  version "16.0.3"
-  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.0.3.tgz"
-  integrity sha512-/Ezru8nlrckLAQ4s7wEAW192DULgWj9YBqREQPV0ddzwjeVC0clsHSXguH8WzMwEU44+IFnqNMJrWK3mZCvZYA==
-
 "@nx/web@16.0.3":
   version "16.0.3"
   resolved "https://registry.npmjs.org/@nx/web/-/web-16.0.3.tgz"
@@ -2415,9 +2413,9 @@
   integrity sha512-kmVA0M/HojwsfkeHsifvHVIYe4l5tin7J5+DLgtl8h6WWfiMClND5K3ifCXXI2ETDNKiEk21p6jql3Fx9o2rng==
 
 "@stencil/core@^3.2.2":
-  version "3.2.2"
-  resolved "https://registry.npmjs.org/@stencil/core/-/core-3.2.2.tgz"
-  integrity sha512-wXb9cVWL0T3cTwYLveekdTFCRGx6+9hpVDEXna+N8K8OPoW6xtFAHRLv+LjOM7k59PkA8MG3IinAfV7Y+xa0Hw==
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/@stencil/core/-/core-3.3.0.tgz"
+  integrity sha512-+3hqJ8RmUvxz8FgvMP9lxYJdjb4EnZrkdo6ln5fUqGju62ORS5/Ch9m6OAIjlEn6CbDb5Uf1OdeMjO87DJwIAA==
 
 "@tootallnate/once@2":
   version "2.0.0"
@@ -2565,6 +2563,16 @@
     "@types/express-serve-static-core" "^4.17.33"
     "@types/qs" "*"
     "@types/serve-static" "*"
+
+"@types/google.maps@^3.52.4":
+  version "3.53.2"
+  resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.53.2.tgz"
+  integrity sha512-rgTa3R5DyFTcjX4hmuGs0XR+kD4M5tZ14lcyYzDDJGr5h0JYj7DbbNZRZNJKDzZOGH3fOXWpIbZGj3BxZbpmjw==
+
+"@types/googlemaps@^3.43.3":
+  version "3.43.3"
+  resolved "https://registry.npmjs.org/@types/googlemaps/-/googlemaps-3.43.3.tgz"
+  integrity sha512-ZWNoz/O8MPEpiajvj7QiqCY8tTLFNqNZ/a+s+zTV58wFVNAvvqV4bdGfnsjTb5Cs4V6wEsLrX8XRhmnyYJ2Tdg==
 
 "@types/graceful-fs@^4.1.3":
   version "4.1.6"
@@ -6136,9 +6144,9 @@ internal-slot@^1.0.4:
     side-channel "^1.0.4"
 
 ionicons@^7.0.0, ionicons@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.npmjs.org/ionicons/-/ionicons-7.1.0.tgz"
-  integrity sha512-iE4GuEdEHARJpp0sWL7WJZCzNCf5VxpNRhAjW0fLnZPnNL5qZOJUcfup2Z2Ty7Jk8Q5hacrHfGEB1lCwOdXqGg==
+  version "7.1.1"
+  resolved "https://registry.npmjs.org/ionicons/-/ionicons-7.1.1.tgz"
+  integrity sha512-DmX2W0q95JgX2MYSXGDSkTHNYzIK5Y9aZS9jkO0gCPp4VzpP7bkJhHZQUmNErQdFA408aZzJuMGwDS1v2kU0gQ==
   dependencies:
     "@stencil/core" "^2.18.0"
 

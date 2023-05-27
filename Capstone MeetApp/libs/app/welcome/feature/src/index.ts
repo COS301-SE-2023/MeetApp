@@ -1,3 +1,3 @@
-export * from './lib/app-welcome-feature';
 
+import { IonicModule } from '@ionic/angular';
 export * from './lib/welcomepage/welcomepage.component';
