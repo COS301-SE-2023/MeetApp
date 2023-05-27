@@ -32,7 +32,7 @@ jobs:
 
       - name: 
           'PR Build application if affected by changes in in feature branch'
-        if: env.is--pull_request== 'true'
+        if: env.is_pull_request== 'true'
         run: npm run affected:build
       - name:
           'Merge: build the application'
