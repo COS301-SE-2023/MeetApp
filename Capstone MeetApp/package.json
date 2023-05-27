@@ -4,10 +4,16 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "ci:start": "npm run lint && npm run build && npm run test",
     "lint": "nx run-many --target=lint",
     "build": "nx run-many --target=build --all --parallel",
     "test": "nx run-many --target=test --all --parallel",
-    "e2e": "nx run-many --target=e2e --all"
+    "e2e": "nx run-many --target=e2e --all",
+    "affected:build": "nx affected:build ",
+    "affected:test": "nx affected:test ",
+    "affected:e2e": "nx affected:e2e",
+    "affected:lint": "nx affected:lint --max-warnings=0",
+    "affected:ci" : " npm run affected:build  && npm run affected:lint && npm run affected:test && npm run affected:e2e --configuration=production"
   },
   "private": true,
   "dependencies": {
