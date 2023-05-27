@@ -15,6 +15,9 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -25,7 +28,10 @@ jobs:
       - run: npm install
       - run: npm run build
 
-  test: 
+  test:
+    defaults:
+      run:
+        working-directory: Capstone MeetApp 
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -37,6 +43,9 @@ jobs:
       - run: npm run test 
   
   lint:
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -48,6 +57,9 @@ jobs:
       - run: npm run lint
 
   e2e:
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
