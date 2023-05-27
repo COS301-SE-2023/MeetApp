@@ -2,7 +2,13 @@
   "name": "capstone-meet-app",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "nx serve",
+    "lint": "nx run-many --target=lint",
+    "build": "nx run-many --target=build --all --parallel",
+    "test": "nx run-many --target=test --all --parallel",
+    "e2e": "nx run-many --target=e2e --all"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.2.0",

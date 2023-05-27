@@ -6,6 +6,7 @@ on:
     branches:
       - auth
       - development
+      - main
       
   pull_request:
     branches:
@@ -13,18 +14,53 @@ on:
       - development
 
 jobs:
-  build_test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
       - uses: actions/checkout@v3
-      - uses: nrwl/nx-set-shas@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16
+      - run: npm ci
       - run: npm install
-      - run: npx nx format:check
-      - run: npx nx run-many --target=lint 
-      - run: npx nx run-many --target=test to run all tests
-      - run: npx nx run-many --target=build 
-     
+      - run: npm run build
+
+  test: 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16
+      - run: npm ci
+      - run: npm install
+      - run: npm run test 
+  
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16
+      - run: npm ci
+      - run: npm install
+      - run: npm run lint
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16
+      - run: npm ci
+      - run: npm install
+      - run: npm run e2e
  
  
     
