@@ -1,0 +1,80 @@
+.center-heading {
+    text-align: center;
+}
+
+/* Center the image */
+.center-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+/* Center the div */
+.center-div {
+        margin-top: 200px;
+        text-align: center;
+        background-color: #D4ADFC;
+        padding: 20px; /* Adjust the spacing as needed */
+        height: 270px; /* Adjust the height as needed */
+        width: 70%; /* Adjust the width as needed */
+        margin: 0 auto; /* Center the div horizontally */
+        border-radius: 10px; /* Adjust the radius as needed */
+   
+}
+
+
+.bottom-navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #5C469C;
+   
+    border-top: 1px solid #ccc;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  }
+  
+  .bottom-navbar ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .bottom-navbar li {
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .bottom-navbar li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+  }
+  
+  .bottom-navbar li .emoji {
+    font-size: 24px;
+    color: #000; /* Color for the icons (black) */
+    margin-bottom: 5px;
+  }
+  
+  .bottom-navbar li span {
+    color: #fff; /* Color for the text (white) */
+  }
+  .heart-icon {
+    text-align: center;
+    margin-top: 20px; /* Adjust the spacing as needed */
+}
+
+/* Style the heart icon */
+.heart-icon svg {
+    cursor: pointer;
+    fill: red;
+    width: 40px;
+    height: 40px;
+}
+  

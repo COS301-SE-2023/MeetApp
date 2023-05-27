@@ -1,4 +1,74 @@
-<p>event works!</p> 
+
+<!DOCTYPE html>
+<html>
+<head>
+
+   
+
+</head>
+<body>
+    <h1 class="center-heading">Gala Dinner</h1>
+    
+    <div class="center-image">
+        <img src="https://www.i-eventplanner.com/wp-content/uploads/revslider/Avada_Full_Width/Corporate-Event-planner.jpg" alt="Centered Image" 
+        style="height: 50%; width: 50%;">
+    </div>
+   
+    <div class="center-div">
+        <div>Description</div>
+        <div>Event Information</div>
+        <div>Event Location</div>
+    </div>
+    <div class="heart-icon">
+        <svg viewBox="0 0 24 24">
+            <path d="M12 20.5C10.47 18.97 5 14.54 5 9.5C5 6.42 7.42 4 10.5 4C12.38 4 14.15 4.89 15.4 6.17L12 9.59L8.6 6.18C9.85 4.89 11.62 4 13.5 4C16.58 4 19 6.42 19 9.5C19 14.54 13.53 18.97 12 20.5Z"></path>
+        </svg>
+    </div>
+
+   
+
+    <script>
+        // Beep or store action on heart icon click
+        const heartIcon = document.querySelector('.heart-icon i');
+        heartIcon.addEventListener('click', function() {
+            // Perform desired action here, like beep or store the click
+            // For example, you can use the Web Audio API to play a beep sound
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            oscillator.type = 'triangle';
+            oscillator.frequency.value = 500; // Adjust the frequency as needed
+            oscillator.connect(audioContext.destination);
+            oscillator.start();
+            setTimeout(function() {
+                oscillator.stop();
+            }, 100);
+        });
+    </script>
+
+<nav class="bottom-navbar">
+    <ul>
+      <li>
+        <a routerLink="/home">
+          <span class="emoji">&#x1F3E0;</span>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/profile">
+          <span class="emoji">&#x1F464;</span>
+          <span>Profile</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/notification">
+          <span class="emoji">&#x1F514;</span>
+          <span>Notification</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  
 
 
 
