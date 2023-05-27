@@ -2,7 +2,7 @@ import { bootstrapApplication } from "@angular/platform-browser";
 import { ReactiveFormsModule } from '@angular/forms';
 import {
   provideRouter,
-  withEnabledBlockingInitialNavigation,
+  withEnabledBlockingInitialNavigation
 } from "@angular/router";
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
