@@ -1,19 +1,30 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Query } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Event } from './schema';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { Model, Mongoose } from 'mongoose';
+import { ObjectId } from 'mongodb';
+import { query } from 'express';
+
 
 @Injectable()
 export class EventsService {
+  constructor(@InjectModel(Event.name) private eventModel: Model<Event>)
+  {
+
+  }
   create(createEventDto: CreateEventDto) {
     return 'This action adds a new event';
   }
 
   findAll() {
-    return `This action returns all events`;
+    return this.eventModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  findOne(id: string) {
+    //const ObjectIdfromString = ObjectId.createFromHexString(id)
+    return this.eventModel.findById(id).exec(); 
   }
 
   update(id: number, updateEventDto: UpdateEventDto) {
