@@ -70,6 +70,15 @@
         "libs/app/event/feature/src/index.ts"
       ],
       "@capstone-meet-app/app/event/util": ["libs/app/event/util/src/index.ts"],
+      "@capstone-meet-app/app/friends/data-access": [
+        "libs/app/friends/data-access/src/index.ts"
+      ],
+      "@capstone-meet-app/app/friends/feature": [
+        "libs/app/friends/feature/src/index.ts"
+      ],
+      "@capstone-meet-app/app/friends/util": [
+        "libs/app/friends/util/src/index.ts"
+      ],
       "@capstone-meet-app/app/home/data-access": [
         "libs/app/home/data-access/src/index.ts"
       ],

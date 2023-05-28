@@ -1,5 +1,8 @@
+
 .center-heading {
     text-align: center;
+    color: white;
+    font-family: sans-serif;
 }
 
 /* Center the image */
@@ -19,7 +22,7 @@
         width: 70%; /* Adjust the width as needed */
         margin: 0 auto; /* Center the div horizontally */
         border-radius: 10px; /* Adjust the radius as needed */
-   
+       font-family: sans-serif;
 }
 
 
@@ -53,7 +56,10 @@
     align-items: center;
     text-decoration: none;
     color: #fff;
-    font-size: 12px;
+    font-size: 14px;
+    color: #D4ADFC;
+    font-family: sans-serif;
+
   }
   
   .bottom-navbar li .emoji {
@@ -71,10 +77,29 @@
 }
 
 /* Style the heart icon */
-.heart-icon svg {
-    cursor: pointer;
-    fill: red;
-    width: 40px;
-    height: 40px;
-}
+.heart-icon i {
+    text-align: center;
+    font-size: 40px; /* Adjust the icon size */
+    color: #D4ADFC; /* Set the icon color */
+  }
+  .heartbeat {
+    animation-name: heartbeat;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-iteration-count: infinite;
+  }
   
+  .heart-icon {
+    cursor: pointer;
+  }
+
+  #counter {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .attending-label {
+    color: white;
+    font-family: sans-serif;
+    left: 190px; /* Adjust the value as needed */
+  }
