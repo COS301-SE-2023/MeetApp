@@ -27,6 +27,10 @@ export class EventsService {
     return this.eventModel.findById(id).exec(); 
   }
 
+  findbyOrganisation(INorganisation: string) {
+    return this.eventModel.find({organisation: INorganisation})
+  }
+
   update(id: number, updateEventDto: UpdateEventDto) {
     return `This action updates a #${id} event`;
   }
