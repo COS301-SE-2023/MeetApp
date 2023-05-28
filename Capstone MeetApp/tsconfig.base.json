@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      
+      "@capstone-meet-app/api/backend": ["libs/api/backend/src/index.ts"],
       "@capstone-meet-app/app/event/data-access": [
         "libs/app/event/data-access/src/index.ts"
       ],
