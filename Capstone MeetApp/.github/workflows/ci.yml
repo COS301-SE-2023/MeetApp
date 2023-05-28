@@ -22,7 +22,6 @@ jobs:
         with: 
           node-version: 16
       - run: npm ci
-      - run: npm install
       - run: npm run build
 
   test: 
@@ -32,8 +31,7 @@ jobs:
       - uses: actions/setup-node@v3
         with: 
           node-version: 16
-      - run: npm ci
-      - run: npm install
+      - run: npm ci 
       - run: npm run test 
   
   lint:
@@ -44,7 +42,6 @@ jobs:
         with: 
           node-version: 16
       - run: npm ci
-      - run: npm install
       - run: npm run lint
 
   e2e:
@@ -55,7 +52,6 @@ jobs:
         with: 
           node-version: 16
       - run: npm ci
-      - run: npm install
       - run: npm run e2e
  
  

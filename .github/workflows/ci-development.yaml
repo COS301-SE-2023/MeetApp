@@ -25,7 +25,6 @@ jobs:
         with: 
           node-version: 18
       - run: npm ci
-      - run: npm install
       - run: npm run build
 
   test:
@@ -39,7 +38,6 @@ jobs:
         with: 
           node-version: 18
       - run: npm ci
-      - run: npm install
       - run: npm run test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3 
@@ -57,7 +55,6 @@ jobs:
         with: 
           node-version: 18
       - run: npm ci
-      - run: npm install
       - run: npm run lint
 
   e2e:
@@ -71,7 +68,6 @@ jobs:
         with: 
           node-version: 18
       - run: npm ci
-      - run: npm install
       - run: npm run e2e
  
  
