@@ -1,8 +1,8 @@
-/* eslint-disable prettier/prettier */
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete,Req } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
+import { Request } from 'express';
 
 @Controller('events')
 export class EventsController {
@@ -14,8 +14,12 @@ export class EventsController {
   }
 
   @Get()
-  findAll() {
-    return this.eventsService.findAll();
+  findAll(@Req() request: Request) {
+    //console.log('wrong endpoint')
+    if (request.query == null)
+      return this.eventsService.findAll();
+    else
+      return this.eventsService.findByQuery(request.query)
   }
 
   @Get(':id')
