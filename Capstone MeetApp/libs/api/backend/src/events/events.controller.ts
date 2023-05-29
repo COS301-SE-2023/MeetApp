@@ -43,6 +43,18 @@ export class EventsController {
   }
 
   @Get('thisweek')
+  getEventsForThisWeek() {
+    const today = new Date();
+    const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
+    const formattedStartDate = startOfWeek.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const endOfWeek = new Date(today.setDate(today.getDate() + 6));
+    const formattedEndDate = endOfWeek.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+
+    const query: FilterQuery<Event> = {
+      date: { $gte: formattedStartDate, $lte: formattedEndDate },
+    };
+    return this.eventsService.findByQuery(query)
+  }
 
   @Get('thismonth')
 
