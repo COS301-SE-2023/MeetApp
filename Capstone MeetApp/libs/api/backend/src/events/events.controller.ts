@@ -57,6 +57,18 @@ export class EventsController {
   }
 
   @Get('thismonth')
+  getEventsForThisMonth(){
+    const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const formattedStartDate = startOfMonth.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    const formattedEndDate = endOfMonth.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+
+    const query: FilterQuery<Event> = {
+      date: { $gte: formattedStartDate, $lte: formattedEndDate },
+    };
+    return this.eventsService.findByQuery(query)
+  }
 
   @Get('thisyear')
 
