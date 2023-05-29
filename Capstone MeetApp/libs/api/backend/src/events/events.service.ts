@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Event } from './schema';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { Model, Mongoose } from 'mongoose';
+import { Model, FilterQuery } from 'mongoose';
 import { ObjectId } from 'mongodb';
 import { query } from 'express';
 
@@ -21,6 +21,11 @@ export class EventsService {
   findAll() {
     return this.eventModel.find().exec();
   }
+
+  findByQuery(queryIN : FilterQuery<Event>) {
+    return this.eventModel.find(queryIN).exec();
+  }
+
 
   findOne(id: string) {
     //const ObjectIdfromString = ObjectId.createFromHexString(id)
