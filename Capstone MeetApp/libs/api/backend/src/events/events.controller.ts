@@ -84,7 +84,11 @@ export class EventsController {
     return this.eventsService.findByQuery(query)
   }
 
-  @Get(':region')
+  @Get('region/:region')
+  getEventsByRegion(@Param('region') region: string) {
+    const query: FilterQuery<Event> = { region: region };
+    return this.eventsService.findByQuery(query)
+  }
 
   @Get('month/:month')
 
