@@ -3,6 +3,7 @@ import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Request } from 'express';
+import { FilterQuery } from 'mongoose';
 
 @Controller('events')
 export class EventsController {
@@ -32,6 +33,14 @@ export class EventsController {
   @Get(':id/organiser')
 
   @Get('today')
+  getEventsForToday(){
+    const todaysDate = new Date();
+    console.log('hi');
+    const formattedDate = todaysDate.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    console.log(formattedDate);
+    const query: FilterQuery<Event> = {date: formattedDate}
+    return this.eventsService.findByQuery({ query });
+  }
 
   @Get('thisweek')
 
