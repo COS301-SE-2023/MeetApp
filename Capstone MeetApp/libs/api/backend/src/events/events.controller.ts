@@ -96,7 +96,6 @@ export class EventsController {
     const query: FilterQuery<Event> = { date: { $regex: `.*-${month}-.*` } };
     return this.eventsService.findByQuery(query)
   }
-  @Get('date/:date')
 
   @Get('year/:year')
   getEventsByYear(@Param('year') year: string){
