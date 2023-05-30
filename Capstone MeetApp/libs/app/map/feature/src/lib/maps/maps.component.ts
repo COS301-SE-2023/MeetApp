@@ -1,28 +1,57 @@
 import { AfterViewInit, Component } from '@angular/core';
-
+import { GoogleMapsModule } from '@angular/google-maps';
+import { DotenvParseOutput } from 'dotenv';
+import { environment } from './environment';
 declare const google: any;
-
 @Component({
+
+  standalone:true,
+  imports:[GoogleMapsModule],
   selector: 'app-map',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css']
 })
-export class MapsComponent implements AfterViewInit {
-  private map: any;
 
+
+export class MapsComponent implements AfterViewInit {
+  
+  constructor(private m:GoogleMapsModule){}
   ngAfterViewInit() {
     this.initMap();
+  }
+  
+  apikey=environment.API_KEY;
+  map:any;
+  zoom = 12;
+  center={ lat: -25.750227, lng: 28.236448 };//Hatfield
+  options: google.maps.MapOptions = {
+    mapTypeId: 'hybrid',
+    zoomControl: false,
+    scrollwheel: false,
+    disableDoubleClickZoom: true,
+    maxZoom: 15,
+    minZoom: 8,
+  };
+
+  zoomIn() {
+    //if (this.zoom < this.options.maxZoom) this.zoom++;
+  }
+ 
+  zoomOut() {
+    //if (this.zoom > this.options.minZoom) this.zoom--;
   }
 
   private initMap() {
     const selectedRegion = { lat: -25.748733, lng: 28.238043 }; // Hatfield
 
     // Create map
-    this.map = new google.maps.Map(document.getElementById('map'), {
+    this.map = new google.maps.Map(document.getElementById('map'),{
       zoom: 15,
       center: selectedRegion,
       mapId: 'MeetApp',
     });
+
+    
 
     // Locations
     const hatfieldPlaza = { lat: -25.750227, lng: 28.236448 };

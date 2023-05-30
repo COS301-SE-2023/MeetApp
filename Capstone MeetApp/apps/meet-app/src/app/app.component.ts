@@ -3,7 +3,7 @@ import { RouterModule } from "@angular/router";
 import { NxWelcomeComponent } from "./nx-welcome.component";
 import { LoginComponent } from 'libs/app/login/feature/src/lib/login/login.component';
 import { SignupComponent } from 'libs/app/signup/feature/src/lib/signup/signup.component';
-
+import { BrowserModule } from "@angular/platform-browser";
 
 import { IonText } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';

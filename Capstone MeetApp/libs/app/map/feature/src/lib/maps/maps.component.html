@@ -7,12 +7,20 @@
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&language=en">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=(apikey)&libraries=places&language=en">
     </script>
 </head>
 
 <body>
-    
+    <google-map
+    height="500px"
+    width="100%"
+    [zoom]="zoom"
+    [center]="center"
+    [options]="options"></google-map>
+
+    <button (click)="zoomIn()">Zoom in</button>
+    <button (click)="zoomOut()">Zoom out</button>
 </body>
 
 </html>
