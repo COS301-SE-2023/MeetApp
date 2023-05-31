@@ -19,8 +19,9 @@ export class OrganisationsService {
     return this.organisationModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} organisation`;
+  findOne(id: string) {
+    //const ObjectIdfromString = ObjectId.createFromHexString(id)
+    return this.organisationModel.findById(id).exec(); 
   }
 
   update(id: number, updateOrganisationDto: UpdateOrganisationDto) {
