@@ -3,7 +3,7 @@
 
 .env
 
-enviroment.ts
+environment.ts
 # compiled output
 dist
 tmp

@@ -14,6 +14,7 @@ import {ProfileComponent} from 'libs/app/profile/feature/src/lib/profile/profile
 import {SettingsComponent}from 'libs/app/settings/feature/src/lib/settings/settings.component'
 import {MapsComponent}from 'libs/app/map/feature/src/lib/maps/maps.component'
 import { EventComponent } from "@capstone-meet-app/app/event/feature";
+import {OrganiserComponent}from 'libs/app/organiser/feature/src/lib/organiser/organiser.component';
 import {FriendsComponent} from 'libs/app/friends/feature/src/lib/friends/friends.component';
 export const appRoutes: Route[] = [
    { path: "", component: WelcomepageComponent },
@@ -24,7 +25,8 @@ export const appRoutes: Route[] = [
    ,{path: "settings", component: SettingsComponent}
    ,{path: "map", component: MapsComponent}
    ,{path: "event", component: EventComponent}
-   ,{path: "friends", component: FriendsComponent}
+   ,{path: "friends", component: FriendsComponent},
+   {path: "organiser,", component: OrganiserComponent},
 
    
 ];
