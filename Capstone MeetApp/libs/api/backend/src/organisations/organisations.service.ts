@@ -24,6 +24,19 @@ export class OrganisationsService {
     return this.organisationModel.findById(id).exec(); 
   }
 
+  async findEvents(id: string) {
+    const orgDoc = await this.organisationModel.findById(id).exec();
+    const eventsArr = orgDoc.events;
+  
+    const eventPromises = eventsArr.map((currentEventID: mongoose.Type.ObjectId) =>
+      this.eventService.findOne(currentEventID.toString())
+    );
+  
+    const eventInfoArr = await Promise.all(eventPromises);
+    console.log(eventInfoArr);
+    return eventInfoArr;
+  }
+
   update(id: number, updateOrganisationDto: UpdateOrganisationDto) {
     return `This action updates a #${id} organisation`;
   }
