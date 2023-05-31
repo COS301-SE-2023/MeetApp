@@ -1,7 +1,36 @@
+body{
+
+  background-color: black;
+  height: 100vb;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.heading {
+  color: #fff;
+  text-align: center;
+  flex-grow: 1;
+}
+
+
 .container {
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
+   
   }
   
   .search-bar {
@@ -23,30 +52,46 @@
     border-radius: 3px;
     cursor: pointer;
   }
-  
+  .contact-list{
+
+    
+  }
   .contact-list li {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
   }
   
-  .contact {
-    display: flex;
-    align-items: center;
-  }
+  
+    .contact {
+      display: flex;
+      align-items: center;
+      border-radius: 30px;
+      width: 120%;
+      padding: 10px; /* Adjust the padding as needed */
+      margin-right: 40px;
+    /* Add left margin to move the contact to the left */
+      background-color: #D4ADFC;
+    }
+    
+   
+  
   
   .profile-picture {
     width: 50px;
     height: 50px;
-    background-color: #D4ADFC; /* Update the background color */
+     /* Update the background color */
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 20px;
+   
     /* Add additional styling for profile picture */
     border: 2px solid #007bff;
     overflow: hidden;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    background-size: 100% auto; 
+    
+    background-position: center;
+    
   }
   
   .profile-picture img {
@@ -56,7 +101,7 @@
   }
   
   .contact{
-    background-color: #D4ADFC;
+   
   }
   .contact-details {
     /* Update the background color */

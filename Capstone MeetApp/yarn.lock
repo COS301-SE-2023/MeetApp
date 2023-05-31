@@ -220,7 +220,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@>=13.0.0 <16.0.0", "@angular/core@>=14.0.0", "@angular/core@~16.0.3", "@angular/core@16.0.3":
+"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@^16.0.3", "@angular/core@>=13.0.0 <16.0.0", "@angular/core@>=14.0.0", "@angular/core@16.0.3":
   version "16.0.3"
   resolved "https://registry.npmjs.org/@angular/core/-/core-16.0.3.tgz"
   integrity sha512-vaUOLgDk03aKDHX6jtv4NEDB6gEBCXvgTpvsTmDUXcCa9WxyXs4Ak22q9ZyNln8/7UG5Uo1gTn90FlOAh9jHww==
@@ -1359,10 +1359,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@esbuild/win32-x64@0.17.18":
+"@esbuild/win32-ia32@0.17.18":
   version "0.17.18"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.18.tgz"
-  integrity sha512-qU25Ma1I3NqTSHJUOKi9sAH1/Mzuvlke0ioMJRthLXKm7JiSKVwFghlGbDLOO2sARECGhja4xYfRAZNPAkooYg==
+  resolved "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.17.18.tgz"
+  integrity sha512-0/xUMIdkVHwkvxfbd5+lfG7mHOf2FRrxNbPiKWg9C4fFrB8H0guClmaM3BFiRUYrznVoyxTIyC/Ou2B7QQSwmw==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -1964,11 +1964,6 @@
   dependencies:
     nx-cloud "16.0.5"
 
-"@nrwl/nx-win32-x64-msvc@15.9.4":
-  version "15.9.4"
-  resolved "https://registry.npmjs.org/@nrwl/nx-win32-x64-msvc/-/nx-win32-x64-msvc-15.9.4.tgz"
-  integrity sha512-bogVju4Z/hy1jbppqaTNbmV1R4Kg0R5fKxXAXC2LaL7FL0dup31wPumdV+mXttXBNOBDjV8V/Oz1ZqdmxpOJUw==
-
 "@nrwl/tao@15.9.4":
   version "15.9.4"
   resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-15.9.4.tgz"
@@ -2258,16 +2253,6 @@
     "@phenomnomnominal/tsquery" "~5.0.1"
     tmp "~0.2.1"
     tslib "^2.3.0"
-
-"@nx/nx-win32-x64-msvc@16.0.3":
-  version "16.0.3"
-  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.0.3.tgz"
-  integrity sha512-/Ezru8nlrckLAQ4s7wEAW192DULgWj9YBqREQPV0ddzwjeVC0clsHSXguH8WzMwEU44+IFnqNMJrWK3mZCvZYA==
-
-"@nx/nx-win32-x64-msvc@16.2.2":
-  version "16.2.2"
-  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.2.2.tgz"
-  integrity sha512-liHtyVVOttcqHIV3Xrg/1AJzEgfiOCeqJsleHXHGgPr1fxPx7SIZaa3/QnDY1lNMN+t6Gvj0/r2Ba3iuptYD3Q==
 
 "@nx/web@16.0.3":
   version "16.0.3"
