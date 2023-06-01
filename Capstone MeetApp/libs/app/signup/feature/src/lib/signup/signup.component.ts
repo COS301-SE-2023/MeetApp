@@ -9,6 +9,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import {ApiService } from '../../../../../shared service/api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SignupService } from 'libs/api/signup/feature/src/signup.service';
+import { error } from 'console';
 @Component({
   selector: 'capstone-meet-app-signup',
   standalone: true,
@@ -21,7 +23,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SignupComponent {
    
   loginForm!: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: ApiService) {}
+  constructor(private signupService: SignupService,private router: Router, private formBuilder: FormBuilder, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -31,8 +33,19 @@ export class SignupComponent {
     });
     
   }
-
-  onSubmit() {
+  
+  
+  onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
+    this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
+      {
+        complete: () => console.info('signuo successfull') ,
+       error: ()=>console.log('Signup error:', error)
+      }
+      
+    );
+    
+  }
+  /*onSubmit() {
     if (this.loginForm.valid) {
       const loginInfo = {
         username: this.loginForm.get('name')?.value,
@@ -57,7 +70,11 @@ export class SignupComponent {
         console.log('Login failed');
       }
     }
-  }
+
+    
+
+  }*/
+
 
   onSignUp() {
     this.router.navigate(['/signup']);
