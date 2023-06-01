@@ -29,21 +29,36 @@ export class SignupComponent {
     this.loginForm = this.formBuilder.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      
         
     });
     
   }
+  passwordFormControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(8),
+    this.checkPasswordStrength
+  ]);
   
-  
+  checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
+    const password = control.value;
+    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
+    
+    if (!strongRegex.test(password)) {
+      return { 'weakPassword': true };
+    }
+    
+    return null;
+  }
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
     this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
-        complete: () => console.info('signuo successfull') ,
+        complete: () => console.info('signup successfull') ,
        error: ()=>console.log('Signup error:', error)
       }
       
     );
-    
+
   }
   /*onSubmit() {
     if (this.loginForm.valid) {

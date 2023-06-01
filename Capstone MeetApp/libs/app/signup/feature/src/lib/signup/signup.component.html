@@ -31,10 +31,16 @@
        
        
           <label for="password" style="color: white; margin-top:3px">Password</label>
-          <input type="password" id="password" formControlName="password
-          
-          " required style>
-      
+          <input type="password" id="password" formControlName="password" required style[formControl]="passwordFormControl">
+          <div *ngIf="passwordFormControl.hasError('required')">
+            Password is required.
+          </div>
+          <div *ngIf="passwordFormControl.hasError('minlength')">
+            Password should have at least 8 characters.
+          </div>
+          <div *ngIf="passwordFormControl.hasError('weakPassword')">
+            Password should be strong and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.
+          </div>
        
           <label for="confirmPassword" style="color: white;">Confirm Password</label>
   <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
