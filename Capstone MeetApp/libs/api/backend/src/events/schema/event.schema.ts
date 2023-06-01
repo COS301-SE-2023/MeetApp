@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Category } from '../../utils/enums';
+//import { Category } from '../../utils/enums';
 //import { ILocation } from 'src/utils/interfaces/location.interface';
 
 export type EventDocument = HydratedDocument<Event>;
@@ -35,7 +35,7 @@ export class Event {
   location!: Record<number, unknown>;
   
     @Prop()
-  category!: Category;
+  category!: string; //Build errors when Category enum used
   
     @Prop()
   region!: string;
