@@ -10,19 +10,19 @@ export type OrganisationDocument = HydratedDocument<Organisation>;
 export class Organisation {
 
   @Prop()
-  ID: mongoose.Schema.Types.ObjectId;
+  ID!: mongoose.Schema.Types.ObjectId;
 
   @Prop()
-  username: string;
+  username!: string;
 
   @Prop()
-  password: string;
+  password!: string;
 
   @Prop()
-  name: string;
+  name!: string;
 
-  @Prop([{type: mongoose.Schema.Types.ObjectId, ref: 'Events'}])
-  events: string[];
+  @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Events' }])
+  events!: string[];
 
  
 }
