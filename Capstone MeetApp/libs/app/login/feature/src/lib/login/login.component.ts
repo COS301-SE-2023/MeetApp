@@ -11,6 +11,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import {ApiService } from '../../../../../shared service/api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthenticationService } from 'libs/api/login/feature/src/login.service';
 @Component({
   selector: 'capstone-meet-app-login',
   standalone: true,
@@ -21,13 +22,29 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  
+  email = ''; // Initialize the property
+  password= ''; // Initialize the property
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: ApiService) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, private apiService: ApiService) {
 
    
   }
+  login() {
+    // Perform any necessary validation or additional processing here
 
+    // Call the login() method of the authentication service
+    this.authenticationService.login(this.email, this.password)
+      .subscribe({
+        next: response => {
+          // Handle the response from the server
+          console.log(response);
+        },
+        error: error => {
+          // Handle any errors that occur during the request
+          console.error(error);
+        }
+      });
+  }
   onSubmit() {
     if (this.loginForm.valid) {
       const loginInfo = {
@@ -55,11 +72,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
     });
   }
 
   onSignUp() {
     this.router.navigate(['/signup']);
-  };
+  }
 }
