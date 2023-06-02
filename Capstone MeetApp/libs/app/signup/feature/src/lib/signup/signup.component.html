@@ -20,7 +20,7 @@
     </div>
     
     <div class="holder" style="background-color: #111C20; width: 40%; height: 20%; margin-left: 25%; border-radius: 10px; padding: 16px;">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(name,email,phoneNumber,password,confirmPassword)">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value.name, loginForm.value.email, loginForm.value.phoneNumber, loginForm.value.password, loginForm.value.confirmPassword)">
         <label for="name" style="color: white;">Name</label>
         <input type="text" id="name" formControlName="name" required>
        <label for="email " style="color: white;"> Email</label>

@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import {ApiService } from '../../../../../shared service/api.service';
+//import {ApiService } from '../../../../../shared service/api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthenticationService } from 'libs/api/login/feature/src/login.service';
@@ -18,14 +18,14 @@ import { AuthenticationService } from 'libs/api/login/feature/src/login.service'
   imports: [CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [ApiService],
+ // providers: [ApiService],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   loginForm!: FormGroup;
   email = ''; // Initialize the property
   password= ''; // Initialize the property
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder, private apiService: ApiService) {
+  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder/*, private apiService: ApiService*/) {
 
    
   }
@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
         }
       });
   }
-  onSubmit() {
+ /* onSubmit() {
     if (this.loginForm.valid) {
       const loginInfo = {
         username: this.loginForm.get('email')?.value,
@@ -78,5 +78,5 @@ export class LoginComponent implements OnInit {
 
   onSignUp() {
     this.router.navigate(['/signup']);
-  }
+  }*/
 }

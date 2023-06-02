@@ -6,24 +6,25 @@ import { Router } from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-import {ApiService } from '../../../../../shared service/api.service';
+//import {ApiService } from '../../../../../shared service/api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SignupService } from 'libs/api/signup/feature/src/signup.service';
-import { error } from 'console';
+
+
 @Component({
   selector: 'capstone-meet-app-signup',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  providers: [ApiService]
+  //providers: [ApiService]
 })
 
 export class SignupComponent {
-   
+  
   loginForm!: FormGroup;
-  constructor(private signupService: SignupService,private router: Router, private formBuilder: FormBuilder, private apiService: ApiService) {}
+  constructor(private signupService: SignupService,private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -54,7 +55,10 @@ export class SignupComponent {
     this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
         complete: () => console.info('signup successfull') ,
-       error: ()=>console.log('Signup error:', error)
+        error: (err: any) => {
+          // Handle any errors that occur during the request
+          console.error(err);
+        }
       }
       
     );
