@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { appRoutes } from "./app/app.routes";
 import { AppComponent } from "./app/app.component";
-import{ApiService}from '../../../libs/app/shared service/api.service'
+import{ApiService}from '@capstone-meet-app/app/shared service'
 
 bootstrapApplication(AppComponent, {
   providers: [provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),ApiService],

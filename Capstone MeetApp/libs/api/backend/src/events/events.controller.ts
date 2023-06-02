@@ -4,7 +4,7 @@ import { EventsService } from './events.service';
 // import { UpdateEventDto } from './dto/update-event.dto';
 import { Request } from 'express';
 import { FilterQuery } from 'mongoose';
-import { Category } from '../utils/enums';
+//import { Category } from '../utils/enums';
 
 @Controller('events')
 export class EventsController {
@@ -104,7 +104,7 @@ export class EventsController {
   }
 
   @Get('category/:category')
-  getEventsByCategory(@Param('category') category: Category) {
+  getEventsByCategory(@Param('category') category: string) {
     const query: FilterQuery<Event> = { category: category };
     return this.eventsService.findByQuery(query)
   }

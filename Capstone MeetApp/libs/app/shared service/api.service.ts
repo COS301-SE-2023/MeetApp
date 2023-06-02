@@ -2,13 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, map } from 'rxjs/operators';
-import { ILoginRequest } from '../utils/requests';
-import { ILoginResponse } from '../utils/responses';
-import { ISignUpOrgRequest } from '../utils/requests';
-import { ISignUpOrgResponse } from '../utils/responses';
-import { ISignUpUserRequest } from '../utils/requests';
-import { ISignUpUserResponse } from '../utils/responses';
-import { IEvents, ILoginInfo, ISignupInfo, IEvent } from '../utils/interfaces';
+import { IEvents, ILoginRequest,ILoginResponse, ILoginInfo, ISignupInfo, IEvent, ISignUpOrgResponse, ISignUpOrgRequest, ISignUpUserRequest, ISignUpUserResponse } from '@capstone-meet-app/utils';
 import mockEvents from './mockData.model';
 
 @Injectable({

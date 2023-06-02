@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ApiBackendModule } from '../../../../libs/api/backend/src'
+import { ApiBackendModule } from '@capstone-meet-app/api/backend'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
