@@ -21,4 +21,4 @@ export class Socials {
   name: string;
 }
 
-export const SocialsSchema = SocialsFactory.createForClass(Socials);
+export const SocialsSchema = SchemaFactory.createForClass(Socials);

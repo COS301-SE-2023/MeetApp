@@ -14,7 +14,6 @@ export class Attendance {
   @Prop()
   numAttending : number
   
-
 }
 
 export const AttendanceSchema = SchemaFactory.createForClass(Attendance);
