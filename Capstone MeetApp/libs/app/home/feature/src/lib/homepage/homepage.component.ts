@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HomepageService } from 'libs/api/home/feature/src/homepage.service'
+
 
 @Component({
   selector: 'capstone-meet-app-homepage',
@@ -41,9 +43,25 @@ export class HomepageComponent {
     }
     
   ];
+  
+  //constructor(private homepageService: HomepageService) {}
   filteredData: any[] = [];
   searchQuery = '';
+  /*ngOnInit() {
+    this.fetchData();
+  }
+  fetchData() {
+    this.homepageService.getData().subscribe({
+      next: response => {
+        //this.data = response;
+      },
+      error: error => {
+        console.error(error);
+      }
+    });
+  }*/
 
+  
   search(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredData = this.data;
