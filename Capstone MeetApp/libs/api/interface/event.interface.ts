@@ -10,5 +10,5 @@ export interface IEvent extends Document {
   readonly totalAttendees: number;
   readonly location: { lg: string; lat: string };
   readonly category: string;
-  readonly egion: string;
+  readonly region: string;
 }
