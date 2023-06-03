@@ -1,1 +1,34 @@
+name: CI
+on:
+  workflow_dispatch:
+  
+  push:
+    branches:
+      - auth
+      - development
+      
+  pull_request:
+    branches:
+      - auth
+      - development
 
+jobs:
+  build_test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v3
+      
+      - uses: nrwl/nx-set-shas@v3
+      - name: nodeJS
+        uses: actions/setup-node@v3
+        
+      - run: npm ci
+      - run: npm install
+      - run: npx nx format:check
+      - run: npx nx run-many --target=lint 
+      - run: npx nx run-many --target=test
+      - run: npx nx run-many --target=build 
+     
+ 
+    
