@@ -1,5 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { GoogleMapsModule } from '@angular/google-maps';
+
 import { DotenvParseOutput } from 'dotenv';
 import { environment } from './environment';
 declare const google: any;
@@ -15,12 +16,8 @@ declare const google: any;
 
 export class MapsComponent implements AfterViewInit {
   
-  constructor(private m:GoogleMapsModule){}
-  ngAfterViewInit() {
-    this.initMap();
-  }
-  
   apikey=environment.API_KEY;
+ 
   map:any;
   zoom = 12;
   center={ lat: -25.750227, lng: 28.236448 };//Hatfield
@@ -29,11 +26,23 @@ export class MapsComponent implements AfterViewInit {
     zoomControl: false,
     scrollwheel: false,
     disableDoubleClickZoom: true,
-    maxZoom: 15,
+    maxZoom: 25,
     minZoom: 8,
-  };
-
+  } as google.maps.MapOptions;
+  constructor(private m:GoogleMapsModule, ){}
+  ngAfterViewInit() {
+    this.initMap();
+  }
+  
+ 
+ 
   zoomIn() {
+
+    if (this.options && this.zoom < 25) {
+      this.zoom++;
+      this.map.setZoom(this.zoom);
+    }
+  
     //if (this.zoom < this.options.maxZoom) this.zoom++;
   }
  
@@ -63,8 +72,8 @@ export class MapsComponent implements AfterViewInit {
 
     // Marker icons
     const svgIcon = {
-      url: './icon.png',
-      scaledSize: new google.maps.Size(50, 50)
+      url: 'https://www.clipartmax.com/png/small/5-51701_marker-icon-google-maps.png',
+      scaledSize: new google.maps.Size(150, 150)
     };
 
     // Marker content
@@ -76,6 +85,8 @@ export class MapsComponent implements AfterViewInit {
       '<p>Date: Tomorrow 04:00</p>' +
       '<p>Organiser: Mock</p>' +
       '<p>Interests: 122</p>' +
+      '<p> <img src="https://lh3.googleusercontent.com/nVURMfU_P9tbGD4_tkSBZE4g2akKMtOcPXGwtkDGKLNgtwA-INpPtFKBFi6u4XZIwHKgUF237oLHrT2xKSWBm-o7nrwSLUzZ6Pw=s640" alt="Image" style="height: 60px; width: 60px;">'
+      '</p>'
       '</div>' +
       '</div>';
 
@@ -86,11 +97,24 @@ export class MapsComponent implements AfterViewInit {
     });
 
     // Markers
+    const customIcon = {
+      url: 'https://lh3.googleusercontent.com/nVURMfU_P9tbGD4_tkSBZE4g2akKMtOcPXGwtkDGKLNgtwA-INpPtFKBFi6u4XZIwHKgUF237oLHrT2xKSWBm-o7nrwSLUzZ6Pw=s640',
+      size: new google.maps.Size(100, 100),
+      anchor: new google.maps.Point(15, 34),
+      labelOrigin: new google.maps.Point(15, 10),
+      scaledSize: new google.maps.Size(130, 134),
+      origin: new google.maps.Point(0, 0),
+      label: {
+        text: 'Custom Marker',
+        color: '#ffffff'
+      }
+    };
     const markerZou = new google.maps.Marker({
       position: Zanzou,
       map: this.map,
       title: 'LocationMarker',
-      icon: svgIcon
+      content:svgIcon
+      //icon:customIcon
     });
 
     // Event listener for marker click
