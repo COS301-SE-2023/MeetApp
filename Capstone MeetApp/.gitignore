@@ -8,6 +8,7 @@ environment.ts
 dist
 tmp
 /out-tsc
+json.txt
 
 # dependencies
 node_modules
