@@ -1,144 +1,51 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    body {
-     
-      background-size: cover;
-      background-position: center center;
-      min-height: 100vh;
-      margin: 0;
-      padding: 0;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .heading-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
-    }
-
-    .heading {
-      color: blue;
-      font-size: 24px;
-      text-decoration: underline;
-      margin: 0;
-    }
-
-    .pink {
-      color: pink;
-    }
-
-    .image-container1 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .box {
-      background-color: rgba(255, 255, 255, 0.7);
-      padding: 20px;
-    }
-
-   
-  </style>
-</head>
-<body class="container">
-  <div class="heading-container">
-    <i class="fas fa-heart pink"></i>
-    <h1 class="heading">MeetApp</h1>
-    <i class="fas fa-cog pink"></i>
-  </div>
-
-  <div class="image-container1">
-  
-  </div>
-
-  <div  *ngFor="let event of results">
-    <h2 style="margin-bottom: 70px; margin-left: 33%; font-size: 24px; text-decoration: underline; color: blue;">
-        <span style="font-size: 30px;">🎉</span>
-        {{ event.organisation }}
-      </h2>
-      <p style="margin-left: 33%; font-size: 18px; text-decoration: italic;;">
-        {{ event.description }}
-      </p>
-      
-      <p style="margin-left: 34%; font-size: 16px; ">
-        <span style="text-decoration: underline;">Date:</span> <span class="bold">{{ event.date | date }}</span>
-      </p>
-      <p style="margin-left: 34%; font-size: 16px;;">
-        <span style="text-decoration: underline;">Start Time:</span> {{ event.startTime | date: 'shortTime' }}
-      </p>
-      <p style="margin-left: 34%; font-size: 16px;;">
-        <span style="text-decoration: underline;">End Time:</span> {{ event.endTime | date: 'shortTime' }}
-      </p>
-      <p style="margin-left: 34%; font-size: 16px; ">
-        <span style="text-decoration: underline;">Total Attendees:</span> {{ event.totalAttendees }}
-      </p>
-      <p style="margin-left: 34%; font-size: 16px; ">
-        <span style="text-decoration: underline;">Location:</span> {{ event.location }}
-      </p>
-      <p style="margin-left: 34%; font-size: 16px; ">
-        <span style="text-decoration: underline;">Category:</span> {{ event.category }}
-      </p>
-      <p style="margin-left: 34%; font-size: 16px; ">
-        <span style="text-decoration: underline;">Region:</span> <span class="bold">{{ event.region }}</span>
-      </p>
-  </div>
-
-  <div class="navigation-bar">
-    <a href="#" class="navigation-item">
-      <i class="fas fa-home"></i>
-    </a>
-    <a href="#" class="navigation-item">
-      <i class="fas fa-bell"></i>
-    </a> 
-    <a href="#" class="navigation-item">
-      <i class="fas fa"></i>
-    </a>
-
-</div>
-</body>
-</html>
-
   <head>
-   
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-<style>
-  body {
-background-image: url('');
-background-size: cover;
-background-position: center center;
-min-height: 100vh;
-margin: 0;
-padding: 0;
-}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* Add any additional styling for the form, if needed */
-  </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
   </head>
   <body class="container">
     
     <div class="heading-container">
       <i class="fas fa-heart pink"></i>
-      <h1 class="heading">MeetApp</h1>
+      <h1 class="heading">MeetApp&nbsp;&nbsp;&nbsp;&nbsp;</h1>
       <i class="fas fa-cog pink"></i>
     </div>
-    
 
+    <div class="search-bar">
+      <input type="text" placeholder="Search" class="rounded-input" [(ngModel)]="searchQuery" (input)="search()">
+      <button type="button" class="search-button" (click)="search()">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
+     
 
-      <div class="image-container1">
-          <img src="https://techcrunch.com/wp-content/uploads/2022/07/GettyImages-1392356345.jpg?w=1390&crop=1" alt="item.title + ' Image'" height="300" width="300" >
+      
+      <div  div class="box" *ngFor="let item of filteredData" >
+  
+        <div class="container1" class="content-container"  >
+          <h2>{{ item.title }}</h2>
+            <div class="image-container">
+              <img src="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi" alt="item.title + ' Image'" height="80" width="80">
+            </div>
+          <p><strong>Where?</strong> {{ item.location }}</p>
+          <p><strong>When?</strong> {{ item.date }}</p>
+          <p>{{ item.description }}<a href="">&nbsp;&nbsp;more...</a></p>
+        </div>
       </div>
-
-
+<div  *ngFor="let item of data" class="box" class="box" >
+  <div class="container1" class="content-container"  >
+    <h2>{{ item.title }}</h2>
+      <div class="image-container">
+        <img src="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi" alt="item.title + ' Image'" height="80" width="80">
+      </div>
+    <p><strong>Where?</strong> {{ item.location }}</p>
+    <p><strong>When?</strong> {{ item.date }}</p>
+    <p>{{ item.description }}<a href="">&nbsp;&nbsp;more...</a></p>
+  </div>
+</div>
 <div class="navigation-bar">
   <a href="#" class="navigation-item">
     <i class="fas fa-home"></i>
@@ -152,6 +59,6 @@ padding: 0;
 </div>
 
 </body>
+</html>
 
-
-  
+      
