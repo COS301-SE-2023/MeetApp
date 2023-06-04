@@ -1,24 +1,51 @@
 import { Injectable } from '@nestjs/common';
-import { CreateOrganisationDto } from './dto/create-organisation.dto';
-import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+// import { CreateOrganisationDto } from './dto/create-organisation.dto';
+// import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Organisation } from './schema';
+import { Model } from 'mongoose';
+import { EventsService } from '../events/events.service';
 
 @Injectable()
 export class OrganisationsService {
-  create(createOrganisationDto: CreateOrganisationDto) {
-    return 'This action adds a new organisation';
+  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService){
+    
   }
+  // create(createOrganisationDto: CreateOrganisationDto) {
+  //   return 'This action adds a new organisation';
+  // }
 
   findAll() {
-    return `This action returns all organisations`;
+    return this.organisationModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} organisation`;
+  findOne(id: string) {
+    //const ObjectIdfromString = ObjectId.createFromHexString(id)
+    return this.organisationModel.findById(id).exec(); 
   }
 
-  update(id: number, updateOrganisationDto: UpdateOrganisationDto) {
-    return `This action updates a #${id} organisation`;
+  async findEvents(id: string) {
+    const orgDoc = await this.organisationModel.findById(id).exec();
+    if (orgDoc){
+      const eventsArr = orgDoc.events;
+    
+  
+    const eventPromises = eventsArr.map((currentEventID) =>
+      this.eventService.findOne(currentEventID.toString())
+    );
+  
+    const eventInfoArr = await Promise.all(eventPromises);
+    console.log(eventInfoArr);
+    return eventInfoArr;
+    }
+    else
+      return []
   }
+
+  // update(id: number, updateOrganisationDto: UpdateOrganisationDto) {
+  //   NotImplementedException
+  //   return `This action updates a #${id} organisation`;
+  // }
 
   remove(id: number) {
     return `This action removes a #${id} organisation`;

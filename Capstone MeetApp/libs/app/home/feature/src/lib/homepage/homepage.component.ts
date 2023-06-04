@@ -7,13 +7,13 @@ import { Router } from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-import {ApiService } from '../../../../../shared service/api.service';
+import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
-import { IEvent } from 'libs/app/utils/interfaces/event.interface';
+import { IEvent } from '@capstone-meet-app/utils';
 
 
 @Component({

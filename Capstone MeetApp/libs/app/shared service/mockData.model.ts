@@ -1,5 +1,4 @@
-import { Category } from "../utils/enums";
-import { IEvent, IEvents } from "../utils/interfaces";
+import { IEvent, IEvents, Category } from '@capstone-meet-app/utils'
 
 const mockEvents: IEvent[] = [
     {

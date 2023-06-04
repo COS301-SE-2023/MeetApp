@@ -1,26 +1,45 @@
 import { Injectable } from '@nestjs/common';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Event } from './schema';
+//import { CreateEventDto } from './dto/create-event.dto';
+//import { UpdateEventDto } from './dto/update-event.dto';
+import { Model, FilterQuery } from 'mongoose';
+
+
 
 @Injectable()
 export class EventsService {
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event';
+  constructor(@InjectModel(Event.name) private eventModel: Model<Event>)
+  {
+
   }
+  // create(createEventDto: CreateEventDto) {
+  //   return 'This action adds a new event';
+  // }
 
   findAll() {
-    return `This action returns all events`;
+    return this.eventModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} event`;
+  findByQuery(queryIN : FilterQuery<Event>) {
+    return this.eventModel.find(queryIN).exec();
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`;
+
+  findOne(id: string) {
+    //const ObjectIdfromString = ObjectId.createFromHexString(id)
+    return this.eventModel.findById(id).exec(); 
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  findbyOrganisation(INorganisation: string) {
+    return this.eventModel.find({organisation: INorganisation})
   }
+
+  // update(id: number, updateEventDto: UpdateEventDto) {
+  //   return `This action updates a #${id} event`;
+  // }
+
+  // remove(id: number) {
+  //   return `This action removes a #${id} event`;
+  // }
 }
