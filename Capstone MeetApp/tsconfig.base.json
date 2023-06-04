@@ -15,54 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@capstone-meet-app/api/event/data-access": [
-        "libs/api/event/data-access/src/index.ts"
-      ],
-      "@capstone-meet-app/api/event/feature": [
-        "libs/api/event/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/api/event/util": ["libs/api/event/util/src/index.ts"],
-      "@capstone-meet-app/api/home/data-access": [
-        "libs/api/home/data-access/src/index.ts"
-      ],
-      "@capstone-meet-app/api/home/feature": [
-        "libs/api/home/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/api/home/util": ["libs/api/home/util/src/index.ts"],
-      "@capstone-meet-app/api/login/data-access": [
-        "libs/api/login/data-access/src/index.ts"
-      ],
-      "@capstone-meet-app/api/login/feature": [
-        "libs/api/login/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/api/login/util": ["libs/api/login/util/src/index.ts"],
-      "@capstone-meet-app/api/profile/data-access": [
-        "libs/api/profile/data-access/src/index.ts"
-      ],
-      "@capstone-meet-app/api/profile/feature": [
-        "libs/api/profile/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/api/profile/util": [
-        "libs/api/profile/util/src/index.ts"
-      ],
-      "@capstone-meet-app/api/signup/data-access": [
-        "libs/api/signup/data-access/src/index.ts"
-      ],
-      "@capstone-meet-app/api/signup/feature": [
-        "libs/api/signup/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/api/signup/util": [
-        "libs/api/signup/util/src/index.ts"
-      ],
-      "@capstone-meet-app/api/welcome/data-access": [
-        "libs/api/welcome/data-access/src/index.ts"
-      ],
-      "@capstone-meet-app/api/welcome/feature": [
-        "libs/api/welcome/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/api/welcome/util": [
-        "libs/api/welcome/util/src/index.ts"
-      ],
+      "@capstone-meet-app/app/sharedservice" : ["libs/app/shared service/index.ts"],
+      "@capstone-meet-app/utils" : ["libs/app/home/feature/utils/index.ts"],
+      "@capstone-meet-app/api/backend": ["libs/api/backend/src/index.ts"],
       "@capstone-meet-app/app/event/data-access": [
         "libs/app/event/data-access/src/index.ts"
       ],
@@ -118,6 +73,7 @@
       "@capstone-meet-app/app/profile/util": [
         "libs/app/profile/util/src/index.ts"
       ],
+
       "@capstone-meet-app/app/settings/data-access": [
         "libs/app/settings/data-access/src/index.ts"
       ],
@@ -127,6 +83,7 @@
       "@capstone-meet-app/app/settings/util": [
         "libs/app/settings/util/src/index.ts"
       ],
+
       "@capstone-meet-app/app/shared service": [
         "libs/app/shared service/index.ts"
       ],

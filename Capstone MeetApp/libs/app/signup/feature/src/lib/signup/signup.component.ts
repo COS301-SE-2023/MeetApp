@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
-import {ApiService } from '../../../../../shared service/api.service';
+import {ApiService } from '@capstone-meet-app/app/shared service'
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({

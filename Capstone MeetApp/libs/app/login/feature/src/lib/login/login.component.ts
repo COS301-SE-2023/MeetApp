@@ -8,7 +8,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import {ApiService } from '../../../../../shared service/api.service';
+import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
@@ -61,5 +61,5 @@ export class LoginComponent implements OnInit {
 
   onSignUp() {
     this.router.navigate(['/signup']);
-  };
+  }
 }
