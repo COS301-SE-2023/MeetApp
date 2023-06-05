@@ -1,1 +1,1 @@
-export * from './lib/app-map-feature';
+export * from './lib/maps/maps.component';
