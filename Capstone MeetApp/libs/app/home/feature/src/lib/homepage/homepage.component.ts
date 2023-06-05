@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'
 import { FormBuilder,  Validators } from '@angular/forms';
-import { Router } from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router } from '@angular/router';
+import {HomepageModule} from 'libs/app/home/feature/src/lib/homepage/homepage.module';
+import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
+
+
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -23,6 +27,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent {
+  constructor(private router: Router) {}
   data = [
     {
       imageSrc: 'path/to/your/image1.jpg',
@@ -56,23 +61,25 @@ export class HomepageComponent {
   ];
   
   //constructor(private homepageService: HomepageService) {}
+ 
   filteredData: any[] = [];
   searchQuery = '';
+  
   /*ngOnInit() {
     this.fetchData();
   }
+
   fetchData() {
     this.homepageService.getData().subscribe({
-      next: response => {
-        //this.data = response;
+      next: (response: any[]) => {
+        this.data = response;
       },
-      error: error => {
+      error: (error: any) => {
         console.error(error);
       }
     });
-  }*/
 
-  
+  }*/
   search(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredData = this.data;
@@ -84,6 +91,8 @@ export class HomepageComponent {
   }
 
 
-
+  onSignUp() {
+    this.router.navigate(['/event']);
+  }
 
 }

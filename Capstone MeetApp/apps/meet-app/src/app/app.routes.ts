@@ -9,7 +9,9 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from '@capstone-meet-app/app/login/feature';
 import { SignupComponent } from '@capstone-meet-app/app/signup/feature';
-import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
+
+import { HomepageComponent } from 'libs/app/home/feature/src/lib/homepage/homepage.component';
+//Capstone MeetApp/libs/app/home\feature\src\lib\homepage\homepage.component.ts
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { WelcomepageComponent } from '@capstone-meet-app/app/welcome/feature';
 import {ProfileComponent} from '@capstone-meet-app/app/profile/feature'

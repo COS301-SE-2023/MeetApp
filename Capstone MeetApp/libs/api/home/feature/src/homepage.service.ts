@@ -6,11 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HomepageService {
-  private apiUrl = 'your_api_endpoint'; // Replace with your actual API endpoint
+  private apiUrl = 'libs/app/home/feature/src/lib/homepage/data.JSON'; // Replace with your actual API endpoint
 
   constructor(private http: HttpClient) {}
-
-  getData(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getData(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl);
   }
 }
