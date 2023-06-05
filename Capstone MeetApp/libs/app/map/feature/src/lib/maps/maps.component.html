@@ -1,0 +1,42 @@
+<!Doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>GmapsExample</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=(apikey)&libraries=places&language=en">
+      
+    
+    </script>
+    <style>
+
+body{
+
+background-color: black;
+height: 100vh;
+margin: 0;
+padding: 0;
+}
+    </style>
+</head>
+
+<body>
+    <h1>Map Locations</h1>
+    <div id="map" style="width:100%;height: 650px;"></div>
+    <!--google-map
+    height="500px"
+    width="100%"
+    [zoom]="zoom"
+    [center]="center"
+    [options]="options"></google-map-->
+    <button onc></button>
+    <button (click)="zoomIn()">Zoom in</button>
+    <button (click)="zoomOut()">Zoom out</button>
+
+    
+</body>
+
+</html>

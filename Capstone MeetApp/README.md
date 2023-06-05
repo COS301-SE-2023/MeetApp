@@ -9,7 +9,7 @@
 <a href = "https://github.com/COS301-SE-2023/MeetApp/issues">
   <img alt="GitHub Issues" src="https://img.shields.io/github/issues/COS301-SE-2023/MeetApp?style=plastic">
 </a>
-<a href = "https://github.com/COS301-SE-2023/MeetApp/projects/1">
+<a href = "https://github.com/orgs/COS301-SE-2023/projects/27/views/1">
   <img alt="GitHub Issues" src="https://img.shields.io/badge/Project%20Board-1-blue">
 </a>
 <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/COS301-SE-2023/MeetApp?style=plastic">
