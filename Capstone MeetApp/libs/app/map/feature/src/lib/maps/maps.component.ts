@@ -1,26 +1,26 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { GoogleMapsModule } from '@angular/google-maps';
 
-import { DotenvParseOutput } from 'dotenv';
 import { environment } from './environment';
+import { FormsModule } from '@angular/forms';
+import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
+import { CommonModule } from '@angular/common';
 declare const google: any;
-@Component({
 
-  standalone:true,
-  imports:[GoogleMapsModule],
+@Component({
+  standalone: true,
   selector: 'app-map',
   templateUrl: './maps.component.html',
-  styleUrls: ['./maps.component.css']
+  styleUrls: ['./maps.component.css'],
+  imports: [CommonModule,FormsModule],
+  providers: [GoogleMapsModule]
 })
-
-
 export class MapsComponent implements AfterViewInit {
-  
-  apikey=environment.API_KEY;
- 
-  map:any;
+  selectedRegion!: string;
+  apikey = environment.API_KEY;
+
+  map: any;
   zoom = 12;
-  center={ lat: -25.750227, lng: 28.236448 };//Hatfield
+  center = { lat: -25.750227, lng: 28.236448 }; // Hatfield
   options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
     zoomControl: false,
@@ -29,13 +29,80 @@ export class MapsComponent implements AfterViewInit {
     maxZoom: 25,
     minZoom: 8,
   } as google.maps.MapOptions;
-  constructor(private m:GoogleMapsModule, ){}
+
+  constructor(private m: GoogleMapsModule) {}
+
   ngAfterViewInit() {
-    this.initMap();
+      this.selectRegion();// No initialization required here since we're waiting for region selection
   }
-  
- 
- 
+  onRegionChange() {
+    switch (this.selectedRegion) {
+      case 'JHB':
+        this.updateMapForJohannesburg();
+        break;
+      case 'DBN':
+        this.updateMapForDurban();
+        break;
+      case 'CPT':
+        this.updateMapForCapeTown();
+        break;
+      case 'PTA':
+        this.updateMapForPretoria();
+        break;
+      default:
+        // Handle unknown region or default case
+        break;
+    }
+  }
+
+  updateMapForJohannesburg() {
+    this.center = { lat: -26.2041, lng: 28.0473 }; // Update center for Johannesburg
+    // Perform other map updates specific to Johannesburg
+  }
+
+  updateMapForDurban() {
+    this.center = { lat: -29.8587, lng: 31.0218 }; // Update center for Durban
+    // Perform other map updates specific to Durban
+  }
+
+  updateMapForCapeTown() {
+    this.center = { lat: -33.9249, lng: 18.4241 }; // Update center for Cape Town
+    // Perform other map updates specific to Cape Town
+  }
+
+  updateMapForPretoria() {
+    this.center = { lat: -25.7461, lng: 28.1881 }; // Update center for Pretoria
+    // Perform other map updates specific to Pretoria
+  }
+  selectRegion() {
+    const region = this.selectedRegion;
+    if (region) {
+      const selectedRegion = this.getRegionCoordinates(region.toUpperCase());
+      if (selectedRegion) {
+        this.center = selectedRegion;
+        this.initMap();
+      } else {
+        alert('Invalid region selection!');
+      }
+    } else {
+      alert('No region selected!');
+    }
+  }
+
+  getRegionCoordinates(region: string) {
+    switch (region) {
+      case 'JHB':
+        return { lat: -26.2041, lng: 28.0473 }; // Johannesburg coordinates
+      case 'DUR':
+        return { lat: -29.8587, lng: 31.0218 }; // Durban coordinates
+      case 'CPT':
+        return { lat: -33.9249, lng: 18.4241 }; // Cape Town coordinates
+      case 'PTA':
+        return { lat: -25.7461, lng: 28.188 }; // Pretoria coordinates
+      default:
+        return null;
+    }
+  }
   zoomIn() {
 
     if (this.options && this.zoom < 25) {
@@ -49,18 +116,17 @@ export class MapsComponent implements AfterViewInit {
   zoomOut() {
     //if (this.zoom > this.options.minZoom) this.zoom--;
   }
-
   private initMap() {
-    const selectedRegion = { lat: -25.748733, lng: 28.238043 }; // Hatfield
+    const selectedRegion = this.center;
 
     // Create map
-    this.map = new google.maps.Map(document.getElementById('map'),{
+    this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 15,
-      center: selectedRegion,
+      center: this.center,
+     // zoom: this.zoom,
+      options: this.options,
       mapId: 'MeetApp',
     });
-
-    
 
     // Locations
     const hatfieldPlaza = { lat: -25.750227, lng: 28.236448 };
@@ -85,8 +151,8 @@ export class MapsComponent implements AfterViewInit {
       '<p>Date: Tomorrow 04:00</p>' +
       '<p>Organiser: Mock</p>' +
       '<p>Interests: 122</p>' +
-      '<p> <img src="https://lh3.googleusercontent.com/nVURMfU_P9tbGD4_tkSBZE4g2akKMtOcPXGwtkDGKLNgtwA-INpPtFKBFi6u4XZIwHKgUF237oLHrT2xKSWBm-o7nrwSLUzZ6Pw=s640" alt="Image" style="height: 60px; width: 60px;">'
-      '</p>'
+      '<p> <img src="https://lh3.googleusercontent.com/nVURMfU_P9tbGD4_tkSBZE4g2akKMtOcPXGwtkDGKLNgtwA-INpPtFKBFi6u4XZIwHKgUF237oLHrT2xKSWBm-o7nrwSLUzZ6Pw=s640" alt="Image" style="height: 60px; width: 60px;">' +
+      '</p>' +
       '</div>' +
       '</div>';
 
@@ -113,8 +179,8 @@ export class MapsComponent implements AfterViewInit {
       position: Zanzou,
       map: this.map,
       title: 'LocationMarker',
-      content:svgIcon
-      //icon:customIcon
+      content: svgIcon
+      //icon: customIcon
     });
 
     // Event listener for marker click

@@ -24,8 +24,23 @@ padding: 0;
 </head>
 
 <body>
-    <h1>Map Locations</h1>
-    <div id="map" style="width:100%;height: 650px;"></div>
+  
+      
+      
+    <div>
+        <label for="region">Select Region:</label>
+        <select id="region" [(ngModel)]="selectedRegion" (change)="onRegionChange()">
+          <option value="JHB">Johannesburg</option>
+          <option value="DUR">Durban</option>
+          <option value="CPT">Cape Town</option>
+          <option value="PTA">Pretoria</option>
+        </select>
+        <button (click)="selectRegion()">Go</button>
+      </div>
+      <div id="map" style="height: 400px;"></div>
+      
+    <!--h1>Map Locations</h1-->
+    <!--div id="map" style="width:100%;height: 650px;"></div-->
     <!--google-map
     height="500px"
     width="100%"
