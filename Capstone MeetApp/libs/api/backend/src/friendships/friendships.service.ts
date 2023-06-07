@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFriendshipDto } from './dto/create-friendship.dto';
-import { UpdateFriendshipDto } from './dto/update-friendship.dto';
+// import { CreateFriendshipDto } from './dto/create-friendship.dto';
+// import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 import { Friendship } from './schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model, Types } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { UsersService } from '../users/users.service';
-import { User } from '../users/schema';
+// import { User } from '../users/schema';
 
 @Injectable()
 export class FriendshipsService {
@@ -13,9 +13,9 @@ export class FriendshipsService {
     
   }
 
-  create(createFriendshipDto: CreateFriendshipDto) {
-    return 'This action adds a new friendship';
-  }
+  // create(createFriendshipDto: CreateFriendshipDto) {
+  //   return 'This action adds a new friendship';
+  // }
 
   async findAll() {
     const friendDoc = await this.friendshipModel.find().exec();
@@ -41,11 +41,11 @@ export class FriendshipsService {
     return `This action returns a #${id} friendship`;
   }
 
-  update(id: number, updateFriendshipDto: UpdateFriendshipDto) {
-    return `This action updates a #${id} friendship`;
-  }
+  // update(id: number, updateFriendshipDto: UpdateFriendshipDto) {
+  //   return `This action updates a #${id} friendship`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} friendship`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} friendship`;
+  // }
 }
