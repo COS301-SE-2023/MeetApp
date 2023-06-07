@@ -10,13 +10,13 @@ export class Attendances {
   ID!: mongoose.Schema.Types.ObjectId;
 
   @Prop()
-  organisationID :  mongoose.Schema.Types.ObjectId;
+  organisationID! :  mongoose.Schema.Types.ObjectId;
 
   @Prop()
-  eventID :  mongoose.Schema.Types.ObjectId;
+  eventID! :  mongoose.Schema.Types.ObjectId;
 
   @Prop()
-  userID :  mongoose.Schema.Types.ObjectId;
+  userID! :  mongoose.Schema.Types.ObjectId;
  
 }
 
