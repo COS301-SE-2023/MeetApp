@@ -1,4 +1,4 @@
-/* eslint-disable prettier/prettier */
+
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 //import { Category } from 'src/utils/enums';
@@ -11,15 +11,15 @@ export type FriendshipDocument = HydratedDocument<Friendship>;
 export class Friendship {
 
   @Prop()
-  ID: mongoose.Schema.Types.ObjectId;
+  ID!: mongoose.Schema.Types.ObjectId;
 
-  @Prop(/*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
-  requester: string;
+  @Prop( /*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
+  requester!: string;
 
-  @Prop(/*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
-  requestee: string;
+  @Prop( /*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
+  requestee!: string;
   @Prop()
-  status: string;
+  status!: string;
 
  
 }

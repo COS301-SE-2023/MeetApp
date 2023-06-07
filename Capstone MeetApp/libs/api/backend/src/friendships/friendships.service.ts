@@ -1,11 +1,11 @@
-/* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
 import { CreateFriendshipDto } from './dto/create-friendship.dto';
 import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 import { Friendship } from './schema';
 import { InjectModel } from '@nestjs/mongoose';
-import { FilterQuery, Model } from 'mongoose';
-import { UsersService } from 'src/users/users.service';
+import { FilterQuery, Model, Types } from 'mongoose';
+import { UsersService } from '../users/users.service';
+import { User } from '../users/schema';
 
 @Injectable()
 export class FriendshipsService {
@@ -19,11 +19,11 @@ export class FriendshipsService {
 
   async findAll() {
     const friendDoc = await this.friendshipModel.find().exec();
-    const res = [];
+    const res: unknown[] = [];
     const friendPromises = friendDoc.map(async (currentFriendship) => {
-      const currentFriendshipRequestee = (await this.userService.findOne(currentFriendship.requestee)).toObject()
+      const currentFriendshipRequestee = (await this.userService.findOne(currentFriendship.requestee))?.toObject()
       //console.log(currentFriendship.requestee)
-      const currentFriendshipRequester = (await this.userService.findOne(currentFriendship.requester)).toObject()
+      const currentFriendshipRequester = (await this.userService.findOne(currentFriendship.requester))?.toObject()
       const currentFriendshipStatus = currentFriendship.status
       res.push({requester :currentFriendshipRequester, requestee : currentFriendshipRequestee, status : currentFriendshipStatus})
   })

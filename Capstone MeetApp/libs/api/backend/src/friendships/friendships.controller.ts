@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
 import { FriendshipsService } from './friendships.service';
 import { CreateFriendshipDto } from './dto/create-friendship.dto';
@@ -19,9 +18,9 @@ export class FriendshipsController {
     //console.log('wrong endpoint')
     if (request.query == null)
       return this.friendshipsService.findAll();
-    else if (request.query.status)
+    else if (request.query['status'])
       return this.friendshipsService.findByQuery(request.query)
-    else if (request.query.requester)
+    else if (request.query['requester'])
       return 
   }
 
