@@ -92,6 +92,7 @@ export class HomepageComponent {
 
 
   onSignUp() {
+    
     this.router.navigate(['/event']);
   }
 
