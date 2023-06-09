@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete, BadRequestException } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
@@ -144,10 +144,12 @@ export class EventsController {
       return response.status(HttpStatus.OK).json({
         message: 'Event has been successfully updated',
         exisitingEvent,});
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err : any) {
-      return response.status(err.status).json(err.response);
-    }
+    } catch (err: unknown) {
+      if (err instanceof BadRequestException) {
+        return response.status(err.getStatus()).json(err.getResponse());}
+      else
+        return err;
+      }
 }
 
 @Delete('/:id')
@@ -158,9 +160,11 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
     return response.status(HttpStatus.OK).json({
     message: 'Event deleted successfully',
     deletedEvent,});
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  }catch (err: any) {
-    return response.status(err.status).json(err.response);
+  }catch (err: unknown) {
+    if (err instanceof BadRequestException) {
+      return response.status(err.getStatus()).json(err.getResponse());}
+    else
+      return err;
   }
- }
-}
+ }}
+
