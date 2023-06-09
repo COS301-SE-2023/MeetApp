@@ -2,7 +2,7 @@ import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete } 
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { FilterQuery } from 'mongoose';
 import { UpdateEventDto } from './dto/update-event.dto';
 
@@ -13,8 +13,7 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-   async createEvent(@Res() response : any, @Body() createEventdto: CreateEventDto) {
+   async createEvent(@Res() response : Response, @Body() createEventdto: CreateEventDto) {
   try {
     const newStudent = await this.eventsService.create(createEventdto);
     return response.status(HttpStatus.CREATED).json({
@@ -138,8 +137,7 @@ export class EventsController {
 
 
   @Put('/:id')
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  async updateEvent(@Res() response : any,@Param('id') eventId: string,
+  async updateEvent(@Res() response : Response,@Param('id') eventId: string,
   @Body() updateEventdto: UpdateEventDto) {
     try {
       const exisitingEvent = await this.eventsService.update(eventId, updateEventdto);
@@ -153,8 +151,7 @@ export class EventsController {
 }
 
 @Delete('/:id')
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async deleteEvent(@Res() response: any, @Param('id') eventId: string)
+async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
 {
   try {
     const deletedEvent = await this.eventsService.remove(eventId);
