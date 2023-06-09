@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
@@ -152,8 +152,18 @@ export class EventsController {
     }
 }
 
-  //@Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.eventsService.remove(+id);
-  // }
+@Delete('/:id')
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async deleteEvent(@Res() response: any, @Param('id') eventId: string)
+{
+  try {
+    const deletedEvent = await this.eventsService.remove(eventId);
+    return response.status(HttpStatus.OK).json({
+    message: 'Event deleted successfully',
+    deletedEvent,});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }catch (err: any) {
+    return response.status(err.status).json(err.response);
+  }
+ }
 }
