@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, MaxLength ,IsArray} from "class-validator";
+import mongoose from 'mongoose';
 
 export class CreateUserDto {
 
@@ -31,7 +32,7 @@ export class CreateUserDto {
     @IsArray()
     @IsNotEmpty() 
     readonly events: string[];
-    
+
 }
 
 
