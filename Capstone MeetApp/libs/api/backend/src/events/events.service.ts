@@ -42,7 +42,12 @@ export class EventsService {
    }
    return existingEvent;
   }
-  // remove(id: number) {
-  //   return `This action removes a #${id} event`;
-  // }
+  
+  async remove(id: string) {
+    const deletedEvent = await this.eventModel.findByIdAndDelete(id);
+   if (!deletedEvent) {
+     throw new NotFoundException(`Student #${id} not found`);
+   }
+   return deletedEvent;
+  }
 }
