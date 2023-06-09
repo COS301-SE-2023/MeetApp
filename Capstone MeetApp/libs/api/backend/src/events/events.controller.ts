@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
 import { Request } from 'express';
 import { FilterQuery } from 'mongoose';
+import { UpdateEventDto } from './dto/update-event.dto';
+
 //import { Category } from '../utils/enums';
 
 @Controller('events')
@@ -135,10 +137,20 @@ export class EventsController {
   }
 
 
-  //@Patch(':id')
-  // update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-  //   return this.eventsService.update(+id, updateEventDto);
-  // }
+  @Put('/:id')
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async updateEvent(@Res() response : any,@Param('id') eventId: string,
+  @Body() updateEventdto: UpdateEventDto) {
+    try {
+      const exisitingEvent = await this.eventsService.update(eventId, updateEventdto);
+      return response.status(HttpStatus.OK).json({
+        message: 'Event has been successfully updated',
+        exisitingEvent,});
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err : any) {
+      return response.status(err.status).json(err.response);
+    }
+}
 
   //@Delete(':id')
   // remove(@Param('id') id: string) {
