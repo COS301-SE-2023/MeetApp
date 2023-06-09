@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { HomepageComponent } from './homepage.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   
-  imports: [IonicModule,HomepageComponent],
+  imports: [IonicModule,HttpClientModule],
 })
 export class HomepageModule {}
+
+
+

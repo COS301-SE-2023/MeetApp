@@ -27,8 +27,8 @@ import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent {
-  constructor(private router: Router) {}
-  data = [
+  data: any[] = [];
+  /*data = [
     {
       imageSrc: 'path/to/your/image1.jpg',
       title: 'Joburg Art Fair 1',
@@ -58,28 +58,31 @@ export class HomepageComponent {
       description: 'The annual Joburg Art Fair will showcase the best in contemporary African art and design, with 23 galleries and 11'
     }
     
-  ];
+  ];*/
   
-  //constructor(private homepageService: HomepageService) {}
- 
+  constructor(private homepageService: HomepageService,private router: Router,private http: HttpClient) {}
+  //constructor(private router: Router) {}
+
   filteredData: any[] = [];
   searchQuery = '';
   
-  /*ngOnInit() {
-    this.fetchData();
+ 
+  ngOnInit(): void {
+    this.getEvents();
   }
 
-  fetchData() {
-    this.homepageService.getData().subscribe({
-      next: (response: any[]) => {
+  getEvents(): void {
+    this.homepageService.getEvents().subscribe({
+      next: (response) => {
         this.data = response;
+        // Perform any additional operations with the data
       },
-      error: (error: any) => {
-        console.error(error);
+      error: (error) => {
+        console.error('Failed to fetch events:', error);
       }
     });
-
-  }*/
+  }
+  
   search(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredData = this.data;
