@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Event } from './schema';
 import { CreateEventDto } from './dto/create-event.dto';
-//import { UpdateEventDto } from './dto/update-event.dto';
+import { UpdateEventDto } from './dto/update-event.dto';
 import { Model, FilterQuery } from 'mongoose';
 
 
@@ -35,10 +35,13 @@ export class EventsService {
     return this.eventModel.find({organisation: INorganisation})
   }
 
-  // update(id: number, updateEventDto: UpdateEventDto) {
-  //   return `This action updates a #${id} event`;
-  // }
-
+  async update(id: string, updateEventDto: UpdateEventDto) {
+    const existingEvent = await this.eventModel.findByIdAndUpdate(id, updateEventDto, { new: true });
+   if (!existingEvent) {
+     throw new NotFoundException(`Event #${id} not found`);
+   }
+   return existingEvent;
+  }
   // remove(id: number) {
   //   return `This action removes a #${id} event`;
   // }
