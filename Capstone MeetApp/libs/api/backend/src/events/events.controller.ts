@@ -1,6 +1,6 @@
-import { Controller, Get, Post, Param,Req } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res } from '@nestjs/common';
 import { EventsService } from './events.service';
-// import { CreateEventDto } from './dto/create-event.dto';
+import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
 import { Request } from 'express';
 import { FilterQuery } from 'mongoose';
@@ -11,9 +11,21 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  // create(@Body() createEventDto: CreateEventDto) {
-  //   return this.eventsService.create(createEventDto);
-  // }
+   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+   async createEvent(@Res() response : any, @Body() createEventdto: CreateEventDto) {
+  try {
+    const newStudent = await this.eventsService.create(createEventdto);
+    return response.status(HttpStatus.CREATED).json({
+    message: 'Event has been created successfully',
+    newStudent,});
+ } catch (err) {
+    return response.status(HttpStatus.BAD_REQUEST).json({
+    statusCode: 400,
+    message: 'Error: Event not created!',
+    error: 'Bad Request'
+ });
+ }
+}
 
   @Get()
   findAll(@Req() request: Request) {
