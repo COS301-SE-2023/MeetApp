@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory ,raw} from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
 //import { Category } from 'src/utils/enums';
 //import { Organisation } from '../entities/organisation.entity';
@@ -21,8 +21,18 @@ export class Organisation {
   @Prop()
   name!: string;
 
+  @Prop()
+  email!: string;
+
+  @Prop(raw({
+    lng: { type: Number },
+    lat: { type: Number }
+  }))
+  location!: Record<number, unknown>;
+
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Events' }])
   events!: string[];
+
 
  
 }
