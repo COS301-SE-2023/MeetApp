@@ -42,6 +42,15 @@ export class EventsService {
    }
    return existingEvent;
   }
+
+  getEventsByDateRange(startDate: string, endDate: string) {
+    return this.eventModel.find({
+      date: {
+        $gte: startDate,
+        $lte: endDate,
+      },
+    }).exec();
+  }
   
   async remove(id: string) {
     const deletedEvent = await this.eventModel.findByIdAndDelete(id);
