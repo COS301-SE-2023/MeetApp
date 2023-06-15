@@ -124,6 +124,14 @@ export class EventsController {
 
   @Get('duration/:duration')
 
+  @Get('daterange/:startDate/:endDate')
+  getEventsByDateRange(
+    @Param('startDate') startDate: string,
+    @Param('endDate') endDate: string,
+  ) {
+    return this.eventsService.getEventsByDateRange(startDate, endDate);
+  }
+
   @Get('timeofday/:timeofday')
 
   @Get('org/:organisation')
