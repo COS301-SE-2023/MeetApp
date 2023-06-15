@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Param,Req } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete, BadRequestException } from '@nestjs/common';
 import { EventsService } from './events.service';
-// import { CreateEventDto } from './dto/create-event.dto';
+import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { FilterQuery } from 'mongoose';
+import { UpdateEventDto } from './dto/update-event.dto';
+
 //import { Category } from '../utils/enums';
 
 @Controller('events')
@@ -11,9 +13,20 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  // create(@Body() createEventDto: CreateEventDto) {
-  //   return this.eventsService.create(createEventDto);
-  // }
+   async createEvent(@Res() response : Response, @Body() createEventdto: CreateEventDto) {
+  try {
+    const newStudent = await this.eventsService.create(createEventdto);
+    return response.status(HttpStatus.CREATED).json({
+    message: 'Event has been created successfully',
+    newStudent,});
+ } catch (err) {
+    return response.status(HttpStatus.BAD_REQUEST).json({
+    statusCode: 400,
+    message: 'Error: Event not created!',
+    error: 'Bad Request'
+ });
+ }
+}
 
   @Get()
   findAll(@Req() request: Request) {
@@ -111,6 +124,14 @@ export class EventsController {
 
   @Get('duration/:duration')
 
+  @Get('daterange/:startDate/:endDate')
+  getEventsByDateRange(
+    @Param('startDate') startDate: string,
+    @Param('endDate') endDate: string,
+  ) {
+    return this.eventsService.getEventsByDateRange(startDate, endDate);
+  }
+
   @Get('timeofday/:timeofday')
 
   @Get('org/:organisation')
@@ -123,13 +144,35 @@ export class EventsController {
   }
 
 
-  //@Patch(':id')
-  // update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-  //   return this.eventsService.update(+id, updateEventDto);
-  // }
-
-  //@Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.eventsService.remove(+id);
-  // }
+  @Put('/:id')
+  async updateEvent(@Res() response : Response,@Param('id') eventId: string,
+  @Body() updateEventdto: UpdateEventDto) {
+    try {
+      const exisitingEvent = await this.eventsService.update(eventId, updateEventdto);
+      return response.status(HttpStatus.OK).json({
+        message: 'Event has been successfully updated',
+        exisitingEvent,});
+    } catch (err: unknown) {
+      if (err instanceof BadRequestException) {
+        return response.status(err.getStatus()).json(err.getResponse());}
+      else
+        return err;
+      }
 }
+
+@Delete('/:id')
+async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
+{
+  try {
+    const deletedEvent = await this.eventsService.remove(eventId);
+    return response.status(HttpStatus.OK).json({
+    message: 'Event deleted successfully',
+    deletedEvent,});
+  }catch (err: unknown) {
+    if (err instanceof BadRequestException) {
+      return response.status(err.getStatus()).json(err.getResponse());}
+    else
+      return err;
+  }
+ }}
+
