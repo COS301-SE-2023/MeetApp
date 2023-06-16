@@ -22,13 +22,13 @@ import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule,FormsModule,HttpClientModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
 })
 export class HomepageComponent {
-  data: any[] = [];
-  /*data = [
+ // data: any[] = [];
+  data = [
     {
       imageSrc: 'path/to/your/image1.jpg',
       title: 'Joburg Art Fair 1',
@@ -58,9 +58,9 @@ export class HomepageComponent {
       description: 'The annual Joburg Art Fair will showcase the best in contemporary African art and design, with 23 galleries and 11'
     }
     
-  ];*/
+  ];
   
-  constructor(private homepageService: HomepageService,private router: Router,private http: HttpClient) {}
+ constructor(private homepageService: HomepageService,private router: Router,private http: HttpClient) {}
   //constructor(private router: Router) {}
 
   filteredData: any[] = [];

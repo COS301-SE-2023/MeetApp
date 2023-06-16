@@ -10,10 +10,20 @@ import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WelcomepageComponent } from '@capstone-meet-app/app/welcome/feature';
 import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
+import {HomepageModule} from '@capstone-meet-app/app/home/feature';
+import {  NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
+
+
+
+
+
+
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent,FormsModule, RouterModule,LoginComponent,SignupComponent, IonicModule,WelcomepageComponent,HomepageComponent],
+  imports: [HomepageModule,HttpClientModule,NxWelcomeComponent,FormsModule, RouterModule,LoginComponent,SignupComponent, IonicModule,WelcomepageComponent,HomepageComponent],
   selector: "capstone-meet-app-root",
   templateUrl: './app.component.html',
   styleUrls: ["./app.component.scss"],

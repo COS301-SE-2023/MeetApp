@@ -8,9 +8,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { appRoutes } from "./app/app.routes";
 import { AppComponent } from "./app/app.component";
+import { AppModule } from  "./app/app.module";
+
+
 
 //import{ApiService}from '../../../libs/app/shared service/api.service'
 
 bootstrapApplication(AppComponent, {
   providers: [provideRouter(appRoutes, withEnabledBlockingInitialNavigation())],
 }).catch((err) => console.error(err));
+
+
+
+
