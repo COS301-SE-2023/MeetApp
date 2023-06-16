@@ -13,8 +13,6 @@ import {HomepageModule} from 'libs/app/home/feature/src/lib/homepage/homepage.mo
 import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
 
 
-
-
 // eslint-disable-next-line @nx/enforce-module-boundaries
 //import { IEvent } from '@capstone-meet-app/utils';
 
@@ -25,6 +23,7 @@ import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
   imports: [CommonModule,FormsModule,HttpClientModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
+  providers:[HomepageService]
 })
 export class HomepageComponent {
  // data: any[] = [];
