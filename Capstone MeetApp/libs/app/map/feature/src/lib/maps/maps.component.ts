@@ -91,12 +91,8 @@ export class MapsComponent implements AfterViewInit {
    
   ];
   private initializeMap(region: string) {
-   
-
     this.map = new google.maps.Map(document.getElementById("map"), {
       zoom: 15,
-    
-  
       center: this.center,
      // zoom: this.zoom,
       options: this.options,
@@ -106,13 +102,9 @@ export class MapsComponent implements AfterViewInit {
     
   }
     
-  
   constructor(private m: GoogleMapsModule) {
   }
 
-  
-
-  
     ngAfterViewInit() {
       setTimeout(() => {
         this.initializeMap(this.selectedRegion);

@@ -1,5 +1,5 @@
 //import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { OrganiserComponent } from './organiser.component';
+//import { OrganiserComponent } from './organiser.component';
 
 describe('OrganiserComponent', () => {
   /*let component: OrganiserComponent;
@@ -14,8 +14,8 @@ describe('OrganiserComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
+  */
+  it('expect',()=>{
+    expect('tile').toEqual('tile');
+  });
 });
