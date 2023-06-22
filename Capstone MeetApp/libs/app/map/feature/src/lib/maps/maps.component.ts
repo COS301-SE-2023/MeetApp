@@ -5,7 +5,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { Injectable } from '@angular/core';
 import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
-import { IonButton,IonButtons,IonicModule } from '@ionic/angular';
+import {IonicModule } from '@ionic/angular';
 
 
 

@@ -8,52 +8,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=(apikey)&libraries=places&language=en">
-      
-    
     </script>
-    <style>
-
-body{
-
-
-height: 100vh;
-margin: 0;
-padding: 0;
-}
-    </style>
 </head>
 
 <body>
-  <ion-button>Hello</ion-button>
-    
-  
   <div class="container">
-    <form (ngSubmit)="onSubmit()" class="form">
-      <label for="region">Select Region:</label>
-      <select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
-       
-        <option value="">-- Select Region --</option>
-        <option value="Pretoria">Pretoria</option>
-        <option value="Johannesburg">Johannesburg</option>
-        <!-- Region options here -->
-      </select>
+  <div id="map" style="height: 600px;"></div>
   
-      <div class="date-range">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" class="date-input">
-      </div>
-  
-      <div class="date-range">
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" [(ngModel)]="selectedRange.endDate" class="date-input">
-      </div>
-  
-      <button type="submit" class="submit-button">Submit</button>
-    </form>
-  
-    <div id="map" style="height: 400px;"></div>
+  <ion-grid>
+    <ion-row>
+      <ion-button size="small" (click)="zoomIn()" >Zoom In</ion-button>
+    <ion-button size="small" (click)="zoomOut()">Zoom Out</ion-button>  
+    </ion-row>
+  </ion-grid>
   </div>
-  >
       
     <!--h1>Map Locations</h1-->
     <!--div id="map" style="width:100%;height: 650px;"></div-->
@@ -63,11 +31,54 @@ padding: 0;
     [zoom]="zoom"
     [center]="center"
     [options]="options"></google-map-->
-    <button onc></button>
-    <button (click)="zoomIn()">Zoom in</button>
-    <button (click)="zoomOut()">Zoom out</button>
-
-    
+    <div id="filter">
+      <form (ngSubmit)="onSubmit()" class="form">
+      
+        <ion-list>
+        <ion-item>
+          <ion-select label="Select Region" placeholder="City" [(ngModel)]="selectedRegion">
+            <ion-select-option value="apple">Pretoria</ion-select-option>
+            <ion-select-option value="banana">Johannesburg</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="date-range">
+        <ion-item>
+          <ion-label for="startDate">Start Date:</ion-label>
+          <ion-datetime-button  datetime="startDate"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+          
+          <!--<input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" class="date-input">-->
+        <ion-item>
+            <ion-label for="endDate">End Date:</ion-label>
+            <ion-datetime-button  datetime="endDate"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime  [showDefaultButtons]="true" presentation="date" id="endDate" [(ngModel)]="selectedRange.endDate"></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-item>
+        </div>
+        </ion-list>
+        <button type="submit" class="submit-button">Submit</button>
+      </form>
+    </div>
 </body>
+<footer>
+  <ion-footer>
+    <ion-segment value="maps">
+      <ion-segment-button value="list">
+        <ion-label>list</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="maps">
+        <ion-label>maps</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-footer>>
+</footer>
 
 </html>
