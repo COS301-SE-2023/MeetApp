@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
-
+import { IonText, IonButton, IonicModule } from '@ionic/angular';
 
 declare const google: any;
 interface location{
@@ -35,7 +35,7 @@ interface Event {
   selector: 'app-map',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,IonicModule],
   providers: [GoogleMapsModule]
 })
 export class MapsComponent implements AfterViewInit {

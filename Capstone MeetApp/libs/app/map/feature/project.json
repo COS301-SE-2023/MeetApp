@@ -11,7 +11,12 @@
         "outputPath": "dist/libs/app/map/feature",
         "main": "libs/app/map/feature/src/index.ts",
         "tsConfig": "libs/app/map/feature/tsconfig.lib.json",
-        "assets": ["libs/app/map/feature/*.md"]
+        "assets": ["libs/app/map/feature/*.md"],
+        "styles": ["node_modules/@ionic/angular/css/core.css",
+        "node_modules/@ionic/angular/css/normalize.css",
+        "node_modules/@ionic/angular/css/structure.css",
+        "node_modules/@ionic/angular/css/typography.css",
+        "node_modules/@ionic/angular/css/display.css"]
       }
     },
     "lint": {
