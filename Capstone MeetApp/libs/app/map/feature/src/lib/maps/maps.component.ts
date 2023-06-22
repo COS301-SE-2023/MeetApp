@@ -1,10 +1,17 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { environment } from './environment';
 import { FormsModule } from '@angular/forms';
+import { BrowserModule } from "@angular/platform-browser";
 import { Injectable } from '@angular/core';
 import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
+
 import { IonText, IonButton, IonicModule } from '@ionic/angular';
+
+
+
+
+
 
 declare const google: any;
 interface location{
