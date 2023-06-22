@@ -7,6 +7,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from '@angular/forms';
 import { IonText } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
+import { IonButton } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { WelcomepageComponent } from '@capstone-meet-app/app/welcome/feature';
 import { HomepageComponent } from '@capstone-meet-app/app/home/feature';

@@ -9,6 +9,9 @@ import {IonicModule } from '@ionic/angular';
 
 
 
+
+
+
 declare const google: any;
 interface location{
   lat: number;

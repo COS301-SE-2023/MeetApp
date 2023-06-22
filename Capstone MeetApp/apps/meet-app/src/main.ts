@@ -16,4 +16,7 @@ import { IonicModule, IonicRouteStrategy } from "@ionic/angular";
 bootstrapApplication(AppComponent, {
   providers: [{
     provide:RouteReuseStrategy,useClass :IonicRouteStrategy},importProvidersFrom(IonicModule.forRoot({})), provideRouter(appRoutes, withEnabledBlockingInitialNavigation())],
+
 }).catch((err) => console.error(err));
+
+
