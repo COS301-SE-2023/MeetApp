@@ -3,48 +3,48 @@ export class CreateEventDto {
     @IsString()
     @MaxLength(50)
     @IsNotEmpty()
-    readonly name: string;
+    readonly name!: string;
     
     @IsString()
     @MaxLength(50)
     @IsNotEmpty()
-    readonly organisation: string;
+    readonly organisation!: string;
     
     @IsString()
     @MaxLength(300)
     @IsNotEmpty()
-    readonly description: string;
+    readonly description!: string;
     
     @IsString()
     @IsNotEmpty()
-    readonly eventPoster : string;
+    readonly eventPoster!: string;
     
     @IsString()
     @MaxLength(10)
     @IsNotEmpty()
-    readonly date: string;
+    readonly date!: string;
    
     @IsString()
     @MaxLength(10)
     @IsNotEmpty()
-    readonly startTime: string;
+    readonly startTime!: string;
     
     @IsString()
     @MaxLength(10)
     @IsNotEmpty()
-    readonly endTime: string;
+    readonly endTime!: string;
     
     @IsNotEmpty()
-    readonly location: {latitude:string , longitude:string};
+    readonly location!: {latitude:string , longitude:string};
     
     @IsString()
     @MaxLength(50)
     @IsNotEmpty()
-    readonly category: string; 
+    readonly category!: string; 
 
     @IsString()
     @MaxLength(50)
     @IsNotEmpty()
-    readonly region: string;
+    readonly region!: string;
 
 }
