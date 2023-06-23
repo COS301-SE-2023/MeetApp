@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete, BadRequestException,Query } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
@@ -38,7 +38,8 @@ export class EventsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: string, @Query('eventIds') eventIds: string) {
+    let eventIdArray : string[];
     if (id == 'today')
       return this.getEventsForToday();
     switch (id) {
@@ -53,6 +54,10 @@ export class EventsController {
         break;
       case 'thisyear':
         return this.getEventsForThisYear();
+        break;
+      case 'fetch-by-ids':
+        eventIdArray = eventIds.split(',');
+        return this.eventsService.fetchEventsByIds(eventIdArray);
         break;
     
       default:
