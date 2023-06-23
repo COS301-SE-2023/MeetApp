@@ -27,6 +27,11 @@ export class UsersController {
     return this.usersService.getUserAttendances(userId);
   }
 
+  @Get(':userId/attendances/count')
+  getUserAttendancesCount(@Param('userId') userId: string) {
+    return this.usersService.getUserAttendancesCount(userId);
+  }
+
   // @Patch(':id')
   // update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
   //   return this.usersService.update(+id, updateUserDto);
