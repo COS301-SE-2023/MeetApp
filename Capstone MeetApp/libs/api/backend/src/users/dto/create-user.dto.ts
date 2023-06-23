@@ -1,37 +1,33 @@
-import { IsNotEmpty, IsString, MaxLength ,IsArray} from "class-validator";
-import mongoose from 'mongoose';
+import { IsNotEmpty, IsString, MaxLength} from "class-validator";
 
 export class CreateUserDto {
 
+    @IsString()
+    @MaxLength(50)
     @IsNotEmpty()
-    readonly ID: mongoose.Schema.Types.ObjectId;
+    readonly username!: string;
 
     @IsString()
-    @MaxLength(30)
+    @MaxLength(50)
     @IsNotEmpty()
-    readonly username: string;
+    readonly password!: string;
 
     @IsString()
-    @MaxLength(30)
+    @MaxLength(50)
     @IsNotEmpty()
-    readonly password: string;
+    readonly name!: string;
 
     @IsString()
-    @MaxLength(30)
+    @MaxLength(50)
     @IsNotEmpty()
-    readonly name: string;
-
-    @IsString()
-    @MaxLength(30)
-    @IsNotEmpty()
-    readonly email: string;
+    readonly email!: string;
 
     @IsNotEmpty() 
-    readonly location: Record<number, unknown>;
+    readonly location!: {latitude :string, longitude:string};
 
-    @IsArray()
+ 
     @IsNotEmpty() 
-    readonly events: string[];
+    readonly events!: string[];
 
 }
 
