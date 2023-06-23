@@ -22,10 +22,14 @@ export class CreateUserDto {
     @IsNotEmpty()
     readonly email!: string;
 
+    @IsString()
+    @MaxLength(10)
+    @IsNotEmpty()
+    readonly phoneNumber!: string;
+
     @IsNotEmpty() 
     readonly location!: {latitude :string, longitude:string};
 
- 
     @IsNotEmpty() 
     readonly events!: string[];
 
