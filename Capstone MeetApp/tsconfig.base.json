@@ -93,6 +93,9 @@
       "@capstone-meet-app/app/profile/util": [
         "libs/app/profile/util/src/index.ts"
       ],
+      "@capstone-meet-app/app/shared service": [
+        "libs/app/shared service/index.ts"
+      ],
       "@capstone-meet-app/app/signup/data-access": [
         "libs/app/signup/data-access/src/index.ts"
       ],
@@ -111,8 +114,9 @@
       "@capstone-meet-app/app/welcome/util": [
         "libs/app/welcome/util/src/index.ts"
       ],
-      "@capstone-meet-app/app/shared service":[
-        "libs/app/shared service/index.ts"
+      "@capstone-meet-app/services": ["libs/services/src/index.ts"],
+      "@capstone-meet-app/services--buildable--no-interactive--dry-run": [
+        "libs/services--buildable--no-interactive--dry-run/src/index.ts"
       ]
     }
   },

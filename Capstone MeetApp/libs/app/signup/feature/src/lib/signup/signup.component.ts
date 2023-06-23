@@ -9,7 +9,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '../../../../../shared service/api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SignupService } from 'libs/api/signup/feature/src/signup.service';
+
 
 
 @Component({
@@ -24,7 +24,7 @@ import { SignupService } from 'libs/api/signup/feature/src/signup.service';
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  constructor(private signupService: SignupService,private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
+  constructor(private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -52,7 +52,7 @@ export class SignupComponent {
     return null;
   }
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
-    this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
+   /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
         complete: () => console.info('signup successfull') ,
         error: (err: any) => {
@@ -62,7 +62,7 @@ export class SignupComponent {
       }
       
     );
-
+      */
   }
   /*onSubmit() {
     if (this.loginForm.valid) {
