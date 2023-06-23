@@ -96,7 +96,7 @@ export class service{
     }
     createUser(username:string,password:string, name:string,email:string,phoneNumber:string,  location: {latitude:string , longitude:string},events:string)
     {
-        const url=this.baseURl+'user';
+        const url=this.baseURl+'users';
         const body=
         {
             
@@ -112,7 +112,7 @@ export class service{
     }
     createOrginiser(username:string, password:string,name:string,email:string,phoneNumber:string, location: {latitude:string , longitude:string},events:string)
     {
-        const url=this.baseURl+'orginiser';
+        const url=this.baseURl+'orginisations';
         const body=
         {
             
@@ -128,7 +128,7 @@ export class service{
     }
     createFriend( requester:string, requestee:string, status:string)
     {
-        const url=this.baseURl+'orginiser';
+        const url=this.baseURl+'friendships';
         const body=
         {
         requester:requester,
