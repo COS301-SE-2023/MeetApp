@@ -24,6 +24,10 @@ export class UsersService {
     return this.userModel.findById(id).exec();
   }
 
+  async getUserAttendances(userId: string) {
+    return this.attendanceModel.find({ userID: userId }).exec();
+  }
+
   // update(id: number, updateUserDto: UpdateUserDto) {
   //   return `This action updates a #${id} user`;
   // }
