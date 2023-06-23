@@ -28,6 +28,10 @@ export class UsersService {
     return this.attendanceModel.find({ userID: userId }).exec();
   }
 
+  async getUserAttendancesCount(userId: string) {
+    return this.attendanceModel.countDocuments({ userID: userId }).exec();
+  }
+
   // update(id: number, updateUserDto: UpdateUserDto) {
   //   return `This action updates a #${id} user`;
   // }
