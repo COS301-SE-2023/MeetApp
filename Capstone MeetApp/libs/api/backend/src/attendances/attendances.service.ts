@@ -12,7 +12,7 @@ export class AttendancesService {
     return `This action returns all attendances`;
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} attendance`;
   }
 
