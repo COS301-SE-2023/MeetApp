@@ -17,7 +17,7 @@ export class CreateEventDto {
     
     @IsString()
     @IsNotEmpty()
-    readonly eventPoster string;
+    readonly eventPoster : string;
     
     @IsString()
     @MaxLength(10)
