@@ -2,7 +2,7 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: blue;
+    background-color: black;
   }
   
 .background-image {
@@ -40,12 +40,14 @@ body {
     text-align: center;
     padding: 20px;
     margin-top: 60px; 
+    font-family: sans-serif;
 }
 
   
    .profile-info {
         margin-top: 20px;
         justify-content: space-between;
+        color: aliceblue;
        
     }
     
@@ -163,3 +165,8 @@ body {
         font-family: sans-serif;
         left: 190px; /* Adjust the value as needed */
       }
+      .edit-profile{
+
+        margin-left: 30%;
+      }
+    
