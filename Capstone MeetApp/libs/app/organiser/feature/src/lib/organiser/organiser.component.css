@@ -1,68 +1,55 @@
-body{
+ body{
 
-    background-color: black;
-    height: 100vh;
+   background-color: black;
+   height:100vh ;
+ }
+.profile-picture {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 }
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .center-top {
-    text-align: center;
-    color:#D4ADFC
-  }
-  
-  .center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .event-image {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  .edit-button {
-    padding: 10px 20px;
-    background-color:#D4ADFC;;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  .form-control {
-    
-    width: 80%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-  }
-  
-  .submit-button {
-    padding: 10px 20px;
-    background-color: #D4ADFC;;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  .event-date{
-    color: #D4ADFC;
-   
-  }
-  .form-group label {
-    color: #D4ADFC ; /* Set the desired font color */
-  }
+
+.profile-picture ion-avatar {
+  width: 150px;
+  height: 150px;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+ion-item {
+  margin-top: 20px;
+  font-family: sans-serif;
+}
+
+ion-item ion-label {
+  font-weight: bold;
+}
+
+ion-datetime.custom-datetime {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  --width: 180px;
+  --height: 180px;
+}
+
+ion-item ion-datetime.custom-datetime::part(text) {
+  font-size: 14px;
+}
+
+ion-item ion-datetime.custom-datetime::part(placeholder) {
+  font-size: 14px;
+}
+
+ion-item ion-datetime.custom-datetime::part(button) {
+  font-size: 14px;
+}
+
+ion-button {
+  margin-top: 30px;
+}
