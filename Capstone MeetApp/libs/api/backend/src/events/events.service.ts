@@ -25,6 +25,10 @@ export class EventsService {
     return this.eventModel.find(queryIN).exec();
   }
 
+  async fetchEventsByIds(eventIds: string[]) {
+    return this.eventModel.find({ _id: { $in: eventIds } }).exec();
+  }
+
 
   findOne(id: string) {
     //const ObjectIdfromString = ObjectId.createFromHexString(id)
