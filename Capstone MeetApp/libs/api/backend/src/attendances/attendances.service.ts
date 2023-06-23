@@ -15,11 +15,11 @@ export class AttendancesService {
   // }
 
   findAll() {
-    return `This action returns all attendances`;
+    return this.attendanceModel.find().exec();
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} attendance`;
+    return this.attendanceModel.findById(id).exec();
   }
 
   // update(id: number, updateAttendanceDto: UpdateAttendanceDto) {
