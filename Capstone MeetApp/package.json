@@ -60,6 +60,8 @@
     "@nestjs/testing": "^9.4.2",
 
     "@nrwl/cypress": "^15.9.4",
+    "@nrwl/jest": "15.9.4",
+    "@nrwl/js": "15.9.4",
     "@nx/cypress": "16.0.3",
     "@nx/eslint-plugin": "16.0.3",
     "@nx/jest": "16.2.2",
