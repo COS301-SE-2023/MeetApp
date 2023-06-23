@@ -39,7 +39,27 @@ export class EventsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.eventsService.findOne(id);
+    if (id == 'today')
+      return this.getEventsForToday();
+    switch (id) {
+      case 'today':
+        return this.getEventsForToday();
+        break;
+      case 'thisweek':
+        return this.getEventsForThisWeek();
+        break;
+      case 'thismonth':
+        return this.getEventsForThisMonth();
+        break;
+      case 'thisyear':
+        return this.getEventsForThisYear();
+        break;
+    
+      default:
+        return this.eventsService.findOne(id);
+        break;
+    }
+    
   }
 
   @Get(':id/attendees')
