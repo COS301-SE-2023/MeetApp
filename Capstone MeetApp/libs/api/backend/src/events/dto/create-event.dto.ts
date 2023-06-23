@@ -1,21 +1,17 @@
 import { IsNotEmpty, IsString, MaxLength} from 'class-validator';
 export class CreateEventDto {
-   
-    @IsNotEmpty()
-    readonly ID: mongoose.Schema.Types.ObjectId;
-    
     @IsString()
-    @MaxLength(30)
+    @MaxLength(50)
     @IsNotEmpty()
     readonly name: string;
     
     @IsString()
-    @MaxLength(30)
+    @MaxLength(50)
     @IsNotEmpty()
     readonly organisation: string;
     
     @IsString()
-    @MaxLength(250)
+    @MaxLength(300)
     @IsNotEmpty()
     readonly description: string;
     
@@ -39,15 +35,15 @@ export class CreateEventDto {
     readonly endTime: string;
     
     @IsNotEmpty()
-    readonly location: Record<number, unknown>;
+    readonly location: {latitude:string , longitude:string};
     
     @IsString()
-    @MaxLength(30)
+    @MaxLength(50)
     @IsNotEmpty()
     readonly category: string; 
 
     @IsString()
-    @MaxLength(30)
+    @MaxLength(50)
     @IsNotEmpty()
     readonly region: string;
 
