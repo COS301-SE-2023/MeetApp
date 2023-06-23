@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { CommonModule } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
-
+import { Router } from '@angular/router';
 
 
 
@@ -51,6 +51,7 @@ export class MapsComponent implements AfterViewInit {
   };
   //selectedRegion: string ;
   selectedRegion="Pretoria";
+  selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
   apikey = environment.API_KEY;
   
@@ -86,7 +87,7 @@ export class MapsComponent implements AfterViewInit {
       endDate: "2023-06-20",
       eventOrganiser: "Organiser 2",
       interestTags: "Tag3, Tag4",
-      region: "jhb",
+      region: "Johannesburg",
     },
    
   ];
@@ -102,7 +103,7 @@ export class MapsComponent implements AfterViewInit {
     
   }
     
-  constructor(private m: GoogleMapsModule) {
+  constructor(private m: GoogleMapsModule,private router: Router) {
   }
 
     ngAfterViewInit() {
@@ -222,11 +223,24 @@ export class MapsComponent implements AfterViewInit {
       case 'Pretoria':
         return { lat: -25.7479, lng: 28.2293 };
       case 'Johannesburg':
-        return { lat: -26.2041, lng: 28.0473 };
+        return { lat: -26.2044, lng: 28.0416 };
       default:
         return null;
     }
   
+  }
+
+  BACKTOHOME(): void {
+    this.router.navigate(['/home']);
+  }
+  goToListView() {
+    this.router.navigate(['/home']);
+    // Add implementation for goToListView method
+  }
+
+  goToMapView() {
+    this.router.navigate(['/map']);
+    // Add implementation for goToMapView method
   }
    getEventsByRegion(region: string): Promise<Event[]> {
     //const events: Event[] = [

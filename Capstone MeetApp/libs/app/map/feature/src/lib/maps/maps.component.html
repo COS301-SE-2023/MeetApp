@@ -1,6 +1,13 @@
 <!Doctype html>
 <html lang="en">
-
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Event Map
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
 <head>
     <meta charset="utf-8">
     <title>Event Map</title>
@@ -13,72 +20,66 @@
 
 <body>
   <div class="container">
-  <div id="map" style="height: 600px;"></div>
+    
+  <div id="map" style="height: 350px;"></div>
   
   <ion-grid>
     <ion-row>
-      <ion-button size="small" (click)="zoomIn()" >Zoom In</ion-button>
+      <ion-button size="small" (click)="zoomIn()" class="button_color" >Zoom In</ion-button>
     <ion-button size="small" (click)="zoomOut()">Zoom Out</ion-button>  
     </ion-row>
   </ion-grid>
   </div>
-      
-    <!--h1>Map Locations</h1-->
-    <!--div id="map" style="width:100%;height: 650px;"></div-->
-    <!--google-map
-    height="500px"
-    width="100%"
-    [zoom]="zoom"
-    [center]="center"
-    [options]="options"></google-map-->
-    <div id="filter">
-      <form (ngSubmit)="onSubmit()" class="form">
-      
-        <ion-list>
-        <ion-item>
-          <ion-select label="Select Region" placeholder="City" [(ngModel)]="selectedRegion">
-            <ion-select-option value="apple">Pretoria</ion-select-option>
-            <ion-select-option value="banana">Johannesburg</ion-select-option>
-          </ion-select>
-        </ion-item>
-        <div class="date-range">
-        <ion-item>
-          <ion-label for="startDate">Start Date:</ion-label>
-          <ion-datetime-button  datetime="startDate"></ion-datetime-button>
-          <ion-modal [keepContentsMounted]="true">
-            <ng-template>
-              <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate"></ion-datetime>
-            </ng-template>
-          </ion-modal>
-        </ion-item>
-          
-          <!--<input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" class="date-input">-->
-        <ion-item>
-            <ion-label for="endDate">End Date:</ion-label>
-            <ion-datetime-button  datetime="endDate"></ion-datetime-button>
-            <ion-modal [keepContentsMounted]="true">
-              <ng-template>
-                <ion-datetime  [showDefaultButtons]="true" presentation="date" id="endDate" [(ngModel)]="selectedRange.endDate"></ion-datetime>
-              </ng-template>
-            </ion-modal>
-          </ion-item>
-        </div>
-        </ion-list>
-        <button type="submit" class="submit-button">Submit</button>
-      </form>
-    </div>
+    
+  <div id="filter">
+    <form (ngSubmit)="onSubmit()" class="form">
+      <ion-item>
+        <ion-label for="region">Select Region:</ion-label>
+        <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
+          <ion-select-option value="">-- Select Region --</ion-select-option>
+          <ion-select-option value="Pretoria">Pretoria</ion-select-option>
+          <ion-select-option value="Johannesburg">Johannesburg</ion-select-option>
+          <!-- Region options here -->
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label for="startDate">Start Date:</ion-label>
+        <ion-datetime-button  datetime="startDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      <ion-item>
+        <ion-label for="endDate">End Date:</ion-label>
+        <ion-datetime-button  datetime="endDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime  [showDefaultButtons]="true" presentation="date" id="endDate" [(ngModel)]="selectedRange.endDate"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+  
+  
+  
+  
 </body>
 <footer>
   <ion-footer>
     <ion-segment value="maps">
-      <ion-segment-button value="list">
+      <ion-segment-button value="list" (click)="BACKTOHOME()">
         <ion-label>list</ion-label>
       </ion-segment-button>
       <ion-segment-button value="maps">
         <ion-label>maps</ion-label>
       </ion-segment-button>
     </ion-segment>
-  </ion-footer>>
+  </ion-footer>
 </footer>
 
 </html>

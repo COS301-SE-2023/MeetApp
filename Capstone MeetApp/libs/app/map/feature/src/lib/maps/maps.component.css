@@ -2,6 +2,7 @@ html,body{
     height: 100%;
     margin: 0;
     padding: 0;
+   
     
 }
 .container {
@@ -34,10 +35,10 @@ html,body{
     margin-left: 10px;
     padding: 5px;
   }
-  
+ 
   .submit-button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color:#D4ADFC;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -46,4 +47,45 @@ html,body{
   #map {
     width: 100%;
   }
+  .button_color{
+      
+  }
+  @media screen and (min-device-width: 375px) and (max-device-width: 414px) and (min-device-height: 812px) and (max-device-height: 896px) {
+      
+   
+      #map {
+        height: 300px;
+      }
+
+    
+
+
+  }
   
+  @media screen and (min-device-width: 569px) and (max-device-width: 667px) {
+    #map {
+      height: 300px;
+    }
+
+    /* Styles for iPhone 6/7/8 and similar devices */
+    
+  }
+  
+  @media screen and (min-device-width: 668px) and (max-device-width: 736px) {
+    #map {
+      height: 300px;
+    }
+
+    /* Styles for iPhone 6/7/8 Plus and similar devices */
+    /* Adjust styles as needed */
+  }
+  
+  @media screen and (min-device-width: 737px) and (max-device-width: 812px) {
+    /* Styles for iPhone X/XS/11 Pro and similar devices */
+    /* Adjust styles as needed */
+  }
+  
+  @media screen and (min-device-width: 813px) and (max-device-width: 1024px) {
+    /* Styles for iPad and similar devices */
+    /* Adjust styles as needed */
+  }
