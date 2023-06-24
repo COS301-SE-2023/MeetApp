@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { NxWelcomeComponent } from "./nx-welcome.component";
-import { LoginComponent } from 'libs/app/login/feature/src/lib/login/login.component';
-import { SignupComponent } from 'libs/app/signup/feature/src/lib/signup/signup.component';
+import { LoginComponent } from '@capstone-meet-app/app/login/feature';
+import { SignupComponent } from '@capstone-meet-app/app/signup/feature';
+import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from '@angular/forms';
 import {service} from 'libs/services/src/lib/servises.service';
 import { ServicesModule} from 'libs/services/src/lib/services.module';
@@ -11,8 +12,8 @@ import { HttpClient, HttpClientModule} from '@angular/common/http';
 import { IonText } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule } from '@angular/forms';
-import { WelcomepageComponent, } from 'libs/app/Welcome/feature/src/lib/welcomepage/welcomepage.component';
-import { HomepageComponent } from 'libs/app/home/feature/src/lib/homepage/homepage.component';
+import { WelcomepageComponent } from '@capstone-meet-app/app/welcome/feature';
+import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
 
 @Component({
   standalone: true,

@@ -1,10 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'
+import { FormBuilder,  Validators } from '@angular/forms';
+import { Router } from "@angular/router";
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+//import {ApiService } from '@capstone-meet-app/app/shared service';
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
+// eslint-disable-next-line @nx/enforce-module-boundaries
+//import { IEvent } from '@capstone-meet-app/utils';
+
 //import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
 import {events, service} from 'libs/services/src/lib/servises.service';
 import { ServicesModule} from 'libs/services/src/lib/services.module';
+
 
 
 @Component({

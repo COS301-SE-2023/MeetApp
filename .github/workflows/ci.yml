@@ -1,31 +1,41 @@
-name: CI
+name: Main CI
 
 on:
   push:
     branches:
-      - master
-      - auth
+      - main
+      - production
       - development
   pull_request:
 
 jobs:
-  main:
-    name: Nx Cloud - Main Job
-    uses: nrwl/ci/.github/workflows/nx-cloud-main.yml@v0.11.3
-    with:
-      main-branch-name: master
-      number-of-agents: 3
-      init-commands: |
-        npx nx-cloud start-ci-run --stop-agents-after="build" --agent-count=3
-      parallel-commands: |
-        npx nx-cloud record -- npx nx format:check
-      parallel-commands-on-agents: |
-        npx nx affected --target=lint --parallel=3
-        npx nx affected --target=test --parallel=3 --ci --code-coverage
-        npx nx affected --target=build --parallel=3
+  build:
+    name: Build
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    runs-on: ubuntu-latest
 
-  agents:
-    name: Nx Cloud - Agents
-    uses: nrwl/ci/.github/workflows/nx-cloud-agents.yml@v0.11.3
-    with:
-      number-of-agents: 3
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          #needed for nx
+          fetch-depth: 0
+      - name: 
+          'derive appropriate SHAs for bas and head for nx affected commands'
+        uses: nrwl/nx-set-shas@v2
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - run: npm ci
+      - run: npm install
+
+      - name: 
+          'PR Build application if affected by changes in in feature branch'
+        if: env.is_pull_request== 'true'
+        run: npm run affected:build
+      - name:
+          'Merge: build the application'
+        if: env.is_merge =='true'
+        run: npm run build
+        

@@ -1,18 +1,105 @@
-.heading {
-    margin-top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    color: white;
-    margin: 0 auto;
-    font-family: 'Roboto', sans-serif;
-  }
-
-  body{
-    background-color: #0C134F;
-    height: 100vh; 
+body {
+    height: 100vh;
     margin: 0;
     padding: 0;
-    overflow: hidden ! important;
+    background-color: blue;
   }
+  
+.background-image {
+   position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 20vh;
+    background-image: url(https://blog.hootsuite.com/wp-content/uploads/2021/07/free-stock-photos-02-scaled.jpg);
+    background-size: cover;
+    background-position: center;
+   
+
+  }
+
+  
+  .circle {
+    width: 130px; /* Adjust the size of the circle as needed */
+    height: 130px;
+    border-radius: 50%;
+    
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 40px;
+     /* Optional: Add a border around the circle */
+}
+
+.circle img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+  .profile {
+    text-align: center;
+    padding: 20px;
+    margin-top: 60px; 
+}
+
+  
+   .profile-info {
+        margin-top: 20px;
+        justify-content: space-between;
+       
+    }
+    
+    .profile-info h2 {
+        margin: 5px 0;
+    }
+    
+    .profile-info p {
+        margin: 0;
+    }
+    .follow-button {
+        background-color: #D4ADFC;
+        color: #000;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+    .part1 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+
+    }
+
+    .part1 .image-container {
+        width: 33.33%;
+        text-align: center;
+        margin-bottom: 0px;
+        height: 85%;
+    }
+
+    .part1 .top-group {
+        margin-bottom: 0;
+    }
+
+    .part1 .image-container img {
+        max-width: 100%;
+        height: auto;
+    }
+    .navigation-bar {
+        background-color: #f2f2f2;
+        padding: 10px;
+        text-align: center;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        margin-bottom: 0px;
+
+       
+    }
+    
+    .navigation-bar a {
+        text-decoration: none;
+        color: #333;
+        margin: 0 10px;
+    }

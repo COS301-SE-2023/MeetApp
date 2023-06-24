@@ -2,12 +2,15 @@
 #enviroment variable
 
 .env
+
+environment.ts
 # compiled output
 dist
 tmp
 /out-tsc
 json.txt
 yarn.txt
+
 # dependencies
 node_modules
 
