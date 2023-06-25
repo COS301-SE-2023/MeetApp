@@ -9,7 +9,7 @@
        
     <div class="profile">
         <div class="circle">
-          <img [src]="profilePicUrl" alt="Circle Image">
+          <img [src]=" profilePictureUrl" alt="Circle Image">
           <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
         </div>
         <div class="profile-info">
@@ -47,10 +47,11 @@
     </div>
     <div class="part1">
         <div class="image-container top-group" *ngFor="let imageUrl of imageList">
-            <a href="/home" routerLinkActive="active">
+            <a href="/event" routerLinkActive="active">
+              <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
             </a>
-          <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
-        </div>
+          </div>
+          
       </div>
     <nav class="bottom-navbar">
         <ul>

@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';;// A
 import { ModalController } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
+
+
 @Component({
   selector: 'capstone-meet-app-profile',
   standalone: true,
@@ -13,11 +15,12 @@ import { RouterModule, Routes } from '@angular/router';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
-  profileName = 'KMAN THE CHEQUEBOOK';
-  profilePicUrl = 'https://mail.google.com/mail/u/0?ui=2&ik=314dacd38f&attid=0.1.1&permmsgid=msg-f:1767039946828523401&th=1885c9782ea3a789&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ8KSetfX6wH4WZlo_W4mMptF8e4Y3rY6BTg3dnH_pHfQOxk6RCeZ0FYD0B0_1fRGAdm74aoGYBH1OoFYIN6gn8GNzGmGM5sgC04g5eWuBPwWdwC9pefNsTWJms&disp=emb';
+  profilePictureUrl: string | null = null
+  profileName: string | null = null;
+ 
   isEditMode: boolean;
-  newProfileName = '';
-  newProfilePicUrl = '';
+  newProfileName:string | null = null;
+  newProfilePicUrl: string | null = null;
 
   imageList = [
     'https://img.freepik.com/free-photo/table-setting-with-focus-goblets-plates_8353-9901.jpg?w=2000',
@@ -34,7 +37,7 @@ export class ProfileComponent {
 
   constructor(private router: Router,private modalController: ModalController) {
     this.profileName = 'KMAN THE CHEQUEBOOK';
-    this.profilePicUrl = 'https://mail.google.com/mail/u/0?ui=2&ik=314dacd38f&attid=0.1.1&permmsgid=msg-f:1767039946828523401&th=1885c9782ea3a789&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ8KSetfX6wH4WZlo_W4mMptF8e4Y3rY6BTg3dnH_pHfQOxk6RCeZ0FYD0B0_1fRGAdm74aoGYBH1OoFYIN6gn8GNzGmGM5sgC04g5eWuBPwWdwC9pefNsTWJms&disp=emb';
+    this. profilePictureUrl = 'https://mail.google.com/mail/u/0?ui=2&ik=314dacd38f&attid=0.1.1&permmsgid=msg-f:1767039946828523401&th=1885c9782ea3a789&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ8KSetfX6wH4WZlo_W4mMptF8e4Y3rY6BTg3dnH_pHfQOxk6RCeZ0FYD0B0_1fRGAdm74aoGYBH1OoFYIN6gn8GNzGmGM5sgC04g5eWuBPwWdwC9pefNsTWJms&disp=emb';
     this.isEditMode = false;
 
   }
@@ -64,11 +67,34 @@ export class ProfileComponent {
       this.profileName = this.newProfileName;
     }
     if (this.newProfilePicUrl) {
-      this.profilePicUrl = this.newProfilePicUrl;
+      this. profilePictureUrl = this.newProfilePicUrl;
+      this.convertImageToBase64(this. profilePictureUrl);
+      console.log(this. profilePictureUrl);
+
     }
     this.isEditMode = false;
   }
-
+  
+  async  convertImageToBase64(imageUrl: string): Promise<string> {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result as string;
+          resolve(base64String);
+          this.profilePictureUrl=base64String;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
+    }
+  }
+  
   cancelEditProfile() {
     this.isEditMode = false;
   }
