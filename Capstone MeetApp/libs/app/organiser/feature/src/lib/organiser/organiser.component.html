@@ -1,43 +1,54 @@
-<!-- profile.page.html -->
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
 <body>
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-    Event Organiser
+  <ion-header style="color: blue;">
+    <ion-title style="color:#D4ADFC">
+      Event Organiser
     </ion-title>
-  </ion-toolbar>
-</ion-header>
+  </ion-header>
 
+  <div class="icon-container left">
+    <img src="https://drive.google.com/file/d/1q5Ia-1CgP5TJjbkZI2NTBXsPE2DWzDBB/view?usp=drive_link" alt="Icon 1">
 
+    <!-- Add more icons for the left side -->
+  </div>
+
+  <div class="icon-container right">
+    <img src="path_to_icon3.png" alt="Icon 3">
+
+    <!-- Add more icons for the right side -->
+  </div>
   <div class="profile-picture">
     <ion-avatar>
       <img [src]="profilePictureUrl" alt="Profile Picture" (click)="changeProfilePicture()">
     </ion-avatar>
     <ion-button fill="clear" size="small" (click)="changeProfilePicture()">
-       Edit Image
+      Edit Image
       <ion-icon name="camera-outline" style="color: white;"></ion-icon>
     </ion-button>
-    
   </div>
+
   <ion-item>
     <ion-label>Event Name</ion-label>
     <ion-input [(ngModel)]="eventName" placeholder="Enter event name"></ion-input>
   </ion-item>
- 
-    <ion-item>
-      <ion-label for="startDate">Start Date:</ion-label>
-      <input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate">
-    </ion-item>
-    <ion-item>
-      <ion-label for="endDate">End Date:</ion-label>
-      <input type="date" id="endDate" name="endDate" [(ngModel)]="selectedRange.endDate">
-    </ion-item>
-   
+
+  <ion-item>
+    <ion-label for="startDate">Start Date:</ion-label>
+    <input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" style="color: white;">
+  </ion-item>
+
+  <ion-item>
+    <ion-label for="endDate">End Date:</ion-label>
+    <input type="date" id="endDate" name="endDate" [(ngModel)]="selectedRange.endDate" style="color: white;">
+  </ion-item>
+
   <ion-item>
     <ion-label>Description</ion-label>
     <ion-textarea [(ngModel)]="description" rows="4" placeholder="Enter description"></ion-textarea>
   </ion-item>
-    
+
   <ion-item>
     <ion-label for="region">Location:</ion-label>
     <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
@@ -47,9 +58,28 @@
       <!-- Region options here -->
     </ion-select>
   </ion-item>
-  <ion-button expand="full" (click)="saveProfile()">Save</ion-button>
 
- 
+  <ion-button fill="clear" size="small" (click)="saveProfile()" class="save-button">Save</ion-button>
+  <nav class="bottom-navbar">
+    <ul>
+      <li>
+        <a href="/home" routerLinkActive="active">
+          <i class="fas fa-home"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/profile">
+          <i class="fas fa-bell"></i>
+          Notification
+        </a>
+      </li>
+      <li>
+        <a href="/profile" >
+          <i class="fas fa-user"></i>
+          Profile
+        </a>
+      </li>
+    </ul>
+  </nav>
 </body>
-
-
