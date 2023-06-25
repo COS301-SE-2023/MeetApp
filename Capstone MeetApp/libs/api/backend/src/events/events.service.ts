@@ -18,6 +18,7 @@ export class EventsService {
     return newEvent.save();
   }
   findAll() {
+    console.log('Service');
     return this.eventModel.find().exec();
   }
 
