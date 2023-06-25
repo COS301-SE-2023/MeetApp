@@ -41,8 +41,9 @@ export class HomepageComponent {
    // location:Record<number,unknown>;
     category='';
     region='';
-  data = [
-    {
+
+    events:any =[];
+    data= [{
       imageSrc: 'path/to/your/image1.jpg',
       title: this.eventName,
       location: 'Sandton',
@@ -103,11 +104,22 @@ export class HomepageComponent {
   }
  
 
-  ngOnInit() {
-    this.service.getAllEvents().subscribe((response: any) => {
+  async ngOnInit() {
+      this.service.getAllEvents().subscribe((response: any) => { 
       this.data = response;
-      console.log(this.data);
+      /*for(let i=0;i<this.data.length;i++){
+        console.log(this.data.at(i));
+      }
+        
+      //this.events=this.data.values;
+      this.events=this.data;*/
     });
+
+    //console.log(this.events);
+    for(let i=0;i<this.events.length;i++){
+      console.log(this.events.at(i));
+    }
+    
   }
  
   
