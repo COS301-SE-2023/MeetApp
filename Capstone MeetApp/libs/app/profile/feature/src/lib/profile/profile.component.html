@@ -22,63 +22,58 @@
             <p>Followers: 100</p>
         </div>
         <div class="Following" style="margin-right: 210px; margin-top: -20px;">
-
             <p>Following: 500</p>
         </div>
         </div> 
-        <button class="follow-button" style="margin-top: 20px;" (click)="toggleEditProfile()">Edit Profile</button>
-
-        </div>
-      
-        <div *ngIf="isEditMode" class="edit-profile">
-            <h4>Edit Profile</h4>
-            <div>
-              <label for="newProfileName" style="color: aliceblue;">New Profile Name:</label>
-              <input id="newProfileName" [(ngModel)]="newProfileName" placeholder="Enter new name">
-            </div>
-            <div>
-              <label for="newProfilePic"  style="color: aliceblue;">New Profile Picture:</label>
-              <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
-            </div>
-            <div>
-              <button (click)="saveProfile()">Save</button>
-              <button (click)="isEditMode = false">Cancel</button>
-            </div>
-          </div>
-          <div class="part1">
-            <div class="image-container top-group" *ngFor="let imageUrl of imageList">
-                <a href="/home" routerLinkActive="active">
-                </a>
-              <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
-            </div>
-          </div>
-          
     
+        <button class="follow-button" style="margin-top: 20px;" (click)="openEditProfilePopover()">Edit Profile</button>
 
-        <nav class="bottom-navbar">
-            <ul>
-              <li>
-                <a href="/home" routerLinkActive="active">
-                  <i class="fas fa-home"></i>
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="/profile">
-                  <i class="fas fa-bell"></i>
-                  Notification
-                </a>
-              </li>
-              <li>
-                <a href="/profile" >
-                  <i class="fas fa-user"></i>
-                  Profile
-                </a>
-              </li>
-            </ul>
-          </nav>
-        
-        
+        <div *ngIf="isEditMode" class="edit-profile-overlay" (click)="closeEditProfilePopover()"></div>
+        <div *ngIf="isEditMode" class="edit-profile-popover">
+          <h4>Edit Profile</h4>
+          <div>
+            <label for="newProfileName" style="color: aliceblue;">New Profile Name:</label>
+            <input id="newProfileName" [(ngModel)]="newProfileName" placeholder="Enter new name">
+          </div>
+          <div>
+            <label for="newProfilePic" style="color: aliceblue;">New Profile Picture:</label>
+            <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
+          </div>
+          <div>
+            <button (click)="saveProfile()">Save</button>
+            <button (click)="closeEditProfilePopover()">Cancel</button>
+          </div>
+        </div>
+    </div>
+    <div class="part1">
+        <div class="image-container top-group" *ngFor="let imageUrl of imageList">
+            <a href="/home" routerLinkActive="active">
+            </a>
+          <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
+        </div>
+      </div>
+    <nav class="bottom-navbar">
+        <ul>
+          <li>
+            <a href="/home" routerLinkActive="active">
+              <i class="fas fa-home"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/profile">
+              <i class="fas fa-bell"></i>
+              Notification
+            </a>
+          </li>
+          <li>
+            <a href="/profile" >
+              <i class="fas fa-user"></i>
+              Profile
+            </a>
+          </li>
+        </ul>
+    </nav>
 
 </body>
 </html>

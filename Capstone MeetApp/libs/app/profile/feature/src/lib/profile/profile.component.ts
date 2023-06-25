@@ -72,6 +72,12 @@ export class ProfileComponent {
   cancelEditProfile() {
     this.isEditMode = false;
   }
+  openEditProfilePopover() {
+    this.isEditMode = true;
+  }
   
+  closeEditProfilePopover() {
+    this.isEditMode = false;
+  }
   
 }
