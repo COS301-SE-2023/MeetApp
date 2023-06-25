@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength} from "class-validator";
+import { IsNotEmpty, IsString, MaxLength, MinLength} from "class-validator";
 
 export class CreateUserDto {
 
@@ -8,14 +8,10 @@ export class CreateUserDto {
     readonly username!: string;
 
     @IsString()
+    @MinLength(8)
     @MaxLength(50)
     @IsNotEmpty()
     readonly password!: string;
-
-    @IsString()
-    @MaxLength(50)
-    @IsNotEmpty()
-    readonly name!: string;
 
     @IsString()
     @MaxLength(50)
@@ -27,11 +23,12 @@ export class CreateUserDto {
     @IsNotEmpty()
     readonly phoneNumber!: string;
 
-    @IsNotEmpty() 
-    readonly location!: {latitude :string, longitude:string};
+    @IsString()
+    profilePicture!: string;
 
-    @IsNotEmpty() 
-    readonly events!: string[];
+    @IsString()
+    @IsNotEmpty()
+    region!: string;
 
 }
 
