@@ -5,9 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Friendship, FriendshipSchema } from './schema';
 import { User, UserSchema } from '../users/schema';
 import { UsersService } from '../users/users.service';
+import { Attendance, AttendanceSchema } from '../attendances/schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Friendship.name, schema: FriendshipSchema }]), MongooseModule.forFeature([{ name: User.name, schema: UserSchema }])],
+  imports: [MongooseModule.forFeature([{ name: Friendship.name, schema: FriendshipSchema }]), MongooseModule.forFeature([{ name: User.name, schema: UserSchema }, { name: Attendance.name, schema: AttendanceSchema }])],
   controllers: [FriendshipsController],
   providers: [FriendshipsService, UsersService]
 })
