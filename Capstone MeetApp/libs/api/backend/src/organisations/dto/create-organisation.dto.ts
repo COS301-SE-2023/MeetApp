@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, MaxLength} from "class-validator";
+import { IsNotEmpty, IsString, MaxLength , MinLength} from "class-validator";
 
 export class CreateOrganisationDto {
 
@@ -8,14 +8,10 @@ export class CreateOrganisationDto {
     readonly username!: string;
 
     @IsString()
-    @MaxLength(30)
-    @IsNotEmpty()
-    readonly password!: string;
-
-    @IsString()
+    @MinLength(8)
     @MaxLength(50)
     @IsNotEmpty()
-    readonly name!: string;
+    readonly password!: string;
 
     @IsString()
     @MaxLength(50)
@@ -26,10 +22,7 @@ export class CreateOrganisationDto {
     @MaxLength(10)
     @IsNotEmpty()
     readonly phoneNumber!: string;
-
-    @IsNotEmpty() 
-    readonly location!: {latitude : string ,longitude: string };
-
+    
     @IsNotEmpty() 
     readonly events!: string[];
 
