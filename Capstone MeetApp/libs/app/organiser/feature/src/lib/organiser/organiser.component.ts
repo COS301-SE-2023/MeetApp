@@ -3,9 +3,10 @@ import { IonContent } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'; // Import FormsModul
 import { CommonModule } from '@angular/common';
-import { FormControl } from '@angular/forms';
+
 import { AlertController } from '@ionic/angular';
 
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -17,22 +18,29 @@ import { AlertController } from '@ionic/angular';
     FormsModule,]
 })
 export class OrganiserComponent {
-  profilePictureUrl: string | null = null
-  description: string | null = null
+  profilePictureUrl: string | null = null;
+  description: string | null = null;
   selectedRegion:string | null = null;
   eventName :string | null = null;
-  
- 
-  selectedRange: { startDate: string; endDate: string } = {
+  OrganisationName:string| null=null;
+  selectedRange: { startDate: string; startTime: string , endTime: string} = {
     startDate: '',
-    endDate: '',
+    startTime: '',
+    endTime: '',
   };
-  startDateControl = new FormControl();
-  endDateControl = new FormControl();
+ 
+  showDateTimeFields = false;
+  SelectedRangeControl = new FormControl();
+  formGroup: FormGroup<{ startDate: FormControl<string | null>; startTime: FormControl<string | null>; endTime: FormControl<string | null>; }> | undefined;
+ 
   
   ngOnInit() {
-    this.startDateControl.setValue(this.selectedRange.startDate);
-    this.endDateControl.setValue(this.selectedRange.endDate);
+    this.formGroup = new FormGroup({
+      startDate: new FormControl(this.selectedRange.startDate),
+      startTime: new FormControl(this.selectedRange.startTime),
+      endTime: new FormControl(this.selectedRange.endTime)
+    });
+   
   }
   pickerOptions = {
     buttons: [
@@ -50,6 +58,7 @@ export class OrganiserComponent {
     this.description='';
     this.selectedRegion='';
     this.eventName='';
+    this.OrganisationName='';
   }
 
   changeProfilePicture() {
@@ -80,21 +89,47 @@ export class OrganiserComponent {
     saveProfilePicture(profilePictureUrl: string) {
       this.profilePictureUrl=profilePictureUrl;
       console.log('Profile picture URL:', profilePictureUrl);
+      console.log("before conversion"+this. profilePictureUrl)
+     this.convertImageToBase64(this. profilePictureUrl);
+      console.log(this. profilePictureUrl)
     }
-  
+    async  convertImageToBase64(imageUrl: string): Promise<string> {
+      try {
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const base64String = reader.result as string;
+            resolve(base64String);
+            this.profilePictureUrl=base64String;
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
+      } catch (error) {
+        console.error('Error:', error);
+        throw error;
+      }
+    }
+    
   async saveProfile() {
     if (
-      this.selectedRange.startDate &&
-      this.selectedRange.endDate &&
+       this.OrganisationName&&
+       this.selectedRange&&
       this.description &&
       this.selectedRegion
       &&this.eventName
     ) {
-      console.log('Start Date:', this.selectedRange.startDate);
-      console.log('End Date:', this.selectedRange.endDate);
+      
+      
       console.log('Description:', this.description);
       console.log('Selected Region:', this.selectedRegion);
-      console.log('Selected Region:', this.eventName);
+      console.log('EventName:', this.eventName);
+      console.log('Organiser:', this.eventName);
+      console.log('startDate',this.selectedRange.startDate)
+      console.log('endTime',this.selectedRange.endTime)
+      console.log('startTime',this.selectedRange.startTime)
   
       
     } else {

@@ -106,7 +106,7 @@ ion-datetime {
 }
 
 .icon-container.right {
-  right: 10px; /* Adjust the position as per your preference */
+  right: 8px; /* Adjust the position as per your preference */
   transform: translateY(-50%);
 }
 
@@ -175,3 +175,57 @@ ion-datetime {
   left: 50%;
   transform: translateX(-50%);
 }
+.icon-container.right img {
+  width: 30px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+.icon-container.left img {
+  width: 30px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+.custom-item {
+  --highlight-color-focused: #5C469C; /* Set the highlight color when the input is focused */
+  --border-color: #5C469C;; /* Set the border color */
+}
+
+.custom-label {
+  color: #5C469C; /* Set the label color */
+}
+
+.custom-input {
+  --color: #5C469C; /* Set the input text color */
+  --highlight-color-focused: #5C469C; /* Set the highlight color when the input is focused */
+}
+extraordinary-input {
+  /* Custom styles for the input elements */
+  border: none;
+  background-color: #5C469C;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+  /* Add any other styles you desire to make it extraordinary */
+}
+
+.enter-button {
+  /* Styles for the "Enter date and time" button */
+  color: #5C469C;
+  margin-left: 10px;
+}
+
+.datetime-fields {
+  /* Styles for the container div */
+  display: flex;
+  align-items: center;
+}
+
+.to-label {
+  /* Styles for the "to" label */
+  color: white;
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+

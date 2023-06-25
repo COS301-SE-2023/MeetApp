@@ -9,13 +9,13 @@
   </ion-header>
 
   <div class="icon-container left">
-    <img src="https://drive.google.com/file/d/1q5Ia-1CgP5TJjbkZI2NTBXsPE2DWzDBB/view?usp=drive_link" alt="Icon 1">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDj9o_I6LyEmxPyP2Eg7KktdP5WcqAFbppFkx4fwe5ztI8TM9EuIzuqahUKt6DZJMYKQ&usqp=CAU" alt="Icon 1">
 
     <!-- Add more icons for the left side -->
   </div>
 
   <div class="icon-container right">
-    <img src="path_to_icon3.png" alt="Icon 3">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDj9o_I6LyEmxPyP2Eg7KktdP5WcqAFbppFkx4fwe5ztI8TM9EuIzuqahUKt6DZJMYKQ&usqp=CAU" alt="Icon 3">
 
     <!-- Add more icons for the right side -->
   </div>
@@ -29,28 +29,38 @@
     </ion-button>
   </div>
 
+  <ion-item class="custom-item">
+    <ion-label position="floating" class="custom-label">Event Name</ion-label>
+    <ion-input [(ngModel)]="eventName" class="custom-input" placeholder="Enter event name"></ion-input>
+  </ion-item>
+  
+  <ion-item class="custom-item">
+    <ion-label position="floating" class="custom-label">Organisation Name</ion-label>
+    <ion-input [(ngModel)]="OrganisationName" class="custom-input" placeholder="Enter Organisation name"></ion-input>
+  </ion-item>
+  
   <ion-item>
-    <ion-label>Event Name</ion-label>
-    <ion-input [(ngModel)]="eventName" placeholder="Enter event name"></ion-input>
+    <ion-label for="startDate" style="color: #5C469C;">Event Date:</ion-label>
+    <button ion-button outline (click)="showDateTimeFields = true" class="enter-button">Enter date and time</button>
+    <div *ngIf="showDateTimeFields" class="datetime-fields">
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-input">
+      <input type="time" id="startTime" name="startTime" [(ngModel)]="selectedRange.startTime" class="extraordinary-input">
+      <span class="to-label">to</span>
+      <input type="time" id="endTime" name="endTime" [(ngModel)]="selectedRange.endTime" class="extraordinary-input">
+    </div>
+  </ion-item>
+  
+  
+  
+  
+
+  <ion-item>
+    <ion-label  position="floating" class="custom-label">Description</ion-label>
+    <ion-textarea [(ngModel)]="description"  class="custom-input"  placeholder="Enter description"></ion-textarea>
   </ion-item>
 
   <ion-item>
-    <ion-label for="startDate">Start Date:</ion-label>
-    <input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" style="color: white;">
-  </ion-item>
-
-  <ion-item>
-    <ion-label for="endDate">End Date:</ion-label>
-    <input type="date" id="endDate" name="endDate" [(ngModel)]="selectedRange.endDate" style="color: white;">
-  </ion-item>
-
-  <ion-item>
-    <ion-label>Description</ion-label>
-    <ion-textarea [(ngModel)]="description" rows="4" placeholder="Enter description"></ion-textarea>
-  </ion-item>
-
-  <ion-item>
-    <ion-label for="region">Location:</ion-label>
+    <ion-label for="region"   style="color: #5C469C">Location:</ion-label>
     <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
       <ion-select-option value="">-- Select Region --</ion-select-option>
       <ion-select-option value="Pretoria">Pretoria</ion-select-option>
