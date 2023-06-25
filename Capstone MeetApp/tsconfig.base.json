@@ -18,6 +18,11 @@
       "@capstone-meet-app/api/event/data-access": [
         "libs/api/event/data-access/src/index.ts"
       ],
+    
+      "@capstone-meet-app/app/services": [
+        "libs/services/src/index.ts"
+      ],
+      "@capstone-meet-app/api/backend": ["libs/api/backend/src/index.ts"],
       "@capstone-meet-app/api/event/feature": [
         "libs/api/event/feature/src/index.ts"
       ],

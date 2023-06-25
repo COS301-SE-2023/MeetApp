@@ -67,7 +67,7 @@ export interface createFriend
 export class service{
     constructor(private http:HttpClient){}
 
-    private baseURl='localhost:3000/api/';
+    private baseURl='http://localhost:3000/api/';
 
     getAllEvents()
     {

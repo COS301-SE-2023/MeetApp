@@ -15,8 +15,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import { IEvent } from '@capstone-meet-app/utils';
 
 //import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
-import {events, service} from 'libs/services/src/lib/servises.service';
-import { ServicesModule} from 'libs/services/src/lib/services.module';
+//import {events, service} from '';
+import { events,service,ServicesModule} from '@capstone-meet-app/services';
 
 
 
@@ -73,7 +73,9 @@ export class HomepageComponent {
     
   ];
   
-  constructor(private service: service) {}
+  constructor(private service: service) {
+    console.log('Constructor');
+  }
   filteredData: any[] = [];
   searchQuery = '';
 
@@ -85,7 +87,6 @@ export class HomepageComponent {
         const newEvent={} as events;
         
         Object.values(res).forEach((event: { category: string; date: string; endTime: string; eventName: string; organisation: string; loactionln: number; region: string; starttime: string; }) => {
-         
           newEvent.category=event.category;
           newEvent.date=event.date;
           newEvent.endTime=event.endTime;
@@ -94,22 +95,20 @@ export class HomepageComponent {
           newEvent.date=event.date;
           newEvent.lng=event.loactionln;
           newEvent.region=event.region;
-          newEvent.startTime=event.starttime;
-
-         
-
-          
+          newEvent.startTime=event.starttime; 
         });
+        console.log(newEvent);
         console.log('fhsh  '+newEvent)
       });
   }
  
 
-  gOnInit(): void {
-    this.getEvents();
-    console.log('fhsh');
+  ngOnInit() {
+    this.service.getAllEvents().subscribe((response: any) => {
+      this.data = response;
+      console.log(this.data);
+    });
   }
-
  
   
 
