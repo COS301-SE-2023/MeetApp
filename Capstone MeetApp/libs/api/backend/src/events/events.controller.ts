@@ -30,7 +30,7 @@ export class EventsController {
 
   @Get()
   findAll(@Req() request: Request) {
-    //console.log('wrong endpoint')
+    console.log(request);
     if (request.query == null)
       return this.eventsService.findAll();
     else

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import { Observable } from "rxjs";
+//import { Observable } from "rxjs";
 
 
 export interface events{
@@ -11,13 +11,15 @@ export interface events{
     endTime:string;
     eventDate:string;
     lng:number;
-    locactionlat:number;
-    location:Record<number,unknown>;
+    lat:number;
+    location: {latitude:string , longitude:string};
     category:string;
     region:string;
+    description:string;
 
 
 }
+
 export interface createEvents
 {
     
@@ -32,6 +34,33 @@ export interface createEvents
     category: string; 
     region: string;
 }
+export interface createUser
+{
+    username:string;
+    password:string;
+    name:string;
+    email:string;
+    location: {latitude:string , longitude:string};
+    events:string;
+    phoneNumber:string;
+}
+export interface createOrginiser
+{
+    username:string;
+    password:string;
+    name:string;
+    email:string;
+    location: {latitude:string , longitude:string};
+    events:string;
+    phoneNumber:string;
+}
+export interface createFriend
+{
+    requester:string;
+    requestee:string;
+    status:string;
+
+}
 
 @Injectable({
     providedIn:'root'
@@ -39,7 +68,7 @@ export interface createEvents
 export class service{
     constructor(private http:HttpClient){}
 
-    private baseURl='localhost:3000/api/';
+    private baseURl='http://localhost:3000/api/';
 
     getAllEvents()
     {
@@ -59,11 +88,54 @@ export class service{
             date: date,
              startTime: startTime,
              endTime: endTime,
-             //location: {latitude:latitude , longitude:longitude},
+            // location: {latitude:latitude , longitude:longitude},
              category: category,
              region: region
         }
         return this.http.post(`${url}`,body);
 
+    }
+    createUser(username:string,password:string, name:string,email:string,phoneNumber:string,  location: {latitude:string , longitude:string},events:string)
+    {
+        const url=this.baseURl+'users';
+        const body=
+        {
+            
+            username: username,
+            password:password,
+            name:name,
+            email:email,
+            phoneNumber:phoneNumber,
+              // location: {latitude:latitude , longitude:longitude},
+              events:events
+        }
+        return this.http.post(`${url}`,body);
+    }
+    createOrginiser(username:string, password:string,name:string,email:string,phoneNumber:string, location: {latitude:string , longitude:string},events:string)
+    {
+        const url=this.baseURl+'orginisations';
+        const body=
+        {
+            
+            username: username,
+            password:password,
+            name:name,
+            email:email,
+            phoneNumber:phoneNumber,
+              // location: {latitude:latitude , longitude:longitude},
+              events:events
+        }
+        return this.http.post(`${url}`,body);
+    }
+    createFriend( requester:string, requestee:string, status:string)
+    {
+        const url=this.baseURl+'friendships';
+        const body=
+        {
+        requester:requester,
+         requestee:requestee, 
+         status:status
+        }
+         return this.http.post(`${url}`,body);
     }
 }
