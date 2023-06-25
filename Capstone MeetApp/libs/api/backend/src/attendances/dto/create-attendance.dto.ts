@@ -3,14 +3,12 @@ import {IsNotEmpty} from "class-validator";
 export class CreateAttendanceDto {
 
     @IsNotEmpty()
-    readonly ID: string;
-    
-    @IsNotEmpty()
-    readonly organisationID: string;
+    readonly organisationID!: string;
 
     @IsNotEmpty()
-    readonly eventID: string;
+    readonly eventID!: string;
     
     @IsNotEmpty()
-    readonly userID: string;
+    readonly userID!: string;
+    
 }
