@@ -118,11 +118,19 @@
       ],
       "@capstone-meet-app/app/welcome/util": [
         "libs/app/welcome/util/src/index.ts"
-      ],
+      ],"@capstone-meet-app/settings/feature":
+      ["libs/app/settings/feature/src/index.ts"],
       "@capstone-meet-app/services": ["libs/services/src/index.ts"],
       "@capstone-meet-app/services--buildable--no-interactive--dry-run": [
         "libs/services--buildable--no-interactive--dry-run/src/index.ts"
-      ]
+      ],
+      "@captone-meet-app/organiser":[
+        "libs/app/organiser/feature/src/index.ts"
+      ],
+      "@capstone-meet-app/friends":[
+        "libs/app/friends/feature/src/index.ts"
+      ],
+      "@capstone-meet-app/map":["libs/app/map/feature/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
