@@ -15,6 +15,7 @@ export interface events{
     location: {latitude:string , longitude:string};
     category:string;
     region:string;
+    description:string;
 
 
 }
