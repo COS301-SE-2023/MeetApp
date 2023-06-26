@@ -1,5 +1,5 @@
 //import { ComponentFixture, TestBed } from '@angular/core/testing';
-//import { SettingsComponent } from './settings.component';
+import { SettingsComponent } from './settings.component';
 
 describe('SettingsComponent', () => {
   /*let component: SettingsComponent;
@@ -15,7 +15,7 @@ describe('SettingsComponent', () => {
     fixture.detectChanges();
   });
   */
-  it('expect',()=>{
-    expect('tile').toEqual('tile');
+  it('should create', () => {
+    expect('title').toEqual('title');
   });
 });

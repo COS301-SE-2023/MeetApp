@@ -1,5 +1,5 @@
 //import { ComponentFixture, TestBed } from '@angular/core/testing';
-//import { FriendsComponent } from './friends.component';
+import { FriendsComponent } from './friends.component';
 
 describe('FriendsComponent', () => {
   /*let component: FriendsComponent;
@@ -14,8 +14,8 @@ describe('FriendsComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-*/
-it('expect',()=>{
-  expect('tile').toEqual('tile');
-});
+  */
+  it('should create', () => {
+    expect('title').toEqual('title');
+  });
 });

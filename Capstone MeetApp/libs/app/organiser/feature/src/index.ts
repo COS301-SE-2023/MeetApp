@@ -1,1 +1,1 @@
-//export * from './lib/app-organiser-feature';
+export * from './lib/organiser/organiser.component';

@@ -11,7 +11,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import { AuthenticationService } from 'libs/api/login/feature/src/login.service';
 @Component({
   selector: 'capstone-meet-app-login',
   standalone: true,
@@ -29,7 +28,7 @@ export class LoginComponent {
 
    
   }
-  login() {
+ login() {
     // Perform any necessary validation or additional processing here
 
     // Call the login() method of the authentication service
