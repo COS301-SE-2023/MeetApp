@@ -1,68 +1,231 @@
-body{
-
-    background-color: black;
-    height: 100vh;
+body {
+  background-color: black;
+  height: calc(100vh - 35px); /* Subtract the height of the bottom navbar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: sans-serif;
+  background-image: url('https://t3.ftcdn.net/jpg/02/17/84/56/360_F_217845696_MO0T7ETCEagkNNffBSRFayPXQycBFNdR.jpg');
 }
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+
+.profile-picture {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.profile-picture ion-avatar {
+  width: 150px;
+  height: 150px;
+}
+
+.profile-picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.ion-title {
+  color: #D4ADFC;
+  background-color: #D4ADFC;
+}
+
+ion-item {
+  margin-top: 20px;
+  border-radius: 30px;
+}
+
+ion-item ion-label {
+  font-weight: bold;
+}
+
+ion-input,
+ion-textarea {
+  color: black;
+  background-color: transparent;
+  border: none;
+  padding: 5px;
+  outline: none;
+  width: 100%;
+}
+
+ion-input::part(textarea),
+ion-textarea::part(textarea) {
+  height: auto;
+}
+
+ion-select {
+  color: black;
+  --placeholder-color: white;
+  --background: transparent;
+  --padding-start: 5px;
+  --padding-end: 5px;
+  --border-color: purple;
+  --icon-color: white;
+}
+
+ion-select::part(icon) {
+  color: #D4ADFC;
+}
+
+ion-select::part(placeholder) {
+  color:  #D4ADFC;
+}
+
+ion-select-option {
+  background-color:  #D4ADFC;
+}
+
+ion-button {
+  margin-top: 30px;
+  --background: #D4ADFC;
+  --color: black;
+}
+
+ion-input,
+ion-textarea,
+ion-select,
+ion-datetime {
+  --color: #D4ADFC; /* Color of text inputs and selects */
+}
+
+.icon-container {
+  position: fixed;
+  top: 50%;
+  z-index: 999; /* Ensure icons are above other content */
+  animation: moveIcons 3s infinite alternate; /* Adjust the animation duration as per your preference */
+}
+
+.icon-container.left {
+  left: 10px; /* Adjust the position as per your preference */
+  transform: translateY(-50%);
+}
+
+.icon-container.right {
+  right: 8px; /* Adjust the position as per your preference */
+  transform: translateY(-50%);
+}
+
+.icon-container img {
+  width: 42%;
+  height: 42%;
+  margin-bottom: 10px; /* Adjust the spacing between icons */
+}
+
+@keyframes moveIcons {
+  0% {
+    transform: translateY(0);
   }
-  
-  .center-top {
-    text-align: center;
-    color:#D4ADFC
+  100% {
+    transform: translateY(-130px); /* Adjust the distance the icons move */
   }
-  
-  .center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .event-image {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
-  
-  .edit-button {
-    padding: 10px 20px;
-    background-color:#D4ADFC;;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .form-group {
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-weight: bold;
-  }
-  
-  .form-control {
-    
-    width: 80%;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid #ccc;
-  }
-  
-  .submit-button {
-    padding: 10px 20px;
-    background-color: #D4ADFC;;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  .event-date{
-    color: #D4ADFC;
-   
-  }
-  .form-group label {
-    color: #D4ADFC ; /* Set the desired font color */
-  }
+}
+
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #5C469C;
+  border-top: 1px solid #ccc;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.bottom-navbar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-navbar li {
+  padding: 10px;
+  text-align: center;
+}
+
+.bottom-navbar li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  color: #D4ADFC;
+  font-family: sans-serif;
+}
+
+.bottom-navbar li .emoji {
+  font-size: 24px;
+  color: #000; /* Color for the icons (black) */
+  margin-bottom: 5px;
+}
+
+.bottom-navbar li span {
+  color: #fff; /* Color for the text (white) */
+}
+
+.save-button {
+  position: absolute;
+  bottom: 50px; /* Adjust the position as per your preference */
+  left: 50%;
+  transform: translateX(-50%);
+}
+.icon-container.right img {
+  width: 30px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+.icon-container.left img {
+  width: 30px; /* Adjust the width as needed */
+  height: 30px; /* Adjust the height as needed */
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+.custom-item {
+  --highlight-color-focused: #5C469C; /* Set the highlight color when the input is focused */
+  --border-color: #5C469C;; /* Set the border color */
+}
+
+.custom-label {
+  color: #5C469C; /* Set the label color */
+}
+
+.custom-input {
+  --color: #5C469C; /* Set the input text color */
+  --highlight-color-focused: #5C469C; /* Set the highlight color when the input is focused */
+}
+extraordinary-input {
+  /* Custom styles for the input elements */
+  border: none;
+  background-color: #5C469C;
+  color: white;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 5px;
+
+}
+
+.enter-button {
+  background-color:#D4ADFC; ;
+  color:black;
+  margin-left: 10px;
+}
+
+.datetime-fields {
+  /* Styles for the container div */
+  display: flex;
+  align-items: center;
+}
+
+.to-label {
+  /* Styles for the "to" label */
+  color:#5C469C;
+  font-size: 18px;
+  margin: 0 10px;
+}
+
+
