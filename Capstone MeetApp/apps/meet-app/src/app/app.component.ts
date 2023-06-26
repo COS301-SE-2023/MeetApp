@@ -3,7 +3,7 @@ import { RouterModule } from "@angular/router";
 import { NxWelcomeComponent } from "./nx-welcome.component";
 import { LoginComponent } from '@capstone-meet-app/app/login/feature';
 import { SignupComponent } from '@capstone-meet-app/app/signup/feature';
-//import { BrowserModule } from "@angular/platform-browser";
+import { BrowserModule } from "@angular/platform-browser";
 import { FormsModule } from '@angular/forms';
 import { service } from "@capstone-meet-app/app/services";
 import { ServicesModule } from "@capstone-meet-app/app/services";
