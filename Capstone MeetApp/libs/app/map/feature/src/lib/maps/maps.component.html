@@ -2,7 +2,7 @@
 <html lang="en">
   <ion-header>
     <ion-toolbar>
-      <ion-title>
+      <ion-title >
         Event Map
       </ion-title>
     </ion-toolbar>
@@ -43,43 +43,43 @@
         </ion-select>
       </ion-item>
       <ion-item>
-        <ion-label for="startDate">Start Date:</ion-label>
-        <ion-datetime-button  datetime="startDate"></ion-datetime-button>
+        <ion-label for="startDate" style="color: #5C469C;">Start Date:</ion-label>
+        <ion-datetime-button datetime="startDate"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate"></ion-datetime>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-datetime"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
+      
       <ion-item>
-        <ion-label for="endDate">End Date:</ion-label>
-        <ion-datetime-button  datetime="endDate"></ion-datetime-button>
+        <ion-label for="EndDate" style="color: #5C469C;">End Date:</ion-label>
+        <ion-datetime-button datetime="EndDate"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime  [showDefaultButtons]="true" presentation="date" id="endDate" [(ngModel)]="selectedRange.endDate"></ion-datetime>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="EndDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-datetime"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
+      
 
       <button type="submit" class="submit-button">Submit</button>
     </form>
   </div>
   
-  
-  
-  
-</body>
-<footer>
   <ion-footer>
     <ion-segment value="maps">
       <ion-segment-button value="list" (click)="BACKTOHOME()">
-        <ion-label>list</ion-label>
+        <ion-label style="color: black;">list</ion-label>
       </ion-segment-button>
       <ion-segment-button value="maps">
-        <ion-label>maps</ion-label>
+        <ion-label  style="color: black; font-size: larger;">maps</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-footer>
-</footer>
+  
+  
+</body>
+
 
 </html>

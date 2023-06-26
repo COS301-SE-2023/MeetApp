@@ -1,8 +1,8 @@
 html,body{
-    height: 100%;
+    height: 100vh;
     margin: 0;
     padding: 0;
-   
+    background-image: url(https://img.freepik.com/free-photo/background-gradient-lights_23-2149304982.jpg);
     
 }
 .container {
@@ -39,7 +39,7 @@ html,body{
   .submit-button {
     padding: 10px 20px;
     background-color:#D4ADFC;
-    color: #fff;
+    color: black;
     border: none;
     cursor: pointer;
   }
@@ -47,8 +47,14 @@ html,body{
   #map {
     width: 100%;
   }
-  .button_color{
-      
+  ion-button{
+
+    
+    
+  }
+  .ion-footer{
+
+    margin-bottom: 30%;
   }
   @media screen and (min-device-width: 375px) and (max-device-width: 414px) and (min-device-height: 812px) and (max-device-height: 896px) {
       

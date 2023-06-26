@@ -132,7 +132,7 @@ export class MapsComponent implements AfterViewInit {
   // Marker icons
   svgIcon = {
     url: 'https://www.clipartmax.com/png/small/5-51701_marker-icon-google-maps.png',
-    scaledSize: new google.maps.Size(150, 150)
+    scaledSize: new google.maps.Size(50, 50)
   };
 
   // Markers
@@ -186,7 +186,7 @@ export class MapsComponent implements AfterViewInit {
             position: new google.maps.LatLng(event.eventLocation.lat, event.eventLocation.lng),
             map: this.map,
             title: event.eventName,
-            icon: this.customIcon,
+            icon: this.svgIcon,
           });
   
           marker.addListener('click', () => {
