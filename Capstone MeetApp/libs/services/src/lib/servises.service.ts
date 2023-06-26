@@ -88,7 +88,7 @@ export class service{
             date: date,
              startTime: startTime,
              endTime: endTime,
-            // location: {latitude:latitude , longitude:longitude},
+            location: location,
              category: category,
              region: region
         }
@@ -106,7 +106,7 @@ export class service{
             name:name,
             email:email,
             phoneNumber:phoneNumber,
-              // location: {latitude:latitude , longitude:longitude},
+              location: location,
               events:events
         }
         return this.http.post(`${url}`,body);
@@ -122,7 +122,7 @@ export class service{
             name:name,
             email:email,
             phoneNumber:phoneNumber,
-              // location: {latitude:latitude , longitude:longitude},
+              location: location,
               events:events
         }
         return this.http.post(`${url}`,body);

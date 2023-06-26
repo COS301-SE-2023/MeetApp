@@ -28,5 +28,5 @@ export const appRoutes: Route[] = [
    ,{path: "map", component: MapsComponent}
    ,{path: "event", component: EventComponent}
    ,{path: "friends", component: FriendsComponent},
-   {path: "organiser,", component: OrganiserComponent},
+   {path: "organisers", component: OrganiserComponent},
 ];
