@@ -37,13 +37,13 @@ export class ProfileComponent {
 
   constructor(private router: Router,private modalController: ModalController) {
     this.profileName = 'KMAN THE CHEQUEBOOK';
-    this. profilePictureUrl = 'https://mail.google.com/mail/u/0?ui=2&ik=314dacd38f&attid=0.1.1&permmsgid=msg-f:1767039946828523401&th=1885c9782ea3a789&view=fimg&fur=ip&sz=s0-l75-ft&attbid=ANGjdJ8KSetfX6wH4WZlo_W4mMptF8e4Y3rY6BTg3dnH_pHfQOxk6RCeZ0FYD0B0_1fRGAdm74aoGYBH1OoFYIN6gn8GNzGmGM5sgC04g5eWuBPwWdwC9pefNsTWJms&disp=emb';
+    this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
     this.isEditMode = false;
 
   }
 
   
-  
+   
 
   toggleEditProfile() {
     this.isEditMode = !this.isEditMode;
