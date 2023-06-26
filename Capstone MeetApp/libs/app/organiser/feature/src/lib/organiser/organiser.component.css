@@ -1,6 +1,6 @@
 body {
   background-color: black;
-  height: calc(100vh - 80px); /* Subtract the height of the bottom navbar */
+  height: calc(100vh - 35px); /* Subtract the height of the bottom navbar */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -171,7 +171,7 @@ ion-datetime {
 
 .save-button {
   position: absolute;
-  bottom: 60px; /* Adjust the position as per your preference */
+  bottom: 50px; /* Adjust the position as per your preference */
   left: 50%;
   transform: translateX(-50%);
 }
@@ -206,12 +206,12 @@ extraordinary-input {
   font-size: 18px;
   padding: 10px;
   border-radius: 5px;
-  /* Add any other styles you desire to make it extraordinary */
+
 }
 
 .enter-button {
-  /* Styles for the "Enter date and time" button */
-  color: #5C469C;
+  background-color:#D4ADFC; ;
+  color:black;
   margin-left: 10px;
 }
 
@@ -223,7 +223,7 @@ extraordinary-input {
 
 .to-label {
   /* Styles for the "to" label */
-  color: white;
+  color:#5C469C;
   font-size: 18px;
   margin: 0 10px;
 }
