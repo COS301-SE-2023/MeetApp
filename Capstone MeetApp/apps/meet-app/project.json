@@ -16,7 +16,11 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/meet-app/tsconfig.app.json",
         "assets": ["apps/meet-app/src/favicon.ico", "apps/meet-app/src/assets"],
-        "styles": ["apps/meet-app/src/styles.scss"],
+        "styles": ["apps/meet-app/src/styles.scss","node_modules/@ionic/angular/css/core.css",
+        "node_modules/@ionic/angular/css/normalize.css",
+        "node_modules/@ionic/angular/css/structure.css",
+        "node_modules/@ionic/angular/css/typography.css",
+        "node_modules/@ionic/angular/css/display.css"],
         "scripts": []
       },
       "configurations": {

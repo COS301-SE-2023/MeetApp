@@ -3234,7 +3234,14 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/google.maps@^3.52.4":
+"@types/google-maps@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.npmjs.org/@types/google-maps/-/google-maps-3.2.3.tgz"
+  integrity sha512-+GR/7sMvo2bENS26H4t2QqoCqE4FE5qhsG8aaDM9mJAlsorkLyaFdTQra8VkmS1RNE09fx9c1kac+GKG0RtA2A==
+  dependencies:
+    "@types/google.maps" "*"
+
+"@types/google.maps@*", "@types/google.maps@^3.52.4":
   version "3.53.2"
   resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.53.2.tgz"
   integrity sha512-rgTa3R5DyFTcjX4hmuGs0XR+kD4M5tZ14lcyYzDDJGr5h0JYj7DbbNZRZNJKDzZOGH3fOXWpIbZGj3BxZbpmjw==
