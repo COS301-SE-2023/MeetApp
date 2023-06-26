@@ -1384,10 +1384,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@esbuild/win32-x64@0.17.8":
+"@esbuild/win32-ia32@0.17.8":
   version "0.17.8"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.8.tgz"
-  integrity sha512-1iuezdyDNngPnz8rLRDO2C/ZZ/emJLb72OsZeqQ6gL6Avko/XCXZw+NuxBSNhBAP13Hie418V7VMt9et1FMvpg==
+  resolved "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.17.8.tgz"
+  integrity sha512-Fqy63515xl20OHGFykjJsMnoIWS+38fqfg88ClvPXyDbLtgXal2DTlhb1TfTX34qWi3u4I7Cq563QcHpqgLx8w==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -1435,22 +1435,22 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@ionic/angular@^7.0.7":
-  version "7.0.7"
-  resolved "https://registry.npmjs.org/@ionic/angular/-/angular-7.0.7.tgz"
-  integrity sha512-dbBhxAt2BDfKcZKVUga0SQM2BcGEV5kGvt342lv3ziCkpyxQqvsmXaH3L4sy8n0/6pyji8jIvC0RM40ZMODvGg==
+"@ionic/angular@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.npmjs.org/@ionic/angular/-/angular-7.1.0.tgz"
+  integrity sha512-N5xRG2Wk7nr6OoQS7jzYzOVSFej0o+7PDPG31CKugF32457isYaa5uqaogaeO5DE0/MBEmRuo6sjDD5G5YkvJA==
   dependencies:
-    "@ionic/core" "7.0.7"
+    "@ionic/core" "7.1.0"
     ionicons "^7.0.0"
     jsonc-parser "^3.0.0"
     tslib "^2.3.0"
 
-"@ionic/core@7.0.7":
-  version "7.0.7"
-  resolved "https://registry.npmjs.org/@ionic/core/-/core-7.0.7.tgz"
-  integrity sha512-3ps2j3Utx49CVazKHHWsPS8QBZYujnh6/dwz1ovHIDTq7HXKzUNbMtHm0UAZC2YkW5rE/Pm41CIBMwfFV0ImKg==
+"@ionic/core@7.1.0":
+  version "7.1.0"
+  resolved "https://registry.npmjs.org/@ionic/core/-/core-7.1.0.tgz"
+  integrity sha512-1W8i9GLhuakeN2z9AeVSSll40BQC2HL4wEscqMM5aD/firotwbX3gdiiNgj2NkoNNgs2hsqcZOJe2sLcU39LTQ==
   dependencies:
-    "@stencil/core" "^3.2.2"
+    "@stencil/core" "^3.4.0"
     ionicons "^7.1.0"
     tslib "^2.1.0"
 
@@ -2180,11 +2180,6 @@
   dependencies:
     nx-cloud "16.0.5"
 
-"@nrwl/nx-win32-x64-msvc@15.9.4":
-  version "15.9.4"
-  resolved "https://registry.npmjs.org/@nrwl/nx-win32-x64-msvc/-/nx-win32-x64-msvc-15.9.4.tgz"
-  integrity sha512-bogVju4Z/hy1jbppqaTNbmV1R4Kg0R5fKxXAXC2LaL7FL0dup31wPumdV+mXttXBNOBDjV8V/Oz1ZqdmxpOJUw==
-
 "@nrwl/tao@15.9.4":
   version "15.9.4"
   resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-15.9.4.tgz"
@@ -2575,16 +2570,6 @@
     "@nx/workspace" "16.2.2"
     tslib "^2.3.0"
 
-"@nx/nx-win32-x64-msvc@16.0.3":
-  version "16.0.3"
-  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.0.3.tgz"
-  integrity sha512-/Ezru8nlrckLAQ4s7wEAW192DULgWj9YBqREQPV0ddzwjeVC0clsHSXguH8WzMwEU44+IFnqNMJrWK3mZCvZYA==
-
-"@nx/nx-win32-x64-msvc@16.2.2":
-  version "16.2.2"
-  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.2.2.tgz"
-  integrity sha512-liHtyVVOttcqHIV3Xrg/1AJzEgfiOCeqJsleHXHGgPr1fxPx7SIZaa3/QnDY1lNMN+t6Gvj0/r2Ba3iuptYD3Q==
-
 "@nx/web@16.0.3":
   version "16.0.3"
   resolved "https://registry.npmjs.org/@nx/web/-/web-16.0.3.tgz"
@@ -2834,10 +2819,10 @@
   resolved "https://registry.npmjs.org/@stencil/core/-/core-2.22.3.tgz"
   integrity sha512-kmVA0M/HojwsfkeHsifvHVIYe4l5tin7J5+DLgtl8h6WWfiMClND5K3ifCXXI2ETDNKiEk21p6jql3Fx9o2rng==
 
-"@stencil/core@^3.2.2":
-  version "3.2.2"
-  resolved "https://registry.npmjs.org/@stencil/core/-/core-3.2.2.tgz"
-  integrity sha512-wXb9cVWL0T3cTwYLveekdTFCRGx6+9hpVDEXna+N8K8OPoW6xtFAHRLv+LjOM7k59PkA8MG3IinAfV7Y+xa0Hw==
+"@stencil/core@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.npmjs.org/@stencil/core/-/core-3.4.0.tgz"
+  integrity sha512-kEtPtV6QegME8YgMjWrhS7KktItbhqOpAuK9aXypDdI/7bLU9iM/4DtnQGWY/DARBophk+XRBfNXcE62Bmi0dw==
 
 "@tootallnate/once@2":
   version "2.0.0"
@@ -6882,9 +6867,9 @@ interpret@^1.0.0:
   integrity sha512-agE4QfB2Lkp9uICn7BAqoscw4SZP9kTE2hxiFI3jBPmXJfdqiahTbUuKGsMoN2GtqL9AxhYioAcVvgsb1HvRbA==
 
 ionicons@^7.0.0, ionicons@^7.1.0:
-  version "7.1.0"
-  resolved "https://registry.npmjs.org/ionicons/-/ionicons-7.1.0.tgz"
-  integrity sha512-iE4GuEdEHARJpp0sWL7WJZCzNCf5VxpNRhAjW0fLnZPnNL5qZOJUcfup2Z2Ty7Jk8Q5hacrHfGEB1lCwOdXqGg==
+  version "7.1.2"
+  resolved "https://registry.npmjs.org/ionicons/-/ionicons-7.1.2.tgz"
+  integrity sha512-zZ4njAqSP39H8RRvZhJvkHsv7cBjYE/VfInH218Osf2UVxJITSOutTTd25MW+tAXKN5fheYzclUXUsF55JHUDg==
   dependencies:
     "@stencil/core" "^2.18.0"
 
@@ -11094,17 +11079,7 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typescript@*, "typescript@^3 || ^4 || ^5", typescript@>=2.7, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.3 <6", typescript@>=4.3.5, typescript@>=4.4, "typescript@>=4.8.2 <5.0", typescript@>3.6.0, typescript@~5.0.2:
-  version "5.0.4"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-5.0.4.tgz"
-  integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
-
-"typescript@^3 || ^4":
-  version "4.9.5"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
-  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
-
-typescript@4.9.5:
+typescript@*, "typescript@^3 || ^4", "typescript@^3 || ^4 || ^5", typescript@^4.9.5, typescript@>=2.7, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.3 <6", typescript@>=4.3.5, typescript@>=4.4, "typescript@>=4.8.2 <5.0", typescript@>3.6.0, typescript@4.9.5:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
