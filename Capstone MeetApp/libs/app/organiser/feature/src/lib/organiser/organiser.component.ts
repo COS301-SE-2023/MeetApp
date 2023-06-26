@@ -80,15 +80,15 @@ export class OrganiserComponent {
 
   
 submitForm() {
-  if (this.eventName !== null && this.OrganisationName !== null && this.description !== null && this.profilePictureUrl !== null && this.startDate !== null && this.startTime !== null && this.endTime !== null && this.myLocation !== null && this.category !== null && this.selectedRegion !== null) {
+  if (this.eventName !== null && this.OrganisationName !== null && this.description !== null && this.profilePictureUrl !== null && this.selectedRange.startDate !== null && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null && this.myLocation !== null && this.category !== null && this.selectedRegion !== null) {
     this.service.createEvents(
       this.eventName,
       this.OrganisationName,
       this.description,
       this.profilePictureUrl,
-      this.startDate,
-      this.startTime,
-      this.endTime,
+      this.selectedRange.startDate,
+      this.selectedRange.startTime,
+      this.selectedRange.endTime,
       this.myLocation,
       this.category,
       this.selectedRegion

@@ -1,4 +1,5 @@
 <head>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -43,8 +44,8 @@
     <ion-label for="startDate" style="color: #5C469C;">Event Date:</ion-label>
     <button ion-button outline (click)="showDateTimeFields = true" class="enter-button">Enter date and time</button>
     <div *ngIf="showDateTimeFields" class="datetime-fields">
-      <input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-input">
-      <input type="time" id="startTime" name="startTime" [(ngModel)]="selectedRange.startTime" class="extraordinary-input">
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="this.selectedRange.startDate" class="extraordinary-input">
+      <input type="time" id="startTime" name="startTime" [(ngModel)]="this.selectedRange.startTime" class="extraordinary-input">
       <span class="to-label">to</span>
       <input type="time" id="endTime" name="endTime" [(ngModel)]="selectedRange.endTime" class="extraordinary-input">
     </div>
