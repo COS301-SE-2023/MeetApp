@@ -1384,10 +1384,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@esbuild/win32-x64@0.17.8":
+"@esbuild/win32-ia32@0.17.8":
   version "0.17.8"
-  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.8.tgz"
-  integrity sha512-1iuezdyDNngPnz8rLRDO2C/ZZ/emJLb72OsZeqQ6gL6Avko/XCXZw+NuxBSNhBAP13Hie418V7VMt9et1FMvpg==
+  resolved "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.17.8.tgz"
+  integrity sha512-Fqy63515xl20OHGFykjJsMnoIWS+38fqfg88ClvPXyDbLtgXal2DTlhb1TfTX34qWi3u4I7Cq563QcHpqgLx8w==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -2180,11 +2180,6 @@
   dependencies:
     nx-cloud "16.0.5"
 
-"@nrwl/nx-win32-x64-msvc@15.9.4":
-  version "15.9.4"
-  resolved "https://registry.npmjs.org/@nrwl/nx-win32-x64-msvc/-/nx-win32-x64-msvc-15.9.4.tgz"
-  integrity sha512-bogVju4Z/hy1jbppqaTNbmV1R4Kg0R5fKxXAXC2LaL7FL0dup31wPumdV+mXttXBNOBDjV8V/Oz1ZqdmxpOJUw==
-
 "@nrwl/tao@15.9.4":
   version "15.9.4"
   resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-15.9.4.tgz"
@@ -2574,16 +2569,6 @@
     "@nx/linter" "16.2.2"
     "@nx/workspace" "16.2.2"
     tslib "^2.3.0"
-
-"@nx/nx-win32-x64-msvc@16.0.3":
-  version "16.0.3"
-  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.0.3.tgz"
-  integrity sha512-/Ezru8nlrckLAQ4s7wEAW192DULgWj9YBqREQPV0ddzwjeVC0clsHSXguH8WzMwEU44+IFnqNMJrWK3mZCvZYA==
-
-"@nx/nx-win32-x64-msvc@16.2.2":
-  version "16.2.2"
-  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.2.2.tgz"
-  integrity sha512-liHtyVVOttcqHIV3Xrg/1AJzEgfiOCeqJsleHXHGgPr1fxPx7SIZaa3/QnDY1lNMN+t6Gvj0/r2Ba3iuptYD3Q==
 
 "@nx/web@16.0.3":
   version "16.0.3"
@@ -2991,7 +2976,14 @@
     "@types/qs" "*"
     "@types/serve-static" "*"
 
-"@types/google.maps@^3.52.4":
+"@types/google-maps@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.npmjs.org/@types/google-maps/-/google-maps-3.2.3.tgz"
+  integrity sha512-+GR/7sMvo2bENS26H4t2QqoCqE4FE5qhsG8aaDM9mJAlsorkLyaFdTQra8VkmS1RNE09fx9c1kac+GKG0RtA2A==
+  dependencies:
+    "@types/google.maps" "*"
+
+"@types/google.maps@*", "@types/google.maps@^3.52.4":
   version "3.53.2"
   resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.53.2.tgz"
   integrity sha512-rgTa3R5DyFTcjX4hmuGs0XR+kD4M5tZ14lcyYzDDJGr5h0JYj7DbbNZRZNJKDzZOGH3fOXWpIbZGj3BxZbpmjw==
@@ -11094,17 +11086,7 @@ typedarray@^0.0.6:
   resolved "https://registry.npmjs.org/typedarray/-/typedarray-0.0.6.tgz"
   integrity sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==
 
-typescript@*, "typescript@^3 || ^4 || ^5", typescript@>=2.7, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.3 <6", typescript@>=4.3.5, typescript@>=4.4, "typescript@>=4.8.2 <5.0", typescript@>3.6.0, typescript@~5.0.2:
-  version "5.0.4"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-5.0.4.tgz"
-  integrity sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==
-
-"typescript@^3 || ^4":
-  version "4.9.5"
-  resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
-  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
-
-typescript@4.9.5:
+typescript@*, "typescript@^3 || ^4", "typescript@^3 || ^4 || ^5", typescript@^4.9.5, typescript@>=2.7, "typescript@>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta", "typescript@>=4.3 <6", typescript@>=4.3.5, typescript@>=4.4, "typescript@>=4.8.2 <5.0", typescript@>3.6.0, typescript@4.9.5:
   version "4.9.5"
   resolved "https://registry.npmjs.org/typescript/-/typescript-4.9.5.tgz"
   integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
