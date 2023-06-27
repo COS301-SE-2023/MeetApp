@@ -84,7 +84,7 @@ export class service{
         const url=this.baseURl+'events';
         return this.http.get(`${url}`);
     }
-    createEvents(name: string,organisation: string,description: string,eventPoster: string, date: string, startTime: string,endTime: string,location: {latitude:string , longitude:string},category: string,region: string)
+    createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:string , longitude:string},category: string,region: string)
     {
         const url=this.baseURl+'events';
         const body=
@@ -93,7 +93,7 @@ export class service{
             name: name,
             organisation: organisation,
             description: description,
-            eventPoster: eventPoster, 
+           // eventPoster: eventPoster, 
             date: date,
              startTime: startTime,
              endTime: endTime,
@@ -106,7 +106,7 @@ export class service{
     }
 
      getEventsByRange(startDate?:string,endDate?:string){
-        const url=`${this.baseURl}events/daterange/:${startDate}/:${endDate}`;
+        const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
         return this.http.get(`${url}`);
     }
     

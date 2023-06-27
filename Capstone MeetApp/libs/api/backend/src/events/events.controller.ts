@@ -147,7 +147,7 @@ export class EventsController {
     return this.eventsService.findByQuery(query)
   }
 
-  @Get('duration/:duration')
+ // @Get('duration/:duration')
 
   @Get('daterange/:startDate/:endDate')
   getEventsByDateRange(

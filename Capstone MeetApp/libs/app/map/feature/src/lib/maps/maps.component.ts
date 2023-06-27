@@ -373,16 +373,18 @@ async ngOnInit() {
         
       }
   
-      const startDate = this.selectedRange.startDate ;
-      const endDate = this.selectedRange.endDate ;
+      const startDate = this.selectedRange?.startDate||null ;
+      const endDate = this.selectedRange?.endDate ||null;
       
       if(startDate===null&&endDate===null){
         this.fillEvents(this.selectedRegion);
       }else{
-        //console.log(startDate?.slice(0,10),startDate?.slice(0,10));
-        this.getEventsByDate(`${startDate?.slice(0,10)}`,`${endDate?.slice(0,10)}`)
-        
+        console.log(startDate?.slice(0,10),endDate?.slice(0,10));
+        this.getEventsByDate(`${startDate?.slice(0,10)}`,`${endDate?.slice(0,10)}`);
         this.fillEvents(this.selectedRegion);
+        //location.reload();
+
+
       }
       
     }

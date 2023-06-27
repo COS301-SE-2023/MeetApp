@@ -85,7 +85,7 @@ submitForm() {
       this.eventName,
       this.OrganisationName,
       this.description,
-      this.profilePictureUrl,
+     
       this.selectedRange.startDate,
       this.selectedRange.startTime,
       this.selectedRange.endTime,
