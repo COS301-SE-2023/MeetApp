@@ -6,12 +6,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   </head>
-  <body class="container">
+  <div class="container">
     
     <div class="heading-container">
       <i class="fas fa-heart pink"></i>
       <h1 class="heading">MeetApp&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-      <i class="fas fa-cog pink"></i>
+      <a href="/settings" routerLink="/settings" routerLinkActive="active-link">
+      <i class="fas fa-cog pink"></i></a>
     </div>
 
     <div class="search-bar">
@@ -32,7 +33,7 @@
             </div>
           <p><strong>Where?</strong> {{ item.location }}</p>
           <p><strong>When?</strong> {{ item.date }}</p>
-          <p>{{ item.description }}<a href="">&nbsp;&nbsp;more...</a></p>
+          <p>{{ item.description }} <a href="/event" routerLink="/event" routerLinkActive="active-link">&nbsp;&nbsp;more...</a></p>
         </div>
       </div>
 <div  *ngFor="let item of data" class="box" class="box" >
@@ -43,22 +44,45 @@
       </div>
     <p><strong>Where?</strong> {{ item.location }}</p>
     <p><strong>When?</strong> {{ item.date }}</p>
-    <p>{{ item.description }}<a href="">&nbsp;&nbsp;more...</a></p>
+    <p>{{ item.description }} <a href="/event" routerLink="/event" routerLinkActive="active-link">&nbsp;&nbsp;more...</a></p>
   </div>
 </div>
-<div class="navigation-bar">
-  <a href="#" class="navigation-item">
-    <i class="fas fa-home"></i>
-  </a>
-  <a href="#" class="navigation-item">
-    <i class="fas fa-bell"></i>
-  </a>
-  <a href="#" class="navigation-item">
-    <i class="fas fa-user"></i>
-  </a>
-</div>
+<nav class="bottom-navbar">
+  <ul>
+    <li>
+      <a href="/home" routerLinkActive="active">
+        <i class="fas fa-home"></i>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="/profile">
+        <i class="fas fa-bell"></i>
+        Notification
+      </a>
+    </li>
+    <li>
+      <a href="/home">
+        <i class="fas fa-calendar"></i>
+       Calender
+      </a>
+    </li>
+    <li>
+      <a href="/organisers">
+        <i class="fas fa-plus-circle"></i>
+     Post Event
+      </a>
+    </li>
+    <li>
+      <a href="/profile" >
+        <i class="fas fa-user"></i>
+        Profile
+      </a>
+    </li>
+  </ul>
+</nav>
 
-</body>
+</div>
 </html>
 
       
