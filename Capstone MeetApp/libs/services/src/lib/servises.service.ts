@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+//import { url } from "inspector";
 //import { Observable } from "rxjs";
 
 
@@ -20,6 +21,7 @@ export interface events{
 
 }
 
+
 export interface createEvents
 {
     
@@ -33,6 +35,13 @@ export interface createEvents
      location: {latitude:string , longitude:string};
     category: string; 
     region: string;
+}
+
+export interface User{
+    username:string,
+    password:string,
+    profilePicture:string,
+    region:string
 }
 export interface createUser
 {
@@ -95,6 +104,12 @@ export class service{
         return this.http.post(`${url}`,body);
 
     }
+
+     getEventsByRange(startDate?:string,endDate?:string){
+        const url=`${this.baseURl}events/daterange/:${startDate}/:${endDate}`;
+        return this.http.get(`${url}`);
+    }
+    
     createUser(username:string,password:string, name:string,email:string,phoneNumber:string,  location: {latitude:string , longitude:string},events:string)
     {
         const url=this.baseURl+'users';
@@ -138,4 +153,32 @@ export class service{
         }
          return this.http.post(`${url}`,body);
     }
+
+    getUser(id:string){
+        const url=`${this.baseURl}users/${id}`;
+        return this.http.get(`${url}`);
+    }
+    
+    //body JSON example = {"region": "Joburg", "profifilePicture": "http://localhost..."}
+    updateUser(id:string,username?:string,profilePicture?:string,region?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+            username:username,
+            profilePicture:profilePicture,
+            region:region
+        }
+        return this.http.patch(`${url}`,body);
+    }
+    getUserAttendances(id:string){
+        const url=`${this.baseURl}users/${id}/attendances`;
+        return this.http.get(`${url}`);
+    }
+    getUserAttendancesCount(id:string){
+        const url=`${this.baseURl}users/${id}/attendances/count`;
+        return this.http.get(`${url}`);
+    }
+    /*getUserAttendancesEventsList(ids:string[]){
+        const url=`${this.baseURl}events/fetch-by-ids?eventsIds=${ids}`;
+        return this.http.get(`${url}`);
+    }*/
 }

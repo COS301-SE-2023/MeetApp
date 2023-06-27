@@ -4,19 +4,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<body>
+<div id="body">
     <div class="background-image"></div>
        
     <div class="profile">
         <div class="circle">
-          <img [src]=" profilePictureUrl" alt="Circle Image">
+          <img [src]=" profile.profilePicture" alt="Circle Image">
           <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
         </div>
         <div class="profile-info">
-            <h4>{{ profileName }}</h4>
+            <h3>{{ profile.username }}</h3>
           
-           <div class="Events" style="margin-left: 210px; margin-top: -20px;" >
-            <p>Events: 10</p>
+           <div class="Events" style="margin-left: 210px; margin-top: -10px;" >
+            <p>Events: {{eventCount}}</p>
         </div>
         <div class="Followers" style="margin-left: 210px; margin-top: 10px;" >
             <p>Followers: 100</p>
@@ -40,8 +40,8 @@
             <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
           </div>
           <div>
-            <button (click)="saveProfile()">Save</button>
-            <button (click)="closeEditProfilePopover()">Cancel</button>
+            <ion-button (click)="saveProfile()">Save</ion-button>
+            <ion-button (click)="closeEditProfilePopover()">Cancel</ion-button>
           </div>
         </div>
     </div>
@@ -76,5 +76,5 @@
         </ul>
     </nav>
 
-</body>
+  </div>
 </html>

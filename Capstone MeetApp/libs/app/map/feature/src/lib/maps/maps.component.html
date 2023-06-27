@@ -38,7 +38,8 @@
         <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
           <ion-select-option value="">-- Select Region --</ion-select-option>
           <ion-select-option value="Pretoria">Pretoria</ion-select-option>
-          <ion-select-option value="Johannesburg">Johannesburg</ion-select-option>
+          <ion-select-option value="Joburg">Johannesburg</ion-select-option>
+          
           <!-- Region options here -->
         </ion-select>
       </ion-item>
@@ -57,7 +58,7 @@
         <ion-datetime-button datetime="EndDate"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime [showDefaultButtons]="true" presentation="date" id="EndDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-datetime"></ion-datetime>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="EndDate" [(ngModel)]="selectedRange.endDate" class="extraordinary-datetime"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
