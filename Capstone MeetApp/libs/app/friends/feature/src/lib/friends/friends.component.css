@@ -1,0 +1,115 @@
+body{
+
+  background-color: black;
+  height: 100vb;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.back-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.heading {
+  color: #fff;
+  text-align: center;
+  flex-grow: 1;
+}
+
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+   
+  }
+  
+  .search-bar {
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input[type="text"] {
+    width: 200px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .search-bar button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .contact-list{
+
+    
+  }
+  .contact-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  
+    .contact {
+      display: flex;
+      align-items: center;
+      border-radius: 30px;
+      width: 120%;
+      padding: 10px; /* Adjust the padding as needed */
+      margin-right: 40px;
+    /* Add left margin to move the contact to the left */
+      background-color: #D4ADFC;
+    }
+    
+   
+  
+  
+  .profile-picture {
+    width: 50px;
+    height: 50px;
+     /* Update the background color */
+    border-radius: 50%;
+    margin-right: 20px;
+   
+    /* Add additional styling for profile picture */
+    border: 2px solid #007bff;
+    overflow: hidden;
+    display: flex;
+    background-size: 100% auto; 
+    
+    background-position: center;
+    
+  }
+  
+  .profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .contact{
+   
+  }
+  .contact-details {
+    /* Update the background color */
+    /* Add additional styling for contact details */
+  }
+  
+  .contact-details h3 {
+    margin: 0;
+    color: #fff; /* Update the text color */
+  }
+  

@@ -1,0 +1,41 @@
+name: Main CI
+
+on:
+  push:
+    branches:
+      - main
+      - production
+      - development
+  pull_request:
+
+jobs:
+  build:
+    name: Build
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with: 
+          #needed for nx
+          fetch-depth: 0
+      - name: 
+          'derive appropriate SHAs for bas and head for nx affected commands'
+        uses: nrwl/nx-set-shas@v2
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - run: npm ci
+      - run: npm install
+
+      - name: 
+          'PR Build application if affected by changes in in feature branch'
+        if: env.is_pull_request== 'true'
+        run: npm run affected:build
+      - name:
+          'Merge: build the application'
+        if: env.is_merge =='true'
+        run: npm run build
+        

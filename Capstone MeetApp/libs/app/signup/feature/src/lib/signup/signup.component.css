@@ -1,0 +1,46 @@
+.heading {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  color: white;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+}
+
+.holder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  padding: 16px;
+  margin-top:160px;
+  border-radius: 0%;
+  
+}
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  width: 100%;
+} 
+input {
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-bottom: 2px solid white;
+  padding: 4px;
+  margin-top: 4px;
+  margin-right: 0%;
+  width: 100%;
+  box-sizing: border-box;
+  border-bottom: 3px solid #000000;
+  outline: none;
+}
+.label{
+
+
+  color :white;
+}
