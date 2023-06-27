@@ -3,6 +3,7 @@ import { IonContent } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'; // Import FormsModul
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 import { AlertController } from '@ionic/angular';
 
@@ -28,10 +29,14 @@ export class OrganiserComponent {
     startTime: '',
     endTime: '',
   };
- 
+  showForm: |boolean = false;
+
+
+  address: string | null=null;
   showDateTimeFields = false;
   SelectedRangeControl = new FormControl();
   formGroup: FormGroup<{ startDate: FormControl<string | null>; startTime: FormControl<string | null>; endTime: FormControl<string | null>; }> | undefined;
+  myForm: any;
  
   
   ngOnInit() {
@@ -53,7 +58,7 @@ export class OrganiserComponent {
       },
     ],
   };
-  constructor(private alertController: AlertController) {
+  constructor(private alertController: AlertController,private router: Router) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
     this.selectedRegion='';
@@ -130,17 +135,34 @@ export class OrganiserComponent {
       console.log('startDate',this.selectedRange.startDate)
       console.log('endTime',this.selectedRange.endTime)
       console.log('startTime',this.selectedRange.startTime)
-  
+     this.router.navigate(['/home']);
       
     } else {
       const alert = await this.alertController.create({
         header: 'Incomplete Fields',
         message: 'Please fill in all fields.',
         buttons: ['OK'],
+
       });
   
       await alert.present();
+      
     }
   }
   
+  toggleForm() {
+   
+    this.showForm = !this.showForm;
+        
+  if (!this.showForm) {
+    // Reset the form or perform any necessary actions after submitting
+    // For example, you can reset the form controls to their initial values
+    // or clear the form data.
+    this.myForm.reset(); // Assuming `myForm` is the form instance name
+
+    // Navigate to '/home' when hiding the form
+    this.router.navigate(['/home']);
+  }
+ 
+}
 }

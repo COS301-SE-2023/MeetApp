@@ -1,6 +1,6 @@
-body {
+#body {
   background-color: black;
-  height: calc(100vh - 35px); /* Subtract the height of the bottom navbar */
+  height: calc(100vh - 35px); 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -90,30 +90,29 @@ ion-input,
 ion-textarea,
 ion-select,
 ion-datetime {
-  --color: #D4ADFC; /* Color of text inputs and selects */
+  --color: #D4ADFC; 
 }
 
 .icon-container {
   position: fixed;
   top: 50%;
-  z-index: 999; /* Ensure icons are above other content */
-  animation: moveIcons 3s infinite alternate; /* Adjust the animation duration as per your preference */
+  z-index: 999; 
+  animation: moveIcons 3s infinite alternate; 
 }
 
 .icon-container.left {
-  left: 10px; /* Adjust the position as per your preference */
+  left: 10px; 
   transform: translateY(-50%);
 }
 
 .icon-container.right {
-  right: 8px; /* Adjust the position as per your preference */
+  right: 8px; 
   transform: translateY(-50%);
 }
 
 .icon-container img {
   width: 42%;
   height: 42%;
-  margin-bottom: 10px; /* Adjust the spacing between icons */
 }
 
 @keyframes moveIcons {
@@ -121,7 +120,7 @@ ion-datetime {
     transform: translateY(0);
   }
   100% {
-    transform: translateY(-130px); /* Adjust the distance the icons move */
+    transform: translateY(-130px); 
   }
 }
 
@@ -161,45 +160,44 @@ ion-datetime {
 
 .bottom-navbar li .emoji {
   font-size: 24px;
-  color: #000; /* Color for the icons (black) */
+  color: #000;
   margin-bottom: 5px;
 }
 
 .bottom-navbar li span {
-  color: #fff; /* Color for the text (white) */
+  color: #fff;
 }
 
 .save-button {
   position: absolute;
-  bottom: 50px; /* Adjust the position as per your preference */
-  left: 50%;
-  transform: translateX(-50%);
+  
+ 
+  transform: translateY(-50%);
 }
 .icon-container.right img {
-  width: 30px; /* Adjust the width as needed */
-  height: 30px; /* Adjust the height as needed */
-  margin-left: 10px; /* Adjust the margin as needed */
+  width: 30px; 
+  height: 30px;
+  margin-left: 10px; 
 }
 .icon-container.left img {
-  width: 30px; /* Adjust the width as needed */
-  height: 30px; /* Adjust the height as needed */
-  margin-left: 10px; /* Adjust the margin as needed */
+  width: 30px; 
+  height: 30px; 
+  margin-left: 10px; 
 }
 .custom-item {
-  --highlight-color-focused: #5C469C; /* Set the highlight color when the input is focused */
-  --border-color: #5C469C;; /* Set the border color */
+  --highlight-color-focused: #5C469C; 
+  --border-color: #5C469C;;
 }
-
 .custom-label {
-  color: #5C469C; /* Set the label color */
+  color: #5C469C;
 }
 
 .custom-input {
-  --color: #5C469C; /* Set the input text color */
-  --highlight-color-focused: #5C469C; /* Set the highlight color when the input is focused */
+  --color: #5C469C; 
+  --highlight-color-focused: #5C469C; 
 }
 extraordinary-input {
-  /* Custom styles for the input elements */
+  
   border: none;
   background-color: #5C469C;
   color: white;
@@ -216,16 +214,36 @@ extraordinary-input {
 }
 
 .datetime-fields {
-  /* Styles for the container div */
+ 
   display: flex;
   align-items: center;
+  font-size: 10px; 
 }
 
 .to-label {
-  /* Styles for the "to" label */
-  color:#5C469C;
-  font-size: 18px;
-  margin: 0 10px;
+ 
+  color: #5C469C;
+  font-size: 14px; 
+  margin: 0 5px; 
 }
+.smaller-form {
+  transform: scale(0.8);
+  transform-origin: top left;
+  width: 80%; 
+  margin: 0 auto;
+}
+.toggle-button{
+
+  background-color: #D4ADFC;
+  font-size: 24px;
+  border-radius: 50%;
+ 
+}
+
+
+
+
+
+
 
 
