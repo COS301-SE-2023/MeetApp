@@ -1,6 +1,7 @@
 ![](https://digiday.com/wp-content/uploads/sites/3/2015/06/DonkeyKong-banner2.gif?w=1030&h=440&crop=1)
-
+<p><h1 align='center'>Tech Titans<br><br></h1>
 <h1 align='center'>MeetApp<br><br></h1>
+</p>
 
 <div align="left">
 <a href= "https://github.com/COS301-SE-2023/MeetApp/pulls">
@@ -29,6 +30,7 @@
 
 
 ## Project Descritpion 
+MeetApp is a location-powered, social-networking and event-planning application that allows users to discover, attend, and engage with events of all types. With MeetApp, users can browse event listings, RSVP to events, receive notifications about upcoming events, and interact with other attendees through social features such as liking and sharing media content. The app also offers powerful features for event organizers, including the ability to create and manage events, track attendance, and receive feedback from attendees. MeetApp uses machine learning algorithms to recommend events to users based on their location and past attendance, and offers tools for event promotion and sponsorships. Whether you're attending a conference, concert, or meetup, MeetApp provides a comprehensive platform for discovering, planning, and experiencing events like never before.
 ## Demo
 * [Demo 1](https://drive.google.com/drive/folders/1ps4zFMsyaVffrnx9De-d89HhVjqKa4a8?usp=sharing)
 * [Demo 2](https://drive.google.com/drive/folders/1lhjC10czva_b4yBKryF5oluZXzLEgXGw?usp=sharing)
@@ -48,3 +50,9 @@
 
 ## Team Profiles
 * [Team Profiles](https://github.com/COS301-SE-2023/MeetApp/wiki/Team-Profiles)
+
+## Contact Us
+
+[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](#)  techtitanstuks@gmail.com
+
+
