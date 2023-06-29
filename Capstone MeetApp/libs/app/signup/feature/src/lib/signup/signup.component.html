@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <style>
+    body {
+  background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
+  background-size: cover;
+  background-position: center center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+      /* Add any additional styling for the form, if needed */
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1 class="heading">Sign Up</h1>
+    </div>
+    
+    <div class="holder" style="background-color: #111C20; width: 40%; height: 20%; margin-left: 25%; border-radius: 10px; padding: 16px;">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value.name, loginForm.value.email, loginForm.value.phoneNumber, loginForm.value.password, loginForm.value.confirmPassword)">
+        <label for="name" style="color: white;">Name</label>
+        <input type="text" id="name" formControlName="name" required>
+       <label for="email " style="color: white;"> Email</label>
+          <input type="email" id="email" formControlName="email" required>
+        
+          <label for="phoneNumber" style="color: white;">Phone Number</label>
+          <input type="tel" id="phoneNumber" formControlName="phoneNumber" required>
+       
+       
+          <label for="password" style="color: white; margin-top:3px">Password</label>
+          <input type="password" id="password" formControlName="password" required style[formControl]="passwordFormControl">
+          <div *ngIf="passwordFormControl.hasError('required')">
+            Password is required.
+          </div>
+          <div *ngIf="passwordFormControl.hasError('minlength')">
+            Password should have at least 8 characters.
+          </div>
+          <div *ngIf="passwordFormControl.hasError('weakPassword')">
+            Password should be strong and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.
+          </div>
+       
+          <label for="confirmPassword" style="color: white;">Confirm Password</label>
+  <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+
+       
+          <button type="submit" style="justify-content: center; display: flex; margin: 20px auto; width: 60%; height: 30px; text-align:
+           center; background-color: #C396F0;
+           margin-top: 5px;
+            border-radius: 6px;
+            color: white;
+           ">Submit</button>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
+          <div style="display: flex; align-items: center; margin-bottom: 10px;">
+            <input type="checkbox" id="rememberMe" name="rememberMe" style="margin-right: 5px;">
+            <label for="rememberMe" style="color: white; font-size: 12px; font-family: sans-serif; white-space: nowrap;">Remember me</label>
+          </div>
+        
+        </div>
+      </form>
+    </div>
+    
+    
+   
+  </body>
+  </html>
+  

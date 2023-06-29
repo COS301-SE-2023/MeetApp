@@ -1,0 +1,99 @@
+{
+  "name": "meet-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "capstone-meet-app",
+  "sourceRoot": "apps/meet-app/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/meet-app",
+        "index": "apps/meet-app/src/index.html",
+        "main": "apps/meet-app/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/meet-app/tsconfig.app.json",
+        "assets": ["apps/meet-app/src/favicon.ico", "apps/meet-app/src/assets"],
+        "styles": ["apps/meet-app/src/styles.scss","node_modules/@ionic/angular/css/core.css",
+        "node_modules/@ionic/angular/css/normalize.css",
+        "node_modules/@ionic/angular/css/structure.css",
+        "node_modules/@ionic/angular/css/typography.css",
+        "node_modules/@ionic/angular/css/display.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "meet-app:build:production"
+        },
+        "development": {
+          "browserTarget": "meet-app:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "meet-app:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/meet-app/**/*.ts", "apps/meet-app/**/*.html"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/meet-app/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "meet-app:build"
+      }
+    }
+  }
+}

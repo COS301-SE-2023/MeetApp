@@ -26,6 +26,8 @@
 * [Demo](#demo)
 * [Documentation](#documentation)
 * [Team Profiles](#team-profiles)
+* [Project Board](https://github.com/orgs/COS301-SE-2023/projects/27/views/1)
+
 
 ## Project Descritpion 
 MeetApp is a location-powered, social-networking and event-planning application that allows users to discover, attend, and engage with events of all types. With MeetApp, users can browse event listings, RSVP to events, receive notifications about upcoming events, and interact with other attendees through social features such as liking and sharing media content. The app also offers powerful features for event organizers, including the ability to create and manage events, track attendance, and receive feedback from attendees. MeetApp uses machine learning algorithms to recommend events to users based on their location and past attendance, and offers tools for event promotion and sponsorships. Whether you're attending a conference, concert, or meetup, MeetApp provides a comprehensive platform for discovering, planning, and experiencing events like never before.
@@ -38,7 +40,7 @@ MeetApp is a location-powered, social-networking and event-planning application 
 ## Documentation
 
 * [Requirements and Design (SRS) Document](https://docs.google.com/document/d/1EHkrakkAeITL3uzxEYB2qK57-l74RdiUYAZXCMUeUTg/edit?usp=sharing)
-* [Architectural Structural Design & Requirements](#)
+* [Architectural Structural Design & Requirements](https://drive.google.com/drive/folders/1HtlHt38AoDzFUmQpi_i_lWsPaaEMfXUJ?usp=sharing)
 * [Coding Standards](#)
 * [Testing Standards](#)
 * [Project Management](#)

@@ -1,0 +1,142 @@
+
+.container1 {
+    
+  float:right;
+}
+
+
+.box {
+  width: 335px;
+  height: 230px;
+ background-color: #D4ADFC;
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px; 
+  padding: 10px
+}
+
+.image-container1 {
+  
+  
+  display: flex; /* Use flexbox to center the image */
+  justify-content: center; /* Center items horizontally */
+  border-radius: 20px;
+
+}
+
+.content-container {
+  flex: 1 1 auto;
+}
+
+.image-container {
+  float: left; 
+    margin-right: 10px;
+ 
+  max-width: 100%;
+  height: auto;
+  
+}
+
+
+.fa-heart{
+  font-size: 30px; 
+  color: #D4ADFC;
+  margin-right: 40px; 
+}
+
+
+.fa-cog {
+  font-size: 30px; 
+  color: #D4ADFC;
+  margin-right: 40px; 
+}
+html {
+  height: 100%;
+}
+.heading-container {
+  
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+.container {
+  overflow-y: auto;
+  max-height: 100vh;
+  background-color:black;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px;
+  color: black;
+  margin: 0;
+  
+  min-height: 100vh;
+}
+.pink {
+  color: #D4ADFC;
+  margin-left: 10px;
+}
+.heading {
+  
+  text-align: center;
+    padding: 16px;
+     color: white;
+     margin: 0 auto;
+     font-family: 'Roboto', sans-serif;
+     margin-left: 10px; 
+}
+
+.navigation-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #460c68;
+  height: 60px;
+  box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+
+.navigation-item {
+  text-decoration: none;
+  color: #D4ADFC;
+}
+
+.navigation-item i {
+  font-size: 24px;
+}
+
+.navigation-item:hover {
+  color: rgb(98, 82, 104);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 5px;
+  margin-bottom: 20px; 
+}
+
+.rounded-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  padding: 5px;
+}
+
+.search-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 5px;
+}

@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
+    <style>
+
+body{
+
+   padding: 0;
+margin-top: 0;
+margin: 0;
+background-color: #0C134F;
+height:100vh;
+}
+    </style>
+</head>
+<body>
+    <h1 class="center-heading">Gala Dinner</h1>
+    
+    <div class="center-image">
+        <img src="https://www.i-eventplanner.com/wp-content/uploads/revslider/Avada_Full_Width/Corporate-Event-planner.jpg" alt="Centered Image" 
+        style="height: 50%; width: 50%;">
+    </div>
+   
+    <div class="center-div">
+        <div>Description</div>
+        <div>Event Information</div>
+        <div>Event Location</div>
+    </div>
+    
+    <div class="heart-icon">
+        <input type="checkbox" id="attending-checkbox">
+        <label for="attending-checkbox" class="attending-label">Attending</label>
+        <i class="fas fa-heart fa-lg"></i>
+      </div>
+      <div id="counter">0</div>
+      
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const heartIcon = document.querySelector('.heart-icon ');
+          const counterElement = document.getElementById('counter');
+          let counter = 0;
+      
+          heartIcon.addEventListener('click', function() {
+            counter++;
+            counterElement.textContent = counter.toString();
+          });
+        });
+      </script>
+<nav class="bottom-navbar">
+    <ul>
+      <li>
+        <a href="/home" routerLinkActive="active">
+          <i class="fas fa-home"></i>
+          Home
+        </a>
+      </li>
+      <li>
+        <a href="/profile">
+          <i class="fas fa-bell"></i>
+          Notification
+        </a>
+      </li>
+      <li>
+        <a href="/profile" >
+          <i class="fas fa-user"></i>
+          Profile
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  </body>
+  
+
+
+
