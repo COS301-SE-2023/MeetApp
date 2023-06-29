@@ -1,13 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 // import { CreateUserDto } from './dto/create-user.dto';
-// import { UpdateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
 import { Model } from 'mongoose';
+import { Attendance } from '../attendances/schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>){
     
   }
   
@@ -23,9 +24,21 @@ export class UsersService {
     return this.userModel.findById(id).exec();
   }
 
-  // update(id: number, updateUserDto: UpdateUserDto) {
-  //   return `This action updates a #${id} user`;
-  // }
+  async getUserAttendances(userId: string) {
+    return this.attendanceModel.find({ userID: userId }).exec();
+  }
+
+  async getUserAttendancesCount(userId: string) {
+    return this.attendanceModel.countDocuments({ userID: userId }).exec();
+  }
+
+  async update(id: string, updateUserDto: UpdateUserDto) {
+    const existingUser = await this.userModel.findByIdAndUpdate(id, updateUserDto, { new: true });
+   if (!existingUser) {
+     throw new NotFoundException(`User #${id} not found`);
+   }
+   return existingUser;
+  }
 
   // remove(id: number) {
   //   return `This action removes a #${id} user`;
