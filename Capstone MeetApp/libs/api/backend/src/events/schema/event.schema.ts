@@ -20,6 +20,9 @@ export class Event {
   description!: string;
   
     @Prop()
+  eventPoster!: string;
+  
+    @Prop()
   date!: string;
   
     @Prop()

@@ -19,3 +19,4 @@ export class CreateEventDto {
     readonly region!: string;
 
 }
+
