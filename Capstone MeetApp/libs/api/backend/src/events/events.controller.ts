@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete, BadRequestException,Query } from '@nestjs/common';
 import { EventsService } from './events.service';
 import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
@@ -38,8 +38,33 @@ export class EventsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventsService.findOne(id);
+  findOne(@Param('id') id: string, @Query('eventIds') eventIds: string) {
+    let eventIdArray : string[];
+    if (id == 'today')
+      return this.getEventsForToday();
+    switch (id) {
+      case 'today':
+        return this.getEventsForToday();
+        break;
+      case 'thisweek':
+        return this.getEventsForThisWeek();
+        break;
+      case 'thismonth':
+        return this.getEventsForThisMonth();
+        break;
+      case 'thisyear':
+        return this.getEventsForThisYear();
+        break;
+      case 'fetch-by-ids':
+        eventIdArray = eventIds.split(',');
+        return this.eventsService.fetchEventsByIds(eventIdArray);
+        break;
+    
+      default:
+        return this.eventsService.findOne(id);
+        break;
+    }
+    
   }
 
   @Get(':id/attendees')
@@ -122,7 +147,7 @@ export class EventsController {
     return this.eventsService.findByQuery(query)
   }
 
-  @Get('duration/:duration')
+ // @Get('duration/:duration')
 
   @Get('daterange/:startDate/:endDate')
   getEventsByDateRange(
