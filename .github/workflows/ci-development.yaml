@@ -7,13 +7,24 @@ on:
   push:
     branches:
       - auth
-      - development
-      - main
+      - auth*
+      - map*
+      - profile*
+      - home*
+      - organiser*
+      - settings*
+      - events*
       
   pull_request:
     branches:
-      - auth
-      - development
+      - auth*
+      - map*
+      - profile*
+      - home*
+      - organiser*
+      - settings*
+      - events*
+      
 
 jobs:
 
