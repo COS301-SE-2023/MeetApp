@@ -1,1 +1,1 @@
-export * from './lib/app-friends-feature';
+export * from './lib/friends/friends.component';

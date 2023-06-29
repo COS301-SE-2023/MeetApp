@@ -1,42 +1,86 @@
 <!Doctype html>
 <html lang="en">
-
+  <ion-header>
+    <ion-toolbar>
+      <ion-title >
+        Event Map
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
 <head>
     <meta charset="utf-8">
-    <title>GmapsExample</title>
+    <title>Event Map</title>
     <base href="/">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=(apikey)&libraries=places&language=en">
-      
-    
     </script>
-    <style>
-
-body{
-
-background-color: black;
-height: 100vh;
-margin: 0;
-padding: 0;
-}
-    </style>
 </head>
 
-<body>
-    <h1>Map Locations</h1>
-    <div id="map" style="width:100%;height: 650px;"></div>
-    <!--google-map
-    height="500px"
-    width="100%"
-    [zoom]="zoom"
-    [center]="center"
-    [options]="options"></google-map-->
-    <button onc></button>
-    <button (click)="zoomIn()">Zoom in</button>
-    <button (click)="zoomOut()">Zoom out</button>
-
+<div id="body">
+  <div class="container">
     
-</body>
+  <div id="map" style="height: 350px;"></div>
+  
+  <ion-grid>
+    <ion-row>
+      <ion-button size="small" (click)="zoomIn()" class="button_color" >Zoom In</ion-button>
+    <ion-button size="small" (click)="zoomOut()">Zoom Out</ion-button>  
+    </ion-row>
+  </ion-grid>
+  </div>
+    
+  <div id="filter">
+    <form (ngSubmit)="onSubmit()" class="form">
+      <ion-item>
+        <ion-label for="region">Select Region:</ion-label>
+        <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
+          <ion-select-option value="">-- Select Region --</ion-select-option>
+          <ion-select-option value="Pretoria">Pretoria</ion-select-option>
+          <ion-select-option value="Joburg">Johannesburg</ion-select-option>
+          
+          <!-- Region options here -->
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label for="startDate" style="color: #5C469C;">Start Date:</ion-label>
+        <ion-datetime-button datetime="startDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-datetime"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label for="EndDate" style="color: #5C469C;">End Date:</ion-label>
+        <ion-datetime-button datetime="EndDate"></ion-datetime-button>
+        <ion-modal [keepContentsMounted]="true">
+          <ng-template>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="EndDate" [(ngModel)]="selectedRange.endDate" class="extraordinary-datetime"></ion-datetime>
+          </ng-template>
+        </ion-modal>
+      </ion-item>
+      
+
+      <button type="submit" class="submit-button">Submit</button>
+    </form>
+  </div>
+  
+  <ion-footer>
+    <ion-segment value="maps">
+      <ion-segment-button value="list" (click)="BACKTOHOME()">
+        <ion-label style="color: black;">list</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="maps">
+        <ion-label  style="color: black; font-size: larger;">maps</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-footer>
+  
+  
+</div>
+
 
 </html>
