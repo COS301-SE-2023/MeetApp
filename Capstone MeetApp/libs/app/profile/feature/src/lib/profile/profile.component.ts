@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';;// A
 import { ModalController } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
-
+import { User,service} from '@capstone-meet-app/services';
 
 @Component({
   selector: 'capstone-meet-app-profile',
@@ -16,10 +16,9 @@ import { RouterModule, Routes } from '@angular/router';
 })
 export class ProfileComponent {
   profilePictureUrl: string | null = null
-  profileName: string | null = null;
- 
+  profileName: string |undefined;
   isEditMode: boolean;
-  newProfileName:string | null = null;
+  newProfileName:string | undefined;
   newProfilePicUrl: string | null = null;
 
   imageList = [
@@ -34,17 +33,46 @@ export class ProfileComponent {
     'https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/bungee-jumping-in-south-africa-cover.jpg',
     // Add more image URLs as needed
   ];
-
-  constructor(private router: Router,private modalController: ModalController) {
-    this.profileName = 'KMAN THE CHEQUEBOOK';
+  profile:User={username:'',password:'',profilePicture:'',region:''};
+  eventCount='';
+  userEvents = [];
+  profileId='';
+  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service) {
+    this.profileId='64722456cd65fc66879ed7ba';
     this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
     this.isEditMode = false;
-
   }
 
+  async ngOnInit(){
+    this.getProfile(this.profileId);
+    this.getEventCount(this.profileId);
+    this.getEvents(this.profileId);
+  }
   
-   
+  async getProfile(id :string){
+    await this.serviceProvider.getUser(id).subscribe((response:any)=>{ 
+      this.profile = response;
+    })
+  }
+  async getEventCount(id : string){
+    await this.serviceProvider.getUserAttendancesCount(id).subscribe((response:any)=>{
+      this.eventCount = response;
+      console.log(this.eventCount);
+    });
+  }
 
+  async updateProfile(id:string,username?:string,profifilePicture?:string,region?:string){
+    await this.serviceProvider.updateUser(id,username,profifilePicture,region).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+  }
+  async getEvents(id : string){
+    await this.serviceProvider.getUserAttendances(id).subscribe((response:any)=>{
+      this.userEvents = response;
+      console.log(this.userEvents);
+    });
+  }
   toggleEditProfile() {
     this.isEditMode = !this.isEditMode;
     this.newProfileName = this.profileName;
@@ -63,15 +91,23 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-    if (this.newProfileName) {
+      console.log('THE FUNCTION IS RUNNING');
+    if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
-    }
-    if (this.newProfilePicUrl) {
+      this. profilePictureUrl = this.newProfilePicUrl;
+      this.updateProfile(this.profileId,this.newProfileName,this.newProfilePicUrl);
+      console.log(this. profilePictureUrl);
+    }else if(this.newProfileName){
+      this.profileName = this.newProfileName;
+      this.updateProfile(this.profileId,this.newProfileName);
+    }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this. profilePictureUrl);
+      this.updateProfile(this.profileId,this.profileName,this.profilePictureUrl);
       console.log(this. profilePictureUrl);
-
     }
+
+    location.reload();
     this.isEditMode = false;
   }
   
