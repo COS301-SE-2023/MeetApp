@@ -61,7 +61,7 @@ export class OrganiserComponent {
     ],
   };
 
-  constructor(private alertController: AlertController,private router: Router) {
+  constructor(private alertController: AlertController,private router: Router,private service:service) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
     this.selectedRegion='';
@@ -91,7 +91,6 @@ submitForm() {
       this.eventName,
       this.OrganisationName,
       this.description,
-     
       this.selectedRange.startDate,
       this.selectedRange.startTime,
       this.selectedRange.endTime,
@@ -105,10 +104,6 @@ submitForm() {
   }
   
 }
-
-
-
-
 
   changeProfilePicture() {
     const input = document.createElement('input');
