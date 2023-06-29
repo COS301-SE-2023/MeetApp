@@ -1,4 +1,6 @@
-name: Continuous_integration
+
+name: CI
+
 on:
   workflow_dispatch:
   
@@ -14,6 +16,7 @@ on:
       - development
 
 jobs:
+
   build:
     defaults:
       run:

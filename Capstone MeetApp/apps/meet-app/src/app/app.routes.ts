@@ -12,6 +12,7 @@ import { SignupComponent } from '@capstone-meet-app/app/signup/feature';
 import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { WelcomepageComponent } from '@capstone-meet-app/app/welcome/feature';
+
 import {ProfileComponent} from '@capstone-meet-app/app/profile/feature'
 import {SettingsComponent} from '@capstone-meet-app/settings/feature'
 import {MapsComponent}from '@capstone-meet-app/map'
@@ -28,5 +29,5 @@ export const appRoutes: Route[] = [
    ,{path: "map", component: MapsComponent}
    ,{path: "event", component: EventComponent}
    ,{path: "friends", component: FriendsComponent},
-   {path: "organiser,", component: OrganiserComponent},
+   {path: "organisers", component: OrganiserComponent},
 ];

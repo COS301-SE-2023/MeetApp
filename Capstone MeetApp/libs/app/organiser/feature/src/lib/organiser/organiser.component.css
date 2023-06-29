@@ -1,4 +1,6 @@
-body {
+
+#body {
+  margin:0;
   background-color: black;
   height: calc(100vh - 35px); /* Subtract the height of the bottom navbar */
   display: flex;

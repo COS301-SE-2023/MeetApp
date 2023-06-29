@@ -1,7 +1,8 @@
 <head>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-<body>
+<div id="body">
   <ion-header style="color: blue;">
     <ion-title style="color:#D4ADFC">
       Event Organiser
@@ -19,7 +20,7 @@
 
     <!-- Add more icons for the right side -->
   </div>
-  <div class="profile-picture">
+  <div (ngSubmit)="submitForm()" class="profile-picture">
     <ion-avatar>
       <img [src]="profilePictureUrl" alt="Profile Picture" (click)="changeProfilePicture()">
     </ion-avatar>
@@ -29,22 +30,22 @@
     </ion-button>
   </div>
 
-  <ion-item class="custom-item">
+  <ion-item (ngSubmit)="submitForm()" class="custom-item" >
     <ion-label position="floating" class="custom-label">Event Name</ion-label>
     <ion-input [(ngModel)]="eventName" class="custom-input" placeholder="Enter event name"></ion-input>
   </ion-item>
   
-  <ion-item class="custom-item">
+  <ion-item (ngSubmit)="submitForm()" class="custom-item" >
     <ion-label position="floating" class="custom-label">Organisation Name</ion-label>
     <ion-input [(ngModel)]="OrganisationName" class="custom-input" placeholder="Enter Organisation name"></ion-input>
   </ion-item>
   
-  <ion-item>
+  <ion-item (ngSubmit)="submitForm()">
     <ion-label for="startDate" style="color: #5C469C;">Event Date:</ion-label>
     <button ion-button outline (click)="showDateTimeFields = true" class="enter-button">Enter date and time</button>
     <div *ngIf="showDateTimeFields" class="datetime-fields">
-      <input type="date" id="startDate" name="startDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-input">
-      <input type="time" id="startTime" name="startTime" [(ngModel)]="selectedRange.startTime" class="extraordinary-input">
+      <input type="date" id="startDate" name="startDate" [(ngModel)]="this.selectedRange.startDate" class="extraordinary-input">
+      <input type="time" id="startTime" name="startTime" [(ngModel)]="this.selectedRange.startTime" class="extraordinary-input">
       <span class="to-label">to</span>
       <input type="time" id="endTime" name="endTime" [(ngModel)]="selectedRange.endTime" class="extraordinary-input">
     </div>
@@ -54,12 +55,12 @@
   
   
 
-  <ion-item>
-    <ion-label  position="floating" class="custom-label">Description</ion-label>
+  <ion-item >
+    <ion-label (ngSubmit)="submitForm()" position="floating" class="custom-label">Description</ion-label>
     <ion-textarea [(ngModel)]="description"  class="custom-input"  placeholder="Enter description"></ion-textarea>
   </ion-item>
 
-  <ion-item>
+  <ion-item (ngSubmit)="submitForm()">
     <ion-label for="region"   style="color: #5C469C">Location:</ion-label>
     <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
       <ion-select-option value="">-- Select Region --</ion-select-option>
@@ -69,7 +70,7 @@
     </ion-select>
   </ion-item>
 
-  <ion-button fill="clear" size="small" (click)="saveProfile()" class="save-button">Save</ion-button>
+  <ion-button fill="clear" size="small" (click)="saveProfile()" (click)="submitForm()" (ngSubmit)="submitForm()" class="save-button">Save</ion-button>
   <nav class="bottom-navbar">
     <ul>
       <li>
@@ -92,4 +93,4 @@
       </li>
     </ul>
   </nav>
-</body>
+</div>

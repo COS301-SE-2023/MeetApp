@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
 import { Injectable } from '@angular/core';
 import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-
-
+import { events,service,ServicesModule} from '@capstone-meet-app/services';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+//import { log } from 'console';
 
 
 declare const google: any;
@@ -18,20 +18,19 @@ interface location{
   lng: number;
 }
 interface DateRange {
-  startDate: Date | null;
-  endDate: Date | null;
+  startDate: string|undefined;
+  endDate: string|undefined;
 }
 interface Event {
-  eventName: string;
-  eventPoster: string;
-  eventDescription: string;
-  eventLocation: location;
- 
-  startDate: string; 
-  endDate: string
-  eventOrganiser: string;
-  interestTags: string;
-  region: string;
+    name:string,
+    organisation:string,
+    date: string,
+    startTime: string,
+    endTime: string,
+    location: {latitude:number , longitude:number},
+    category:string,
+    region:string,
+    description:string
 }
 
 
@@ -42,14 +41,47 @@ interface Event {
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css'],
   imports: [CommonModule, FormsModule,IonicModule],
-  providers: [GoogleMapsModule]
+  providers: [GoogleMapsModule,service,HttpClient]
+  
 })
 export class MapsComponent implements AfterViewInit {
   selectedRange: DateRange = {
-    startDate: null,
-    endDate: null
+    startDate: undefined,
+    endDate: undefined
   };
+
+  image="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi";
   //selectedRegion: string ;
+
+
+  //services
+  data= [{
+    name:'',
+    organisation: '',
+    date: '',
+    startTime: '',
+    endTime: '',
+    lng: 0,
+    lat: 0,
+    location: {latitude:0, longitude:0},
+    category:'',
+    region:'',
+    description:''
+}];
+
+
+async ngOnInit() {
+  await this.service.getAllEvents().subscribe((response: any) => { 
+    this.data = response;
+    for (let i = 0; i < this.data.length; i++) {
+   const event: Event = this.data[i];
+      const region = event.region;
+      const date=event.date;
+    }
+  });
+ 
+}
+
   selectedRegion="Pretoria";
   selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
@@ -66,34 +98,153 @@ export class MapsComponent implements AfterViewInit {
     maxZoom: 25,
     minZoom: 8,
   } as google.maps.MapOptions;
+    filterEvents:Event[]=[{
+    name:'',
+    organisation: '',
+    date: '',
+    startTime: '',
+    endTime: '',
+    location: {latitude:0, longitude:0},
+    category:'',
+    region:'',
+    description:''}]
    events: Event[] = [
     {
-      eventName: "Event 1",
-      eventPoster: "poster1.jpg",
-      eventDescription: "Event 1 description",
-      eventLocation: { lat:  -25.75237, lng:28.240068 },
-      startDate: "2023-06-15T12:30:00.000Z",
-      endDate: "2023-06-20T12:30:00.000Z",
-      eventOrganiser: "Organiser 1",
-      interestTags: "Tag1, Tag2",
-      region: "Pretoria",
+      name:'Event 1',
+      organisation:'Organiser 1',
+      date: '2023-06-15',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -25.74237 , longitude:28.240068},
+      category:'Technology',
+      region:'Pretoria',
+      description:'dbjvbhodjhcdhc',
     },
     {
-      eventName: "Event 2",
-      eventPoster: "poster2.jpg",
-      eventDescription: "Event 2 description",
-      eventLocation: { lat: -25.749628, lng: 28.23444  },
-      startDate: "2023-06-15", // Valid date string format for start date
-      endDate: "2023-06-20",
-      eventOrganiser: "Organiser 2",
-      interestTags: "Tag3, Tag4",
-      region: "Johannesburg",
+      name:'Event 2',
+      organisation:'Organiser 2',
+      date: '2023-06-16',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -25.791375 , longitude:28.220088},
+      category:'food',
+      region:'Pretoria',
+      description:'dbjvbhodjhcdhc',
     },
-   
+    {
+      name:'Event 3',
+      organisation:'Organiser 3',
+      date: '2023-06-17',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -25.71348 , longitude:28.270119},
+      category:'science',
+      region:'Pretoria',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 4',
+      organisation:'Organiser 4',
+      date: '2023-06-18',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -25.72118 , longitude:28.290789},
+      category:'picnic',
+      region:'Pretoria',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 5',
+      organisation:'Organiser 5',
+      date: '2023-06-19',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -25.73438 , longitude:28.201289},
+      category:'music',
+      region:'Pretoria',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 6',
+      organisation:'Organiser 6',
+      date: '2023-06-20',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -26.223444 , longitude:28.200099},
+      category:'Technology',
+      region:'johannesburg',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 7',
+      organisation:'Organiser 7',
+      date: '2023-06-21',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -26.288744 , longitude:28.270779},
+      category:'Technology',
+      region:'johannesburg',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 8',
+      organisation:'Organiser 8',
+      date: '2023-06-22',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -26.20144 , longitude:28.230879},
+      category:'Technology',
+      region:'johannesburg',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 9',
+      organisation:'Organiser 9',
+      date: '2023-06-23',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -25.727738 , longitude:28.210249},
+      category:'Technology',
+      region:'Pretoria',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 10',
+      organisation:'Organiser 10',
+      date: '2023-06-24',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -25.791138 , longitude:28.220329},
+      category:'Technology',
+      region:'Pretoria',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 11',
+      organisation:'Organiser 11',
+      date: '2023-06-25',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -26.211344 , longitude:28.210739},
+      category:'Technology',
+      region:'johannesburg',
+      description:'dbjvbhodjhcdhc',
+    },
+    {
+      name:'Event 12',
+      organisation:'Organiser 12',
+      date: '2023-06-26',
+      startTime: '12:30',
+      endTime: "12:30",
+      location: {latitude: -26.256744 , longitude:28.201289},
+      category:'Technology',
+      region:'johannesburg',
+      description:'dbjvbhodjhcdhc',
+    }
   ];
   private initializeMap(region: string) {
     this.map = new google.maps.Map(document.getElementById("map"), {
-      zoom: 15,
+      zoom: 10,
       center: this.center,
      // zoom: this.zoom,
       options: this.options,
@@ -102,16 +253,24 @@ export class MapsComponent implements AfterViewInit {
     this.fillEvents(region, this.selectedRange);
     
   }
+  //
     
-  constructor(private m: GoogleMapsModule,private router: Router) {
+  constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
+    //this.getData();
+    
   }
-
-    ngAfterViewInit() {
-      setTimeout(() => {
-        this.initializeMap(this.selectedRegion);
-      }, 0);
-    }
-  
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.initializeMap(this.selectedRegion);
+    }, 0);
+    
+  }
+   
+   async getEventsByDate(startDate?:string, endDate?:string){
+    await this.service.getEventsByRange(startDate,endDate).subscribe((response:any)=>{
+          this.data=response;
+    });
+  }
 
   zoomIn() {
     if (this.options && this.zoom < 25) {
@@ -149,31 +308,31 @@ export class MapsComponent implements AfterViewInit {
     }
   };
 
-  fillEvents(region: string, range?: DateRange) {
+  async fillEvents(region: string, range?: DateRange) {
     // Clear existing markers if needed
     // ...
-  
-    this.getEventsByRegion(region)
-      .then((events: Event[]) => {
-        if (range) {
+    /*if (range) {
           // Filter events based on the specified date range
-          events = events.filter(event =>
-            isWithinRange(event.startDate, event.endDate, range.startDate, range.endDate)
+          events = events.filter(events =>
+            isWithinRange(events.date, range.startDate, range.endDate)
           );
-        }
-  
-        for (let i = 0; i < events.length; i++) {
-          const event = events[i];
-  
+        }*/
+    this.getEventsByRegion(region)
+      .then((events:Event[]) => {
+        console.log(this.data);
+        for (let i = 0; i < this.events.length; i++) {
+          //const event = this.events[i];
+          const event: Event = this.data[i];
+          const region = event.region;
+          const date=event.date;
           const createContent =
             '<div id="content">' +
-            '<h1 id="firstHeading" class="firstHeading">' + event.eventName + '</h1>' +
+            '<h1 id="firstHeading" class="firstHeading">' + event.name + '</h1>' +
             '<div id="bodyContent">' +
-            '<p><b>' + event.eventName + ' event</b> ' + event.eventDescription + '</p>' +
-            '<p>Date: ' + event.startDate + '</p>' +
-            '<p>Organiser: ' + event.eventOrganiser + '</p>' +
-            '<p>Interests: ' + event.interestTags + '</p>' +
-            '<p> <img src="' + event.eventPoster + '" alt="Image" style="height: 60px; width: 60px;"></p>' +
+            '<p><b>' + event.name + ' event</b> ' + event.description + '</p>' +
+            '<p>Date: ' + event.date + '</p>' +
+            '<p>Organiser: ' + event.organisation + '</p>' +
+            '<p> <img src="' + this.image + '" alt="Image" style="height: 60px; width: 60px;"></p>' +
             '</div>' +
             '</div>';
   
@@ -181,11 +340,11 @@ export class MapsComponent implements AfterViewInit {
             content: createContent,
             ariaLabel: 'Mock',
           });
-  
+
           const marker = new google.maps.Marker({
-            position: new google.maps.LatLng(event.eventLocation.lat, event.eventLocation.lng),
+            position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
             map: this.map,
-            title: event.eventName,
+            title: event.name,
             icon: this.svgIcon,
           });
   
@@ -196,11 +355,14 @@ export class MapsComponent implements AfterViewInit {
             });
           });
         }
-      })
+      }
+      )
       .catch(error => {
         // Handle error
       });
   }
+
+  
   
   onSubmit() {
     if (this.selectedRegion) {
@@ -211,19 +373,28 @@ export class MapsComponent implements AfterViewInit {
         
       }
   
-      const startDate = this.selectedRange?.startDate || null;
-      const endDate = this.selectedRange?.endDate || null;
-      const dateRange: DateRange = { startDate, endDate };
-  
-      this.fillEvents(this.selectedRegion, dateRange);
+      const startDate = this.selectedRange?.startDate||null ;
+      const endDate = this.selectedRange?.endDate ||null;
+      
+      if(startDate===null&&endDate===null){
+        this.fillEvents(this.selectedRegion);
+      }else{
+        console.log(startDate?.slice(0,10),endDate?.slice(0,10));
+        this.getEventsByDate(`${startDate?.slice(0,10)}`,`${endDate?.slice(0,10)}`);
+        this.fillEvents(this.selectedRegion);
+        //location.reload();
+
+
+      }
+      
     }
   }
   getRegionCenter(region: string): location | null {
     switch (region) {
       case 'Pretoria':
         return { lat: -25.7479, lng: 28.2293 };
-      case 'Johannesburg':
-        return { lat: -26.2044, lng: 28.0416 };
+      case 'Joburg':
+        return { lat: -26.2444, lng: 28.2316 };
       default:
         return null;
     }
@@ -242,6 +413,8 @@ export class MapsComponent implements AfterViewInit {
     this.router.navigate(['/map']);
     // Add implementation for goToMapView method
   }
+
+  
    getEventsByRegion(region: string): Promise<Event[]> {
     //const events: Event[] = [
       // Event objects here
@@ -255,24 +428,34 @@ export class MapsComponent implements AfterViewInit {
   
   
 }
-function isWithinRange(eventStartDate: string, eventEndDate: string, rangeStartDate: Date | null, rangeEndDate: Date | null): boolean {
-  const startDate = rangeStartDate ? rangeStartDate.getTime() : null;
-  const endDate = rangeEndDate ? rangeEndDate.getTime() : null;
+/*function isWithinRange(eventDate: string,rangeStartDate: Date | null, rangeEndDate: Date | null): boolean {
+  console.log('Event 0');
+  const eventTime = new Date(eventDate);
+  console.log(eventDate);
+  console.log(eventTime);
+  console.log(rangeStartDate,rangeEndDate);
+  const startDate = rangeStartDate ? rangeStartDate : null;
+  const endDate = rangeEndDate ? rangeEndDate: null;
 
+  console.log('Event 1');
+  console.log(eventDate);
+  console.log(startDate,endDate);
   if (!startDate && !endDate) {
     return true; // If no date range specified, include all events
   }
-
-  const eventStartTime = new Date(eventStartDate).getTime();
-  const eventEndTime = new Date(eventEndDate).getTime();
-
+  console.log('Event 2');
+  console.log(eventTime);
+  console.log(startDate,endDate);
+  //const eventTime = new Date(eventDate).getDate();
+  console.log('Event 3');
+  console.log(eventTime);
+  console.log(startDate,endDate);
   // Check if event start or end time falls within the specified date range
-  if ((startDate === null || eventStartTime >= startDate) && (endDate === null || eventEndTime <= endDate)) {
+  if (( eventTime >= startDate && eventTime <= endDate)) {
     return true; // Event falls within the range
   }
-
   return false; // Event does not fall within the range
-}
+}*/
 
 
 
