@@ -8,15 +8,17 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 
 import { FormControl, FormGroup } from '@angular/forms';
-
+import { events,service,ServicesModule} from '@capstone-meet-app/services';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Component({
   standalone: true,
   selector: 'capstone-meet-app-organiser',
   templateUrl: './organiser.component.html',
   styleUrls: ['./organiser.component.css'],
+  providers: [service,HttpClient],
  
   imports:[IonicModule , CommonModule,
-    FormsModule,]
+    FormsModule,ServicesModule]
 })
 export class OrganiserComponent {
   profilePictureUrl: string | null = null;
@@ -58,6 +60,7 @@ export class OrganiserComponent {
       },
     ],
   };
+
   constructor(private alertController: AlertController,private router: Router) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
@@ -65,6 +68,47 @@ export class OrganiserComponent {
     this.eventName='';
     this.OrganisationName='';
   }
+
+  
+
+//services
+  location: {latitude :string , longitude:string }| null = null;
+  myLocation = {
+    latitude: "40.7128",
+    longitude: "-74.0060",
+  };
+  //category:string | null = null;
+ 
+  startDate=this.selectedRange.startDate;
+  startTime= this.selectedRange.startTime;
+  endTime= this.selectedRange.endTime;
+  category="science Fair";
+
+  
+submitForm() {
+  if (this.eventName !== null && this.OrganisationName !== null && this.description !== null && this.profilePictureUrl !== null && this.selectedRange.startDate !== null && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null && this.myLocation !== null && this.category !== null && this.selectedRegion !== null) {
+    this.service.createEvents(
+      this.eventName,
+      this.OrganisationName,
+      this.description,
+     
+      this.selectedRange.startDate,
+      this.selectedRange.startTime,
+      this.selectedRange.endTime,
+      this.myLocation,
+      this.category,
+      this.selectedRegion
+    ).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+  }
+  
+}
+
+
+
+
 
   changeProfilePicture() {
     const input = document.createElement('input');

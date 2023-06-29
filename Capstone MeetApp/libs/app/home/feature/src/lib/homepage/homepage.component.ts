@@ -115,7 +115,8 @@ export class HomepageComponent {
         for (let i = 0; i < this.data.length; i++) {
           const event: events = this.data[i];
           const region = event.region;
-         // console.log(region);
+          const date=event.date;
+          console.log(date);
          
         }
       });
