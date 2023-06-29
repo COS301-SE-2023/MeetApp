@@ -11,7 +11,6 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthenticationService } from 'libs/api/login/feature/src/login.service';
 @Component({
   selector: 'capstone-meet-app-login',
   standalone: true,
@@ -25,15 +24,15 @@ export class LoginComponent {
   email = ''; // Initialize the property
   password= ''; // Initialize the property
 
-  constructor(private authenticationService: AuthenticationService, private router: Router, private formBuilder: FormBuilder/*, private apiService: ApiService*/) {
+  constructor( private router: Router, private formBuilder: FormBuilder/*, private apiService: ApiService*/) {
 
    
   }
-  login() {
+ login() {
     // Perform any necessary validation or additional processing here
 
     // Call the login() method of the authentication service
-    this.authenticationService.login(this.email, this.password)
+    /*this.authenticationService.login(this.email, this.password)
       .subscribe({
         next: response => {
           // Handle the response from the server
@@ -43,7 +42,7 @@ export class LoginComponent {
           // Handle any errors that occur during the request
           console.error(error);
         }
-      });
+      });*/
   }
  /* onSubmit() {
     if (this.loginForm.valid) {

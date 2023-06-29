@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Param,Req } from '@nestjs/common';
+import { Controller, Get, Post, Param,Req, Body, HttpStatus, Res, Put, Delete, BadRequestException,Query } from '@nestjs/common';
 import { EventsService } from './events.service';
-// import { CreateEventDto } from './dto/create-event.dto';
+import { CreateEventDto } from './dto/create-event.dto';
 // import { UpdateEventDto } from './dto/update-event.dto';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { FilterQuery } from 'mongoose';
+import { UpdateEventDto } from './dto/update-event.dto';
+
 //import { Category } from '../utils/enums';
 
 @Controller('events')
@@ -11,13 +13,24 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  // create(@Body() createEventDto: CreateEventDto) {
-  //   return this.eventsService.create(createEventDto);
-  // }
+   async createEvent(@Res() response : Response, @Body() createEventdto: CreateEventDto) {
+  try {
+    const newStudent = await this.eventsService.create(createEventdto);
+    return response.status(HttpStatus.CREATED).json({
+    message: 'Event has been created successfully',
+    newStudent,});
+ } catch (err) {
+    return response.status(HttpStatus.BAD_REQUEST).json({
+    statusCode: 400,
+    message: 'Error: Event not created!',
+    error: 'Bad Request'
+ });
+ }
+}
 
   @Get()
   findAll(@Req() request: Request) {
-    //console.log('wrong endpoint')
+    console.log(request);
     if (request.query == null)
       return this.eventsService.findAll();
     else
@@ -25,8 +38,33 @@ export class EventsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventsService.findOne(id);
+  findOne(@Param('id') id: string, @Query('eventIds') eventIds: string) {
+    let eventIdArray : string[];
+    if (id == 'today')
+      return this.getEventsForToday();
+    switch (id) {
+      case 'today':
+        return this.getEventsForToday();
+        break;
+      case 'thisweek':
+        return this.getEventsForThisWeek();
+        break;
+      case 'thismonth':
+        return this.getEventsForThisMonth();
+        break;
+      case 'thisyear':
+        return this.getEventsForThisYear();
+        break;
+      case 'fetch-by-ids':
+        eventIdArray = eventIds.split(',');
+        return this.eventsService.fetchEventsByIds(eventIdArray);
+        break;
+    
+      default:
+        return this.eventsService.findOne(id);
+        break;
+    }
+    
   }
 
   @Get(':id/attendees')
@@ -109,7 +147,15 @@ export class EventsController {
     return this.eventsService.findByQuery(query)
   }
 
-  @Get('duration/:duration')
+ // @Get('duration/:duration')
+
+  @Get('daterange/:startDate/:endDate')
+  getEventsByDateRange(
+    @Param('startDate') startDate: string,
+    @Param('endDate') endDate: string,
+  ) {
+    return this.eventsService.getEventsByDateRange(startDate, endDate);
+  }
 
   @Get('timeofday/:timeofday')
 
@@ -123,13 +169,35 @@ export class EventsController {
   }
 
 
-  //@Patch(':id')
-  // update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-  //   return this.eventsService.update(+id, updateEventDto);
-  // }
-
-  //@Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.eventsService.remove(+id);
-  // }
+  @Put('/:id')
+  async updateEvent(@Res() response : Response,@Param('id') eventId: string,
+  @Body() updateEventdto: UpdateEventDto) {
+    try {
+      const exisitingEvent = await this.eventsService.update(eventId, updateEventdto);
+      return response.status(HttpStatus.OK).json({
+        message: 'Event has been successfully updated',
+        exisitingEvent,});
+    } catch (err: unknown) {
+      if (err instanceof BadRequestException) {
+        return response.status(err.getStatus()).json(err.getResponse());}
+      else
+        return err;
+      }
 }
+
+@Delete('/:id')
+async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
+{
+  try {
+    const deletedEvent = await this.eventsService.remove(eventId);
+    return response.status(HttpStatus.OK).json({
+    message: 'Event deleted successfully',
+    deletedEvent,});
+  }catch (err: unknown) {
+    if (err instanceof BadRequestException) {
+      return response.status(err.getStatus()).json(err.getResponse());}
+    else
+      return err;
+  }
+ }}
+
