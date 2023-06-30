@@ -8,7 +8,9 @@
   margin: 0 auto;
   font-family: 'Roboto', sans-serif;
 }
-
+.form-group{
+  height: 80px;
+}
 .holder {
   display: flex;
   flex-direction: column;
@@ -40,7 +42,5 @@ input {
   outline: none;
 }
 .label{
-
-
   color :white;
 }

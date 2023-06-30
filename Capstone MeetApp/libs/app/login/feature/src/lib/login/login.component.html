@@ -2,7 +2,7 @@
   <html>
   <head>
     <style>
-    body {
+    #body {
   background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
   background-size: cover;
   background-position: center center;
@@ -14,12 +14,12 @@
       /* Add any additional styling for the form, if needed */
     </style>
   </head>
-  <body>
+  <div id="body">
     <div>
       <h1 class="heading">Log In</h1>
     </div>
     
-    <div class="holder" style="background-color: #111C20; width: 40%; margin-left: 25%; border-radius: 10px; padding: 16px;">
+    <div class="holder" style="background-color: #111C20; width: 50%; margin-left: 25%; border-radius: 10px; padding: 16px;">
       <form [formGroup]="loginForm"  (submit)="login()">
         <div class="form-group">
           <label for="email" style="color: white;">Email</label>
@@ -47,6 +47,6 @@
     
     
    
-  </body>
+  </div>
   </html>
   
