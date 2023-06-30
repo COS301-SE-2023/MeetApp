@@ -17,8 +17,6 @@ export interface events{
     category:string;
     region:string;
     description:string;
-
-
 }
 
 
@@ -89,20 +87,17 @@ export class service{
         const url=this.baseURl+'events';
         const body=
         {
-            
             name: name,
             organisation: organisation,
             description: description,
-           // eventPoster: eventPoster, 
             date: date,
-             startTime: startTime,
-             endTime: endTime,
+            startTime: startTime,
+            endTime: endTime,
             location: location,
-             category: category,
-             region: region
+            category: category,
+            region: region
         }
         return this.http.post(`${url}`,body);
-
     }
 
      getEventsByRange(startDate?:string,endDate?:string){
@@ -157,6 +152,11 @@ export class service{
     getUser(id:string){
         const url=`${this.baseURl}users/${id}`;
         return this.http.get(`${url}`);
+    }
+
+    getEvent(id:string){
+        const url =this.baseURl+'events/'+id;
+        return this.http.get(url);
     }
     
     //body JSON example = {"region": "Joburg", "profifilePicture": "http://localhost..."}
