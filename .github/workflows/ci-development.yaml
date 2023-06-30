@@ -8,22 +8,35 @@ on:
     branches:
       - auth
       - auth*
-      - map*
+      - map
+      - map-*
       - profile*
-      - home*
-      - organiser*
-      - settings*
+      - profile-*
+      - home
+      - home-*
+      - organiser-*
+      - organiser
+      - settings
+      - settings-*
       - events*
+      - events-*
       
   pull_request:
     branches:
+      - auth
       - auth*
-      - map*
+      - map
+      - map-*
       - profile*
-      - home*
-      - organiser*
-      - settings*
+      - profile-*
+      - home
+      - home-*
+      - organiser-*
+      - organiser
+      - settings
+      - settings-*
       - events*
+      - events-*
       
 
 jobs:
