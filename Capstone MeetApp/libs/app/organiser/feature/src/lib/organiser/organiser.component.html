@@ -9,6 +9,7 @@
     </ion-title>
   </ion-header>
 
+
   <div class="icon-container left">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDj9o_I6LyEmxPyP2Eg7KktdP5WcqAFbppFkx4fwe5ztI8TM9EuIzuqahUKt6DZJMYKQ&usqp=CAU" alt="Icon 1">
 
@@ -29,8 +30,11 @@
       <ion-icon name="camera-outline" style="color: white;"></ion-icon>
     </ion-button>
   </div>
+  <ion-button ion-button fill="clear" size="small" (click)="toggleForm()" class="toggle-button" style="background-color: #5C469C">Create Event</ion-button>
+
 
   <ion-item (ngSubmit)="submitForm()" class="custom-item" >
+
     <ion-label position="floating" class="custom-label">Event Name</ion-label>
     <ion-input [(ngModel)]="eventName" class="custom-input" placeholder="Enter event name"></ion-input>
   </ion-item>
@@ -66,11 +70,17 @@
       <ion-select-option value="">-- Select Region --</ion-select-option>
       <ion-select-option value="Pretoria">Pretoria</ion-select-option>
       <ion-select-option value="Johannesburg">Johannesburg</ion-select-option>
+      
       <!-- Region options here -->
     </ion-select>
+    
   </ion-item>
 
-  <ion-button fill="clear" size="small" (click)="saveProfile()" (click)="submitForm()" (ngSubmit)="submitForm()" class="save-button">Save</ion-button>
+  
+  
+  <ion-button fill="clear" size="small" (click)="saveProfile()" class="save-button">Save</ion-button>
+</div>
+<div>
   <nav class="bottom-navbar">
     <ul>
       <li>
