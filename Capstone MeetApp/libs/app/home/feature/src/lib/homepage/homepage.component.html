@@ -1,4 +1,71 @@
 <!DOCTYPE html>
+<head>
+  
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<ion-searchbar show-clear-button="focus"  class="custom"></ion-searchbar>
+
+<div id="index" class="index-page" class="scroll-container">
+  
+  
+
+<ion-content class="font">
+  <div>
+
+  <div class="heading1">
+    <h1>Recommended Events</h1>
+  </div>
+  <div class="scroll-container1" >
+    <ion-card *ngFor="let item of data" class="card-first" >
+      <ion-card-header>
+        <ion-card-title >{{ item.name }}</ion-card-title>
+      </ion-card-header>
+      <img alt="Silhouette of mountains" src="assets/eventTest.jpg" />
+      <ion-card-content>
+        {{ item.description }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>
+
+<div>
+<ion-card *ngFor="let item of data" class="custom-card">
+  <ion-card-content>
+  <ion-card-title class="heading">{{ item.name}}</ion-card-title>
+</ion-card-content>
+  <img src="assets/eventTest.jpg" alt="Silhouette of mountains" >
+  <ion-card-header>
+    
+      <ion-text class="bold-text">from &nbsp;{{ item.startTime}} &nbsp;to&nbsp; {{ item.endTime}} </ion-text>
+      <ion-text class="bold-text">{{ item.date }}</ion-text>
+      <ion-text class="bold-text">{{ item.region }}</ion-text>
+  </ion-card-header>
+
+ 
+    <ion-card-content>
+    {{ item.description }}
+  </ion-card-content>
+</ion-card>
+</div>
+</ion-content>
+
+</div>
+<div class="navigation-bar">
+  <a href="#" class="navigation-item">
+    <i class="fas fa-home"></i>
+  </a>
+  <a href="#" class="navigation-item">
+    <i class="fas fa-bell"></i>
+  </a>
+  <a href="#" class="navigation-item">
+    <i class="fas fa-user"></i>
+  </a>
+</div>
+
+<!--<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -60,5 +127,5 @@
 
 </div>
 </html>
-
+-->
       
