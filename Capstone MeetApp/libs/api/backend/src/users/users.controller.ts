@@ -12,6 +12,11 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  @Post('login')
+  signup(@Body() LoginInfo : UpdateUserDto){
+    return this.usersService.login(LoginInfo.username,LoginInfo.password)
+  }
+  
   @Get()
   findAll() {
     return this.usersService.findAll();
