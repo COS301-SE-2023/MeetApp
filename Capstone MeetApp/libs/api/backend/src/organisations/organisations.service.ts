@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-// import { CreateOrganisationDto } from './dto/create-organisation.dto';
+import { CreateOrganisationDto } from './dto/create-organisation.dto';
 // import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Organisation } from './schema';
@@ -11,9 +11,10 @@ export class OrganisationsService {
   constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService){
     
   }
-  // create(createOrganisationDto: CreateOrganisationDto) {
-  //   return 'This action adds a new organisation';
-  // }
+  async create(createOrgDto: CreateOrganisationDto) {
+    const newOrg = await new this.organisationModel(createOrgDto);
+    return newOrg.save();
+  }
   async login(username: string, password: string) {
     const orgToLoginInto = await this.organisationModel.find({username : username}).exec()
     if (orgToLoginInto.length == 0){
