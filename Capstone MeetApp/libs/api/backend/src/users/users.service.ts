@@ -15,6 +15,20 @@ export class UsersService {
   // create(createUserDto: CreateUserDto) {
   //   return 'This action adds a new user';
   // }
+  async login(username: string, password: string) {
+    const userToLoginInto = await this.userModel.find({username : username}).exec()
+    if (userToLoginInto.length == 0){
+      return {user: null, message: 'User not found'}
+    }
+    else {
+      if (userToLoginInto[0].password == password){
+        return {user: userToLoginInto[0], message : 'Login successful'}
+      }
+      else{
+        return {user: username, message : 'Incorrect password'}
+      }
+    }
+  }
 
   findAll() {
     return this.userModel.find().exec();
