@@ -12,13 +12,14 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '../../../../../shared service/api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
 
 
 
 @Component({
   selector: 'capstone-meet-app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
+  imports: [CommonModule,IonicModule , FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
   //providers: [ApiService]
