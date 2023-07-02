@@ -9,26 +9,68 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
+import { service,ServicesModule} from '@capstone-meet-app/services';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+interface User {
+  username:string,
+  password:string,
+  profilePicture:string,
+  region:string
+}
+
 @Component({
   selector: 'capstone-meet-app-login',
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
- // providers: [ApiService],
+  providers: [service,HttpClient],
 })
 export class LoginComponent {
   loginForm!: FormGroup;
   email = ''; // Initialize the property
   password= ''; // Initialize the property
 
-  constructor( private router: Router, private formBuilder: FormBuilder/*, private apiService: ApiService*/) {
-
-   
+  constructor( private router: Router, private formBuilder: FormBuilder,private service: service) {}
+  
+  data= [{
+    username:'',
+    password:'',
+    profilePicture:'',
+    region:''
+  }];
+  
+  async ngOnInit() {
+    await this.service.getUsers().subscribe((response: any) => { 
+      console.log(response);
+      this.data = response;
+      console.log('This function Works');
+      console.log(this.checkAuth('mike_johnson','securepass'));
+      
+    });
   }
- login() {
+
+  checkAuth(username?:string , password?:string) : boolean
+  {
+      let check:boolean=false;
+
+      for (let i = 0; i < this.data.length; i++) {
+        const users:User=this.data[i];
+        if(users.username==username && users.password==password)
+        {
+          console.log('User Exist');
+          console.log(users);
+          check=true;
+          break;
+        }
+      }
+      return check;
+  }
+
+
+  login() {
     // Perform any necessary validation or additional processing here
 
     // Call the login() method of the authentication service

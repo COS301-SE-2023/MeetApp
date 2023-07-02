@@ -1,5 +1,9 @@
+import mongoose from "mongoose";
+
 export class CreateEventDto {
    
+    readonly ID!:mongoose.Schema.Types.ObjectId;
+
     readonly name!: string;
     
     readonly organisation!: string;
@@ -11,9 +15,7 @@ export class CreateEventDto {
     readonly startTime!: string;
  
     readonly endTime!: string;
-    
-    readonly location!: {latitude:string , longitude:string};
-
+   
     readonly category!: string; 
 
     readonly region!: string;

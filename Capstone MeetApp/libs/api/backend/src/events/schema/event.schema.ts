@@ -20,9 +20,6 @@ export class Event {
   description!: string;
   
     @Prop()
-  eventPoster!: string;
-  
-    @Prop()
   date!: string;
   
     @Prop()
@@ -30,12 +27,6 @@ export class Event {
   
     @Prop()
   endTime!: string;
-  
-    @Prop(raw({
-    lng: { type: Number },
-    lat: { type: Number }
-  }))
-  location!: Record<number, unknown>;
   
     @Prop()
   category!: string; //Build errors when Category enum used

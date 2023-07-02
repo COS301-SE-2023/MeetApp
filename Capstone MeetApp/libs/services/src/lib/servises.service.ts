@@ -79,11 +79,14 @@ export class service{
 
     private baseURl='http://localhost:3000/api/';
 
+    //SERVICES FOR EVENTS
+
     getAllEvents()
     {
         const url=this.baseURl+'events';
         return this.http.get(`${url}`);
     }
+    
     createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:string , longitude:string},category: string,region: string)
     {
         const url=this.baseURl+'events';
@@ -105,11 +108,13 @@ export class service{
 
     }
 
-     getEventsByRange(startDate?:string,endDate?:string){
+    getEventsByRange(startDate?:string,endDate?:string){
         const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
         return this.http.get(`${url}`);
     }
     
+    //SERVICES FOR USERS
+
     createUser(username:string,password:string, name:string,email:string,phoneNumber:string,  location: {latitude:string , longitude:string},events:string)
     {
         const url=this.baseURl+'users';
@@ -126,34 +131,13 @@ export class service{
         }
         return this.http.post(`${url}`,body);
     }
-    createOrginiser(username:string, password:string,name:string,email:string,phoneNumber:string, location: {latitude:string , longitude:string},events:string)
-    {
-        const url=this.baseURl+'orginisations';
-        const body=
-        {
-            
-            username: username,
-            password:password,
-            name:name,
-            email:email,
-            phoneNumber:phoneNumber,
-              location: location,
-              events:events
-        }
-        return this.http.post(`${url}`,body);
-    }
-    createFriend( requester:string, requestee:string, status:string)
-    {
-        const url=this.baseURl+'friendships';
-        const body=
-        {
-        requester:requester,
-         requestee:requestee, 
-         status:status
-        }
-         return this.http.post(`${url}`,body);
-    }
 
+    getUsers()
+    {
+        const url=this.baseURl+'users';
+        return this.http.get(`${url}`);
+    }
+    
     getUser(id:string){
         const url=`${this.baseURl}users/${id}`;
         return this.http.get(`${url}`);
@@ -181,4 +165,38 @@ export class service{
         const url=`${this.baseURl}events/fetch-by-ids?eventsIds=${ids}`;
         return this.http.get(`${url}`);
     }*/
+
+    //SERVICES FOR ORGANISER
+
+    createOrginiser(username:string, password:string,name:string,email:string,phoneNumber:string, location: {latitude:string , longitude:string},events:string)
+    {
+        const url=this.baseURl+'orginisations';
+        const body=
+        {
+            
+            username: username,
+            password:password,
+            name:name,
+            email:email,
+            phoneNumber:phoneNumber,
+              location: location,
+              events:events
+        }
+        return this.http.post(`${url}`,body);
+    }
+
+    //SERVICES FOR FRIENDS
+
+    createFriend( requester:string, requestee:string, status:string)
+    {
+        const url=this.baseURl+'friendships';
+        const body=
+        {
+        requester:requester,
+         requestee:requestee, 
+         status:status
+        }
+         return this.http.post(`${url}`,body);
+    }
+
 }
