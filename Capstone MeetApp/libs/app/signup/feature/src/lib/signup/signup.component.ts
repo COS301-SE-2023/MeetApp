@@ -12,7 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '../../../../../shared service/api.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { User,service} from '@capstone-meet-app/services';
 
 
 @Component({
@@ -21,13 +21,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   imports: [CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  //providers: [ApiService]
+  providers: [service,HttpClient]
 })
 
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -54,6 +54,17 @@ export class SignupComponent {
     
     return null;
   }
+
+  async SignUp(username:string,password:string,profilePicture:string,region:string)
+  {
+    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+  }
+
+
+
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
    /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {

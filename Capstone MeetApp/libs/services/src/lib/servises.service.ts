@@ -115,19 +115,15 @@ export class service{
     
     //SERVICES FOR USERS
 
-    createUser(username:string,password:string, name:string,email:string,phoneNumber:string,  location: {latitude:string , longitude:string},events:string)
+    createUser(username:string,password:string,profilePicture:string,region:string)
     {
         const url=this.baseURl+'users';
         const body=
         {
-            
             username: username,
             password:password,
-            name:name,
-            email:email,
-            phoneNumber:phoneNumber,
-              location: location,
-              events:events
+            profilePicture:profilePicture,
+            region:region
         }
         return this.http.post(`${url}`,body);
     }
