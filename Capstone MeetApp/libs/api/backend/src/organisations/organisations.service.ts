@@ -14,6 +14,20 @@ export class OrganisationsService {
   // create(createOrganisationDto: CreateOrganisationDto) {
   //   return 'This action adds a new organisation';
   // }
+  async login(username: string, password: string) {
+    const orgToLoginInto = await this.organisationModel.find({username : username}).exec()
+    if (orgToLoginInto.length == 0){
+      return {organisation: null, message: 'Organisation not found'}
+    }
+    else {
+      if (orgToLoginInto[0].password == password){
+        return {organisation: orgToLoginInto[0], message : 'Login successful'}
+      }
+      else{
+        return {organisation: username, message : 'Incorrect password'}
+      }
+    }
+  }
 
   findAll() {
     return this.organisationModel.find().exec();
