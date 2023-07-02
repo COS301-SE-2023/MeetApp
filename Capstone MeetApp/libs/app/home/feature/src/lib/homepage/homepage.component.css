@@ -90,6 +90,37 @@ html {
 .scroll-zoom-wrapper {
   white-space: nowrap;
 }
+
+.stationary-box1 {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 100px;
+  height: 45px;
+  margin-bottom: 20px;
+  background-color: rgb(34, 32, 32);
+  border-radius: 20px;
+}
+.white
+{
+  
+  margin-bottom: 50px;
+  color: white;
+}
+.stationary-box {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 100px;
+  height: 45px;
+  margin-bottom: 20px;
+ 
+}
+
+
+
 .heading1 {
 
   font-family: 'Roboto', serif;
