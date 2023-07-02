@@ -79,7 +79,7 @@ html {
 }
 .heading {
 
-     color: black;
+     color:rgb(56, 56, 56);
      font-family: 'Roboto', serif;
      
 }
@@ -91,11 +91,13 @@ html {
   white-space: nowrap;
 }
 .heading1 {
+
   font-family: 'Roboto', serif;
   text-align: left;
   padding: 1px;
   margin-bottom: 0px;
   margin-left: 20px;
+  color:rgb(56, 56, 56);
 
 }
 
@@ -126,6 +128,8 @@ ion-searchbar.md.custom {
 }
 .custom-card {
   border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
 }
 
 

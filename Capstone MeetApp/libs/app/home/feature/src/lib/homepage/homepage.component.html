@@ -21,9 +21,9 @@
   <div class="scroll-container1" >
     <ion-card *ngFor="let item of data" class="card-first" >
       <ion-card-header>
-        <ion-card-title >{{ item.name }}</ion-card-title>
+        <ion-card-title class="heading">{{ item.name }}</ion-card-title>
       </ion-card-header>
-      <img alt="Silhouette of mountains" src="assets/eventTest.jpg" />
+      <ion-img alt="Silhouette of mountains" src="assets/eventTest.jpg" ></ion-img>
       <ion-card-content>
         {{ item.description }}
       </ion-card-content>
@@ -36,7 +36,7 @@
   <ion-card-content>
   <ion-card-title class="heading">{{ item.name}}</ion-card-title>
 </ion-card-content>
-  <img src="assets/eventTest.jpg" alt="Silhouette of mountains" >
+  <ion-img src="assets/eventTest.jpg" alt="Silhouette of mountains" ></ion-img>
   <ion-card-header>
     
       <ion-text class="bold-text">from &nbsp;{{ item.startTime}} &nbsp;to&nbsp; {{ item.endTime}} </ion-text>
