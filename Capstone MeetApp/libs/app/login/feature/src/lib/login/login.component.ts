@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { IonText } from '@ionic/angular';
-import { Router } from "@angular/router";
+
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'
 import { FormBuilder, Validators } from '@angular/forms';
@@ -10,11 +10,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
 @Component({
   selector: 'capstone-meet-app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
+  imports: [CommonModule, IonicModule,FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
  // providers: [ApiService],
@@ -27,6 +29,9 @@ export class LoginComponent {
   constructor( private router: Router, private formBuilder: FormBuilder/*, private apiService: ApiService*/) {
 
    
+  }
+  onCreate() {
+    this.router.navigate(['/signup']);
   }
  login() {
     // Perform any necessary validation or additional processing here
