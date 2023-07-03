@@ -13,19 +13,32 @@ export class User {
   ID!: mongoose.Schema.Types.ObjectId;
 
   @Prop()
+  name!:string;
+
+  @Prop()
+  surname!:string;
+
+  @Prop()
   username!: string;
+
+  @Prop()
+  email!:string;
 
   @Prop()
   password!: string;
 
   @Prop()
-  profilePicture!: string;
+  phoneNumber!:string;
+
+  @Prop()
+  interests!:string
 
   @Prop()
   region!: string;
-  
 
- 
+  @Prop()
+  profilePicture!: string;
+
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
