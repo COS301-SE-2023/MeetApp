@@ -2,7 +2,25 @@
     ion-list{
         display:flex;
     }
+
+    .logout{
+        text-align: center;
+        width: 1200px!important;
+    }
   }
+
+  @media screen and (max-width: 400px) {
+    ion-list{
+        display:flex;
+    }
+
+    .logout{
+        text-align: center;
+        width: 350px!important;
+    }
+
+  }
+
 
  
 #body {
@@ -38,6 +56,16 @@ ion-checkbox::part(container) {
     border: 2px solid #356ee0;
 }
 
+ion-list{
+    overflow: scroll;
+    height: 200px;
+}
+
+.logout{
+    text-align: center;
+    width: 350px;
+    margin-left: 5px;
+}
 input{
     /*display: flex;*/
 }
@@ -79,3 +107,19 @@ input{
      
 }
  
+
+.navigation-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color:white;
+    height: 60px;
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }

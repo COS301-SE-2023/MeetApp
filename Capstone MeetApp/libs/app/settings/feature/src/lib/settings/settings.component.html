@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
  
 </head>
 
@@ -15,7 +16,19 @@
       <ion-card-title>Personal Details</ion-card-title>
     </ion-card-header>  
       <ion-accordion-group>
-          <ion-accordion value="first">
+        <ion-accordion value="first">
+          
+          <ion-item slot="header" color="light">
+            <ion-label>Change email</ion-label>
+          </ion-item>
+          <ion-item class="ion-padding" slot="content">
+            <ion-input class="padding1" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
+            <ion-button size="medium">Save</ion-button>
+          </ion-item>
+          
+        </ion-accordion>
+
+          <ion-accordion value="fourth">
           
             <ion-item slot="header" color="light">
               <ion-label>Change Password</ion-label>
@@ -28,33 +41,7 @@
             
           </ion-accordion>
         
-          <ion-accordion value="second">
-            <ion-item slot="header" color="light">
-              <ion-label>Interests</ion-label>
-            </ion-item>
-            <ion-item class="ion-padding" slot="content">
-              <ion-list>
-                <ion-item>
-                  <ion-checkbox>Arts</ion-checkbox>
-                </ion-item>
-                <ion-item>
-                  <ion-checkbox>Science</ion-checkbox>
-                </ion-item>
-                <ion-item>
-                  <ion-checkbox>Music</ion-checkbox>
-                </ion-item>
-                <ion-item>
-                  <ion-checkbox>Social</ion-checkbox>
-                </ion-item>
-                <ion-item>
-                  <ion-checkbox>Technology</ion-checkbox>
-                </ion-item>
-              </ion-list>
-              <ion-item>
-                <ion-button size="medium">Save</ion-button>
-              </ion-item>
-            </ion-item>
-          </ion-accordion>
+          
           
 
           <ion-accordion value="third">
@@ -74,24 +61,39 @@
       <ion-card-title>Account Details</ion-card-title>
     </ion-card-header>  
       <ion-accordion-group>
-          <ion-accordion value="first">
-          
-            <ion-item slot="header" color="light">
-              <ion-label>Change email</ion-label>
-            </ion-item>
-            <ion-item class="ion-padding" slot="content">
-              <ion-input class="padding1" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
+        <ion-accordion value="first">
+          <ion-item slot="header" color="light">
+            <ion-label>Interests</ion-label>
+          </ion-item>
+          <ion-item class="ion-padding" slot="content">
+            <ion-list>
+              <ion-item>
+                <ion-checkbox>Arts</ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-checkbox>Science</ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-checkbox>Music</ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-checkbox>Social</ion-checkbox>
+              </ion-item>
+              <ion-item>
+                <ion-checkbox>Technology</ion-checkbox>
+              </ion-item>
+            </ion-list>
+            <ion-item>
               <ion-button size="medium">Save</ion-button>
             </ion-item>
-            
-          </ion-accordion>
-        
-          
+          </ion-item>
+        </ion-accordion>
+
           <ion-accordion value="second">
             <ion-item slot="header" color="light">
               <ion-label>Delete Account</ion-label>
             </ion-item>
-            <ion-item class="ion-padding" slot="content">
+            <ion-item id="delete" class="ion-padding" slot="content">
                 <ion-list lines="full">
                   <ion-label>Reason :</ion-label>
                   <ion-item>
@@ -106,34 +108,34 @@
                   <ion-item>
                     <ion-checkbox>Not user friendly</ion-checkbox>
                   </ion-item>
+                  <ion-item>
+                    <ion-label >Other:</ion-label>
+                  <ion-input type="text" fill="outline"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-button size="medium">Delete Account</ion-button>
+                  </ion-item>
                 </ion-list>
-              
-              <ion-list>
-                <ion-item>
-                  <ion-label >Other:</ion-label>
-                <ion-input type="text" fill="outline"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-button size="medium">Delete Account</ion-button>
-                </ion-item>
-                
-              </ion-list>
-                
-              
               
             </ion-item> 
           </ion-accordion>
-          <ion-accordion value="third">
-            <ion-item slot="header" color="light">
-              <ion-label>Location</ion-label>
-            </ion-item>
-            <ion-item class="ion-padding" slot="content">
-              <div >Third Content</div>
-            </ion-item>
-          </ion-accordion>
-        
       </ion-accordion-group>
   </ion-card>
+
+  <ion-card class="card">
+    <ion-button class="logout">Logout</ion-button>
+  </ion-card>
+  <div class="navigation-bar">
+    <a href="#" class="navigation-item">
+      <i class="fas fa-home"></i>
+    </a>
+    <a href="#" class="navigation-item">
+      <i class="fas fa-bell"></i>
+    </a>
+    <a href="#" class="navigation-item">
+      <i class="fas fa-user"></i>
+    </a>
+  </div>
   
 </div>
 </html>
