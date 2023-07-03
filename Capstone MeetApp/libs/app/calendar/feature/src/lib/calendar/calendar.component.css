@@ -1,0 +1,45 @@
+@media screen and (max-device-width: 390px) {
+    ion-datetime{
+        margin-left:2%!important;
+    }
+
+    /* Styles for iPhone 6/7/8 and similar devices */
+    
+  }
+#body{
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue;
+    overflow: scroll;
+}
+
+.navigation-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color:white;
+    height: 60px;
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  ion-datetime{
+    margin-top:2%;
+    height: 500px;
+    width: 100%;
+    margin-left: 7%;
+  }
+  ion-card-title{
+    text-align: center;
+  }
+
+  h1{
+    text-align: center;
+}
