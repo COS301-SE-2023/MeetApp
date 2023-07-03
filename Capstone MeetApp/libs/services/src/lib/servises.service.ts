@@ -147,7 +147,7 @@ export class service{
 
     createUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,interests:string[],region:string,profilePicture:string)
     {
-        const url=this.baseURl+'users';
+        const url=this.baseURl+'users/signup';
         const body=
         {
             name:name,

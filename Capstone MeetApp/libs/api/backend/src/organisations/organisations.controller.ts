@@ -20,10 +20,10 @@ export class OrganisationsController {
     return this.organisationsService.create(createOrganisationDto);
   }
 
-  @Post('login')
+  /*@Post('login')
   login(@Body() LoginInfo : UpdateOrganisationDto){
     return this.organisationsService.login(LoginInfo.username,LoginInfo.password)
-  }
+  }*/
 
   @Get()
   findAll() {
