@@ -5,12 +5,13 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { Model, FilterQuery } from 'mongoose';
 import { Organisation } from '../organisations/schema';
+import { Attendance } from '../attendances/schema';
 
 
 
 @Injectable()
 export class EventsService {
-  constructor(@InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>)
+  constructor(@InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>)
   {
 
   }
