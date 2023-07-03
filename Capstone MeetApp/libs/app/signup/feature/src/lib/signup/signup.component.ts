@@ -13,6 +13,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { service,ServicesModule} from '@capstone-meet-app/services';
 
 
 
@@ -22,13 +23,13 @@ import { IonicModule } from '@ionic/angular';
   imports: [CommonModule,IonicModule , FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  //providers: [ApiService]
+  providers: [service,HttpClient]
 })
 
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -45,6 +46,27 @@ export class SignupComponent {
     this.checkPasswordStrength
   ]);
   
+  
+  
+  //SignUp for a User
+  async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,interests:string[],region:string,profilePicture:string)
+  {
+    await this.apiService.createUser(name,surname,username,email,password,phoneNumber,interests,region,profilePicture).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+  }
+
+  
+  //SignUp for a Organisation 
+  async SignUpOrg(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,orgDescription:string,categories:string[],events:string[])
+  {
+    await this.apiService.createOrginiser(name,surname,username,email,password,phoneNumber,orgDescription,categories,events).subscribe((response) => {
+      console.log('API response:', response);
+
+    });
+  }
+
   checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
     const password = control.value;
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
