@@ -31,6 +31,10 @@ export class EventsService {
     return this.eventModel.find().exec();
   }
 
+  async getEventAttendanceCount(eventID: string){
+    return await this.attendanceModel.countDocuments({ eventID }).exec();
+  }
+
   findByQuery(queryIN : FilterQuery<Event>) {
     return this.eventModel.find(queryIN).exec();
   }
