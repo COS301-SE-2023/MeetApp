@@ -6,7 +6,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
  
 </head>
-
 <ion-header><h1>Settings</h1></ion-header>
 
 <div id="body">
@@ -49,7 +48,7 @@
               <ion-label>Location</ion-label>
             </ion-item>
             <ion-item class="ion-padding" slot="content">
-              <div >Third Content</div>
+              <ion-input class="padding1" label="Enter Location" label-placement="floating" fill="outline" placeholder="Enter Location"></ion-input>
             </ion-item>
           </ion-accordion>
         
@@ -123,16 +122,13 @@
   </ion-card>
 
   <ion-card class="card">
-    <ion-button class="logout">Logout</ion-button>
+      <ion-button class="logout" (click)="nagivateToHome()" >Logout</ion-button>
   </ion-card>
   <div class="navigation-bar">
-    <a href="#" class="navigation-item">
-      <i class="fas fa-home"></i>
+    <a href="home"  class="navigation-item">
+      <i  class="fas fa-home"></i>
     </a>
-    <a href="#" class="navigation-item">
-      <i class="fas fa-bell"></i>
-    </a>
-    <a href="#" class="navigation-item">
+    <a href="profile"  class="navigation-item">
       <i class="fas fa-user"></i>
     </a>
   </div>

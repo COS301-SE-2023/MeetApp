@@ -5,18 +5,26 @@
 
     .logout{
         text-align: center;
-        width: 1200px!important;
+        width: 1650px!important;
     }
   }
 
   @media screen and (max-width: 400px) {
-    ion-list{
-        display:flex;
-    }
+    
 
     .logout{
         text-align: center;
         width: 350px!important;
+    }
+
+  }
+
+  @media screen and (max-width: 450px) {
+   
+
+    .logout{
+        text-align: center;
+        width: 360px!important;
     }
 
   }
