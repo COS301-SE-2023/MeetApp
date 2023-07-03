@@ -2,23 +2,28 @@ import {
   Controller,
   Get,
   Post,
-  //Body,
   Patch,
   Param,
   Delete,
+  Body,
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
-// import { CreateOrganisationDto } from './dto/create-organisation.dto';
-// import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+import { CreateOrganisationDto } from './dto/create-organisation.dto';
+import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 
 @Controller('organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
 
-  @Post()
-  // create(@Body() createOrganisationDto: CreateOrganisationDto) {
-  //   return this.organisationsService.create(createOrganisationDto);
-  // }
+  @Post('signup')
+  create(@Body() createOrganisationDto: CreateOrganisationDto) {
+    return this.organisationsService.create(createOrganisationDto);
+  }
+
+  @Post('login')
+  login(@Body() LoginInfo : UpdateOrganisationDto){
+    return this.organisationsService.login(LoginInfo.username,LoginInfo.password)
+  }
 
   @Get()
   findAll() {
