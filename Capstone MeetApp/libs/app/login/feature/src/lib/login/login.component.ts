@@ -12,6 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -19,17 +20,95 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   imports: [CommonModule, IonicModule,FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
- // providers: [ApiService],
+  providers: [service,HttpClient],
 })
 export class LoginComponent {
   loginForm!: FormGroup;
   email = ''; // Initialize the property
   password= ''; // Initialize the property
 
-  constructor( private router: Router, private formBuilder: FormBuilder/*, private apiService: ApiService*/) {
-
-   
+  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service) { 
   }
+
+  
+  //storing the users data
+  data_user= [{
+    name:'',
+    surname:'',
+    username:'',
+    email:'',
+    password:'',
+    phoneNumber:'',
+    interests:[''],
+    region:'',
+    profilePicture:''
+  }];
+
+    
+  //storing the organisers data  
+  data_organiser= [{
+    name:'',
+    surname:'',
+    username:'',
+    email:'',
+    password:'',
+    phoneNumber:'',
+    orgDescription:'',
+    categories:[''],
+    events:['']
+  }];
+
+  //Initialise data for User and Organiser using the services 
+  async ngOnInit() {
+
+    await this.apiService.getAllUsers().subscribe((response: any) => { 
+      console.log(response);
+      this.data_user = response;  
+    });
+
+    await this.apiService.getAllOrganisers().subscribe((response: any) => { 
+      console.log(response);
+      this.data_user = response;
+    });
+  }
+
+  //Login Function for User
+  checkAuthUser(username?:string , password?:string) : boolean
+  {
+      let check=false;
+
+      for (let i = 0; i < this.data_user.length; i++) {
+        const users:user=this.data_user[i];
+        if(users.username==username && users.password==password)
+        {
+          console.log('User Exist');
+          console.log(users);
+          check=true;
+          break;
+        }
+      }
+      return check;
+  }
+
+  //Login Function for Organisation
+  checkAuthOrg(username?:string , password?:string) : boolean
+  {
+      let check=false;
+
+      for (let i = 0; i < this.data_organiser.length; i++) {
+        const org:organiser=this.data_organiser[i];
+        if(org.username==username && org.password==password)
+        {
+          console.log('User Exist');
+          console.log(org);
+          check=true;
+          break;
+        }
+      }
+      return check;
+  }
+
+
   onCreate() {
     this.router.navigate(['/signup']);
   }

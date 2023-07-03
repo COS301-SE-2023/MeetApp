@@ -34,7 +34,7 @@ export interface createEvents{
 
 
 // USER INTERFACES //
-export interface User{
+export interface user{
     name:string;
     surname:string;
     username:string;
@@ -61,7 +61,7 @@ export interface createUser{
 
 // ORGANISER INTERFACES //
 
-export interface Organiser{
+export interface organiser{
     name:string;
     surname:string;
     username:string;
@@ -88,7 +88,7 @@ export interface createOrginise{
 
 // FRIENDS INTERFACES //
 
-export interface Friend{
+export interface friend{
     requester:string;
     requestee:string;
     status:string;
