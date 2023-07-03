@@ -96,7 +96,9 @@ padding: 0;
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
 }
-
+ion-img{
+  height: 500px;
+}
 
 
           
