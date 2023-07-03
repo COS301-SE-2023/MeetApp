@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import { BehaviorSubject } from 'rxjs';
 //import { url } from "inspector";
 //import { Observable } from "rxjs";
 
@@ -78,11 +79,18 @@ export class service{
     constructor(private http:HttpClient){}
 
     private baseURl='http://localhost:3000/api/';
+    private userTypeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
     getAllEvents()
     {
         const url=this.baseURl+'events';
         return this.http.get(`${url}`);
+    }
+    getAllUsers(){
+
+        const url=this.baseURl+'users';
+        return this.http.get(`${url}`);
+
     }
     createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:string , longitude:string},category: string,region: string)
     {
@@ -159,6 +167,13 @@ export class service{
         return this.http.get(`${url}`);
     }
     
+    setUserType(userType: string): void {
+        this.userTypeSubject.next(userType);
+      }
+    
+      getUserType(): BehaviorSubject<string> {
+        return this.userTypeSubject;
+      }
     //body JSON example = {"region": "Joburg", "profifilePicture": "http://localhost..."}
     updateUser(id:string,username?:string,profilePicture?:string,region?:string){
         const url=`${this.baseURl}users/${id}`;

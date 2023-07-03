@@ -29,8 +29,8 @@
 </div>
 
     <div class="button-container">   
-      <ion-button  class="same-size-button" (click)="onSignUp()">USER</ion-button>
-       <ion-button  class="same-size-button" (click)="onSignUp()">ORGANISER</ion-button>
+      <ion-button  class="same-size-button" (click)="onSignUp()" (click)="setUserType('user')"s>USER</ion-button>
+       <ion-button  class="same-size-button" (click)="onSignUp()"  (click)="setUserType('organiser')">ORGANISER</ion-button>
     
     </div>
   </ion-content>
