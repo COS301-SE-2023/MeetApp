@@ -4,67 +4,98 @@ import {HttpClient} from "@angular/common/http";
 //import { Observable } from "rxjs";
 
 
+// EVENT INTERFACES //
+
 export interface events{
-    name:string;
+    eventName:string;
     organisation:string;
-    date:string;
-    startTime:string;
-    endTime:string;
-    eventDate:string;
-    lng:number;
-    lat:number;
-    location: {latitude:string , longitude:string};
-    category:string;
-    region:string;
     description:string;
-
-
-}
-
-
-export interface createEvents
-{
-    
-    name: string;
-    organisation: string;
-    description: string;
-     eventPoster: string;
-     date: string;
-     startTime: string;
+    date: string;
+    startTime: string;
     endTime: string;
-     location: {latitude:string , longitude:string};
+    location: {latitude: number , longitude:number};
     category: string; 
     region: string;
+    eventPoster:string;
 }
 
+export interface createEvents{
+    eventName:string;
+    organisation:string;
+    description:string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    location: {latitude: number , longitude:number};
+    category: string; 
+    region: string;
+    eventPoster:string;
+}
+
+
+// USER INTERFACES //
 export interface User{
-    username:string,
-    password:string,
-    profilePicture:string,
-    region:string
-}
-export interface createUser
-{
-    username:string;
-    password:string;
     name:string;
-    email:string;
-    location: {latitude:string , longitude:string};
-    events:string;
-    phoneNumber:string;
-}
-export interface createOrginiser
-{
+    surname:string;
     username:string;
-    password:string;
-    name:string;
     email:string;
-    location: {latitude:string , longitude:string};
-    events:string;
+    password:string;
     phoneNumber:string;
+    interests:string[];
+    region:string;
+    profilePicture:string;
 }
-export interface createFriend
-{
+
+export interface createUser{
+    name:string;
+    surname:string;
+    username:string;
+    email:string;
+    password:string;
+    phoneNumber:string;
+    interests:string[];
+    region:string;
+    profilePicture:string;
+}
+
+
+// ORGANISER INTERFACES //
+
+export interface Organiser{
+    name:string;
+    surname:string;
+    username:string;
+    email:string;
+    password:string;
+    phoneNumber:string;
+    orgDescription:string;
+    categories:string[];
+    events:string[];
+}
+
+export interface createOrginise{
+    name:string;
+    surname:string;
+    username:string;
+    email:string;
+    password:string;
+    phoneNumber:string;
+    orgDescription:string;
+    categories:string[];
+    events:string[];
+}
+
+
+// FRIENDS INTERFACES //
+
+export interface Friend{
+    requester:string;
+    requestee:string;
+    status:string;
+
+}
+
+export interface createFriend{
     requester:string;
     requestee:string;
     status:string;
@@ -79,81 +110,65 @@ export class service{
 
     private baseURl='http://localhost:3000/api/';
 
+    //SERVICES FOR EVENTS
+
     getAllEvents()
     {
         const url=this.baseURl+'events';
         return this.http.get(`${url}`);
     }
-    createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:string , longitude:string},category: string,region: string)
+    
+    createEvents(eventName: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:number , longitude:number},category: string,region: string,eventPoster:string)
     {
         const url=this.baseURl+'events';
         const body=
         {
-            
-            name: name,
+            eventName: eventName,
             organisation: organisation,
             description: description,
-           // eventPoster: eventPoster, 
             date: date,
-             startTime: startTime,
-             endTime: endTime,
+            startTime: startTime,
+            endTime: endTime,
             location: location,
-             category: category,
-             region: region
+            category: category,
+            region: region,
+            eventPoster: eventPoster
         }
         return this.http.post(`${url}`,body);
 
     }
 
-     getEventsByRange(startDate?:string,endDate?:string){
+    getEventsByRange(startDate?:string,endDate?:string){
         const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
         return this.http.get(`${url}`);
     }
     
-    createUser(username:string,password:string, name:string,email:string,phoneNumber:string,  location: {latitude:string , longitude:string},events:string)
+    //SERVICES FOR USERS
+
+    createUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,interests:string[],region:string,profilePicture:string)
     {
         const url=this.baseURl+'users';
         const body=
         {
-            
-            username: username,
-            password:password,
             name:name,
+            surname:surname,
+            username: username,
             email:email,
+            password:password,
             phoneNumber:phoneNumber,
-              location: location,
-              events:events
+            interests:interests,
+            region:region,
+            profilePicture:profilePicture
         }
         return this.http.post(`${url}`,body);
-    }
-    createOrginiser(username:string, password:string,name:string,email:string,phoneNumber:string, location: {latitude:string , longitude:string},events:string)
-    {
-        const url=this.baseURl+'orginisations';
-        const body=
-        {
-            
-            username: username,
-            password:password,
-            name:name,
-            email:email,
-            phoneNumber:phoneNumber,
-              location: location,
-              events:events
-        }
-        return this.http.post(`${url}`,body);
-    }
-    createFriend( requester:string, requestee:string, status:string)
-    {
-        const url=this.baseURl+'friendships';
-        const body=
-        {
-        requester:requester,
-         requestee:requestee, 
-         status:status
-        }
-         return this.http.post(`${url}`,body);
     }
 
+    getAllUsers()
+    {
+        const url=this.baseURl+'users';
+        return this.http.get(`${url}`);
+    }
+    
     getUser(id:string){
         const url=`${this.baseURl}users/${id}`;
         return this.http.get(`${url}`);
@@ -169,16 +184,61 @@ export class service{
         }
         return this.http.patch(`${url}`,body);
     }
+
     getUserAttendances(id:string){
         const url=`${this.baseURl}users/${id}/attendances`;
         return this.http.get(`${url}`);
     }
+
     getUserAttendancesCount(id:string){
         const url=`${this.baseURl}users/${id}/attendances/count`;
         return this.http.get(`${url}`);
     }
+
     /*getUserAttendancesEventsList(ids:string[]){
         const url=`${this.baseURl}events/fetch-by-ids?eventsIds=${ids}`;
         return this.http.get(`${url}`);
     }*/
+
+    //SERVICES FOR ORGANISER
+
+    createOrginiser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string, orgDescription:string,categories:string[],events:string[])
+    {
+        const url=this.baseURl+'orginisations/signup';
+        const body=
+        {
+            name:name,
+            surname:surname,
+            username: username,
+            email:email,
+            password:password,
+            phoneNumber:phoneNumber,
+            orgDescription:orgDescription,
+            categories:categories,
+            events:events
+        }
+        return this.http.post(`${url}`,body);
+    }
+
+    getAllOrganisers()
+    {
+        const url=this.baseURl+'organisations';
+        return this.http.get(`${url}`);
+    }
+
+
+    //SERVICES FOR FRIENDS
+
+    createFriend(requester:string, requestee:string, status:string)
+    {
+        const url=this.baseURl+'friendships';
+        const body=
+        {
+            requester:requester,
+            requestee:requestee, 
+            status:status
+        }
+        return this.http.post(`${url}`,body);
+    }
+
 }
