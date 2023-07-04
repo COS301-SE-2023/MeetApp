@@ -81,3 +81,7 @@ padding: 0;
   margin: 0;
   padding: 0;
 }
+
+ion-img{
+  height: 300px;
+}

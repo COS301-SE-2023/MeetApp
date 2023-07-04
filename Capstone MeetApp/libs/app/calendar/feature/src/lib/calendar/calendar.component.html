@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <title>Calendar</title>
+</head>
+<ion-header>
+    <ion-toolbar>
+      <ion-title >
+        <h1>Calendar</h1>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+<div id="body">
+        <ion-item>
+            <ion-datetime color="rose"></ion-datetime>
+        </ion-item>
+        
+        <div>
+          <ion-card *ngFor="let item of data" class="custom-card">
+            <ion-card-content>
+            <ion-card-title class="heading">{{ item.name }} </ion-card-title>
+          </ion-card-content>          
+              <ion-card-content class="text">
+                {{item.region}} , 
+                {{item.date}}
+            </ion-card-content>
+          </ion-card>
+          </div>
+
+      <div class="navigation-bar">
+        <a href="/home" class="navigation-item">
+          <i class="fas fa-home"></i>
+        </a>
+        <a href="/calendar" class="navigation-item">
+          <i class="fas fa-bell"></i>
+        </a>
+        <a href="/profile" class="navigation-item">
+          <i class="fas fa-user"></i>
+        </a>
+      </div>
+</div>
+</html>

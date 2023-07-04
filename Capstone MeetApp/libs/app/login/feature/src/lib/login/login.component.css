@@ -80,3 +80,7 @@ input {
 
   color :white;
 }
+
+ion-img{
+  height: 300px;
+}
