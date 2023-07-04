@@ -1,3 +1,4 @@
+
 #body {
     height: 100vh;
     margin: 0;
@@ -15,8 +16,6 @@
     background-image: url(https://blog.hootsuite.com/wp-content/uploads/2021/07/free-stock-photos-02-scaled.jpg);
     background-size: cover;
     background-position: center;
-   
-
   }
 
   .Events{
@@ -75,20 +74,21 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        
-
+        padding-right: 2px;
+        padding-left: 2px;
     }
 
     .part1 .image-container {
         width: 33.33%;
         text-align: center;
         margin-bottom: 0px;
-        height: 100%;
-        display:flex;
+        height: 97px;
+        padding: 2px;
     }
 
     .part1 .top-group {
         margin-bottom: 0;
+        
     }
 
     .part1 .image-container img {
@@ -200,17 +200,9 @@
         border-radius: 5px;
       }
 
-      .list{
+    .list{
         width: 100%;
         --padding-end:5px;
         --padding-bottom:2px;
         display: flex;
-      }
-
-      ion-grid {
-        --ion-grid-columns:3;
-      }
-
-      img{
-        display:flex;
-      }
+    }

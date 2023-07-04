@@ -50,23 +50,14 @@
         </div>
     </div>
 
-    <ion-grid [fixed]="true" *ngFor="let imageUrl of imageList">
-      <ion-row class="ion-align-items-start" >
-        <ion-col size="1">
-          <a href="/event" routerLinkActive="active">
-          <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
-        </a>
-      </ion-col>
-      </ion-row>
-    </ion-grid>
-    <!--<div class="part1">
+    
+    <div class="part1">
         <div class="image-container top-group" *ngFor="let imageUrl of imageList">
             <a href="/event" routerLinkActive="active">
               <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
             </a>
           </div> 
-        
-      </div>-->
+      </div>
     <nav class="bottom-navbar">
         <ul>
           <li>
