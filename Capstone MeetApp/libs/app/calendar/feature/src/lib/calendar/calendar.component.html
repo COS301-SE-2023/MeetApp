@@ -18,28 +18,17 @@
             <ion-datetime color="rose"></ion-datetime>
         </ion-item>
         
-      <ion-card>
-        <ion-card-title>
-            Events
-        </ion-card-title>
-        <ion-list>
-            <ion-item>
-                Event 1
-            </ion-item>
-            <ion-item>
-                Event 2
-            </ion-item>
-            <ion-item>
-                Event 3
-            </ion-item>
-            <ion-item>
-                Event 4
-            </ion-item>
-            <ion-item>
-                Event 5
-            </ion-item>
-        </ion-list>
-      </ion-card>
+        <div>
+          <ion-card *ngFor="let item of data" class="custom-card">
+            <ion-card-content>
+            <ion-card-title class="heading">{{ item.name }} </ion-card-title>
+          </ion-card-content>          
+              <ion-card-content class="text">
+                {{item.region}} , 
+                {{item.date}}
+            </ion-card-content>
+          </ion-card>
+          </div>
 
       <div class="navigation-bar">
         <a href="/home" class="navigation-item">

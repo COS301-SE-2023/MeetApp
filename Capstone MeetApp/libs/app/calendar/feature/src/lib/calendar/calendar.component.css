@@ -35,11 +35,20 @@
     height: 500px;
     width: 100%;
     margin-left: 7%;
+    --padding-end:50px
   }
   ion-card-title{
     text-align: center;
   }
 
+  ion-card{
+    overflow: scroll;
+  }
+
+  .text{
+    text-align: center;
+    font-size: medium;
+  }
   h1{
     text-align: center;
 }
