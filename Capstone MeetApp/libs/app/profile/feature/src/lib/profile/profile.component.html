@@ -2,7 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <div id="body">
     <div class="background-image"></div>
@@ -14,16 +14,20 @@
         </div>
         <div class="profile-info">
             <h3>{{ profile.username }}</h3>
+        <ion-list class="list">
+          <ion-item class="list">
+            <ion-label>Events</ion-label>
+            <ion-badge color="primary">{{eventCount}}</ion-badge>
+          </ion-item>
+  
+          <ion-item class="list">
+            <ion-label>Friendships</ion-label>
+            <ion-badge color="primary">22k</ion-badge>
+          </ion-item>
           
-           <div class="Events" style="margin-left: 210px; margin-top: -10px;" >
-            <p>Events: {{eventCount}}</p>
-        </div>
-        <div class="Followers" style="margin-left: 210px; margin-top: 10px;" >
-            <p>Followers: 100</p>
-        </div>
-        <div class="Following" style="margin-right: 210px; margin-top: -20px;">
-            <p>Following: 500</p>
-        </div>
+        </ion-list>
+        
+    
         </div> 
     
         <button class="follow-button" style="margin-top: 20px;" (click)="openEditProfilePopover()">Edit Profile</button>
@@ -45,14 +49,24 @@
           </div>
         </div>
     </div>
-    <div class="part1">
+
+    <ion-grid [fixed]="true" *ngFor="let imageUrl of imageList">
+      <ion-row class="ion-align-items-start" >
+        <ion-col size="1">
+          <a href="/event" routerLinkActive="active">
+          <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
+        </a>
+      </ion-col>
+      </ion-row>
+    </ion-grid>
+    <!--<div class="part1">
         <div class="image-container top-group" *ngFor="let imageUrl of imageList">
             <a href="/event" routerLinkActive="active">
               <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
             </a>
-          </div>
-          
-      </div>
+          </div> 
+        
+      </div>-->
     <nav class="bottom-navbar">
         <ul>
           <li>
