@@ -1,8 +1,64 @@
-<head>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-</head>
-<div id="body">
+<!DOCTYPE html>
+<html lang="en">
+  <div id="index" class="index-page" class="scroll-container" >
+    <h1 class="heading" >
+      Add Events
+  </h1>
+
+  <ion-content>
+    <form>
+      <ion-item lines="full">
+        <ion-label position="floating">Event Name</ion-label>
+        <ion-input type="text" required></ion-input>
+      </ion-item>
+       
+      <ion-item lines="full">
+        <ion-label position="floating">Organisation Name</ion-label>
+        <ion-input type="text" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Event Date</ion-label>
+        <ion-input type="date" required></ion-input>
+      </ion-item>
+    
+      <ion-item lines="full">
+        <ion-label position="floating">start Time</ion-label>
+        <ion-input type="time" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">End Time</ion-label>
+        <ion-input type="time" required></ion-input>
+      </ion-item>
+
+      <ion-item lines="full">
+        <ion-label position="floating">Description</ion-label>
+        <ion-input type="text" required></ion-input>
+      </ion-item>
+      
+      <ion-item lines="full">
+        <ion-label position="floating">Region</ion-label>
+        <ion-input type="text" required></ion-input>
+      </ion-item>
+
+    
+
+
+      <ion-item lines="full">
+        <ion-label position="floating">category</ion-label>
+        <ion-input type="text" required></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="submit" color="danger" expand="block">Create Event</ion-button>
+        </ion-col>
+      </ion-row>
+    </form>
+
+  </ion-content>
+  </div>
+<!--<div id="body">
   <ion-header style="color: blue;">
     <ion-title style="color:#D4ADFC">
       Event Organiser
@@ -13,13 +69,13 @@
   <div class="icon-container left">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDj9o_I6LyEmxPyP2Eg7KktdP5WcqAFbppFkx4fwe5ztI8TM9EuIzuqahUKt6DZJMYKQ&usqp=CAU" alt="Icon 1">
 
-    <!-- Add more icons for the left side -->
+    
   </div>
 
   <div class="icon-container right">
     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDj9o_I6LyEmxPyP2Eg7KktdP5WcqAFbppFkx4fwe5ztI8TM9EuIzuqahUKt6DZJMYKQ&usqp=CAU" alt="Icon 3">
 
-    <!-- Add more icons for the right side -->
+    
   </div>
   <div (ngSubmit)="submitForm()" class="profile-picture">
     <ion-avatar>
@@ -71,7 +127,7 @@
       <ion-select-option value="Pretoria">Pretoria</ion-select-option>
       <ion-select-option value="Johannesburg">Johannesburg</ion-select-option>
       
-      <!-- Region options here -->
+      
     </ion-select>
     
   </ion-item>
@@ -104,3 +160,4 @@
     </ul>
   </nav>
 </div>
+-->
