@@ -1,7 +1,6 @@
 import {
   Controller,
   Get,
-  Post,
   //Body,
   Patch,
   Param,
@@ -15,7 +14,7 @@ import { OrganisationsService } from './organisations.service';
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
 
-  @Post()
+  //@Post()
   // create(@Body() createOrganisationDto: CreateOrganisationDto) {
   //   return this.organisationsService.create(createOrganisationDto);
   // }

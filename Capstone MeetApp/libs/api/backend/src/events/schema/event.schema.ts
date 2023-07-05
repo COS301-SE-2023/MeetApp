@@ -32,8 +32,8 @@ export class Event {
   endTime!: string;
   
     @Prop(raw({
-    lng: { type: Number },
-    lat: { type: Number }
+    longatude: { type: Number },
+    latitude: { type: Number }
   }))
   location!: Record<number, unknown>;
   

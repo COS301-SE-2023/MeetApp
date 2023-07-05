@@ -19,7 +19,7 @@ export class EventsService {
     const eventsOrgStringName = newEvent.organisation;
     const eventsID = newEvent.id;
     const OrgDetails = await this.orgModel.find({name: eventsOrgStringName})
-    const OrgId = OrgDetails[0]._id;
+    const OrgId = OrgDetails[0]._id
     await this.orgModel.updateOne({ _id: OrgId }, { $push: { events: eventsID } });
 
     return newEvent.save();
