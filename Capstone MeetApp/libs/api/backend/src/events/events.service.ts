@@ -17,8 +17,12 @@ export class EventsService {
   async create(createEventDto: CreateEventDto) {
     const newEvent = await new this.eventModel(createEventDto);
     const eventsOrgStringName = newEvent.organisation;
+    console.log(newEvent)
+    console.log(eventsOrgStringName)
     const eventsID = newEvent.id;
+    console.log(eventsID)
     const OrgDetails = await this.orgModel.find({name: eventsOrgStringName})
+    console.log(OrgDetails)
     const OrgId = OrgDetails[0]._id;
     await this.orgModel.updateOne({ _id: OrgId }, { $push: { events: eventsID } });
 

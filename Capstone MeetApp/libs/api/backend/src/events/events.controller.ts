@@ -20,6 +20,7 @@ export class EventsController {
     message: 'Event has been created successfully',
     newStudent,});
  } catch (err) {
+    console.log(err)
     return response.status(HttpStatus.BAD_REQUEST).json({
     statusCode: 400,
     message: 'Error: Event not created!',
