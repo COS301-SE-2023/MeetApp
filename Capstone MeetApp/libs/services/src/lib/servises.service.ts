@@ -163,6 +163,17 @@ export class service{
         return this.http.post(`${url}`,body);
     }
 
+    authUser(username:string, password:string)
+    {
+        const url=this.baseURl+'users/login'
+        const body=
+        {
+            username:username,
+            password:password
+        }
+        return this.http.post(`${url}`,body);
+    }
+
     getAllUsers()
     {
         const url=this.baseURl+'users';
@@ -216,6 +227,17 @@ export class service{
             orgDescription:orgDescription,
             categories:categories,
             events:events
+        }
+        return this.http.post(`${url}`,body);
+    }
+
+    autOrganiser(username:string, password:string)
+    {
+        const url=this.baseURl+'organisations/login'
+        const body=
+        {
+            username:username,
+            password:password
         }
         return this.http.post(`${url}`,body);
     }
