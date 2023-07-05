@@ -8,6 +8,11 @@
   margin: 0 auto;
   font-family: 'Roboto', serif;
 }
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
 
 .scroll-container {
   height: 700px; 
