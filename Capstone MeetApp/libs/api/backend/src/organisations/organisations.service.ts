@@ -16,7 +16,6 @@ export class OrganisationsService {
   // }
 
   findAll() {
-    console.log(this.organisationModel)
     return this.organisationModel.find().exec();
   }
 
