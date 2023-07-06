@@ -39,43 +39,51 @@ export class SignupComponent {
   submitClicked = false;
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]]
+      firstname: ['', Validators.required],
+    lastname: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    confirmpassword: ['', Validators.required]
     });
   }
   
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-    this.checkPasswordStrength
-  ]);
   
-  checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
-    const password = control.value;
+  
+ 
+  valid=true;
+  signup()
+  {
+    const firstname = this.loginForm.value.firstname;
+    const lastname = this.loginForm.value.lastname;
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    const confirmpassword = this.loginForm.value.confirmpassword;
+
+
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
-    if (!strongRegex.test(password)) {
-      return { 'weakPassword': true };
+    if (!strongRegex.test(password) && this.loginForm.invalid) {
+      this.valid=false;
     }
     
-    return null;
-  }
-  signup(firstaname: string, lastname: string,email:string,password: string,confirmPass:string)
+
+    
+   
+console.log(firstname);
+console.log(lastname);
+console.log(email);
+console.log(password);
+console.log(confirmpassword);
+}
+isvalid()
+{
+
+  if (this.valid)
   {
-    console.log("name",firstaname);
-    console.log("last",lastname);
-    console.log("email",email);
-    console.log("password",password);
-    console.log("confirm",confirmPass);
-
-    this.submitClicked = true;
-
-    if (this.loginForm.invalid) {
-      return;
-    }
-
-    
+    this.router.navigate(['/home']);
   }
+}
+  
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
    /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
