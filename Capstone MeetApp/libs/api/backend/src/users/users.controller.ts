@@ -22,6 +22,12 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @Get(':userID/friends')
+  async getUserFriends(@Param('userID') userID: string) {
+    const friends = await this.usersService.getUserFriends(userID);
+    return friends;
+  }
+
   @Get(':userId/attendances')
   getUserAttendances(@Param('userId') userId: string) {
     return this.usersService.getUserAttendances(userId);
