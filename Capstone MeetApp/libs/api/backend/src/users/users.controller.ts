@@ -27,6 +27,11 @@ export class UsersController {
     return this.usersService.getUserAttendances(userId);
   }
 
+  @Get(':userId/friends/count')
+  getUserFriendsCount(@Param('userId') userId: string) {
+    return this.usersService.getUserFriendsCount(userId);
+  }
+
   @Get(':userId/attendances/count')
   getUserAttendancesCount(@Param('userId') userId: string) {
     return this.usersService.getUserAttendancesCount(userId);
