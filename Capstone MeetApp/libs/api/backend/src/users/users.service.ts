@@ -25,6 +25,26 @@ export class UsersService {
     return this.userModel.findById(id).exec();
   }
 
+  async getUserFriends(userID: string) {
+    const friendDocs = await this.friendshipModel.find({ $and: [{ $or: [{ requester: userID }, { requestee: userID }] }, { status: true }] }).exec();
+    const friendsIDs : string[] = [];
+    friendDocs.forEach(friendDoc => {
+   
+        friendsIDs.push(friendDoc.requestee.toString())
+        friendsIDs.push(friendDoc.requester.toString())
+    })
+    const friendsIDsUnique = new Set(friendsIDs)
+    friendsIDsUnique.delete(userID)
+    const fndsArr = Array.from(friendsIDsUnique);
+
+    const friends = await this.userModel
+      .find({ _id: { $in: fndsArr } })
+      .select('username ID')
+      .exec();
+
+    return friends;
+  }
+
   async getUserAttendances(userId: string) {
     return this.attendanceModel.find({ userID: userId }).exec();
   }
