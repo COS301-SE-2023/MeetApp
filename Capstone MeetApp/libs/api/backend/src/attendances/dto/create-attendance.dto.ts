@@ -1,9 +1,11 @@
+import mongoose from "mongoose";
+
 export class CreateAttendanceDto {
 
-  readonly organisationID!: string;
+  readonly ID!: mongoose.Schema.Types.ObjectId;
+  readonly organisationID!: mongoose.Schema.Types.ObjectId;
 
-  readonly eventID!: string;
 
-  readonly userID!: string;
-
+  readonly eventID!: mongoose.Schema.Types.ObjectId;
+  readonly userID!: mongoose.Schema.Types.ObjectId;
 }
