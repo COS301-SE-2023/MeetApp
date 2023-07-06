@@ -1,16 +1,16 @@
-import { Controller, Get, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
 import { AttendancesService } from './attendances.service';
-// import { CreateAttendanceDto } from './dto/create-attendance.dto';
+import { CreateAttendanceDto } from './dto/create-attendance.dto';
 // import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 
 @Controller('attendances')
 export class AttendancesController {
   constructor(private readonly attendancesService: AttendancesService) {}
 
-  // @Post()
-  // create(@Body() createAttendanceDto: CreateAttendanceDto) {
-  //   return this.attendancesService.create(createAttendanceDto);
-  // }
+  @Post()
+  create(@Body() createAttendanceDto: CreateAttendanceDto) {
+    return this.attendancesService.create(createAttendanceDto);
+  }
 
   @Get()
   findAll() {
