@@ -17,6 +17,8 @@ import { IonicModule } from '@ionic/angular';
 
 //import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
 //import {events, service} from '';
+
+//http://localhost:3000/api/events/647218a0cd65fc66878b99ad/attendance-count
 import { events,service,ServicesModule} from '@capstone-meet-app/services';
 
 
@@ -60,6 +62,11 @@ export class HomepageComponent {
   }
     
   ];
+  isLiked = false;
+  toggleLike() {
+    this.isLiked = !this.isLiked;
+  }
+  
   
   constructor(private service: service) {
     console.log('Constructor');

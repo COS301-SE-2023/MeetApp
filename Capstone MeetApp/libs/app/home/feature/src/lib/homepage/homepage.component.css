@@ -19,8 +19,8 @@
 .image-container1 {
   
   
-  display: flex; /* Use flexbox to center the image */
-  justify-content: center; /* Center items horizontally */
+  display: flex; 
+  justify-content: center; 
   border-radius: 20px;
 
 }
@@ -37,14 +37,25 @@
   height: auto;
   
 }
-
+.liked {
+  color: red; 
+}
 
 .fa-heart{
   font-size: 30px; 
-  color: #D4ADFC;
+  color: grey;
   margin-right: 40px; 
+ 
 }
+.left
+{
+  margin-left:40px;
+}
+.right
+{
+  margin-right: 35px;
 
+}
 
 .fa-cog {
   font-size: 30px; 
