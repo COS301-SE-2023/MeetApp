@@ -58,7 +58,7 @@ export class OrganiserComponent {
     this.eventName='';
     this.OrganisationName='';
   }
-  showCalendar:boolean=false;
+  showCalendar=false;
 
   
 
