@@ -64,6 +64,11 @@ export class UsersController {
     return this.usersService.sendFriendRequest(userID,requesteeID.requestee)
   }
 
+  @Patch(':id/friend/accept-request')
+  acceptFriendship(@Param('id') id: string, @Body() requesterID: {requester: string}) {
+    return this.usersService.acceptRequest(id, requesterID.requester);
+  }
+
 
 
   // @Delete(':id')
