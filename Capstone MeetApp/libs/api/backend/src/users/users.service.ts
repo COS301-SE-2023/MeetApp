@@ -105,6 +105,11 @@ export class UsersService {
     return friends;
   }
 
+  async sendFriendRequest(requester: string, requestee: string){
+    const newFriendship = await new this.friendshipModel({requester: requester, requestee: requestee, status: false});
+    return newFriendship.save();
+  }
+
   // remove(id: number) {
   //   return `This action removes a #${id} user`;
   // }
