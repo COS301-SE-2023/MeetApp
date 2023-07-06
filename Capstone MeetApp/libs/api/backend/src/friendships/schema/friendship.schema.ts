@@ -11,7 +11,7 @@ export type FriendshipDocument = HydratedDocument<Friendship>;
 export class Friendship {
 
   @Prop()
-  ID!: mongoose.Schema.Types.ObjectId;
+  id!: mongoose.Schema.Types.ObjectId;
 
   @Prop( /*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
   requester!: mongoose.Schema.Types.ObjectId;
