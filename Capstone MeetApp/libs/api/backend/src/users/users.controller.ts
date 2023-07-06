@@ -48,6 +48,14 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
+  @Get(':userID/friend-requests')
+  async getUserFriendRequests(@Param('userID') userID: string) {
+    const friends = await this.usersService.getUserFriendRequests(userID);
+    return friends;
+  }
+
+  
+
   // @Delete(':id')
   // remove(@Param('id') id: string) {
   //   return this.usersService.remove(+id);
