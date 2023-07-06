@@ -28,6 +28,10 @@ export class UsersService {
     return this.attendanceModel.find({ userID: userId }).exec();
   }
 
+  async getUserFriendsCount(userId: string) {
+    return this.friendshipModel.countDocuments({ $and: [{ $or: [{ requester: userId }, { requestee: userId }] }, { status: true }] }).exec();
+  }
+
   async getUserAttendancesCount(userId: string) {
     return this.attendanceModel.countDocuments({ userID: userId }).exec();
   }
