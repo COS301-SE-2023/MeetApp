@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import { UsersService } from './users.service';
 // import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -54,7 +54,12 @@ export class UsersController {
     return friends;
   }
 
-  
+  @Delete(':id/friend/unfriend')
+  unfriend(@Param('id') id: string, @Body() friendID : {friend: string}) {
+    return this.usersService.unfriend(id,friendID.friend);
+  }
+
+
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {
