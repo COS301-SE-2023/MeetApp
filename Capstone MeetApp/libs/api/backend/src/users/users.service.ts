@@ -5,10 +5,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
 import { Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
+import { Friendship } from '../friendships/schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  @InjectModel(Friendship.name) private friendshipModel: Model<Friendship>){
     
   }
   
