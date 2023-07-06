@@ -28,33 +28,62 @@ import { IonicModule } from '@ionic/angular';
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
+  firstname="";
+  lastname="";
+  email = ''; 
+  password= ''; 
 
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      
-        
-    });
-    
-  }
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-    this.checkPasswordStrength
-  ]);
+  confirmpassword="";
   
-  checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
-    const password = control.value;
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  submitClicked = false;
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      firstname: ['', Validators.required],
+    lastname: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    confirmpassword: ['', Validators.required]
+    });
+  }
+  
+  
+  
+ 
+  valid=true;
+  signup()
+  {
+    const firstname = this.loginForm.value.firstname;
+    const lastname = this.loginForm.value.lastname;
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    const confirmpassword = this.loginForm.value.confirmpassword;
+
+
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
-    if (!strongRegex.test(password)) {
-      return { 'weakPassword': true };
+    if (!strongRegex.test(password) && this.loginForm.invalid) {
+      this.valid=false;
     }
     
-    return null;
+
+    
+   
+console.log(firstname);
+console.log(lastname);
+console.log(email);
+console.log(password);
+console.log(confirmpassword);
+}
+isvalid()
+{
+
+  if (this.valid)
+  {
+    this.router.navigate(['/home']);
   }
+}
+  
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
    /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
