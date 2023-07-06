@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 // import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -47,6 +47,35 @@ export class UsersController {
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
+
+  @Get(':userID/friend-requests')
+  async getUserFriendRequests(@Param('userID') userID: string) {
+    const friends = await this.usersService.getUserFriendRequests(userID);
+    return friends;
+  }
+
+  @Delete(':id/friend/unfriend')
+  unfriend(@Param('id') id: string, @Body() friendID : {friend: string}) {
+    return this.usersService.unfriend(id,friendID.friend);
+  }
+
+  @Post(':userID/friend/send-request')
+  sendFriendRequest(@Param('userID') userID: string, @Body() requesteeID : {requestee: string}) {
+    return this.usersService.sendFriendRequest(userID,requesteeID.requestee)
+  }
+
+  @Patch(':id/friend/accept-request')
+  acceptFriendship(@Param('id') id: string, @Body() requesterID: {requester: string}) {
+    return this.usersService.acceptRequest(id, requesterID.requester);
+  }
+
+  @Get(':userID/friend-requests/pending')
+  async getUsersentRequests(@Param('userID') userID: string) {
+    const friends = await this.usersService.getUserSentRequests(userID);
+    return friends;
+  }
+
+
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {
