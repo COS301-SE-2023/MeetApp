@@ -6,9 +6,10 @@ import { EventSchema } from '../events/schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EventsModule } from '../events/events.module';
 import { Organisation, OrganisationSchema } from './schema';
+import { Attendance, AttendanceSchema } from '../attendances/schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Organisation.name, schema: OrganisationSchema }]),EventsModule,MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }])],
+  imports: [MongooseModule.forFeature([{ name: Organisation.name, schema: OrganisationSchema }]),EventsModule,MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }, {name : Attendance.name, schema: AttendanceSchema}])],
   controllers: [OrganisationsController],
   providers: [OrganisationsService, EventsService],
 })

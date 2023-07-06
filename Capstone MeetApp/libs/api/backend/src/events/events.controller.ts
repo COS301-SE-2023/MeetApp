@@ -168,6 +168,11 @@ export class EventsController {
     return this.eventsService.findbyOrganisation(organisation);
   }
 
+  @Get(':eventID/attendance-count')
+  getEventAttendanceCount(@Param('eventID') eventID: string) {
+    return this.eventsService.getEventAttendanceCount(eventID);
+  }
+
 
   @Put('/:id')
   async updateEvent(@Res() response : Response,@Param('id') eventId: string,
