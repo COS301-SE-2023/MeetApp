@@ -21,9 +21,9 @@ export class FriendshipsService {
     const friendDoc = await this.friendshipModel.find().exec();
     const res: unknown[] = [];
     const friendPromises = friendDoc.map(async (currentFriendship) => {
-      const currentFriendshipRequestee = (await this.userService.findOne(currentFriendship.requestee))?.toObject()
+      const currentFriendshipRequestee = (await this.userService.findOne(currentFriendship.requestee.toString()))?.toObject()
       //console.log(currentFriendship.requestee)
-      const currentFriendshipRequester = (await this.userService.findOne(currentFriendship.requester))?.toObject()
+      const currentFriendshipRequester = (await this.userService.findOne(currentFriendship.requester.toString()))?.toObject()
       const currentFriendshipStatus = currentFriendship.status
       res.push({requester :currentFriendshipRequester, requestee : currentFriendshipRequestee, status : currentFriendshipStatus})
   })
