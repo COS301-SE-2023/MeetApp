@@ -29,6 +29,6 @@ export class AttendancesController {
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.attendancesService.remove(+id);
+    return this.attendancesService.remove(id);
   }
 }
