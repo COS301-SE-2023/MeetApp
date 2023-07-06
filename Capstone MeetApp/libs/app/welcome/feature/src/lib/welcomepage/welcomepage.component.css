@@ -67,7 +67,7 @@ padding: 0;
     justify-content: center;
     align-items: center;
     gap: 10px;
-    margin-top: 40px;
+    margin-top: 40px; 
   }
   
 .same-size-button {
@@ -100,5 +100,3 @@ ion-img{
   height: 500px;
 }
 
-
-          
