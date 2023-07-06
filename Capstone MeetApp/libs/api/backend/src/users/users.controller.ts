@@ -69,6 +69,12 @@ export class UsersController {
     return this.usersService.acceptRequest(id, requesterID.requester);
   }
 
+  @Get(':userID/friend-requests/pending')
+  async getUsersentRequests(@Param('userID') userID: string) {
+    const friends = await this.usersService.getUserSentRequests(userID);
+    return friends;
+  }
+
 
 
   // @Delete(':id')
