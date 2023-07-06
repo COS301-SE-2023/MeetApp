@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Attendance } from './schema';
@@ -27,7 +27,11 @@ export class AttendancesService {
   //   return `This action updates a #${id} attendance`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} attendance`;
-  }
+  async remove(id: string) {
+    const deletedAttend = await this.attendanceModel.findByIdAndDelete(id);
+   if (!deletedAttend) {
+     throw new NotFoundException(`Attendance #${id} not found`);
+   }
+   return deletedAttend;
+}
 }
