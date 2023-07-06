@@ -128,6 +128,39 @@ export class UsersService {
     }
   }
 
+  async unfriend(userID: string, friendID : string) {
+    const existingFriendship = await this.friendshipModel.find({ $and: [{ $or: [{ requester: userID }, { requestee: userID }] }, { status: true }] }).exec();
+    if (!existingFriendship[0]) {
+      throw new NotFoundException(`User has no friends`);
+    }
+    const friendshipToDelete = []
+    await existingFriendship.forEach(async friendship => {
+      if (friendship.requestee.toString() == friendID || friendship.requester.toString() == friendID)
+      {
+        friendshipToDelete.push(friendship)
+      }})
+      if (!friendshipToDelete[0]) {
+        throw new NotFoundException(`Friendship does not exist`);
+      }
+      else 
+      {
+        const deletedFriendship = await this.friendshipModel.findByIdAndDelete(friendshipToDelete[0].id);
+        if (deletedFriendship == null)
+            {
+              
+            return {friendship: null, message: "Error removing friendship!", changes : false}
+            }
+        else{
+          
+          return {friendship: deletedFriendship, message: "Friend removed successfully!", changes : true}
+        }
+      }
+
+        
+        
+      
+  }
+
   // remove(id: number) {
   //   return `This action removes a #${id} user`;
   // }
