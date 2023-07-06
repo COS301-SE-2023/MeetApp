@@ -22,7 +22,14 @@ export class OrganisationsController {
 
   @Post('login')
   login(@Body() LoginInfo : UpdateOrganisationDto){
-    return this.organisationsService.login(LoginInfo.username,LoginInfo.password)
+    if (LoginInfo != null){
+      if (LoginInfo.password != null && LoginInfo.username != null)
+        return this.organisationsService.login(LoginInfo.username,LoginInfo.password)
+      else 
+        return {organisation : null, message: "username or password missing"}
+    }
+    else
+      return {organisation: null, message : "No payload found"}
   }
 
   @Get()

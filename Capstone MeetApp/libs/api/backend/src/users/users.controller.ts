@@ -14,7 +14,14 @@ export class UsersController {
 
   @Post('login')
   signup(@Body() LoginInfo : UpdateUserDto){
-    return this.usersService.login(LoginInfo.username,LoginInfo.password)
+    if (LoginInfo != null){
+      if (LoginInfo.password != null && LoginInfo.username != null)
+        return this.usersService.login(LoginInfo.username,LoginInfo.password)
+      else 
+        return {user : null, message: "username or password missing"}
+    }
+    else
+      return {user: null, message : "No payload found"}
   }
   
   @Get()
