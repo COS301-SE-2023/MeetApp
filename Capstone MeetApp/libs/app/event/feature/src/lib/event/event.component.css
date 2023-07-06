@@ -1,7 +1,16 @@
+#body{
+  padding: 0;
+  margin-top: 0;
+  
+  background-color: #ffffff;
+  height:100vh;
+  overflow: scroll;
+  
+}
 
 .center-heading {
     text-align: center;
-    color: white;
+    color: rgb(0, 0, 0);
     font-family: sans-serif;
 }
 
@@ -30,11 +39,12 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: #5C469C;
+    background-color: #ffffff;
    
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #3b3939;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
+
   }
   
   .bottom-navbar ul {
@@ -55,9 +65,8 @@
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    color: #fff;
-    font-size: 14px;
-    color: #D4ADFC;
+    color: #6d6666;
+    font-size: 20px;
     font-family: sans-serif;
 
   }
@@ -102,4 +111,24 @@
     color: white;
     font-family: sans-serif;
     left: 190px; /* Adjust the value as needed */
+  }
+
+
+  /*IONIC ELEMENTS*/
+
+  ion-header{
+    text-align: center;
+  }
+
+  ion-item{
+    display:block;
+  }
+
+  ion-label{
+    margin-top:8%;
+  }
+
+  ion-card{
+    padding:5px;
+    margin-top: 3%;
   }
