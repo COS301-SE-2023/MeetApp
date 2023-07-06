@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-  <div id="index" class="index-page" class="scroll-container" >
-    <h1 class="heading" >
-      Add Events
-  </h1>
+  <head><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA17UF-6dTXO6cegN-QeicgZ8pVs2fR8oU&v=3.exp&libraries=places">
+  </script></head>
+ 
 
+  <div id =body id=index class="index-page" class="scroll-container" >
+    <ion-header  class="custom-content1">
+      <ion-toolbar>
+        <ion-title >
+          <h1>Add Events</h1>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
   <ion-content>
     <form>
+      <ion-item  (ngSubmit)="submitForm()" class="profile-picture">
+        <ion-avatar>
+          <img [src]="profilePictureUrl" alt="Profile Picture" (click)="changeProfilePicture()">
+        </ion-avatar>
+        <ion-button fill="clear" size="small" (click)="changeProfilePicture()">
+          Add image
+          <ion-icon name="camera-outline" style="color: white;"></ion-icon>
+        </ion-button>
+      </ion-item>
       <ion-item lines="full">
         <ion-label position="floating">Event Name</ion-label>
         <ion-input type="text" required></ion-input>
@@ -37,23 +53,32 @@
         <ion-input type="text" required></ion-input>
       </ion-item>
       
+      
       <ion-item lines="full">
         <ion-label position="floating">Region</ion-label>
         <ion-input type="text" required></ion-input>
       </ion-item>
 
-    
-
+      <ion-item lines="full">
+        <ion-label position="floating">Latitude</ion-label>
+        <ion-input type="text" required></ion-input>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label position="floating">Longitude</ion-label>
+        <ion-input type="text" required></ion-input>
+      </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">category</ion-label>
         <ion-input type="text" required></ion-input>
       </ion-item>
+
       <ion-row>
         <ion-col>
           <ion-button type="submit" color="danger" expand="block">Create Event</ion-button>
         </ion-col>
       </ion-row>
+
     </form>
 
   </ion-content>

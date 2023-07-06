@@ -15,26 +15,36 @@
       <form>
         <ion-item lines="full">
           <ion-label position="floating">First Name</ion-label>
-          <ion-input type="text" required></ion-input>
+          <ion-input type="text" [(ngModel)]="firstname" name="firstname"required></ion-input>
         </ion-item>
          
         <ion-item lines="full">
           <ion-label position="floating">Last Name</ion-label>
-          <ion-input type="text" required></ion-input>
+          <ion-input type="text" [(ngModel)]="lastname" name="lastname" required></ion-input>
         </ion-item>
 
         <ion-item lines="full">
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="text" required></ion-input>
+          <ion-input type="email" [(ngModel)]="email" name="email" formControlName="email" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.get('email')?.hasError('required')">Email is required.</div>
+  <div class="error-message" *ngIf="loginForm.get('email')?.hasError('email')">Invalid email format.</div>
         </ion-item>
 
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" required></ion-input>
+          <ion-input type="password" [(ngModel)]="password" name="password" formControlName="password" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.get('password')?.hasError('required')">Password is required.</div>
+          <div class="error-message" *ngIf="loginForm.get('password')?.hasError('minlength')">Password should be at least 6 characters.</div>
         </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-input type="password" [(ngModel)]="confirmpassword" name="confirmpassword" required></ion-input>
+        </ion-item>
+
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>
+            <ion-button type="submit" color="danger" expand="block" (click)="signup(firstname, lastname,email,password,confirmpassword)" [disabled]="loginForm.invalid">Sign Up</ion-button>
           </ion-col>
         </ion-row>
       </form>

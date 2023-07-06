@@ -28,17 +28,22 @@ import { IonicModule } from '@ionic/angular';
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
+  firstname="";
+  lastname="";
+  email = ''; 
+  password= ''; 
 
-  ngOnInit(): void {
+  confirmpassword="";
+  
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  submitClicked = false;
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      
-        
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
-    
   }
+  
   passwordFormControl = new FormControl('', [
     Validators.required,
     Validators.minLength(8),
@@ -54,6 +59,22 @@ export class SignupComponent {
     }
     
     return null;
+  }
+  signup(firstaname: string, lastname: string,email:string,password: string,confirmPass:string)
+  {
+    console.log("name",firstaname);
+    console.log("last",lastname);
+    console.log("email",email);
+    console.log("password",password);
+    console.log("confirm",confirmPass);
+
+    this.submitClicked = true;
+
+    if (this.loginForm.invalid) {
+      return;
+    }
+
+    
   }
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
    /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
