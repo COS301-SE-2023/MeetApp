@@ -14,12 +14,12 @@ export class Friendship {
   ID!: mongoose.Schema.Types.ObjectId;
 
   @Prop( /*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
-  requester!: string;
+  requester!: mongoose.Schema.Types.ObjectId;
 
   @Prop( /*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
-  requestee!: string;
+  requestee!: mongoose.Schema.Types.ObjectId;
   @Prop()
-  status!: string;
+  status!: boolean;
 
  
 }
