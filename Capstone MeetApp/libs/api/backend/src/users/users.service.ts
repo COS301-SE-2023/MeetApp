@@ -65,6 +65,26 @@ export class UsersService {
    return existingUser;
   }
 
+  async getUserSentRequests(userID: string) {
+    const friendDocs = await this.friendshipModel.find({ requester: userID, status: false}).exec();
+    const friendsIDs : string[] = []
+    friendDocs.forEach(friendDoc => {
+   
+        friendsIDs.push(friendDoc.requestee.toString())
+        friendsIDs.push(friendDoc.requester.toString())
+    })
+    const friendsIDsUnique = new Set(friendsIDs)
+    friendsIDsUnique.delete(userID)
+    const fndsArr = Array.from(friendsIDsUnique);
+
+    const friends = await this.userModel
+      .find({ _id: { $in: fndsArr } })
+      .select('username ID')
+      .exec();
+
+    return friends;
+  }
+
   // remove(id: number) {
   //   return `This action removes a #${id} user`;
   // }
