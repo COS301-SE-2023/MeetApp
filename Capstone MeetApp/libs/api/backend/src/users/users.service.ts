@@ -112,8 +112,6 @@ export class UsersService {
 
   async acceptRequest(reequesteeID: string, requesterID : string) {
     const existingFriendship = await this.friendshipModel.find({requestee: reequesteeID, requester: requesterID}).exec()
-    console.log({requestee : reequesteeID, requester: requesterID});
-    console.log(existingFriendship)
     if (!existingFriendship[0]) {
       throw new NotFoundException(`Friend request not found`);
     }
