@@ -43,7 +43,7 @@
 
       <ion-item>
         <ion-label><b>Time : </b></ion-label>
-        <ion-text class="bold-text">from &nbsp; 00:00 &nbsp;to&nbsp; 03:00</ion-text>
+        <ion-text class="bold-text">from &nbsp; {{data[0].startTime}} &nbsp;to&nbsp; {{data[0].endTime}}</ion-text>
       </ion-item>
       
   </ion-card>
@@ -59,19 +59,19 @@
       <li>
         <a href="/home" routerLinkActive="active">
           <i class="fas fa-home"></i>
-          Home
+         
         </a>
       </li>
       <li>
-        <a href="/profile">
+        <a href="/calendar">
           <i class="fas fa-bell"></i>
-          Notification
+          
         </a>
       </li>
       <li>
         <a href="/profile" >
           <i class="fas fa-user"></i>
-          Profile
+          
         </a>
       </li>
     </ul>

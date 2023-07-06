@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular'; 
-import {service,events} from '@capstone-meet-app/app/services';
+import {service,events} from '@capstone-meet-app/services';
 import { Router } from '@angular/router';
 @Component({
   selector: 'capstone-meet-app-event',
@@ -31,6 +31,8 @@ export class EventComponent {
 }
   
 ];
+
+//Fix below just to return event with a specific id
   async ngOnInit() {
     this.service.getAllEvents().subscribe((response: any) => { 
       this.data = response;
