@@ -15,12 +15,7 @@ export class FriendshipsController {
 
   @Get()
   findAll(@Req() request: Request) {
-    //console.log('wrong endpoint')
-    if (request.query == null)
-      return this.friendshipsService.findAll();
-    else
       return this.friendshipsService.findByQuery(request.query)
-      
   }
 
   @Get(':id')
