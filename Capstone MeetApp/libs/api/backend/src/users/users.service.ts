@@ -123,7 +123,10 @@ export class UsersService {
       else
       {
         const statusUpdate = await this.friendshipModel.findByIdAndUpdate(existingFriendship[0].id, {status : true}, { new: true });
-        return {friendship: statusUpdate, message: "Friend added successfully!", changes : statusUpdate.status};
+        if (statusUpdate)
+          return {friendship: statusUpdate, message: "Friend added successfully!", changes : statusUpdate.status};
+        else 
+          return {friendship: existingFriendship[0], message: "Error adding friend!", changes : false};
       }
     }
   }
@@ -133,7 +136,7 @@ export class UsersService {
     if (!existingFriendship[0]) {
       throw new NotFoundException(`User has no friends`);
     }
-    const friendshipToDelete = []
+    const friendshipToDelete : Friendship[]= []
     await existingFriendship.forEach(async friendship => {
       if (friendship.requestee.toString() == friendID || friendship.requester.toString() == friendID)
       {
@@ -144,7 +147,7 @@ export class UsersService {
       }
       else 
       {
-        const deletedFriendship = await this.friendshipModel.findByIdAndDelete(friendshipToDelete[0].id);
+        const deletedFriendship = await this.friendshipModel.findByIdAndDelete(friendshipToDelete[0].ID);
         if (deletedFriendship == null)
             {
               
