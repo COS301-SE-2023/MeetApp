@@ -110,6 +110,24 @@ export class UsersService {
     return newFriendship.save();
   }
 
+  async acceptRequest(reequesteeID: string, requesterID : string) {
+    const existingFriendship = await this.friendshipModel.find({requestee: reequesteeID, requester: requesterID}).exec()
+    console.log({requestee : reequesteeID, requester: requesterID});
+    console.log(existingFriendship)
+    if (!existingFriendship[0]) {
+      throw new NotFoundException(`Friend request not found`);
+    }
+    else {
+      if (existingFriendship[0].status == true)
+        return {friendship: existingFriendship[0], message: "Already Friends", changes : false}
+      else
+      {
+        const statusUpdate = await this.friendshipModel.findByIdAndUpdate(existingFriendship[0].id, {status : true}, { new: true });
+        return {friendship: statusUpdate, message: "Friend added successfully!", changes : statusUpdate.status};
+      }
+    }
+  }
+
   // remove(id: number) {
   //   return `This action removes a #${id} user`;
   // }
