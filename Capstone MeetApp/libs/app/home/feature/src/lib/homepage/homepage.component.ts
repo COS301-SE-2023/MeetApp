@@ -33,6 +33,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
   
 })
 export class HomepageComponent {
+  
   eventName='';
     organisation='';
     date='';
