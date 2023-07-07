@@ -41,8 +41,12 @@ export class LoginComponent {
     phoneNumber:'',
     interests:[''],
     region:'',
-    profilePicture:''
+    profilePicture:'',
+    message:''
   }];
+
+  //stores the login response for user
+  loginData_user:any;
 
     
   //storing the organisers data  
@@ -55,9 +59,15 @@ export class LoginComponent {
     phoneNumber:'',
     orgDescription:'',
     categories:[''],
-    events:['']
+    events:[''],
+    message:''
   }];
 
+  //stores the login response for user
+  loginData_organiser:any;
+
+
+ 
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
 
@@ -70,42 +80,27 @@ export class LoginComponent {
       console.log(response);
       this.data_user = response;
     });
+   
+    this.LogInOrg('Wemby01','IamNo01%');
+    console.log(this.loginData_user);
   }
 
   //Login Function for User
-  checkAuthUser(username?:string , password?:string) : boolean
+  async LogInUser(username:string,password:string)
   {
-      let check=false;
-
-      for (let i = 0; i < this.data_user.length; i++) {
-        const users:user=this.data_user[i];
-        if(users.username==username && users.password==password)
-        {
-          console.log('User Exist');
-          console.log(users);
-          check=true;
-          break;
-        }
-      }
-      return check;
+    await this.apiService.authUser(username,password ).subscribe((response) => {
+      console.log('API response:', response);
+      this.loginData_user=response;
+    });
   }
 
   //Login Function for Organisation
-  checkAuthOrg(username?:string , password?:string) : boolean
+  async LogInOrg(username:string,password:string)
   {
-      let check=false;
-
-      for (let i = 0; i < this.data_organiser.length; i++) {
-        const org:organiser=this.data_organiser[i];
-        if(org.username==username && org.password==password)
-        {
-          console.log('User Exist');
-          console.log(org);
-          check=true;
-          break;
-        }
-      }
-      return check;
+    await this.apiService.authOrganiser(username,password ).subscribe((response) => {
+      console.log('API response:', response);
+      this.loginData_organiser=response;
+    });
   }
 
 

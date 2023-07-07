@@ -38,6 +38,8 @@ export class SignupComponent {
       
         
     });
+    this.SignUpUser('Akani','Hlungwani','HAX0808','Akani43@gmail.com','admin08','0789657845',['Music','Seminar'],'Pretoria','');
+    this.SignUpOrg('Nadia','Priyul','EventForHire','Hevent45@gmail.com','H1234','0157383494','we host cheap events',['Music','Technology'],[''])
     
   }
   passwordFormControl = new FormControl('', [

@@ -5,7 +5,6 @@ import {HttpClient} from "@angular/common/http";
 
 
 // EVENT INTERFACES //
-
 export interface events{
     eventName:string;
     organisation:string;
@@ -60,7 +59,6 @@ export interface createUser{
 
 
 // ORGANISER INTERFACES //
-
 export interface organiser{
     name:string;
     surname:string;
@@ -102,6 +100,21 @@ export interface createFriend{
 
 }
 
+// ATTENDANCE INTERFACES //
+export interface attendance{
+    organisationID: string;
+    eventID: string;
+    userID: string;
+
+}
+
+export interface createAttendance{
+    organisationID: string;
+    eventID: string;
+    userID: string;
+
+}
+
 @Injectable({
     providedIn:'root'
 })
@@ -115,6 +128,11 @@ export class service{
     getAllEvents()
     {
         const url=this.baseURl+'events';
+        return this.http.get(`${url}`);
+    }
+
+    getEventByID(id:string){
+        const url=`${this.baseURl}events/${id}`;
         return this.http.get(`${url}`);
     }
     
@@ -142,6 +160,12 @@ export class service{
         const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
         return this.http.get(`${url}`);
     }
+
+    getEventsByRegion(region:string)
+    {
+        const url=`http://localhost:3000/api/events/region/${region}`;
+        return this.http.get(`${url}`);
+    }
     
     //SERVICES FOR USERS
 
@@ -165,7 +189,7 @@ export class service{
 
     authUser(username:string, password:string)
     {
-        const url=this.baseURl+'users/login'
+        const url=this.baseURl+'users/login';
         const body=
         {
             username:username,
@@ -180,7 +204,7 @@ export class service{
         return this.http.get(`${url}`);
     }
     
-    getUser(id:string){
+    getUserByID(id:string){
         const url=`${this.baseURl}users/${id}`;
         return this.http.get(`${url}`);
     }
@@ -231,9 +255,9 @@ export class service{
         return this.http.post(`${url}`,body);
     }
 
-    autOrganiser(username:string, password:string)
+    authOrganiser(username:string, password:string)
     {
-        const url=this.baseURl+'organisations/login'
+        const url=this.baseURl+'organisations/login';
         const body=
         {
             username:username,
@@ -259,6 +283,20 @@ export class service{
             requester:requester,
             requestee:requestee, 
             status:status
+        }
+        return this.http.post(`${url}`,body);
+    }
+
+    //SERVICES FRO ATTENDANCE
+
+    attendEvent(organisationID: string,eventID: string,userID: string)
+    {
+        const url=this.baseURl+'attendances';
+        const body=
+        {
+            organisationID:organisationID,
+            eventID:eventID,
+            userID:userID
         }
         return this.http.post(`${url}`,body);
     }

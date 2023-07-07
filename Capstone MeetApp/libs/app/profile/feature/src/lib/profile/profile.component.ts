@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';;// A
+import { IonicModule } from '@ionic/angular';  // A
 import { ModalController } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
-import { User,service} from '@capstone-meet-app/services';
+import { user,service} from '@capstone-meet-app/services';
 
 @Component({
   selector: 'capstone-meet-app-profile',
@@ -33,7 +33,8 @@ export class ProfileComponent {
     'https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/bungee-jumping-in-south-africa-cover.jpg',
     // Add more image URLs as needed
   ];
-  profile:User={username:'',password:'',profilePicture:'',region:''};
+  
+  profile:user={name:'',surname:'',username:'',email:'',password:'',phoneNumber:'',interests:[''],region:'',profilePicture:''};
   eventCount='';
   userEvents = [];
   profileId='';
@@ -50,7 +51,7 @@ export class ProfileComponent {
   }
   
   async getProfile(id :string){
-    await this.serviceProvider.getUser(id).subscribe((response:any)=>{ 
+    await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
       this.profile = response;
     })
   }

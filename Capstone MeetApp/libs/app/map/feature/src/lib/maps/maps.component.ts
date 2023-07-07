@@ -22,15 +22,16 @@ interface DateRange {
   endDate: string|undefined;
 }
 interface Event {
-    name:string,
+    eventName:string,
     organisation:string,
+    description:string,
     date: string,
     startTime: string,
     endTime: string,
     location: {latitude:number , longitude:number},
     category:string,
     region:string,
-    description:string
+    eventPoster:string
 }
 
 
@@ -45,6 +46,12 @@ interface Event {
   
 })
 export class MapsComponent implements AfterViewInit {
+
+  constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
+    //this.getData();
+    
+  }
+
   selectedRange: DateRange = {
     startDate: undefined,
     endDate: undefined
@@ -56,17 +63,16 @@ export class MapsComponent implements AfterViewInit {
 
   //services
   data= [{
-    name:'',
+    eventName:'',
     organisation: '',
+    description:'',
     date: '',
     startTime: '',
     endTime: '',
-    lng: 0,
-    lat: 0,
     location: {latitude:0, longitude:0},
     category:'',
     region:'',
-    description:''
+    eventPoster:''
 }];
 
 
@@ -99,149 +105,163 @@ async ngOnInit() {
     minZoom: 8,
   } as google.maps.MapOptions;
     filterEvents:Event[]=[{
-    name:'',
+    eventName:'',
     organisation: '',
+    description:'',
     date: '',
     startTime: '',
     endTime: '',
     location: {latitude:0, longitude:0},
     category:'',
     region:'',
-    description:''}]
+    eventPoster:''}]
    events: Event[] = [
     {
-      name:'Event 1',
+      eventName:'Event 1',
       organisation:'Organiser 1',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-15',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -25.74237 , longitude:28.240068},
       category:'Technology',
       region:'Pretoria',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 2',
+      eventName:'Event 2',
       organisation:'Organiser 2',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-16',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -25.791375 , longitude:28.220088},
       category:'food',
       region:'Pretoria',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 3',
+      eventName:'Event 3',
       organisation:'Organiser 3',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-17',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -25.71348 , longitude:28.270119},
       category:'science',
       region:'Pretoria',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 4',
+      eventName:'Event 4',
       organisation:'Organiser 4',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-18',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -25.72118 , longitude:28.290789},
       category:'picnic',
       region:'Pretoria',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 5',
+      eventName:'Event 5',
       organisation:'Organiser 5',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-19',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -25.73438 , longitude:28.201289},
       category:'music',
       region:'Pretoria',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 6',
+      eventName:'Event 6',
       organisation:'Organiser 6',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-20',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -26.223444 , longitude:28.200099},
       category:'Technology',
       region:'johannesburg',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 7',
+      eventName:'Event 7',
       organisation:'Organiser 7',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-21',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -26.288744 , longitude:28.270779},
       category:'Technology',
       region:'johannesburg',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 8',
+      eventName:'Event 8',
       organisation:'Organiser 8',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-22',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -26.20144 , longitude:28.230879},
       category:'Technology',
       region:'johannesburg',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 9',
+      eventName:'Event 9',
       organisation:'Organiser 9',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-23',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -25.727738 , longitude:28.210249},
       category:'Technology',
       region:'Pretoria',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 10',
+      eventName:'Event 10',
       organisation:'Organiser 10',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-24',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -25.791138 , longitude:28.220329},
       category:'Technology',
       region:'Pretoria',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 11',
+      eventName:'Event 11',
       organisation:'Organiser 11',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-25',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -26.211344 , longitude:28.210739},
       category:'Technology',
       region:'johannesburg',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     },
     {
-      name:'Event 12',
+      eventName:'Event 12',
       organisation:'Organiser 12',
+      description:'dbjvbhodjhcdhc',
       date: '2023-06-26',
       startTime: '12:30',
       endTime: "12:30",
       location: {latitude: -26.256744 , longitude:28.201289},
       category:'Technology',
       region:'johannesburg',
-      description:'dbjvbhodjhcdhc',
+      eventPoster:''
     }
   ];
+
   private initializeMap(region: string) {
     this.map = new google.maps.Map(document.getElementById("map"), {
       zoom: 10,
@@ -253,12 +273,8 @@ async ngOnInit() {
     this.fillEvents(region, this.selectedRange);
     
   }
-  //
-    
-  constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
-    //this.getData();
-    
-  }
+
+  
   ngAfterViewInit() {
     setTimeout(() => {
       this.initializeMap(this.selectedRegion);
@@ -327,12 +343,12 @@ async ngOnInit() {
           const date=event.date;
           const createContent =
             '<div id="content">' +
-            '<h1 id="firstHeading" class="firstHeading">' + event.name + '</h1>' +
+            '<h1 id="firstHeading" class="firstHeading">' + event.eventName + '</h1>' +
             '<div id="bodyContent">' +
-            '<p><b>' + event.name + ' event</b> ' + event.description + '</p>' +
+            '<p><b>' + event.eventName + ' event</b> ' + event.description + '</p>' +
             '<p>Date: ' + event.date + '</p>' +
             '<p>Organiser: ' + event.organisation + '</p>' +
-            '<p> <img src="' + this.image + '" alt="Image" style="height: 60px; width: 60px;"></p>' +
+            '<p> <img src="' + event.eventPoster + '" alt="Image" style="height: 60px; width: 60px;"></p>' +
             '</div>' +
             '</div>';
   
@@ -344,7 +360,7 @@ async ngOnInit() {
           const marker = new google.maps.Marker({
             position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
             map: this.map,
-            title: event.name,
+            title: event.eventName,
             icon: this.svgIcon,
           });
   

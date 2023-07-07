@@ -72,10 +72,10 @@ export class OrganiserComponent {
   
 
 //services
-  location: {latitude :string , longitude:string }| null = null;
+  location: {latitude :number , longitude:number }| null = null;
   myLocation = {
-    latitude: "40.7128",
-    longitude: "-74.0060",
+    latitude: 40.7128,
+    longitude: -74.0060,
   };
   //category:string | null = null;
  
@@ -96,7 +96,8 @@ submitForm() {
       this.selectedRange.endTime,
       this.myLocation,
       this.category,
-      this.selectedRegion
+      this.selectedRegion,
+      this.profilePictureUrl
     ).subscribe((response) => {
       console.log('API response:', response);
    
