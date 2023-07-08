@@ -35,7 +35,7 @@ export class SignupComponent {
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       
-        
+          
     });
     
   }
