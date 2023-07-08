@@ -169,14 +169,14 @@ export class service{
         }
         return this.http.patch(`${url}`,body);
     }
-    updateSettings(id: string,email?: string) {
+    updateSettings(id: string,password?: string) {
         const url = `${this.baseURl}users/${id}`;
-        const body={email};
+        const body={password};
       
        
       
-        if (email) {
-          body.email = email;
+        if (password) {
+          body.password = password;
         }
       
         
