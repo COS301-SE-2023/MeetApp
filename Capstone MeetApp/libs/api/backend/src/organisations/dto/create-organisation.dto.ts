@@ -7,7 +7,6 @@ export class CreateOrganisationDto {
     readonly password!: string;
     readonly phoneNumber!:string;
     readonly orgDescription!:string;
-    readonly categories!:string[];
     readonly events!: string[];
     
 }

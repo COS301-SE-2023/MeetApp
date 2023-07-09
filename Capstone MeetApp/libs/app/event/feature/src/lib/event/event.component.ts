@@ -20,7 +20,8 @@ export class EventComponent {
   
   //Array that holds all the data in the getAllEvents response
   data= [{
-    eventName:'',
+    _id:'',
+    name:'',
     organisation: '',
     description:'',
     date: '',
@@ -32,9 +33,22 @@ export class EventComponent {
     eventPoster:''
   }];
 
+  //storing the organisers data  
+  data_organiser= [{
+    _id:'',
+    name:'',
+    surname:'',
+    username:'',
+    email:'',
+    password:'',
+    phoneNumber:'',
+    orgDescription:'',
+    events:[]
+  }];
+
   //Interface to hold one event from getEventbyID
   event:events={
-    eventName:'',
+    name:'',
     organisation: '',
     description:'',
     date: '',
@@ -52,17 +66,28 @@ export class EventComponent {
   async ngOnInit() {
 
     await this.apiService.getAllEvents().subscribe((response: any) => { 
-      console.log(response);
+      console.log('Events data',response);
       this.data = response;
     });
+
+    await this.apiService.getAllOrganisers().subscribe((response: any) => { 
+      console.log('Organiser data',response);
+      this.data_organiser = response;
+      this.getEventID('PriceToPay');
+      this.getOrganiserID('LTDProevents')
+    });
+
+    this.getEventbyID('647218a0cd65fc66878b99ad');
+    
   }
 
   // Get one Event by ID
   async getEventbyID(id:string)
   {
     await this.apiService.getEventByID(id).subscribe((response:any)=>{
-      console.log(response);
+      //console.log(response);
       this.event=response;
+      console.log('Returned EventByID',this.event)
     });
   }
 
@@ -72,6 +97,34 @@ export class EventComponent {
     await this.apiService.attendEvent(orgID,eventID,userID).subscribe((response) => {
       console.log('API response:', response);
     });
+  }
+
+  //Get eventID
+  getEventID(eventName:string)
+  {
+    for (let i = 0; i < this.data.length; i++) {
+      if(this.data[i].name==eventName)
+      {
+        this.eventID=this.data[i]._id;
+        
+        break;
+      }
+    }
+    console.log('Returned EventID',this.eventID);
+  }
+
+
+  //Get organistaionID
+  getOrganiserID(organisation:string)
+  {
+    for (let i = 0; i < this.data_organiser.length; i++) {
+      if(this.data_organiser[i].username==organisation)
+      {
+        this.organisationID=this.data_organiser[i]._id;
+        break;
+      }
+    }
+    console.log('Returned OrganiserID',this.organisationID);
   }
 
 

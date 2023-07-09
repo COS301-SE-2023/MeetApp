@@ -6,7 +6,6 @@ export class CreateUserDto {
   readonly email!:string;
   readonly password!: string;
   readonly phoneNumber!:string;
-  readonly interests!:string[];
   readonly region!: string;
   readonly profilePicture!: string;
 

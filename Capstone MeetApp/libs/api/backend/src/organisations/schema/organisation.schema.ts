@@ -33,9 +33,6 @@ export class Organisation {
   @Prop()
   orgDescription!:string;
 
-  @Prop()
-  categories!:string[];
-
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Events' }])
   events!: string[];
 

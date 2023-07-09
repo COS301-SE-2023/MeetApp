@@ -31,9 +31,6 @@ export class User {
   phoneNumber!:string;
 
   @Prop()
-  interests!:string
-
-  @Prop()
   region!: string;
 
   @Prop()

@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { IonText } from '@ionic/angular';
-
+//import { IonText } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'
 import { FormBuilder, Validators } from '@angular/forms';
@@ -9,7 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
-import { Injectable } from '@angular/core';
+//import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
@@ -39,10 +38,8 @@ export class LoginComponent {
     email:'',
     password:'',
     phoneNumber:'',
-    interests:[''],
     region:'',
-    profilePicture:'',
-    message:''
+    profilePicture:''
   }];
 
   //stores the login response for user
@@ -51,6 +48,7 @@ export class LoginComponent {
     
   //storing the organisers data  
   data_organiser= [{
+    _id:'',
     name:'',
     surname:'',
     username:'',
@@ -58,9 +56,7 @@ export class LoginComponent {
     password:'',
     phoneNumber:'',
     orgDescription:'',
-    categories:[''],
-    events:[''],
-    message:''
+    events:[]
   }];
 
   //stores the login response for user
@@ -78,11 +74,12 @@ export class LoginComponent {
 
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       console.log(response);
-      this.data_user = response;
+      this.data_organiser = response;
+      console.log(this.data_organiser[0]._id);
     });
-   
-    this.LogInOrg('Wemby01','IamNo01%');
-    console.log(this.loginData_user);
+    
+    //this.LogInOrg('Wemby01','IamNo01%');
+    //console.log(this.loginData_user);
   }
 
   //Login Function for User

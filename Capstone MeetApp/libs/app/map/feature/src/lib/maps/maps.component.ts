@@ -22,7 +22,7 @@ interface DateRange {
   endDate: string|undefined;
 }
 interface Event {
-    eventName:string,
+    name:string,
     organisation:string,
     description:string,
     date: string,
@@ -63,7 +63,7 @@ export class MapsComponent implements AfterViewInit {
 
   //services
   data= [{
-    eventName:'',
+    name:'',
     organisation: '',
     description:'',
     date: '',
@@ -105,7 +105,7 @@ async ngOnInit() {
     minZoom: 8,
   } as google.maps.MapOptions;
     filterEvents:Event[]=[{
-    eventName:'',
+    name:'',
     organisation: '',
     description:'',
     date: '',
@@ -117,7 +117,7 @@ async ngOnInit() {
     eventPoster:''}]
    events: Event[] = [
     {
-      eventName:'Event 1',
+      name:'Event 1',
       organisation:'Organiser 1',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-15',
@@ -129,7 +129,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 2',
+      name:'Event 2',
       organisation:'Organiser 2',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-16',
@@ -141,7 +141,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 3',
+      name:'Event 3',
       organisation:'Organiser 3',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-17',
@@ -153,7 +153,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 4',
+      name:'Event 4',
       organisation:'Organiser 4',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-18',
@@ -165,7 +165,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 5',
+      name:'Event 5',
       organisation:'Organiser 5',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-19',
@@ -177,7 +177,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 6',
+      name:'Event 6',
       organisation:'Organiser 6',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-20',
@@ -189,7 +189,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 7',
+      name:'Event 7',
       organisation:'Organiser 7',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-21',
@@ -201,7 +201,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 8',
+      name:'Event 8',
       organisation:'Organiser 8',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-22',
@@ -213,7 +213,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 9',
+      name:'Event 9',
       organisation:'Organiser 9',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-23',
@@ -225,7 +225,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 10',
+      name:'Event 10',
       organisation:'Organiser 10',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-24',
@@ -237,7 +237,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 11',
+      name:'Event 11',
       organisation:'Organiser 11',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-25',
@@ -249,7 +249,7 @@ async ngOnInit() {
       eventPoster:''
     },
     {
-      eventName:'Event 12',
+      name:'Event 12',
       organisation:'Organiser 12',
       description:'dbjvbhodjhcdhc',
       date: '2023-06-26',
@@ -343,9 +343,9 @@ async ngOnInit() {
           const date=event.date;
           const createContent =
             '<div id="content">' +
-            '<h1 id="firstHeading" class="firstHeading">' + event.eventName + '</h1>' +
+            '<h1 id="firstHeading" class="firstHeading">' + event.name + '</h1>' +
             '<div id="bodyContent">' +
-            '<p><b>' + event.eventName + ' event</b> ' + event.description + '</p>' +
+            '<p><b>' + event.name + ' event</b> ' + event.description + '</p>' +
             '<p>Date: ' + event.date + '</p>' +
             '<p>Organiser: ' + event.organisation + '</p>' +
             '<p> <img src="' + event.eventPoster + '" alt="Image" style="height: 60px; width: 60px;"></p>' +
@@ -360,7 +360,7 @@ async ngOnInit() {
           const marker = new google.maps.Marker({
             position: new google.maps.LatLng(event.location.latitude, event.location.longitude),
             map: this.map,
-            title: event.eventName,
+            title: event.name,
             icon: this.svgIcon,
           });
   

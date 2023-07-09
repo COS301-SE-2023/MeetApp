@@ -38,8 +38,8 @@ export class SignupComponent {
       
         
     });
-    this.SignUpUser('Akani','Hlungwani','HAX0808','Akani43@gmail.com','admin08','0789657845',['Music','Seminar'],'Pretoria','');
-    this.SignUpOrg('Nadia','Priyul','EventForHire','Hevent45@gmail.com','H1234','0157383494','we host cheap events',['Music','Technology'],[''])
+    //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
+    this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
     
   }
   passwordFormControl = new FormControl('', [
@@ -51,9 +51,9 @@ export class SignupComponent {
   
   
   //SignUp for a User
-  async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,interests:string[],region:string,profilePicture:string)
+  async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)
   {
-    await this.apiService.createUser(name,surname,username,email,password,phoneNumber,interests,region,profilePicture).subscribe((response) => {
+    await this.apiService.createUser(name,surname,username,email,password,phoneNumber,region,profilePicture).subscribe((response) => {
       console.log('API response:', response);
    
     });
@@ -61,9 +61,9 @@ export class SignupComponent {
 
   
   //SignUp for a Organisation 
-  async SignUpOrg(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,orgDescription:string,categories:string[],events:string[])
+  async SignUpOrg(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,orgDescription:string/*,events:string[]*/)
   {
-    await this.apiService.createOrginiser(name,surname,username,email,password,phoneNumber,orgDescription,categories,events).subscribe((response) => {
+    await this.apiService.createOrginiser(name,surname,username,email,password,phoneNumber,orgDescription/*,events*/).subscribe((response) => {
       console.log('API response:', response);
 
     });

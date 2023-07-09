@@ -6,7 +6,7 @@ import {HttpClient} from "@angular/common/http";
 
 // EVENT INTERFACES //
 export interface events{
-    eventName:string;
+    name:string;
     organisation:string;
     description:string;
     date: string;
@@ -19,7 +19,7 @@ export interface events{
 }
 
 export interface createEvents{
-    eventName:string;
+    name:string;
     organisation:string;
     description:string;
     date: string;
@@ -40,7 +40,6 @@ export interface user{
     email:string;
     password:string;
     phoneNumber:string;
-    interests:string[];
     region:string;
     profilePicture:string;
 }
@@ -52,7 +51,6 @@ export interface createUser{
     email:string;
     password:string;
     phoneNumber:string;
-    interests:string[];
     region:string;
     profilePicture:string;
 }
@@ -67,7 +65,6 @@ export interface organiser{
     password:string;
     phoneNumber:string;
     orgDescription:string;
-    categories:string[];
     events:string[];
 }
 
@@ -79,7 +76,6 @@ export interface createOrginise{
     password:string;
     phoneNumber:string;
     orgDescription:string;
-    categories:string[];
     events:string[];
 }
 
@@ -136,12 +132,12 @@ export class service{
         return this.http.get(`${url}`);
     }
     
-    createEvents(eventName: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:number , longitude:number},category: string,region: string,eventPoster:string)
+    createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:number , longitude:number},category: string,region: string,eventPoster:string)
     {
         const url=this.baseURl+'events';
         const body=
         {
-            eventName: eventName,
+            name: name,
             organisation: organisation,
             description: description,
             date: date,
@@ -169,7 +165,7 @@ export class service{
     
     //SERVICES FOR USERS
 
-    createUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,interests:string[],region:string,profilePicture:string)
+    createUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)
     {
         const url=this.baseURl+'users/signup';
         const body=
@@ -180,7 +176,6 @@ export class service{
             email:email,
             password:password,
             phoneNumber:phoneNumber,
-            interests:interests,
             region:region,
             profilePicture:profilePicture
         }
@@ -237,9 +232,9 @@ export class service{
 
     //SERVICES FOR ORGANISER
 
-    createOrginiser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string, orgDescription:string,categories:string[],events:string[])
+    createOrginiser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string, orgDescription:string)
     {
-        const url=this.baseURl+'orginisations/signup';
+        const url=this.baseURl+'organisations/signup';
         const body=
         {
             name:name,
@@ -248,9 +243,7 @@ export class service{
             email:email,
             password:password,
             phoneNumber:phoneNumber,
-            orgDescription:orgDescription,
-            categories:categories,
-            events:events
+            orgDescription:orgDescription
         }
         return this.http.post(`${url}`,body);
     }

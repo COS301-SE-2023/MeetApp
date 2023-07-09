@@ -30,7 +30,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
   
 })
 export class HomepageComponent {
-  eventName='';
+  name='';
   organisation='';
   date='';
   starttime='';
@@ -43,7 +43,7 @@ export class HomepageComponent {
 
   events:any =[];
   data= [{
-    eventName:'',
+    name:'',
     organisation: '',
     description:'',
     date: '',
@@ -67,11 +67,11 @@ export class HomepageComponent {
       {
         const newEvent={} as events;
         
-        Object.values(res).forEach((event: { category: string; date: string; endTime: string; eventName: string; organisation: string; region: string; starttime: string; }) => {
+        Object.values(res).forEach((event: { category: string; date: string; endTime: string; name: string; organisation: string; region: string; starttime: string; }) => {
           newEvent.category=event.category;
           newEvent.date=event.date;
           newEvent.endTime=event.endTime;
-          newEvent.eventName=event.eventName;
+          newEvent.name=event.name;
           newEvent.organisation=event.organisation;
           newEvent.date=event.date;
           newEvent.region=event.region;
@@ -108,7 +108,7 @@ export class HomepageComponent {
         this.data = response;
         for (let i = 0; i < this.data.length; i++) {
           const event: events = this.data[i];
-          const region = event.region;
+          //const region = event.region;
           const date=event.date;
           console.log(date);
          
@@ -126,7 +126,7 @@ export class HomepageComponent {
       this.filteredData = this.data;
     } else {
       this.filteredData = this.data.filter((item) =>
-        item.eventName.toLowerCase().includes(this.searchQuery.toLowerCase())
+        item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
    }
