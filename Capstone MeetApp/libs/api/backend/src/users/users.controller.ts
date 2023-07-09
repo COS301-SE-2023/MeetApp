@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Request } from 'express';
 
 @Controller('users')
 export class UsersController {
@@ -25,8 +26,12 @@ export class UsersController {
   }
   
   @Get()
-  findAll() {
-    return this.usersService.findAll();
+  findAll(@Req() request: Request) {
+    console.log(request);
+    if (request.query == null)
+      return this.usersService.findAll();
+    else
+      return this.usersService.findByQuery(request.query)
   }
 
   @Get(':id')
