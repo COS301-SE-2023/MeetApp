@@ -2,7 +2,7 @@
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-image: url(https://img.freepik.com/free-photo/background-gradient-lights_23-2149304982.jpg);
+    background-color: aliceblue;
     
 }
 .container {
@@ -21,7 +21,7 @@
   }
   
   .select-region {
-    width: 70px;
+    width: 150px;
     margin-bottom: 10px;
   }
   
@@ -38,10 +38,11 @@
  
   .submit-button {
     padding: 10px 20px;
-    background-color:#D4ADFC;
-    color: black;
+    background-color:#3880ff;
+    color: rgb(255, 255, 255);
     border: none;
     cursor: pointer;
+    font-size: medium;
   }
   
   #map {

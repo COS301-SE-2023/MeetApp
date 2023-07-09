@@ -1,17 +1,29 @@
-import { Body, Controller, Get, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
-// import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
-  // @Post()
-  // create(@Body() createUserDto: CreateUserDto) {
-  //   return this.usersService.create(createUserDto);
-  // }
+  @Post('signup')
+  create(@Body() createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
 
+  @Post('login')
+  signup(@Body() LoginInfo : UpdateUserDto){
+    if (LoginInfo != null){
+      if (LoginInfo.password != null && LoginInfo.username != null)
+        return this.usersService.login(LoginInfo.username,LoginInfo.password)
+      else 
+        return {user : null, message: "username or password missing"}
+    }
+    else
+      return {user: null, message : "No payload found"}
+  }
+  
   @Get()
   findAll() {
     return this.usersService.findAll();

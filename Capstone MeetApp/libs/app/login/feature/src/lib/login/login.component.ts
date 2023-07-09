@@ -25,9 +25,12 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+
   email = ''; // Initialize the property
   password= ''; // Initialize the property
   userType: string | undefined;
+
+ 
 
   constructor( private router: Router, private formBuilder: FormBuilder ,private service:service/*, private apiService: ApiService*/) {
 
@@ -36,6 +39,7 @@ export class LoginComponent {
   onCreate() {
     this.router.navigate(['/signup']);
   }
+
  login() {
     // Perform any necessary validation or additional processing here
      
@@ -51,6 +55,7 @@ export class LoginComponent {
           console.error(error);
         }
       });*/
+
   }
   ngOnInit(): void {
     this.service.getUserType().subscribe(userType => {
