@@ -48,6 +48,12 @@ export class UsersController {
   getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest) {
     return this.usersService.getUserAttendancesCount(req.user.id);
   }
+
+  @UseGuards(AuthGuard)
+  @Patch('update')
+  updateJWT(@Request() req : AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(req.user.id, updateUserDto);
+  }
   
   @Get()
   findAll(@Req() request: RequestExpress) {
