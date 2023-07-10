@@ -4,6 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request } from 'express';
 import { JwtModule } from '@nestjs/jwt';
+import { AuthGuard } from './users.guard';
 
 @Controller('users')
 export class UsersController {
