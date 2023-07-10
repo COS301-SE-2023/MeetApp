@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
-  imports: [ApiBackendModule, MongooseModule.forRoot('mongodb+srv://u19007443:AGGGyM0C7n4VyBtN@cluster0.nh0ftux.mongodb.net/?retryWrites=true&w=majority', {dbName: 'MeetAppMockDB'})],
+  imports: [ApiBackendModule, MongooseModule.forRoot('mongodb+srv://Akani_H:K35873587@cluster0.lyg43am.mongodb.net/?retryWrites=true&w=majority', {dbName: 'MeetApp'})],
   controllers: [AppController],
   providers: [AppService],
 })
