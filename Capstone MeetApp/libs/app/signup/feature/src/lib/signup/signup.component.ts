@@ -29,27 +29,36 @@ import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
 export class SignupComponent {
   
   loginForm!: FormGroup;
+
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
 
-  ngOnInit(): void {
+  firstname="";
+  lastname="";
+  email = ''; 
+  password= ''; 
+
+
+  confirmpassword="";
+  
+  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  submitClicked = false;
+  ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      
-        
+      firstname: ['', Validators.required],
+    lastname: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    confirmpassword: ['', Validators.required]
     });
+<
     //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
     this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
     
+
   }
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-    this.checkPasswordStrength
-  ]);
   
   
-  
+
   //SignUp for a User
   async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)
   {
@@ -71,17 +80,45 @@ export class SignupComponent {
 
   checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
     const password = control.value;
+
+  valid=true;
+  signup()
+  {
+    const firstname = this.loginForm.value.firstname;
+    const lastname = this.loginForm.value.lastname;
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    const confirmpassword = this.loginForm.value.confirmpassword;
+
+
+
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
-    if (!strongRegex.test(password)) {
-      return { 'weakPassword': true };
+    if (!strongRegex.test(password) && this.loginForm.invalid) {
+      this.valid=false;
     }
     
-    return null;
+
+    
+   
+console.log(firstname);
+console.log(lastname);
+console.log(email);
+console.log(password);
+console.log(confirmpassword);
+}
+isvalid()
+{
+
+  if (this.valid)
+  {
+    this.router.navigate(['/home']);
   }
 
- /*  onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
-   this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
+}
+  
+  onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
+   /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
         complete: () => console.info('signup successfull') ,
         error: (err: any) => {
@@ -90,9 +127,10 @@ export class SignupComponent {
         }
       }
       
-    );
+    );*/
       
-  }*/
+  }
+    
   /*onSubmit() {
     if (this.loginForm.valid) {
       const loginInfo = {

@@ -6,7 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-
+import {CalendarComponent} from "@capstone-meet-app/calendar/feature"
 import { LoginComponent } from '@capstone-meet-app/app/login/feature';
 import { SignupComponent } from '@capstone-meet-app/app/signup/feature';
 import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
@@ -30,4 +30,5 @@ export const appRoutes: Route[] = [
    ,{path: "event", component: EventComponent}
    ,{path: "friends", component: FriendsComponent},
    {path: "organisers", component: OrganiserComponent},
+   {path: "calendar",component:CalendarComponent},
 ];

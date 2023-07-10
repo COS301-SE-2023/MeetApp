@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
 
 @Injectable()
@@ -33,6 +33,10 @@ export class UsersService {
 
   findAll() {
     return this.userModel.find().exec();
+  }
+
+  findByQuery(queryIN : FilterQuery<Event>) {
+    return this.userModel.find(queryIN).exec();
   }
 
   findOne(id: string) {

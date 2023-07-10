@@ -92,9 +92,8 @@ async ngOnInit() {
   selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
   apikey = environment.API_KEY;
-  
   map: any;
-  zoom = 15;
+  zoom = 8;
 
   options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
@@ -296,7 +295,7 @@ async ngOnInit() {
   }
 
   zoomOut() {
-    if (this.options && this.zoom > 8) {
+    if (this.options ) {
       this.zoom--;
       this.map.setZoom(this.zoom);
     }

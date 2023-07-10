@@ -12,7 +12,7 @@
   
 
   <h1 class="heading" >
-    Log In
+    LOG IN
 </h1>
 
 <ion-content>
@@ -25,15 +25,15 @@
   <form>
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" required></ion-input>
+      <ion-input type="text"  [(ngModel)]="email" name="email" required></ion-input>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" required></ion-input>
+      <ion-input type="password"  [(ngModel)]="password" name="password" required></ion-input>
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
+        <ion-button type="submit" color="danger" expand="block" (click)="login(email,password)">Sign In</ion-button>
         <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;</b>
         <a class="small-text"  (click)="onCreate()">create an account</a>
       </ion-col>

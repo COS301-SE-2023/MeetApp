@@ -23,8 +23,8 @@ import { user,organiser,service,ServicesModule} from '@capstone-meet-app/service
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  email = ''; // Initialize the property
-  password= ''; // Initialize the property
+  email = ''; 
+  password= ''; 
 
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service) { 
   }
@@ -104,21 +104,11 @@ export class LoginComponent {
   onCreate() {
     this.router.navigate(['/signup']);
   }
- login() {
-    // Perform any necessary validation or additional processing here
+ login(email: string,password: string) {
+  console.log('email:', email);
+  console.log('password',password)
 
-    // Call the login() method of the authentication service
-    /*this.authenticationService.login(this.email, this.password)
-      .subscribe({
-        next: response => {
-          // Handle the response from the server
-          console.log(response);
-        },
-        error: error => {
-          // Handle any errors that occur during the request
-          console.error(error);
-        }
-      });*/
+   
   }
  /* onSubmit() {
     if (this.loginForm.valid) {

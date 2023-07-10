@@ -9,6 +9,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -23,7 +24,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [CommonModule,FormsModule,ServicesModule],
+  imports: [IonicModule,CommonModule,FormsModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
@@ -113,7 +114,9 @@ export class HomepageComponent {
           console.log(date);
          
         }
+        this.data
       });
+
     }
  
   
