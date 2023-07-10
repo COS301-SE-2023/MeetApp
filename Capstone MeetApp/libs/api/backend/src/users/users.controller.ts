@@ -38,7 +38,6 @@ export class UsersController {
   
   @Get()
   findAll(@Req() request: RequestExpress) {
-    console.log(request);
     if (request.query == null)
       return this.usersService.findAll();
     else
