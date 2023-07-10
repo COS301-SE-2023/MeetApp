@@ -42,6 +42,12 @@ export class UsersController {
     console.log(req.user)
     return this.usersService.getUserAttendances(req.user.id);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('attendances/count')
+  getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest) {
+    return this.usersService.getUserAttendancesCount(req.user.id);
+  }
   
   @Get()
   findAll(@Req() request: RequestExpress) {
