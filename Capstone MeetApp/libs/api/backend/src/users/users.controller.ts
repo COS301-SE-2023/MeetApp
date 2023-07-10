@@ -1,10 +1,13 @@
-import { Body, Controller, Get, Param, Patch, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards, Request } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Request } from 'express';
-import { JwtModule } from '@nestjs/jwt';
+import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
+
+interface AuthenticatedRequest extends Request {
+  user: {id : string, username : string, password: string};
+}
 
 @Controller('users')
 export class UsersController {
@@ -26,9 +29,15 @@ export class UsersController {
     else
       return {user: null, message : "No payload found"}
   }
+
+  @UseGuards(AuthGuard)
+  @Get('profile')
+  getProfile(@Request() req : AuthenticatedRequest) {
+      return req.user;
+  }
   
   @Get()
-  findAll(@Req() request: Request) {
+  findAll(@Req() request: RequestExpress) {
     console.log(request);
     if (request.query == null)
       return this.usersService.findAll();
