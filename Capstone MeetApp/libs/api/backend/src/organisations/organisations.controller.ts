@@ -20,7 +20,8 @@ export class OrganisationsController {
     return this.organisationsService.create(createOrganisationDto);
   }
 
-
+  @Post('login')
+  login(@Body() LoginInfo : UpdateOrganisationDto){
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
         return this.organisationsService.login(LoginInfo.username,LoginInfo.password)

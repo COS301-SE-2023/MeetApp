@@ -13,7 +13,8 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
- 
+  @Post('login')
+  signup(@Body() LoginInfo : UpdateUserDto){
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
         return this.usersService.login(LoginInfo.username,LoginInfo.password)

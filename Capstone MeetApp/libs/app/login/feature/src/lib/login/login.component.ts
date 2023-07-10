@@ -12,6 +12,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
+import { ConnectableObservable } from 'rxjs';
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -42,6 +43,30 @@ export class LoginComponent {
     profilePicture:''
   }];
 
+  userLogin_payload= {
+    name:'',
+    surname:'',
+    username:'',
+    email:'',
+    password:'',
+    phoneNumber:'',
+    region:'',
+    profilePicture:'',
+    message:''
+  };
+
+  orgLogin_payload= {
+    name:'',
+    surname:'',
+    username:'',
+    email:'',
+    password:'',
+    phoneNumber:'',
+    region:'',
+    profilePicture:'',
+    message:''
+  };
+
   //stores the login response for user
   loginData_user:any;
 
@@ -62,7 +87,6 @@ export class LoginComponent {
   //stores the login response for user
   loginData_organiser:any;
 
-
  
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
@@ -78,8 +102,8 @@ export class LoginComponent {
       console.log(this.data_organiser[0]._id);
     });
     
-    //this.LogInOrg('Wemby01','IamNo01%');
-    //console.log(this.loginData_user);
+    this.LogInUser('jane_smith','bibo@gmail.com');
+    this.LogInOrg('LTDProevents','password');
   }
 
   //Login Function for User
@@ -88,6 +112,8 @@ export class LoginComponent {
     await this.apiService.authUser(username,password ).subscribe((response) => {
       console.log('API response:', response);
       this.loginData_user=response;
+      this.userLogin_payload=this.loginData_user;
+      console.log('message:',this.userLogin_payload.message);
     });
   }
 
@@ -97,6 +123,8 @@ export class LoginComponent {
     await this.apiService.authOrganiser(username,password ).subscribe((response) => {
       console.log('API response:', response);
       this.loginData_organiser=response;
+      this.orgLogin_payload=this.loginData_user;
+      console.log('message:',this.orgLogin_payload.message);
     });
   }
 
@@ -104,11 +132,11 @@ export class LoginComponent {
   onCreate() {
     this.router.navigate(['/signup']);
   }
- login(email: string,password: string) {
-  console.log('email:', email);
-  console.log('password',password)
 
-   
+  login(email: string,password: string) {
+    console.log('email:', email);
+    console.log('password',password);
+    this.LogInUser(email,password);
   }
  /* onSubmit() {
     if (this.loginForm.valid) {

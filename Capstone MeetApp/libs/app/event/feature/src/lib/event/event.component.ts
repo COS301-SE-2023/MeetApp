@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { events,service,ServicesModule} from '@capstone-meet-app/services';
+import { IonicModule } from '@ionic/angular'; 
+import {service,events} from '@capstone-meet-app/services';
+import { Router } from '@angular/router';
 @Component({
   selector: 'capstone-meet-app-event',
   standalone: true,
-  imports: [CommonModule,HttpClientModule],
+  imports: [CommonModule,IonicModule],
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css'],
-  providers: [service,HttpClient],
+  providers:[service,Router]
 })
 export class EventComponent {
   

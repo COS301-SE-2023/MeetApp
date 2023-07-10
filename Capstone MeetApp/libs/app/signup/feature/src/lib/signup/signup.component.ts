@@ -40,7 +40,7 @@ export class SignupComponent {
 
   confirmpassword="";
   
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  
   submitClicked = false;
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -50,9 +50,9 @@ export class SignupComponent {
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required]
     });
-<
+
     //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
-    this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
+    //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
     
 
   }
@@ -78,10 +78,14 @@ export class SignupComponent {
     });
   }
 
+  /*
   checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
     const password = control.value;
+  }
+  */
 
   valid=true;
+
   signup()
   {
     const firstname = this.loginForm.value.firstname;
@@ -101,12 +105,14 @@ export class SignupComponent {
 
     
    
-console.log(firstname);
-console.log(lastname);
-console.log(email);
-console.log(password);
-console.log(confirmpassword);
+    console.log(firstname);
+    console.log(lastname);
+    console.log(email);
+    console.log(password);
+    console.log(confirmpassword);
+
 }
+
 isvalid()
 {
 
