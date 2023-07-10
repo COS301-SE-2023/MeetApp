@@ -8,7 +8,7 @@ import { Attendance } from '../attendances/schema';
 import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService){
     
   }
   
@@ -24,7 +24,7 @@ export class UsersService {
     else {
       if (userToLoginInto[0].password == password){
         const payload = {id : userToLoginInto[0].id, username : userToLoginInto[0].username, password: userToLoginInto[0].password}
-        return {user: userToLoginInto[0], message : 'Login successful'}
+        return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
       }
       else{
         return {user: username, message : 'Incorrect password'}
