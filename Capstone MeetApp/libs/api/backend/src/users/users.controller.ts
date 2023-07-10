@@ -35,6 +35,13 @@ export class UsersController {
   getProfile(@Request() req : AuthenticatedRequest) {
       return req.user;
   }
+
+  @UseGuards(AuthGuard)
+  @Get('attendances')
+  getUserAttendancesJWT(@Request() req : AuthenticatedRequest) {
+    console.log(req.user)
+    return this.usersService.getUserAttendances(req.user.id);
+  }
   
   @Get()
   findAll(@Req() request: RequestExpress) {
