@@ -39,7 +39,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('attendances')
   getUserAttendancesJWT(@Request() req : AuthenticatedRequest) {
-    console.log(req.user)
+    //console.log(req.user)
     return this.usersService.getUserAttendances(req.user.id);
   }
 
