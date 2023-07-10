@@ -5,7 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
 import { FilterQuery, Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
-
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>){
@@ -23,6 +23,7 @@ export class UsersService {
     }
     else {
       if (userToLoginInto[0].password == password){
+        const payload = {id : userToLoginInto[0].id, username : userToLoginInto[0].username, password: userToLoginInto[0].password}
         return {user: userToLoginInto[0], message : 'Login successful'}
       }
       else{
