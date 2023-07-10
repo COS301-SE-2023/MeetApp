@@ -10,10 +10,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import { Injectable } from '@angular/core';
 //import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import {ApiService } from '../../../../../shared service/api.service';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+//import { Injectable } from '@angular/core';
+import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
-import { service,ServicesModule} from '@capstone-meet-app/services';
+import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
 
 
 
@@ -79,8 +79,9 @@ export class SignupComponent {
     
     return null;
   }
-  onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
-   /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
+
+ /*  onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
+   this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
         complete: () => console.info('signup successfull') ,
         error: (err: any) => {
@@ -90,8 +91,8 @@ export class SignupComponent {
       }
       
     );
-      */
-  }
+      
+  }*/
   /*onSubmit() {
     if (this.loginForm.valid) {
       const loginInfo = {
@@ -133,3 +134,4 @@ export class SignupComponent {
 
 
 
+  
