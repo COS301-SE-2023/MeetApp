@@ -15,7 +15,7 @@
       <form [formGroup]="loginForm" (ngSubmit)="signup()">
         <ion-item lines="full">
           <ion-label position="floating">First Name</ion-label>
-          <ion-input type="text" name="firstname" formControlName="firstname"required></ion-input>
+          <ion-input class="rounded-input" type="text" name="firstname" formControlName="firstname"required></ion-input>
           <div class="error-message" *ngIf="loginForm.controls['firstname'].touched && loginForm.controls['firstname'].hasError('required')">
             First Name is required.
           </div>
