@@ -14,7 +14,9 @@ export class OrganisationsService {
   }
   async create(createOrgDto: CreateOrganisationDto) {
     const newOrg = await new this.organisationModel(createOrgDto);
-    return newOrg.save();
+    const newOrgSaved = newOrg.save()
+    const payload = {id : (await newOrgSaved).id, username : (await newOrgSaved).username, password: (await newOrgSaved).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
   }
   async login(username: string, password: string) {
     const orgToLoginInto = await this.organisationModel.find({username : username}).exec()
