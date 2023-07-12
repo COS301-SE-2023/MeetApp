@@ -1,11 +1,14 @@
 ![](https://digiday.com/wp-content/uploads/sites/3/2015/06/DonkeyKong-banner2.gif?w=1030&h=440&crop=1)
-[![Continuous integration Development](https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml/badge.svg)](https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml)
+
 
 <p><h1 align='center'>Tech Titans<br><br></h1>
 <h1 align='center'>MeetApp<br><br></h1>
 </p>
 
 <div align="left">
+<a href= "(https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml">
+  <img alt="GitHub Pull Requests" src="https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml/badge.svg">
+</a>
 <a href= "https://github.com/COS301-SE-2023/MeetApp/pulls">
   <img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/COS301-SE-2023/MeetApp?style=plastic">
 </a>
