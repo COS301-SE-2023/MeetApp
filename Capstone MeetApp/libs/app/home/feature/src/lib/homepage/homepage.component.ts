@@ -17,6 +17,8 @@ import { IonicModule } from '@ionic/angular';
 
 //import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
 //import {events, service} from '';
+
+//http://localhost:3000/api/events/647218a0cd65fc66878b99ad/attendance-count
 import { events,service,ServicesModule} from '@capstone-meet-app/services';
 
 
@@ -31,41 +33,43 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
   
 })
 export class HomepageComponent {
-  eventName='';
-    organisation='';
-    date='';
-    starttime='';
-    endtime='';
-    eventDate='';
-    loactionln='';
-    locactionlat='';
-   // location:Record<number,unknown>;
-    category='';
-    region='';
 
-    events:any =[];
-    data= [{
-      name:'',
-      organisation: '',
-      date: '',
-      startTime: '',
-      endTime: '',
-      eventDate: '',
-      lng: 0,
-      lat: 0,
-      location: {latitude:'' , longitude:''},
-      category:'',
-      region:'',
-      description:''
+  name='';
+  organisation='';
+  date='';
+  starttime='';
+  endtime='';
+  eventDate='';
+  locationln='';
+  locactionlat='';
+  category='';
+  region='';
+
+  events:any =[];
+  data= [{
+    name:'',
+    organisation: '',
+    description:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    eventDate: '',
+    location: {latitude:0 , longitude:0},
+    category:'',
+    region:'',
+    eventPoster:''
+  }];
+
+  isLiked = false;
+  toggleLike() {
+    this.isLiked = !this.isLiked;
   }
-    
-  ];
+  
   
   constructor(private service: service) {
     console.log('Constructor');
   }
   
-
 
   getEvents()
   {
@@ -73,14 +77,13 @@ export class HomepageComponent {
       {
         const newEvent={} as events;
         
-        Object.values(res).forEach((event: { category: string; date: string; endTime: string; eventName: string; organisation: string; loactionln: number; region: string; starttime: string; }) => {
+        Object.values(res).forEach((event: { category: string; date: string; endTime: string; name: string; organisation: string; region: string; starttime: string; }) => {
           newEvent.category=event.category;
           newEvent.date=event.date;
           newEvent.endTime=event.endTime;
-          newEvent.name=event.eventName;
+          newEvent.name=event.name;
           newEvent.organisation=event.organisation;
           newEvent.date=event.date;
-          newEvent.lng=event.loactionln;
           newEvent.region=event.region;
           newEvent.startTime=event.starttime; 
         });
@@ -115,7 +118,7 @@ export class HomepageComponent {
         this.data = response;
         for (let i = 0; i < this.data.length; i++) {
           const event: events = this.data[i];
-          const region = event.region;
+          //const region = event.region;
           const date=event.date;
           console.log(date);
          

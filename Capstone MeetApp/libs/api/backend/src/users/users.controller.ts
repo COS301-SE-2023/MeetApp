@@ -30,6 +30,7 @@ export class UsersController {
       return {user: null, message : "No payload found"}
   }
 
+
   @UseGuards(AuthGuard)
   @Get('account')
   getAccount(@Request() req : AuthenticatedRequest) {
@@ -54,6 +55,8 @@ export class UsersController {
   updateJWT(@Request() req : AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(req.user.id, updateUserDto);
   }
+
+
   
   @Get()
   findAll(@Req() request: RequestExpress) {

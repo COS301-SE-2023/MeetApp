@@ -45,6 +45,7 @@ export class OrganisationsController {
       return req.organisation;
   }
 
+
   @Get()
   findAll() {
     return this.organisationsService.findAll();

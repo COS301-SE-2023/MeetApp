@@ -12,7 +12,7 @@ export class CreateEventDto {
  
     readonly endTime!: string;
     
-    readonly location!: {latitude:string , longitude:string};
+    readonly location!: {latitude:number , longitude:number};
 
     readonly category!: string; 
 

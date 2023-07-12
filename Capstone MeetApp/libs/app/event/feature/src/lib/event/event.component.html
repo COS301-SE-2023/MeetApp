@@ -45,16 +45,34 @@
         <ion-label><b>Time : </b></ion-label>
         <ion-text class="bold-text">from &nbsp; {{data[0].startTime}} &nbsp;to&nbsp; {{data[0].endTime}}</ion-text>
       </ion-item>
+      <ion-item>
+        <ion-label>Interested</ion-label>
+        <ion-badge slot="end" color="secondary">5.5k</ion-badge>
+      </ion-item>
+      <ion-item>
+      <ion-label>Going</ion-label>
+        <ion-badge slot="end" color="secondary">1.2k</ion-badge>
+      </ion-item>
       
-  </ion-card>
+    <ion-card-content class="btn-bottom">
+        <ion-button  >
+          <i  class="fas fa-star"></i> &nbsp; Interested 
+        </ion-button>
+        <ion-button class="left">  &nbsp; <i  class="fas fa-thumbs-up"></i> &nbsp; Going  &nbsp;
+        </ion-button>
+      </ion-card-content>
     
+  </ion-card>
+  <!--
     <div class="heart-icon">
       <ion-button for="attending-checkbox" class="attending-label">Click To Attend</ion-button>
-      </div>
+      </div>-->
       
       
-      
-<nav class="bottom-navbar">
+    </div>
+
+<footer>
+  <nav class="bottom-navbar">
     <ul>
       <li>
         <a href="/home" routerLinkActive="active">
@@ -77,7 +95,8 @@
     </ul>
   </nav>
   
-</div>
+
+</footer>
   
 
 
