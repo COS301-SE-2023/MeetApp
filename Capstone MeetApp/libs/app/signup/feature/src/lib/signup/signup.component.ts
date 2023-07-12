@@ -13,6 +13,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { service } from '@capstone-meet-app/app/services';
 
 
 
@@ -28,10 +29,15 @@ import { IonicModule } from '@ionic/angular';
 export class SignupComponent {
   
   loginForm!: FormGroup;
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private service:service/* private apiService: ApiService*/) {}
+  userType: string | undefined;
+
   firstname="";
   lastname="";
   email = ''; 
   password= ''; 
+
 
   confirmpassword="";
   
@@ -45,7 +51,22 @@ export class SignupComponent {
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required]
     });
+
+     
+    this.service.getUserType().subscribe(userType => {
+      this.userType = userType;
+      console.log('User type:', this.userType);
+    });
   }
+ 
+  passwordFormControl = new FormControl('', [
+    Validators.required,
+    Validators.minLength(8),
+    this.checkPasswordStrength
+  ]);
+
+  }
+
   
   
   
@@ -82,7 +103,9 @@ isvalid()
   {
     this.router.navigate(['/home']);
   }
+
 }
+
   
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
    /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(

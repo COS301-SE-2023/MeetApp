@@ -12,6 +12,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { events,service,ServicesModule} from '@capstone-meet-app/services';
+
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -23,21 +25,43 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
-  email = ''; 
-  password= ''; 
 
-  constructor( private router: Router, private formBuilder: FormBuilder/*, private apiService: ApiService*/) {
+  email = ''; // Initialize the property
+  password= ''; // Initialize the property
+  userType: string | undefined;
+
+ 
+
+  constructor( private router: Router, private formBuilder: FormBuilder ,private service:service/*, private apiService: ApiService*/) {
 
    
   }
   onCreate() {
     this.router.navigate(['/signup']);
   }
- login(email: string,password: string) {
-  console.log('email:', email);
-  console.log('password',password)
 
-   
+ login() {
+    // Perform any necessary validation or additional processing here
+     
+    // Call the login() method of the authentication service
+    /*this.authenticationService.login(this.email, this.password)
+      .subscribe({
+        next: response => {
+          // Handle the response from the server
+          console.log(response);
+        },
+        error: error => {
+          // Handle any errors that occur during the request
+          console.error(error);
+        }
+      });*/
+
+  }
+  ngOnInit(): void {
+    this.service.getUserType().subscribe(userType => {
+      this.userType = userType;
+      console.log('User type:', this.userType);
+    });
   }
  /* onSubmit() {
     if (this.loginForm.valid) {
