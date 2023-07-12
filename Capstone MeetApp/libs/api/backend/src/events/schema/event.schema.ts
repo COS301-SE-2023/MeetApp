@@ -39,6 +39,9 @@ export class Event {
   
     @Prop()
   region!: string;
+
+    @Prop()
+  eventPoster!:string;
   
 }
 

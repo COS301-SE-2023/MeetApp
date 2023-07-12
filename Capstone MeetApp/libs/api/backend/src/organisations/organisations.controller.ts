@@ -32,6 +32,7 @@ export class OrganisationsController {
       return {organisation: null, message : "No payload found"}
   }
 
+
   @Get()
   findAll() {
     return this.organisationsService.findAll();

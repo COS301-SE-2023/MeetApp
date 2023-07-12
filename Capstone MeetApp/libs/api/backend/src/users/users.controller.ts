@@ -24,6 +24,7 @@ export class UsersController {
     else
       return {user: null, message : "No payload found"}
   }
+
   
   @Get()
   findAll(@Req() request: Request) {

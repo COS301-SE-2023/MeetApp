@@ -13,18 +13,29 @@ export class Organisation {
   ID!: mongoose.Schema.Types.ObjectId;
 
   @Prop()
+  name!:string;
+
+  @Prop()
+  surname!:string;
+
+  @Prop()
   username!: string;
+
+  @Prop()
+  email!:string;
 
   @Prop()
   password!: string;
 
   @Prop()
-  name!: string;
+  phoneNumber!: string;
+
+  @Prop()
+  orgDescription!:string;
 
   @Prop([{ type: mongoose.Schema.Types.ObjectId, ref: 'Events' }])
   events!: string[];
 
- 
 }
 
 export const OrganisationSchema = SchemaFactory.createForClass(Organisation);
