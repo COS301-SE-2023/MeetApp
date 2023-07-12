@@ -6,6 +6,8 @@ on:
   
   push:
     branches:
+      - development
+      - development/*
       - auth
       - auth/*
       - map
