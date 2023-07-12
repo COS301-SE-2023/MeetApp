@@ -15,7 +15,9 @@
 </a>
 <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/COS301-SE-2023/MeetApp?style=plastic">
 <img alt="GitHub Repository size" src="https://img.shields.io/github/repo-size/COS301-SE-2023/MeetApp?style=plastic">
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/COS301-SE-2023/MeetApp?color=orange&style=plastic"></div>
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/COS301-SE-2023/MeetApp?color=orange&style=plastic">
+[![Continuous integration Development](https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml/badge.svg)](https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml)
+</div>
 
 <div align='left'>
 <h3 align="left">Languages and Tools:</h3>
