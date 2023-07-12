@@ -25,7 +25,7 @@ import {
             secret: jwtConstants.secret
           }
         );
-        request['user'] = payload;
+        request['organisation'] = payload;
       } catch {
         throw new UnauthorizedException();
       }
