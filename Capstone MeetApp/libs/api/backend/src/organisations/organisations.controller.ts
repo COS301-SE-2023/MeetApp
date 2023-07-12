@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   Body,
+  Request
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
@@ -35,6 +36,11 @@ export class OrganisationsController {
     }
     else
       return {organisation: null, message : "No payload found"}
+  }
+
+  @Get('account')
+  getAccount(@Request() req : AuthenticatedRequest) {
+      return req.user;
   }
 
   @Get()
