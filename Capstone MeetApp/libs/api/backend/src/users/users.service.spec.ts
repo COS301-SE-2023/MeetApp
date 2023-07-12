@@ -3,6 +3,8 @@ import { UsersService } from './users.service';
 import { User } from './schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { Attendance } from '../attendances/schema';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './constant';
 
 describe('UsersService', () => {
   let service: UsersService;
@@ -10,6 +12,13 @@ describe('UsersService', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [UsersService, { provide: getModelToken(User.name), useValue: jest.fn() }, { provide: getModelToken(Attendance.name), useValue: jest.fn() }],
+      imports: [
+        JwtModule.register({
+          global: true,
+          secret: jwtConstants.secret,
+          signOptions: { expiresIn: '1 day' },
+        }),
+      ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
