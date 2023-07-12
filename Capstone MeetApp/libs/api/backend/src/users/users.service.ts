@@ -14,7 +14,9 @@ export class UsersService {
   
   async create(createUserDto: CreateUserDto) {
     const newUser = await new this.userModel(createUserDto);
-    return newUser.save();
+    const newUserSaved = newUser.save()
+    const payload = {id : (await newUserSaved).id, username : (await newUserSaved).username, password: (await newUserSaved).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
   }
   async login(username: string, password: string) {
     const userToLoginInto = await this.userModel.find({username : username}).exec()
