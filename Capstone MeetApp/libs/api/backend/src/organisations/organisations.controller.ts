@@ -12,6 +12,10 @@ import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { AuthGuard } from './organisations.guard';
 
+interface AuthenticatedRequest extends Request {
+  user: {id : string, username : string, password: string};
+}
+
 @Controller('organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
