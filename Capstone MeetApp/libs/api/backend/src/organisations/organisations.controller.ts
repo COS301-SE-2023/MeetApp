@@ -10,6 +10,7 @@ import {
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+import { AuthGuard } from './organisations.guard';
 
 @Controller('organisations')
 export class OrganisationsController {
