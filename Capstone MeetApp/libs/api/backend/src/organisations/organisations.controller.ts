@@ -14,7 +14,7 @@ import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { AuthGuard } from './organisations.guard';
 
 interface AuthenticatedRequest extends Request {
-  user: {id : string, username : string, password: string};
+  organisation: {id : string, username : string, password: string};
 }
 
 @Controller('organisations')
@@ -40,7 +40,7 @@ export class OrganisationsController {
 
   @Get('account')
   getAccount(@Request() req : AuthenticatedRequest) {
-      return req.user;
+      return req.organisation;
   }
 
   @Get()
