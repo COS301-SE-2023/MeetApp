@@ -20,6 +20,9 @@ export class Event {
   description!: string;
   
     @Prop()
+  eventPoster!: string;
+  
+    @Prop()
   date!: string;
   
     @Prop()
@@ -29,8 +32,8 @@ export class Event {
   endTime!: string;
   
     @Prop(raw({
-    lng: { type: Number },
-    lat: { type: Number }
+    longatude: { type: Number },
+    latitude: { type: Number }
   }))
   location!: Record<number, unknown>;
   
@@ -39,9 +42,6 @@ export class Event {
   
     @Prop()
   region!: string;
-
-    @Prop()
-  eventPoster!:string;
   
 }
 

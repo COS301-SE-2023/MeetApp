@@ -5,15 +5,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Organisation } from './schema';
 import { Model } from 'mongoose';
 import { EventsService } from '../events/events.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class OrganisationsService {
-  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService){
+  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, private jwtService: JwtService){
     
   }
   async create(createOrgDto: CreateOrganisationDto) {
     const newOrg = await new this.organisationModel(createOrgDto);
-    return newOrg.save();
+    const newOrgSaved = newOrg.save()
+    const payload = {id : (await newOrgSaved).id, username : (await newOrgSaved).username, password: (await newOrgSaved).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
   }
   async login(username: string, password: string) {
     const orgToLoginInto = await this.organisationModel.find({username : username}).exec()
@@ -22,7 +25,8 @@ export class OrganisationsService {
     }
     else {
       if (orgToLoginInto[0].password == password){
-        return {organisation: orgToLoginInto[0], message : 'Login successful'}
+        const payload = {id : orgToLoginInto[0].id, username : orgToLoginInto[0].username, password: orgToLoginInto[0].password}
+        return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
       }
       else{
         return {organisation: username, message : 'Incorrect password'}

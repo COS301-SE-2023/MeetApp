@@ -5,16 +5,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
 import { FilterQuery, Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
-
+import { JwtService } from '@nestjs/jwt';
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService){
     
   }
   
   async create(createUserDto: CreateUserDto) {
     const newUser = await new this.userModel(createUserDto);
-    return newUser.save();
+    const newUserSaved = newUser.save()
+    const payload = {id : (await newUserSaved).id, username : (await newUserSaved).username, password: (await newUserSaved).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
   }
   async login(username: string, password: string) {
     const userToLoginInto = await this.userModel.find({username : username}).exec()
@@ -23,7 +25,8 @@ export class UsersService {
     }
     else {
       if (userToLoginInto[0].password == password){
-        return {user: userToLoginInto[0], message : 'Login successful'}
+        const payload = {id : userToLoginInto[0].id, username : userToLoginInto[0].username, password: userToLoginInto[0].password}
+        return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
       }
       else{
         return {user: username, message : 'Incorrect password'}
