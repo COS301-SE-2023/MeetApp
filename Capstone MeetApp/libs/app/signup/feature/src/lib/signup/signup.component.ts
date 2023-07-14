@@ -29,9 +29,9 @@ import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
 export class SignupComponent {
   
   loginForm!: FormGroup;
-
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
-
+  userType: string | undefined;
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service) {}
+  
   firstname="";
   lastname="";
   email = ''; 
@@ -50,14 +50,19 @@ export class SignupComponent {
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required]
     });
-
+     
+    this.service.getUserType().subscribe(userType => {
+      this.userType = userType;
+      console.log('User type:', this.userType);
+    });
+  
     //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
     //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
     
 
   }
   
-  
+ 
 
   //SignUp for a User
   async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)

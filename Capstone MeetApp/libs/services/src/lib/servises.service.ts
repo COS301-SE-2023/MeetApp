@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import {HttpClient} from "@angular/common/http";
+import { BehaviorSubject } from 'rxjs';
 //import { url } from "inspector";
 //import { Observable } from "rxjs";
 
@@ -118,7 +119,8 @@ export class service{
     constructor(private http:HttpClient){}
 
     private baseURl='http://localhost:3000/api/';
-
+    
+    private userTypeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
     //SERVICES FOR EVENTS
 
     getAllEvents()
@@ -293,5 +295,12 @@ export class service{
         }
         return this.http.post(`${url}`,body);
     }
-
+    
+    setUserType(userType: string): void {
+        this.userTypeSubject.next(userType);
+      }
+    
+      getUserType(): BehaviorSubject<string> {
+        return this.userTypeSubject;
+      }
 }
