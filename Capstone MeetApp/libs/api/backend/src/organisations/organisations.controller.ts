@@ -6,10 +6,17 @@ import {
   Param,
   Delete,
   Body,
+  Request,
+  UseGuards
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
+import { AuthGuard } from './organisations.guard';
+
+interface AuthenticatedRequest extends Request {
+  organisation: {id : string, username : string, password: string};
+}
 
 @Controller('organisations')
 export class OrganisationsController {
@@ -31,6 +38,13 @@ export class OrganisationsController {
     else
       return {organisation: null, message : "No payload found"}
   }
+
+  @UseGuards(AuthGuard)
+  @Get('account')
+  getAccount(@Request() req : AuthenticatedRequest) {
+      return req.organisation;
+  }
+
 
   @Get()
   findAll() {

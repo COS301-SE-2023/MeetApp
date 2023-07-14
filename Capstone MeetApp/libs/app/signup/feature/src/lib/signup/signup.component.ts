@@ -10,9 +10,10 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import { Injectable } from '@angular/core';
 //import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import {ApiService } from '../../../../../shared service/api.service';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+//import { Injectable } from '@angular/core';
+import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
 
 
 
@@ -22,20 +23,24 @@ import { IonicModule } from '@ionic/angular';
   imports: [CommonModule,IonicModule , FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  //providers: [ApiService]
+  providers: [service,HttpClient]
 })
 
 export class SignupComponent {
   
   loginForm!: FormGroup;
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
+
   firstname="";
   lastname="";
   email = ''; 
   password= ''; 
 
+
   confirmpassword="";
   
-  constructor(private router: Router, private formBuilder: FormBuilder) {}
+  
   submitClicked = false;
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -46,9 +51,41 @@ export class SignupComponent {
     confirmpassword: ['', Validators.required]
     });
 
+    //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
+    //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
+    
 
   }
+  
+  
+
+  //SignUp for a User
+  async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)
+  {
+    await this.apiService.createUser(name,surname,username,email,password,phoneNumber,region,profilePicture).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+  }
+
+  
+  //SignUp for a Organisation 
+  async SignUpOrg(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,orgDescription:string/*,events:string[]*/)
+  {
+    await this.apiService.createOrginiser(name,surname,username,email,password,phoneNumber,orgDescription/*,events*/).subscribe((response) => {
+      console.log('API response:', response);
+
+    });
+  }
+
+  /*
+  checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
+    const password = control.value;
+  }
+  */
+
   valid=true;
+
   signup()
   {
     const firstname = this.loginForm.value.firstname;
@@ -58,18 +95,24 @@ export class SignupComponent {
     const confirmpassword = this.loginForm.value.confirmpassword;
 
 
+
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
     if (!strongRegex.test(password) && this.loginForm.invalid) {   
       this.valid=false;
     }
     
-console.log(firstname);
-console.log(lastname);
-console.log(email);
-console.log(password);
-console.log(confirmpassword);
+
+    
+   
+    console.log(firstname);
+    console.log(lastname);
+    console.log(email);
+    console.log(password);
+    console.log(confirmpassword);
+
 }
+
 isvalid()
 {
 
@@ -77,6 +120,7 @@ isvalid()
   {
     this.router.navigate(['/home']);
   }
+
 }
   
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
@@ -89,9 +133,10 @@ isvalid()
         }
       }
       
-    );
-      */
+    );*/
+      
   }
+    
   /*onSubmit() {
     if (this.loginForm.valid) {
       const loginInfo = {
@@ -127,3 +172,10 @@ isvalid()
     this.router.navigate(['/signup']);
   }
 }
+
+
+
+
+
+
+  

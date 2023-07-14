@@ -21,13 +21,11 @@ export class CalendarComponent {
     date: '',
     startTime: '',
     endTime: '',
-    eventDate: '',
-    lng: 0,
-    lat: 0,
-    location: {latitude:'' , longitude:''},
+    location: {latitude:0 , longitude:0},
     category:'',
     region:'',
-    description:''
+    description:'',
+    eventPoster:''
 }
   
 ];
