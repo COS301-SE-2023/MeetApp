@@ -44,26 +44,14 @@ export class LoginComponent {
   }];
 
   userLogin_payload= {
-    name:'',
-    surname:'',
-    username:'',
-    email:'',
-    password:'',
-    phoneNumber:'',
-    region:'',
-    profilePicture:'',
+    user:'',
+    access_token:'',
     message:''
   };
 
   orgLogin_payload= {
-    name:'',
-    surname:'',
-    username:'',
-    email:'',
-    password:'',
-    phoneNumber:'',
-    region:'',
-    profilePicture:'',
+    organisation:'',
+    access_token:'',
     message:''
   };
 
@@ -107,7 +95,8 @@ export class LoginComponent {
     });
     
     this.LogInUser('jane_smith','bibo@gmail.com');
-    this.LogInOrg('LTDProevents','password');
+    //this.LogInOrg('LTDProevents','marketspass');
+    
   }
 
   //Login Function for User
@@ -117,7 +106,11 @@ export class LoginComponent {
       console.log('API response:', response);
       this.loginData_user=response;
       this.userLogin_payload=this.loginData_user;
+      console.log('username:',this.userLogin_payload.user)
+      console.log('access token:',this.userLogin_payload.access_token)
       console.log('message:',this.userLogin_payload.message);
+      this.current(this.userLogin_payload.access_token);
+      this.getUser(this.userLogin_payload.access_token);
     });
   }
 
@@ -128,10 +121,26 @@ export class LoginComponent {
       console.log('API response:', response);
       this.loginData_organiser=response;
       this.orgLogin_payload=this.loginData_user;
+      console.log('username:',this.orgLogin_payload.organisation)
+      console.log('access token:',this.orgLogin_payload.access_token)
       console.log('message:',this.orgLogin_payload.message);
     });
   }
 
+
+  async current(token:string)
+  {
+    await this.apiService.getLogedInUser(token).subscribe((response) => {
+      console.log('API response',response)
+    });
+  }
+
+  async getUser(token:string)
+  {
+    await this.apiService.getUser(token).subscribe((response) => {
+      console.log('API response',response)
+    });
+  }
 
   onCreate() {
     this.router.navigate(['/signup']);
