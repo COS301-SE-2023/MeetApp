@@ -45,11 +45,9 @@ export class SignupComponent {
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required]
     });
+
+
   }
-  
-  
-  
- 
   valid=true;
   signup()
   {
@@ -62,13 +60,10 @@ export class SignupComponent {
 
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
-    if (!strongRegex.test(password) && this.loginForm.invalid) {
+    if (!strongRegex.test(password) && this.loginForm.invalid) {   
       this.valid=false;
     }
     
-
-    
-   
 console.log(firstname);
 console.log(lastname);
 console.log(email);
@@ -132,9 +127,3 @@ isvalid()
     this.router.navigate(['/signup']);
   }
 }
-
-
-
-
-
-
