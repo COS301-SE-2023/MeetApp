@@ -91,7 +91,8 @@ export class LoginComponent {
     });
     
     this.LogInUser('jane_smith','bibo@gmail.com');
-    this.LogInOrg('LTDProevents','marketspass');
+    //this.LogInOrg('LTDProevents','marketspass');
+    
   }
 
   //Login Function for User
@@ -104,6 +105,8 @@ export class LoginComponent {
       console.log('username:',this.userLogin_payload.user)
       console.log('access token:',this.userLogin_payload.access_token)
       console.log('message:',this.userLogin_payload.message);
+      this.current(this.userLogin_payload.access_token);
+      this.getUser(this.userLogin_payload.access_token);
     });
   }
 
@@ -120,6 +123,20 @@ export class LoginComponent {
     });
   }
 
+
+  async current(token:string)
+  {
+    await this.apiService.getLogedInUser(token).subscribe((response) => {
+      console.log('API response',response)
+    });
+  }
+
+  async getUser(token:string)
+  {
+    await this.apiService.getUser(token).subscribe((response) => {
+      console.log('API response',response)
+    });
+  }
 
   onCreate() {
     this.router.navigate(['/signup']);
