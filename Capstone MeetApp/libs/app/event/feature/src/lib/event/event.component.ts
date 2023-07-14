@@ -24,13 +24,14 @@ export class EventComponent {
     name:'',
     organisation: '',
     description:'',
+    eventPoster:'',
     date: '',
     startTime: '',
     endTime: '',
     location: {latitude:0 , longitude:0},
     category:'',
-    region:'',
-    eventPoster:''
+    region:''
+    
   }];
 
   //storing the organisers data  
@@ -91,7 +92,7 @@ export class EventComponent {
     });
   }
 
-  // Post the attendace of an evebt by the user 
+  // Post the attendace of an event by the user 
   async attendEvent(orgID: string,eventID: string,userID: string)
   {
     await this.apiService.attendEvent(orgID,eventID,userID).subscribe((response) => {

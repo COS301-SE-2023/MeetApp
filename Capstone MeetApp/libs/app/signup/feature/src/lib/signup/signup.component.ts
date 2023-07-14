@@ -64,7 +64,7 @@ export class SignupComponent {
   {
     await this.apiService.createUser(name,surname,username,email,password,phoneNumber,region,profilePicture).subscribe((response) => {
       console.log('API response:', response);
-   
+      
     });
   }
 
