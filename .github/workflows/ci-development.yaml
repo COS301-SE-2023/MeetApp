@@ -7,38 +7,40 @@ on:
   push:
     branches:
       - development
-      - development/*
+      - 'development/**'
       - auth
-      - auth/*
+      - 'auth/**'
       - map
-      - map/*
+      - 'map/**'
       - profile
-      - profile/*
+      - 'profile/**'
       - home
-      - home/*
-      - organiser/*
+      - 'home/**'
+      - 'organiser/**'
       - organiser
       - settings
-      - settings/*
+      - 'settings/**'
       - events
-      - events/*
+      - 'events/**'
       
   pull_request:
     branches:
-     - auth
-      - auth/*
+      - development
+      - 'development/**'
+      - auth
+      - 'auth/**'
       - map
-      - map/*
+      - 'map/**'
       - profile
-      - profile/*
+      - 'profile/**'
       - home
-      - home/*
-      - organiser/*
+      - 'home/**'
+      - 'organiser/**'
       - organiser
       - settings
-      - settings/*
+      - 'settings/**'
       - events
-      - events/*
+      - 'events/**'
       
 
 jobs:
