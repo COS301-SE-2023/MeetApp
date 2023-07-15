@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 import {service,events} from '@capstone-meet-app/app/services'
+import { Router } from '@angular/router';
 @Component({
   selector: 'capstone-meet-app-calendar',
   standalone: true,
