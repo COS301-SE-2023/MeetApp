@@ -9,10 +9,10 @@ import { Router } from '@angular/router';
   imports: [CommonModule,IonicModule],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
-  providers:[service]
+  providers:[service,Router]
 })
 export class CalendarComponent {
-  constructor(private service:service){
+  constructor(private service:service,private router:Router){
 
   }
 
