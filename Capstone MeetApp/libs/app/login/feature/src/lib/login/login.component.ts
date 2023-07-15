@@ -117,6 +117,11 @@ export class LoginComponent {
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
 
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+
     await this.apiService.getAllUsers().subscribe((response: any) => { 
       console.log(response);
       this.data_user = response;  
@@ -130,6 +135,7 @@ export class LoginComponent {
     
     
   }
+  valid=true;
 
   //Login Function for User
   async LogInUser(username:string,password:string)

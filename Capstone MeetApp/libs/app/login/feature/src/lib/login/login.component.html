@@ -25,15 +25,21 @@
   <form>
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text"  [(ngModel)]="email" name="email" required></ion-input>
+      <ion-input type="email"  [(ngModel)]="email" name="email" required></ion-input>
+      <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
+        Email is required.
+      </div>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
       <ion-input type="password"  [(ngModel)]="password" name="password" required></ion-input>
+      <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+        Password is required.
+      </div>
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block" (click)="login(email,password)">Sign In</ion-button>
+        <ion-button type="submit" color="danger" expand="block" (click)="login(email,password)"  >Sign In</ion-button>
         <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;</b>
         <a class="small-text"  (click)="onCreate()">create an account</a>
       </ion-col>

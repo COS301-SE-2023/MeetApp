@@ -14,6 +14,18 @@
     overflow: scroll;
 }
 
+.navigation-item {
+  text-decoration: none;
+  color:grey;
+}
+
+.navigation-item i {
+  font-size: 24px;
+}
+
+.navigation-item:hover {
+  color: rgb(98, 82, 104);
+}
 .navigation-bar {
     position: fixed;
     bottom: 0;
@@ -52,3 +64,4 @@
   h1{
     text-align: center;
 }
+
