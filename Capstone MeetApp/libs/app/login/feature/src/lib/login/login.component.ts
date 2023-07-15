@@ -94,7 +94,7 @@ export class LoginComponent {
 
   async showErrorAlert(message: string) {
     const alert = await this.alertController.create({
-      header: 'Error',
+      header: 'login Successful',
       message: message,
       buttons: ['OK']
     });
@@ -128,10 +128,9 @@ export class LoginComponent {
       console.log(this.data_organiser[0]._id);
     });
     
-    this.LogInUser('jane_smith','bibo@gmail.com');
-    this.LogInOrg('LTDProevents','password');
+    
   }
-isvalid=false;
+
   //Login Function for User
   async LogInUser(username:string,password:string)
   {
@@ -144,18 +143,22 @@ isvalid=false;
 
    
    
-    if( this.userLogin_payload.message=='User not found' || this.userLogin_payload.message=='Incorrect password')
+    if( this.userLogin_payload.message=='User not found' || this.userLogin_payload.message=='Incorrect password' )
     {
         
         const errorMessage = 'wrong username or password';
-        this.showErrorAlert(errorMessage); 
+        this.showErrorToast(errorMessage); 
     }
-    else{
+
+                   else {
+                    const errorMessage = 'you have succesfully logged in';
+                    this.showErrorAlert(errorMessage); 
     this.router.navigate(['/home']);
     }
 
   }
 
+  
   
  
 
