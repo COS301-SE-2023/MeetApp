@@ -1,41 +1,33 @@
 
-name: CI
+name: Continuous integration Development
 
 on:
   workflow_dispatch:
   
   push:
     branches:
-      - auth
-      - profile
-      - settings
-      - map
-      - organiser
-      - events
-      - friends
-      - auth*
-      - profile*
-      - settings*
-      - map*
-      - organiser*
-      - events*
-      - friends*
+      - 'development**'
+      - 'ui**'
+      - 'auth**'
+      - 'map**'
+      - 'profile**'
+      - 'home**'
+      - 'organiser**'
+      - 'settings**'
+      - 'events**'
+      
   pull_request:
     branches:
-      - auth
-      - profile
-      - settings
-      - map
-      - organiser
-      - events
-      - friends
-      - auth*
-      - profile*
-      - settings*
-      - map*
-      - organiser*
-      - events*
-      - friends*
+      - 'development**'
+      - 'ui**'
+      - 'auth**'
+      - 'map**'
+      - 'profile**'
+      - 'home**'
+      - 'organiser**'
+      - 'settings**'
+      - 'events**'
+      
 
 jobs:
 
