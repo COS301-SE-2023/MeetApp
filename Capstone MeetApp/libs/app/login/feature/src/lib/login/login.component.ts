@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
 import { ConnectableObservable } from 'rxjs';
+import { AlertController, ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -27,7 +29,9 @@ export class LoginComponent {
   email = ''; 
   password= ''; 
 
-  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service) { 
+  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
+    private toastController: ToastController) { 
+    
   }
 
   
@@ -87,7 +91,29 @@ export class LoginComponent {
   //stores the login response for user
   loginData_organiser:any;
 
- 
+
+  async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: message,
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
+  
+  async showErrorToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      color: 'danger',
+      position: 'top'
+    });
+  
+    await toast.present();
+  }
+  
+  
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
 
@@ -105,7 +131,7 @@ export class LoginComponent {
     this.LogInUser('jane_smith','bibo@gmail.com');
     this.LogInOrg('LTDProevents','password');
   }
-
+isvalid=false;
   //Login Function for User
   async LogInUser(username:string,password:string)
   {
@@ -115,7 +141,23 @@ export class LoginComponent {
       this.userLogin_payload=this.loginData_user;
       console.log('message:',this.userLogin_payload.message);
     });
+
+   
+   
+    if( this.userLogin_payload.message=='User not found' || this.userLogin_payload.message=='Incorrect password')
+    {
+        
+        const errorMessage = 'wrong username or password';
+        this.showErrorAlert(errorMessage); 
+    }
+    else{
+    this.router.navigate(['/home']);
+    }
+
   }
+
+  
+ 
 
   //Login Function for Organisation
   async LogInOrg(username:string,password:string)

@@ -20,7 +20,7 @@
             First Name is required.
           </div>
         </ion-item>
-         
+        
         <ion-item lines="full">
           <ion-label position="floating" >Last Name</ion-label>
           <ion-input type="text" name="lastname" formControlName="lastname"required></ion-input>
@@ -28,7 +28,13 @@
             Last Name is required.
           </div>
         </ion-item>
-
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+            Username is required.
+          </div>
+        </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Email</ion-label>
           <ion-input type="email" name="email" formControlName="email"></ion-input>

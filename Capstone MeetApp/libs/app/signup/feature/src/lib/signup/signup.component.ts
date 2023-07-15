@@ -33,9 +33,10 @@ export class SignupComponent {
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
 
   firstname="";
+  username='';
   lastname="";
   email = ''; 
-  password= ''; 
+  password= '';   
 
 
   confirmpassword="";
@@ -46,6 +47,7 @@ export class SignupComponent {
     this.loginForm = this.formBuilder.group({
       firstname: ['', Validators.required],
     lastname: ['', Validators.required],
+    username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required]
@@ -93,6 +95,7 @@ export class SignupComponent {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     const confirmpassword = this.loginForm.value.confirmpassword;
+    const username=this.loginForm.value.username;
 
 
 
@@ -104,7 +107,9 @@ export class SignupComponent {
     
 
     
-   
+    this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
+    this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
+    
     console.log(firstname);
     console.log(lastname);
     console.log(email);
