@@ -9,6 +9,7 @@ on:
       - auth
       - development
       - main
+      - 'ui-**'
       
   pull_request:
     branches:
