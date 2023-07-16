@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
 import { ConnectableObservable } from 'rxjs';
-import {WelcomepageComponent} from '@capstone-meet-app/app/welcome/feature'
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,14 +21,14 @@ import { ActivatedRoute } from '@angular/router';
   imports: [CommonModule, IonicModule,FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [service,HttpClient,WelcomepageComponent]
+  providers: [service,HttpClient]
 })
 export class LoginComponent {
   loginForm!: FormGroup;
   email = ''; 
   password= ''; 
 
-  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service , private wc:WelcomepageComponent,private activatedRoute: ActivatedRoute) { 
+  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service , private activatedRoute: ActivatedRoute) { 
   }
 
   
@@ -127,7 +126,7 @@ export class LoginComponent {
     await this.apiService.authOrganiser(username,password ).subscribe((response) => {
       console.log('API response:', response);
       this.loginData_organiser=response;
-      this.orgLogin_payload=this.loginData_user;
+      this.orgLogin_payload=this.loginData_organiser;
       console.log('username:',this.orgLogin_payload.organisation)
       console.log('access token:',this.orgLogin_payload.access_token)
       console.log('message:',this.orgLogin_payload.message);
@@ -156,7 +155,17 @@ export class LoginComponent {
   login(email: string,password: string) {
     console.log('email:', email);
     console.log('password',password);
-    this.LogInUser(email,password);
+
+    if(this.userType=='user')
+    {
+      this.LogInUser(email,password);
+    }
+
+    if(this.userType=='organiser')
+    {
+      this.LogInOrg(email,password);
+    }
+    
   }
  /* onSubmit() {
     if (this.loginForm.valid) {
