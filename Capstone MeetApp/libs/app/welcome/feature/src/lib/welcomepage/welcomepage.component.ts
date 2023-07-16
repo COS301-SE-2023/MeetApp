@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { service} from '@capstone-meet-app/services';
+import { service } from '@capstone-meet-app/services';
 
 @Component({
   selector: 'capstone-meet-app-welcomepage',

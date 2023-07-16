@@ -75,29 +75,27 @@ export class LoginComponent {
   //stores the login response for user
   loginData_organiser:any;
   userType: string | undefined;
- 
-  //Initialise data for User and Organiser using the services 
   async ngOnInit() {
-   
-    await  this.service.getUserType().subscribe(userType => {
+    this.service.getUserType().subscribe(userType => {
       this.userType = userType;
       console.log('User type:', this.userType);
     });
+  
     await this.apiService.getAllUsers().subscribe((response: any) => { 
       console.log(response);
       this.data_user = response;  
     });
-
+  
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       console.log(response);
       this.data_organiser = response;
       console.log(this.data_organiser[0]._id);
     });
-    
-    this.LogInUser('jane_smith','bibo@gmail.com');
+  
+    this.LogInUser('jane_smith', 'bibo@gmail.com');
     //this.LogInOrg('LTDProevents','marketspass');
-    
   }
+  
 
   //Login Function for User
   async LogInUser(username:string,password:string)
