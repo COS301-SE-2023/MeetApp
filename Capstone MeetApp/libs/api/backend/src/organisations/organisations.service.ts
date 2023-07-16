@@ -202,7 +202,7 @@ export class OrganisationsService {
     return topEventRegions;
   }
 
-  async getTop3Supporters(organizationId: string): Promise<User[]> {
+  async getTop3Supporters(organizationId: string): Promise<{ username: string, region: string }[]> {
     // Find attendees for events hosted by the organization
     const attendees = await this.attendanceModel
       .find({ organisationID: organizationId })
@@ -226,7 +226,7 @@ export class OrganisationsService {
 
     // Retrieve user details for the top 3 supporters
     const topSupporterIds = sortedUsers.slice(0, 3);
-    const topSupporters = await this.userModel.find({ _id: { $in: topSupporterIds } }).exec();
+    const topSupporters = await this.userModel.find({ _id: { $in: topSupporterIds } }).select('username region -_id').exec();
 
     return topSupporters;
   }
