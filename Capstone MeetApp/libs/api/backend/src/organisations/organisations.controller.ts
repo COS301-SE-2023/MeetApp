@@ -62,4 +62,11 @@ export class OrganisationsController {
   async getTopEventCategory(@Param('id') organizationId: string) {
     return this.organisationsService.getTopEventCategory(organizationId);
   }
+
+  @Get(':id/events/top-region')
+  async getTopEventRegion(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopEventRegion(organizationId);
+  }
+
+  
 }
