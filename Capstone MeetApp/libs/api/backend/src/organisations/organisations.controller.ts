@@ -54,7 +54,12 @@ export class OrganisationsController {
   }
 
   @Get(':id/events/top3-categories')
-  async getTopEventCategories(@Param('id') organizationId: string) {
+  async getTop3EventCategories(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3EventCategories(organizationId);
+  }
+
+  @Get(':id/events/top-categories')
+  async getTopEventCategory(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopEventCategory(organizationId);
   }
 }
