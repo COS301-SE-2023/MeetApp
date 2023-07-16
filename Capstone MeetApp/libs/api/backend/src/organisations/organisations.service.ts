@@ -230,4 +230,33 @@ export class OrganisationsService {
 
     return topSupporters;
   }
+
+  async getTopSupporter(organizationId: string): Promise<{ username: string, region: string }> {
+    // Find attendees for events hosted by the organization
+    const attendees = await this.attendanceModel
+      .find({ organisationID: organizationId })
+      .select('userID')
+      .exec();
+
+    if (!attendees) {
+      throw new NotFoundException('Organization not found or no attendees.');
+    }
+
+    const userCounts: { [key: string]: number } = {};
+    attendees.forEach((attendance) => {
+      const userId = attendance.userID.toString();
+      userCounts[userId] = (userCounts[userId] || 0) + 1;
+    });
+
+    // Sort users by attendance count in descending order
+    const sortedUsers = Object.keys(userCounts).sort(
+      (a, b) => userCounts[b] - userCounts[a]
+    );
+
+    // Retrieve user details for the top 3 supporters
+    const topSupporterIds = sortedUsers.slice(0, 3);
+    const topSupporters = await this.userModel.find({ _id: { $in: topSupporterIds } }).select('username region -_id').exec();
+
+    return topSupporters[0];
+  }
 }
