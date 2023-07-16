@@ -233,4 +233,19 @@ export class OrganisationsService {
 
     return topSupporters[0];
   }
+
+  async getCategoryCount(organizationId: string) {
+    const events = await this.findEvents(organizationId );
+
+    if (!events) {
+      throw new NotFoundException('Organization not found.');
+    }
+    const categoryCounts: { [key: string]: number } = {};
+    events.forEach((event) => {
+      if (event != null){
+      const category = event.category;
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;}
+    });
+    return categoryCounts;
+  }
 }
