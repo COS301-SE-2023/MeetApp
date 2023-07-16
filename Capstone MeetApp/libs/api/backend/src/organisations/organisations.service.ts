@@ -52,7 +52,7 @@ export class OrganisationsService {
     return `This action removes a #${id} organisation`;
   }
 
-  async getTopAttendedEvents(organizationId: string): Promise<Event[]> {
+  async getTop3AttendedEvents(organizationId: string): Promise<Event[]> {
     // Find events for the specified organization
     const events = await this.eventsModel.find({ organization: organizationId }).exec();
 
