@@ -103,18 +103,19 @@ export class OrganisationsService {
 
   async getTop3EventCategories(organizationId: string): Promise<string[]> {
     // Find events for the specified organization
-    const events = await this.eventModel.find({ organization: organizationId }).exec();
+    const events = await this.findEvents(organizationId );
 
     if (!events) {
       throw new NotFoundException('Organization not found.');
     }
-
     // Calculate the count of events for each category
     const categoryCounts: { [key: string]: number } = {};
-    events.forEach((event : Event) => {
+    events.forEach((event) => {
+      if (event != null){
       const category = event.category;
-      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;}
     });
+    console.log(categoryCounts);
 
     const sortedCategories = Object.keys(categoryCounts).sort(
       (a, b) => categoryCounts[b] - categoryCounts[a]
