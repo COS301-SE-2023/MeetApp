@@ -72,6 +72,11 @@ export class OrganisationsController {
   async getTop3EventRegions(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3EventRegion(organizationId);
   }
+
+  @Get(':id/events/top3-supporters')
+  async getTop3Supporters(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3Supporters(organizationId);
+  }
   
   
 }
