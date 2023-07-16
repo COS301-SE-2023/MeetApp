@@ -6,10 +6,11 @@ import { Organisation } from './schema';
 import { Model } from 'mongoose';
 import { EventsService } from '../events/events.service';
 import { Attendance } from '../attendances/schema';
+import { Event } from '../events/schema';
 
 @Injectable()
 export class OrganisationsService {
-  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance> ){
+  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>){
     
   }
   // create(createOrganisationDto: CreateOrganisationDto) {
@@ -98,5 +99,29 @@ export class OrganisationsService {
     const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => item.event);
 
     return topAttendedEvents[0];
+  }
+
+  async getTop3EventCategories(organizationId: string): Promise<string[]> {
+    // Find events for the specified organization
+    const events = await this.eventModel.find({ organization: organizationId }).exec();
+
+    if (!events) {
+      throw new NotFoundException('Organization not found.');
+    }
+
+    // Calculate the count of events for each category
+    const categoryCounts: { [key: string]: number } = {};
+    events.forEach((event : Event) => {
+      const category = event.category;
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;
+    });
+
+    const sortedCategories = Object.keys(categoryCounts).sort(
+      (a, b) => categoryCounts[b] - categoryCounts[a]
+    );
+
+    const topEventCategories = sortedCategories.slice(0, 3);
+
+    return topEventCategories;
   }
 }
