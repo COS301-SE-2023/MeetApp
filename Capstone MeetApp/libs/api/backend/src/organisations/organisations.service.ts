@@ -54,7 +54,8 @@ export class OrganisationsService {
 
   async getTop3AttendedEvents(organizationId: string): Promise<Event[]> {
     // Find events for the specified organization
-    const events = await this.eventsModel.find({ organization: organizationId }).exec();
+    const org = await this.findOne(organizationId)
+    const events = await this.eventsModel.find({ organisation: org?.name }).exec();
 
     if (!events) {
       throw new NotFoundException('Organization not found.');
