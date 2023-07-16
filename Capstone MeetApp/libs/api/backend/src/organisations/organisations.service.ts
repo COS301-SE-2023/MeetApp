@@ -75,4 +75,28 @@ export class OrganisationsService {
 
     return topAttendedEvents;
   }
+
+  async getTopAttendedEvent(organizationId: string) {
+    // Find events for the specified organization
+    //const org = await this.findOne(organizationId)
+    const events = await this.findEvents(organizationId);
+
+    if (!events) {
+      throw new NotFoundException('Organization not found.');
+    }
+
+    // Sort events by attendance count in descending order
+    const sortedEvents = await Promise.all(
+      events.map(async (event) => {
+        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?.ID }).exec();
+        return { event, attendanceCount };
+      }),
+    );
+    sortedEvents.sort((a, b) => b.attendanceCount - a.attendanceCount);
+
+    // Return the top 3 most attended events
+    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => item.event);
+
+    return topAttendedEvents[0];
+  }
 }
