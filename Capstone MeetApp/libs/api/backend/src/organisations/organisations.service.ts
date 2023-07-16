@@ -7,10 +7,11 @@ import { Model } from 'mongoose';
 import { EventsService } from '../events/events.service';
 import { Attendance } from '../attendances/schema';
 import { Event } from '../events/schema';
+import { User } from '../users/schema';
 
 @Injectable()
 export class OrganisationsService {
-  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>){
+  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(User.name) private userModel: Model<User>){
     
   }
   // create(createOrganisationDto: CreateOrganisationDto) {
@@ -199,5 +200,34 @@ export class OrganisationsService {
     const topEventRegions = sortedRegions.slice(0, 3);
 
     return topEventRegions;
+  }
+
+  async getTop3Supporters(organizationId: string): Promise<User[]> {
+    // Find attendees for events hosted by the organization
+    const attendees = await this.attendanceModel
+      .find({ organisationID: organizationId })
+      .select('userID')
+      .exec();
+
+    if (!attendees) {
+      throw new NotFoundException('Organization not found or no attendees.');
+    }
+
+    const userCounts: { [key: string]: number } = {};
+    attendees.forEach((attendance) => {
+      const userId = attendance.userID.toString();
+      userCounts[userId] = (userCounts[userId] || 0) + 1;
+    });
+
+    // Sort users by attendance count in descending order
+    const sortedUsers = Object.keys(userCounts).sort(
+      (a, b) => userCounts[b] - userCounts[a]
+    );
+
+    // Retrieve user details for the top 3 supporters
+    const topSupporterIds = sortedUsers.slice(0, 3);
+    const topSupporters = await this.userModel.find({ _id: { $in: topSupporterIds } }).exec();
+
+    return topSupporters;
   }
 }
