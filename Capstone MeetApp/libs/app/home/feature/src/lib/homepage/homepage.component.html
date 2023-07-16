@@ -6,10 +6,12 @@
 
 </head>
 
-<ion-searchbar show-clear-button="focus"  class="custom"></ion-searchbar>
+<ion-searchbar show-clear-button="focus"  class="custom"  [(ngModel)]="searchQuery" (ionChange)="search()"></ion-searchbar>
 
 <div id="index" class="index-page" class="scroll-container">
+
   
+
   
 
 <ion-content class="font">
@@ -32,7 +34,7 @@
 </div>
 
 <div>
-<ion-card *ngFor="let item of data" class="custom-card">
+<ion-card *ngFor="let item of data | filter:searchQuery" class="custom-card">
   <ion-card-content>
   <ion-card-title class="heading">{{ item.name}}</ion-card-title>
 </ion-card-content>

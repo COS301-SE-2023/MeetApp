@@ -10,6 +10,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -26,7 +27,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [IonicModule,CommonModule,FormsModule,ServicesModule],
+  imports: [IonicModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
@@ -120,7 +121,7 @@ export class HomepageComponent {
           const event: events = this.data[i];
           //const region = event.region;
           const date=event.date;
-          console.log(date);
+          
          
         }
         this.data

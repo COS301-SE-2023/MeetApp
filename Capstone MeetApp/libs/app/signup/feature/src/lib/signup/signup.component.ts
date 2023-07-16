@@ -105,6 +105,8 @@ export class SignupComponent {
     if (!strongRegex.test(password) && this.loginForm.invalid) {   
       this.valid=false;
     }
+
+    
     
 
     
@@ -132,7 +134,7 @@ isvalid()
 
   if (this.valid)
   {
-    const errorMessage = 'Account Created';
+    const errorMessage = 'Account Created Successfully';
                     this.showErrorAlert(errorMessage); 
     this.router.navigate(['/home']);
   }
