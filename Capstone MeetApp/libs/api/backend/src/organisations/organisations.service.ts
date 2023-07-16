@@ -264,7 +264,7 @@ export class OrganisationsService {
     return regionCounts
   }
 
-  async getTopSupportersAndTheirTopEvents(organizationId: string): Promise<{ supporter: User, topEvent: Event | undefined | null}[]> {
+  async getTop3SupportersAndTheirTopEvents(organizationId: string): Promise<{ supporter: User, topEvent: Event | undefined | null}[]> {
     const attendees = await this.attendanceModel
       .find({ organisationID: organizationId })
       .select('userID')
@@ -285,6 +285,51 @@ export class OrganisationsService {
     );
 
     const topSupporterIds = sortedUsers.slice(0, 3);
+
+    const topSupporters = await this.userModel
+      .find({ _id: { $in: topSupporterIds } })
+      .exec();
+
+      const topSupportersAndTheirTopEvents: { supporter: User; topEvent: Event | undefined | null}[] = [];
+
+      for (const supporter of topSupporters) {
+        const topAttendance = await this.attendanceModel
+          .findOne({ userID: supporter._id, organisationID: organizationId })
+          .sort({ _id: -1 })
+          .exec();
+  
+        let topEvent: Event | null | undefined;
+        if (topAttendance) {
+          topEvent = await this.eventModel.findById(topAttendance.eventID).exec();
+        }
+  
+        topSupportersAndTheirTopEvents.push({ supporter, topEvent });
+      }
+  
+      return topSupportersAndTheirTopEvents;
+  }
+
+  async getTopSupportersAndTheirTopEvents(organizationId: string): Promise<{ supporter: User, topEvent: Event | undefined | null}[]> {
+    const attendees = await this.attendanceModel
+      .find({ organisationID: organizationId })
+      .select('userID')
+      .exec();
+
+    if (!attendees) {
+      throw new NotFoundException('Organization not found or no attendees.');
+    }
+
+    const userCounts: { [key: string]: number } = {};
+    attendees.forEach((attendance) => {
+      const userId = attendance.userID.toString();
+      userCounts[userId] = (userCounts[userId] || 0) + 1;
+    });
+
+    const sortedUsers = Object.keys(userCounts).sort(
+      (a, b) => userCounts[b] - userCounts[a]
+    );
+
+    const topSupporterIds = sortedUsers.slice(0, 1);
 
     const topSupporters = await this.userModel
       .find({ _id: { $in: topSupporterIds } })
