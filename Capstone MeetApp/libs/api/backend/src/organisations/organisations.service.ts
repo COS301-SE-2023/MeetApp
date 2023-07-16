@@ -125,4 +125,29 @@ export class OrganisationsService {
 
     return topEventCategories;
   }
+
+  async getTopEventCategory(organizationId: string): Promise<string> {
+    // Find events for the specified organization
+    const events = await this.findEvents(organizationId );
+
+    if (!events) {
+      throw new NotFoundException('Organization not found.');
+    }
+    // Calculate the count of events for each category
+    const categoryCounts: { [key: string]: number } = {};
+    events.forEach((event) => {
+      if (event != null){
+      const category = event.category;
+      categoryCounts[category] = (categoryCounts[category] || 0) + 1;}
+    });
+    console.log(categoryCounts);
+
+    const sortedCategories = Object.keys(categoryCounts).sort(
+      (a, b) => categoryCounts[b] - categoryCounts[a]
+    );
+
+    const topEventCategories = sortedCategories.slice(0, 3);
+
+    return topEventCategories[0];
+  }
 }
