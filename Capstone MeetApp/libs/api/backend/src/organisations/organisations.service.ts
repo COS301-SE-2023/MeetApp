@@ -248,4 +248,19 @@ export class OrganisationsService {
     });
     return categoryCounts;
   }
+
+  async getRegionCount(organizationId: string) {
+    const events = await this.findEvents(organizationId );
+
+    if (!events) {
+      throw new NotFoundException('Organization not found.');
+    }
+    const regionCounts: { [key: string]: number } = {};
+    events.forEach((event) => {
+      if (event != null){
+      const region = event.region;
+      regionCounts[region] = (regionCounts[region] || 0) + 1;}
+    });
+    return regionCounts
+  }
 }
