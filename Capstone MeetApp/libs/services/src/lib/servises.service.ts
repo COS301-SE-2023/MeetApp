@@ -104,6 +104,19 @@ export class service{
 
     private baseURl='http://localhost:3000/api/';
 
+    private readonly TOKEN_KEY = 'access_token';
+
+    setToken(token: string) {
+        localStorage.setItem(this.TOKEN_KEY, token);
+      }
+    
+      getToken(): string | null {
+        return localStorage.getItem(this.TOKEN_KEY);
+      }
+    
+      removeToken() {
+        localStorage.removeItem(this.TOKEN_KEY);
+      }
     //SERVICES FOR EVENTS
 
     getAllEvents()

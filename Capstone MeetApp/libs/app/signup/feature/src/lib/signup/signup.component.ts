@@ -42,7 +42,7 @@ export class SignupComponent {
 
   confirmpassword="";
   
-  
+  access:string|null='';
   
   submitClicked = false;
   ngOnInit() {
@@ -62,6 +62,9 @@ export class SignupComponent {
       this.userType = params.get('userType');
       console.log('User Type:', this.userType);
     });
+
+    const access_token=this.apiService.getToken();
+    console.log('access',access_token);
 
   }
   

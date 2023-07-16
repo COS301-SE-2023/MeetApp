@@ -28,7 +28,7 @@ export class LoginComponent {
   email = ''; 
   password= ''; 
 
-  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service , private activatedRoute: ActivatedRoute) { 
+  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service , private authservice: service,private activatedRoute: ActivatedRoute) { 
   }
 
   
@@ -114,6 +114,7 @@ export class LoginComponent {
       this.userLogin_payload=this.loginData_user;
       console.log('username:',this.userLogin_payload.user)
       console.log('access token:',this.userLogin_payload.access_token)
+      this.authservice.setToken(this.userLogin_payload.access_token)
       console.log('message:',this.userLogin_payload.message);
       this.current(this.userLogin_payload.access_token);
       this.getUser(this.userLogin_payload.access_token);
@@ -159,6 +160,7 @@ export class LoginComponent {
     if(this.userType=='user')
     {
       this.LogInUser(email,password);
+      
     }
 
     if(this.userType=='organiser')
