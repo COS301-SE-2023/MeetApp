@@ -14,7 +14,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
-
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -30,7 +30,8 @@ export class SignupComponent {
   
   loginForm!: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
+    private toastController: ToastController) {}
 
   firstname="";
   username='';
@@ -117,12 +118,22 @@ export class SignupComponent {
     console.log(confirmpassword);
 
 }
+async showErrorAlert(message: string) {
+  const alert = await this.alertController.create({
+    header: 'Account Created',
+    message: message,
+    buttons: ['OK']
+  });
 
+  await alert.present();
+}
 isvalid()
 {
 
   if (this.valid)
   {
+    const errorMessage = 'Account Created';
+                    this.showErrorAlert(errorMessage); 
     this.router.navigate(['/home']);
   }
 

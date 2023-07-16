@@ -149,18 +149,25 @@ export class LoginComponent {
 
    
    
-    if( this.userLogin_payload.message=='User not found' || this.userLogin_payload.message=='Incorrect password' )
-    {
-        
-        const errorMessage = 'wrong username or password';
-        this.showErrorToast(errorMessage); 
-    }
 
-                   else {
-                    const errorMessage = 'you have succesfully logged in';
-                    this.showErrorAlert(errorMessage); 
-    this.router.navigate(['/home']);
+  for (let i = 0; i < this.data_user.length; i++) {
+
+    if((this.data_user[i].username==username || this.data_user[i].email==this.email) && this.data_user[i].password==password)
+    {
+      const errorMessage = 'you have succesfully logged in';
+      this.showErrorAlert(errorMessage); 
+      this.router.navigate(['/home']);
+      this.valid=false;
     }
+    
+  }
+  if(this.valid)
+  {
+    const errorMessage = 'wrong username or password';
+      this.showErrorToast(errorMessage);
+  }
+                   
+    
 
   }
 
@@ -187,6 +194,7 @@ export class LoginComponent {
   login(email: string,password: string) {
     console.log('email:', email);
     console.log('password',password);
+    console.log(this.data_user);
     this.LogInUser(email,password);
   }
  /* onSubmit() {

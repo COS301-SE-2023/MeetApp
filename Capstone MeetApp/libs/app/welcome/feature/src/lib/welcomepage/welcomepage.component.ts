@@ -10,7 +10,6 @@ import { IonicModule } from '@ionic/angular';
   templateUrl: './welcomepage.component.html',
   styleUrls: ['./welcomepage.component.css'],
  
-  
 })
 export class WelcomepageComponent {
   constructor(private router: Router) {}
