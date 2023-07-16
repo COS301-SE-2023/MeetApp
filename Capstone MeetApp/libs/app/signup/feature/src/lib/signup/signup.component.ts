@@ -37,10 +37,12 @@ export class SignupComponent {
   email = ''; 
   password= ''; 
 
+  //user type from the welcome page 
+  userType:string|null = '';
 
   confirmpassword="";
   
-  userType:string|null = '';
+  
   
   submitClicked = false;
   ngOnInit() {
@@ -54,11 +56,12 @@ export class SignupComponent {
 
     //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
     //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
+    
+    //get the userType from the Welcome page 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
       console.log('User Type:', this.userType);
     });
-    
 
   }
   
