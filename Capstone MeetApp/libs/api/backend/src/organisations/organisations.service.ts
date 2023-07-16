@@ -175,4 +175,29 @@ export class OrganisationsService {
 
     return topEventRegions[0];
   }
+
+  async getTop3EventRegion(organizationId: string): Promise<string[]> {
+    // Find events for the specified organization
+    const events = await this.findEvents(organizationId );
+
+    if (!events) {
+      throw new NotFoundException('Organization not found.');
+    }
+    // Calculate the count of events for each category
+    const regionCounts: { [key: string]: number } = {};
+    events.forEach((event) => {
+      if (event != null){
+      const region = event.region;
+      regionCounts[region] = (regionCounts[region] || 0) + 1;}
+    });
+    console.log(regionCounts);
+
+    const sortedRegions = Object.keys(regionCounts).sort(
+      (a, b) => regionCounts[b] - regionCounts[a]
+    );
+
+    const topEventRegions = sortedRegions.slice(0, 3);
+
+    return topEventRegions;
+  }
 }
