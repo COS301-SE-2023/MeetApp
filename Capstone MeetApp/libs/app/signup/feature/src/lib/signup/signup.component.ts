@@ -14,7 +14,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
-
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -30,7 +30,7 @@ export class SignupComponent {
   
   loginForm!: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service) {}
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private activatedRoute: ActivatedRoute) {}
 
   firstname="";
   lastname="";
@@ -40,6 +40,7 @@ export class SignupComponent {
 
   confirmpassword="";
   
+  userType:string|null = '';
   
   submitClicked = false;
   ngOnInit() {
@@ -53,6 +54,10 @@ export class SignupComponent {
 
     //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
     //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
     
 
   }
@@ -60,9 +65,9 @@ export class SignupComponent {
   
 
   //SignUp for a User
-  async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)
+  async SignUpUser(username:string,password:string,profilePicture:string,region:string)
   {
-    await this.apiService.createUser(name,surname,username,email,password,phoneNumber,region,profilePicture).subscribe((response) => {
+    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response) => {
       console.log('API response:', response);
       
     });
@@ -70,9 +75,9 @@ export class SignupComponent {
 
   
   //SignUp for a Organisation 
-  async SignUpOrg(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,orgDescription:string/*,events:string[]*/)
+  async SignUpOrg(username:string,name:string,password:string,events:string[])
   {
-    await this.apiService.createOrginiser(name,surname,username,email,password,phoneNumber,orgDescription/*,events*/).subscribe((response) => {
+    await this.apiService.createOrginiser(username,password,name,events).subscribe((response) => {
       console.log('API response:', response);
 
     });

@@ -34,7 +34,7 @@ export class ProfileComponent {
     // Add more image URLs as needed
   ];
   
-  profile:user={name:'',surname:'',username:'',email:'',password:'',phoneNumber:'',region:'',profilePicture:''};
+  profile:user={username:'',password:'',profilePicture:'',region:''};
   eventCount='';
   userEvents = [];
   profileId='';

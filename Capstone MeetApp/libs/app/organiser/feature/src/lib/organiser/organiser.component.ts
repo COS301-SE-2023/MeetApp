@@ -21,7 +21,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     FormsModule,ServicesModule]
 })
 export class OrganiserComponent {
-  profilePictureUrl: string | null = null;
+  profilePictureUrl: string ;
   description: string | null = null;
   selectedRegion:string | null = null;
   eventName :string | null = null;
@@ -48,6 +48,22 @@ export class OrganiserComponent {
       endTime: new FormControl(this.selectedRange.endTime)
     });
    
+    this.service.createEvents(
+      'NightFall',
+      'NightParade',
+      'The night is still young so came and spend it with us ',
+      '2023-07-22',
+      '19:00',
+      '04;00',
+      this.myLocation,
+      'Concert',
+      'Pretoria',
+      this.profilePictureUrl
+    ).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+    
   }
  
 
