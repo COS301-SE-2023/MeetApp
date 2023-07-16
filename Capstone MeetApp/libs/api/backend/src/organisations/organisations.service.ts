@@ -9,7 +9,7 @@ import { Attendance } from '../attendances/schema';
 
 @Injectable()
 export class OrganisationsService {
-  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, private attendanceModel: Model<Attendance>, private eventsModel: Model<Event> ){
+  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance> ){
     
   }
   // create(createOrganisationDto: CreateOrganisationDto) {
@@ -52,10 +52,10 @@ export class OrganisationsService {
     return `This action removes a #${id} organisation`;
   }
 
-  async getTop3AttendedEvents(organizationId: string): Promise<Event[]> {
+  async getTop3AttendedEvents(organizationId: string) {
     // Find events for the specified organization
-    const org = await this.findOne(organizationId)
-    const events = await this.eventsModel.find({ organisation: org?.name }).exec();
+    //const org = await this.findOne(organizationId)
+    const events = await this.findEvents(organizationId);
 
     if (!events) {
       throw new NotFoundException('Organization not found.');
@@ -64,7 +64,7 @@ export class OrganisationsService {
     // Sort events by attendance count in descending order
     const sortedEvents = await Promise.all(
       events.map(async (event) => {
-        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event._id }).exec();
+        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?.ID }).exec();
         return { event, attendanceCount };
       }),
     );
