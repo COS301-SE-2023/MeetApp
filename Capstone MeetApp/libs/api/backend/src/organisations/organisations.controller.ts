@@ -77,6 +77,11 @@ export class OrganisationsController {
   async getTop3Supporters(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3Supporters(organizationId);
   }
+
+  @Get(':id/events/top-supporter')
+  async getTopSupporter(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopSupporter(organizationId);
+  }
   
   
 }
