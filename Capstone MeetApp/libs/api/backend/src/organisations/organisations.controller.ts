@@ -82,6 +82,11 @@ export class OrganisationsController {
   async getTopSupporter(@Param('id') organizationId: string) {
     return this.organisationsService.getTopSupporter(organizationId);
   }
+
+  @Get(':id/events/region-count')
+  async getRegionCount(@Param('id') organizationId: string) {
+    return this.organisationsService.getRegionCount(organizationId);
+  }
   
   
 }
