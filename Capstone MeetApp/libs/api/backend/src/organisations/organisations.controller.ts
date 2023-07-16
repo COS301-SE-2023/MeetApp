@@ -52,4 +52,9 @@ export class OrganisationsController {
   async getTopAttendedEvent(@Param('id') organizationId: string) {
     return this.organisationsService.getTopAttendedEvent(organizationId);
   }
+
+  @Get(':id/events/top3-categories')
+  async getTopEventCategories(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3EventCategories(organizationId);
+  }
 }
