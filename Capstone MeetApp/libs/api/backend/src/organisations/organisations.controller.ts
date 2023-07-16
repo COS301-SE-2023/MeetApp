@@ -44,7 +44,12 @@ export class OrganisationsController {
   }
 
   @Get(':id/events/top3')
-  async getTopAttendedEvents(@Param('id') organizationId: string) {
+  async getTop3AttendedEvents(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3AttendedEvents(organizationId);
+  }
+
+  @Get(':id/events/top')
+  async getTopAttendedEvent(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopAttendedEvent(organizationId);
   }
 }
