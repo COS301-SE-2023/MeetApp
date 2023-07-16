@@ -42,4 +42,9 @@ export class OrganisationsController {
   remove(@Param('id') id: string) {
     return this.organisationsService.remove(+id);
   }
+
+  @Get(':id/events/top3')
+  async getTopAttendedEvents(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3AttendedEvents(organizationId);
+  }
 }
