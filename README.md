@@ -6,6 +6,9 @@
 </p>
 
 <div align="left">
+  <a href="https://github.com/COS301-SE-2023/MeetApp/actions/workflows/cd-development.yml">
+  <img src="https://github.com/COS301-SE-2023/MeetApp/actions/workflows/cd-development.yml/badge.svg">
+</a>
 <a href= "(https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml">
   <img alt="GitHub Pull Requests" src="https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml/badge.svg">
 </a>
