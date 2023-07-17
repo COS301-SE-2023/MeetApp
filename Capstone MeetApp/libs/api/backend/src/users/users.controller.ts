@@ -75,6 +75,11 @@ export class UsersController {
     return friends;
   }
 
+  @Get(':id/friends/events')
+  async getFriendEvents(@Param('id') userId: string) {
+    return this.usersService.getFriendEvents(userId);
+  }
+
 
 
   // @Delete(':id')
