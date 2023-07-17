@@ -11,7 +11,7 @@ on:
 jobs:
   #reuse of workflow
   ci-dev:
-    uses: ./.github/workflows/ci-development.yml
+    uses: ./.github/workflows/ci-development.yaml
   Deploy:
     defaults:
       run:
