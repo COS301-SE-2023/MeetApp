@@ -9,7 +9,7 @@ on:
       - development
       
 jobs:
-  #reuse of workflow
+  #reuse of workflow CI
   ci-dev:
     uses: ./.github/workflows/ci-development.yaml
   Deploy:
