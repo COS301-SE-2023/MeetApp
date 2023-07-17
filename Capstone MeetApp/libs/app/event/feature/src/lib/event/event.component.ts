@@ -86,7 +86,7 @@ export class EventComponent {
       this.getOrganiserID('LTDProevents')
     });
 
-    this.getEventbyID('647218a0cd65fc66878b99ad');
+    //this.getEventbyID('647218a0cd65fc66878b99ad');
     
   }
 
