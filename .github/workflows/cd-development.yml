@@ -1,0 +1,31 @@
+
+name: Continuous deployment Development
+
+on:
+  workflow_dispatch:
+  
+  push:
+    branches:
+      - development
+      
+jobs:
+  #reuse of workflow
+  ci-dev:
+    uses: ./.github/workflows/ci-development.yml
+  Deploy:
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    needs: ci-dev
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - run: npm install --legacy-peer-deps
+      - run: npm run build
+
+  
+
+    
