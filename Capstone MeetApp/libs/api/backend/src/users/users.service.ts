@@ -184,7 +184,7 @@ export class UsersService {
       .exec();
 
     const events = friendEvents.map((attendance) => attendance.eventID);
-    const eventsDetails = await this.eventModel.find({$in: events})
+    const eventsDetails = await this.eventModel.find({ _id: {$in: events}})
     return eventsDetails;
   }
 
