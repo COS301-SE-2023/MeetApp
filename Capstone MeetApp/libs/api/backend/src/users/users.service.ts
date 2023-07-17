@@ -26,8 +26,9 @@ export class UsersService {
   }
 
   async getUserAttendances(userId: string) {
-    const attendanceslist = this.attendanceModel.find({ userID: userId }).select('eventID').exec();
-    return this.eventModel.find({id : {$in : attendanceslist}})
+    const attendanceslist = await this.attendanceModel.find({ userID: userId }).select('eventID -_id').exec();
+    const Parsedattendanceslist = attendanceslist.map( (attendance) => {return attendance.eventID})
+    return await this.eventModel.find({_id : {$in : Parsedattendanceslist}}).exec()
   }
 
   async getUserAttendancesCount(userId: string) {
