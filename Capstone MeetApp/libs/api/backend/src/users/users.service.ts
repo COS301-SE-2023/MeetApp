@@ -6,10 +6,11 @@ import { User } from './schema';
 import { Model, ObjectId } from 'mongoose';
 import { Attendance } from '../attendances/schema';
 import { Friendship } from '../friendships/schema';
+import { Event } from '../events/schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  @InjectModel(Friendship.name) private friendshipModel: Model<Friendship>){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  @InjectModel(Friendship.name) private friendshipModel: Model<Friendship>, @InjectModel(Event.name) private eventModel: Model<Event>){
     
   }
   
@@ -183,8 +184,8 @@ export class UsersService {
       .exec();
 
     const events = friendEvents.map((attendance) => attendance.eventID);
-
-    return events;
+    const eventsDetails = await this.eventModel.find({$in: events})
+    return eventsDetails;
   }
 
   // remove(id: number) {
