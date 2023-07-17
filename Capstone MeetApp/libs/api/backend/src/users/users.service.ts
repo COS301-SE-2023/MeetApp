@@ -3,7 +3,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { Attendance } from '../attendances/schema';
 import { Friendship } from '../friendships/schema';
 
@@ -160,6 +160,31 @@ export class UsersService {
         
         
       
+  }
+
+  async getFriendEvents(userId: string): Promise<Event[] | ObjectId[]> {
+    const user = await this.userModel.findById(userId).exec();
+
+    if (!user) {
+      throw new NotFoundException('User not found.');
+    }
+
+    const friendships = await this.friendshipModel
+      .find({ $or: [{ requester: userId }, { requestee: userId }], status: true })
+      .exec();
+
+    const friendIds = friendships.map((friendship) =>
+      friendship.requester.toString() == userId ? friendship.requestee : friendship.requester
+    );
+
+    const friendEvents = await this.attendanceModel
+      .find({ userID: { $in: friendIds } })
+      .populate('eventID')
+      .exec();
+
+    const events = friendEvents.map((attendance) => attendance.eventID);
+
+    return events;
   }
 
   // remove(id: number) {
