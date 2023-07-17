@@ -17,6 +17,7 @@ export class CalendarComponent {
   }
 
   data= [{
+    id:'',
     name:'',
     organisation: '',
     date: '',

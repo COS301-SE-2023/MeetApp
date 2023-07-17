@@ -6,6 +6,7 @@ import {HttpClient} from "@angular/common/http";
 
 // EVENT INTERFACES //
 export interface events{
+    id:string;
     name:string;
     organisation:string;
     description:string;
