@@ -83,7 +83,7 @@ export class HomepageComponent {
         const newEvent={} as events;
         
         Object.values(res).forEach((event: { id:string;category: string; date: string; endTime: string; name: string; organisation: string; region: string; starttime: string; }) => {
-          newEvent.id=event.id;
+          newEvent.id=event.id
           newEvent.category=event.category;
           newEvent.date=event.date;
           newEvent.endTime=event.endTime;

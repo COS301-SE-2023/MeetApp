@@ -115,7 +115,7 @@ export class EventComponent {
     for (let i = 0; i < this.data.length; i++) {
       if(this.data[i].name==eventName)
       {
-        this.eventID=this.data[i]._id;
+        this.eventID=this.data[i]._id; 
         
         break;
       }
