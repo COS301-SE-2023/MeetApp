@@ -106,17 +106,23 @@ export class service{
 
     private readonly TOKEN_KEY = 'access_token';
 
-    setToken(token: string) {
+    //FUNCTIONS TO ACCESS THE TOKEN
+      
+    setToken(token: string) 
+    {
         localStorage.setItem(this.TOKEN_KEY, token);
-      }
+      
+    }
     
-      getToken(): string | null {
+    getToken(): string | null 
+    {
         return localStorage.getItem(this.TOKEN_KEY);
-      }
+    }
     
-      removeToken() {
+    removeToken() 
+    {
         localStorage.removeItem(this.TOKEN_KEY);
-      }
+    }
     //SERVICES FOR EVENTS
 
     getAllEvents()
@@ -125,11 +131,21 @@ export class service{
         return this.http.get(`${url}`);
     }
 
+    // example of id 
     getEventByID(id:string){
         const url=`${this.baseURl}events/${id}`;
         return this.http.get(`${url}`);
     }
     
+    getEventByIDs(id:string,eventIds:string)
+    {
+        const url=`${this.baseURl}events/${id}`;
+        const params = {
+            eventIds: eventIds
+        };
+        return this.http.get(`${url}`,{params:params});
+    }
+
     createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:number , longitude:number},category: string,region: string,eventPoster:string)
     {
         const url=this.baseURl+'events';
