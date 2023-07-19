@@ -21,7 +21,7 @@
             <ion-label>Change email</ion-label>
           </ion-item>
           <ion-item class="ion-padding" slot="content">
-            <ion-input class="padding1" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
+            <ion-input class="padding1"  [(ngModel)]="newEmail" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
             <ion-button size="medium" >Save</ion-button>
           </ion-item>
           
@@ -33,8 +33,8 @@
               <ion-label>Change Password</ion-label>
             </ion-item>
             <ion-item class="ion-padding" slot="content">
-              <ion-input class="padding1" label="New password" label-placement="floating" fill="outline" placeholder="Enter new password"></ion-input>
-              <ion-input class="padding1" label="Confirm password" label-placement="floating" fill="outline" placeholder="Confirm Password"></ion-input>
+              <ion-input class="padding1" [(ngModel)]="newPassword" label="New password" label-placement="floating" fill="outline" placeholder="Enter new password"></ion-input>
+              <ion-input class="padding1" [(ngModel)]="confirmPassword" label="Confirm password" label-placement="floating" fill="outline" placeholder="Confirm Password"></ion-input>
               <ion-button size="medium">Save</ion-button>
             </ion-item>
             
@@ -48,7 +48,7 @@
               <ion-label>Location</ion-label>
             </ion-item>
             <ion-item class="ion-padding" slot="content">
-              <ion-input class="padding1" label="Enter Location" label-placement="floating" fill="outline" placeholder="Enter Location"></ion-input>
+              <ion-input class="padding1" [(ngModel)]="NewLocation" label="Enter Location" label-placement="floating" fill="outline" placeholder="Enter Location"></ion-input>
             </ion-item>
           </ion-accordion>
         

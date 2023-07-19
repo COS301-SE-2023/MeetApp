@@ -3,17 +3,20 @@ import { IonicModule } from '@ionic/angular';
 import { service } from '@capstone-meet-app/app/services'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 @Component({
   standalone:true,
   selector: 'capstone-meet-app-settings',
-  imports: [ IonicModule,CommonModule],
+  imports: [ IonicModule,FormsModule,CommonModule],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
   providers:[service,Router,],
 })
 export class SettingsComponent {
-  newEmail: string| undefined
-  newPassword: string| undefined
+  newEmail='';
+  newPassword='';
+  confirmPassword='';
+  NewLocation='';
   constructor(private service:service,private router:Router){
 
   }
