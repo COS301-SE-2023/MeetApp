@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import { BehaviorSubject } from 'rxjs';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 //import { url } from "inspector";
 //import { Observable } from "rxjs";
 
@@ -119,7 +120,8 @@ export class service{
     constructor(private http:HttpClient){}
 
     private baseURl='http://localhost:3000/api/';
-
+    
+    private userTypeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
     //SERVICES FOR EVENTS
 
     getAllEvents()
@@ -198,6 +200,31 @@ export class service{
     {
         const url=this.baseURl+'users';
         return this.http.get(`${url}`);
+    }
+
+    getLogedInUser(token: string) {
+        const url = this.baseURl + 'users/account';
+      
+        // Create headers object and set the desired headers including the token
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
+        // Pass the headers object as the second parameter in the get() method
+        return this.http.get(url, { headers });
+    }
+
+    getUser(token:string)
+    {
+        const url = this.baseURl + 'users';
+      
+        // Create headers object and set the desired headers including the token
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
+        // Pass the headers object as the second parameter in the get() method
+        return this.http.get(url, { headers });
     }
     
     getUserByID(id:string){
@@ -307,7 +334,7 @@ export class service{
         return this.http.post(`${url}`,body);
     }
 
-    //SERVICES FRO ATTENDANCE
+    //SERVICES FOR ATTENDANCE
 
     attendEvent(organisationID: string,eventID: string,userID: string)
     {
@@ -320,5 +347,12 @@ export class service{
         }
         return this.http.post(`${url}`,body);
     }
-
+    
+    setUserType(userType: string): void {
+        this.userTypeSubject.next(userType);
+      }
+    
+      getUserType(): BehaviorSubject<string> {
+        return this.userTypeSubject;
+      }
 }

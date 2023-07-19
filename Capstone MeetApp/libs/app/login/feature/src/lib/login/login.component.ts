@@ -48,26 +48,14 @@ export class LoginComponent {
   }];
 
   userLogin_payload= {
-    name:'',
-    surname:'',
-    username:'',
-    email:'',
-    password:'',
-    phoneNumber:'',
-    region:'',
-    profilePicture:'',
+    user:'',
+    access_token:'',
     message:''
   };
 
   orgLogin_payload= {
-    name:'',
-    surname:'',
-    username:'',
-    email:'',
-    password:'',
-    phoneNumber:'',
-    region:'',
-    profilePicture:'',
+    organisation:'',
+    access_token:'',
     message:''
   };
 
@@ -90,7 +78,8 @@ export class LoginComponent {
 
   //stores the login response for user
   loginData_organiser:any;
-
+  userType: string | undefined;
+ 
 
   async showErrorAlert(message: string) {
     const alert = await this.alertController.create({
@@ -116,6 +105,10 @@ export class LoginComponent {
   
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
+    this.apiService.getUserType().subscribe(userType => {
+      this.userType = userType;
+      console.log('User type:', this.userType);
+    });
 
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -126,15 +119,20 @@ export class LoginComponent {
       console.log(response);
       this.data_user = response;  
     });
-
+  
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       console.log(response);
       this.data_organiser = response;
       console.log(this.data_organiser[0]._id);
     });
-    
-    
+  
+    //this.LogInUser('jane_smith', 'bibo@gmail.com');
+    //this.LogInOrg('LTDProevents','marketspass');
   }
+  
+    
+    
+  
   valid=true;
 
   //Login Function for User
@@ -144,7 +142,11 @@ export class LoginComponent {
       console.log('API response:', response);
       this.loginData_user=response;
       this.userLogin_payload=this.loginData_user;
+      console.log('username:',this.userLogin_payload.user)
+      console.log('access token:',this.userLogin_payload.access_token)
       console.log('message:',this.userLogin_payload.message);
+      this.current(this.userLogin_payload.access_token);
+      this.getUser(this.userLogin_payload.access_token);
     });
 
    
@@ -182,10 +184,26 @@ export class LoginComponent {
       console.log('API response:', response);
       this.loginData_organiser=response;
       this.orgLogin_payload=this.loginData_user;
+      console.log('username:',this.orgLogin_payload.organisation)
+      console.log('access token:',this.orgLogin_payload.access_token)
       console.log('message:',this.orgLogin_payload.message);
     });
   }
 
+
+  async current(token:string)
+  {
+    await this.apiService.getLogedInUser(token).subscribe((response) => {
+      console.log('API response',response)
+    });
+  }
+
+  async getUser(token:string)
+  {
+    await this.apiService.getUser(token).subscribe((response) => {
+      console.log('API response',response)
+    });
+  }
 
   onCreate() {
     this.router.navigate(['/signup']);
