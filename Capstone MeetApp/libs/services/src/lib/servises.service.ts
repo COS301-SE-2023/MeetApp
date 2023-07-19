@@ -172,18 +172,67 @@ export class service{
         }
         return this.http.patch(`${url}`,body);
     }
-    updateSettings(id:string, username?:string ,email?:string,  interests?: string[],password?:string,profilePicture?:string,region?:string){
+    updateSettingsEmail(id:string,email?:string){
         const url=`${this.baseURl}users/${id}`;
         const body={
-            username:username,
+           
             email:email,
-            interests:interests,
-            password:password,
-            profilePicture:profilePicture,
-            region:region
+          
+           
         }
         return this.http.patch(`${url}`,body);
     }
+    updateSettingsRegion(id:string,region?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            region:region,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+    updateSettingspassword(id:string,password?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            password:password,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+    updateSettingsusername(id:string,username?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            username:username,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+    updateSettingsinterests(id:string,interests?:string[]){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            interests:interests,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+    updateSettingsprofilepicture(id:string,profifilePicture?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            profifilePicture:profifilePicture,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+
     updatepassword(id: string,password?: string) {
         const url = `${this.baseURl}users/${id}`;
         const body={password:password};
