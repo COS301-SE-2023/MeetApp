@@ -14,6 +14,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
 import { ConnectableObservable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
+
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -28,7 +30,9 @@ export class LoginComponent {
   email = ''; 
   password= ''; 
 
-  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service , private authservice: service,private activatedRoute: ActivatedRoute) { 
+
+  constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
+    private toastController: ToastController, private authservice: service,private activatedRoute: ActivatedRoute) { 
   }
 
   
@@ -77,21 +81,54 @@ export class LoginComponent {
   loginData_organiser:any;
 
   userType:string|null = '';
+
  
+
+  async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'login Successful',
+      message: message,
+      buttons: ['OK']
+    });
+  
+    await alert.present();
+  }
+  
+  async showErrorToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      color: 'danger',
+      position: 'top'
+    });
+  
+    await toast.present();
+  }
+  
+  
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
+    this.apiService.getUserType().subscribe(userType => {
+      this.userType = userType;
+      console.log('User type:', this.userType);
+    });
+
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
 
     await this.apiService.getAllUsers().subscribe((response: any) => { 
       console.log(response);
       this.data_user = response;  
     });
-
+  
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       console.log(response);
       this.data_organiser = response;
       console.log(this.data_organiser[0]._id);
     });
-    
+
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
       console.log('User Type:', this.userType);
@@ -101,9 +138,14 @@ export class LoginComponent {
       
     
     //this.LogInUser('jane_smith','bibo@gmail.com');
+
     //this.LogInOrg('LTDProevents','marketspass');
-    
   }
+  
+    
+    
+  
+  valid=true;
 
   //Login Function for User
   async LogInUser(username:string,password:string)
@@ -119,7 +161,34 @@ export class LoginComponent {
       this.current(this.userLogin_payload.access_token);
       this.getUser(this.userLogin_payload.access_token);
     });
+
+   
+   
+
+  for (let i = 0; i < this.data_user.length; i++) {
+
+    if((this.data_user[i].username==username || this.data_user[i].email==this.email) && this.data_user[i].password==password)
+    {
+      const errorMessage = 'you have succesfully logged in';
+      this.showErrorAlert(errorMessage); 
+      this.router.navigate(['/home']);
+      this.valid=false;
+    }
+    
   }
+  if(this.valid)
+  {
+    const errorMessage = 'wrong username or password';
+      this.showErrorToast(errorMessage);
+  }
+                   
+    
+
+  }
+
+  
+  
+ 
 
   //Login Function for Organisation
   async LogInOrg(username:string,password:string)
@@ -167,7 +236,7 @@ export class LoginComponent {
     {
       this.LogInOrg(email,password);
     }
-    
+   
   }
  /* onSubmit() {
     if (this.loginForm.valid) {

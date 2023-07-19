@@ -79,7 +79,11 @@ export class OrganiserComponent {
   
 
 //services
-  location: {latitude :number , longitude:number }| null = null;
+  location: {latitude :number , longitude:number }=
+  {
+    latitude:0,
+    longitude:0
+  }
   myLocation = {
     latitude: 40.7128,
     longitude: -74.0060,
@@ -89,7 +93,7 @@ export class OrganiserComponent {
   startDate=this.selectedRange.startDate;
   startTime= this.selectedRange.startTime;
   endTime= this.selectedRange.endTime;
-  category="science Fair";
+  category='';
 
   
 submitForm() {
@@ -101,7 +105,7 @@ submitForm() {
       this.selectedRange.startDate,
       this.selectedRange.startTime,
       this.selectedRange.endTime,
-      this.myLocation,
+      this.location,
       this.category,
       this.selectedRegion,
       this.profilePictureUrl

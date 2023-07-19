@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+
 import { FormBuilder,  Validators } from '@angular/forms';
-import { Router } from "@angular/router";
+
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -10,6 +11,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Router } from "@angular/router";
+
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -26,7 +30,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [IonicModule,CommonModule,FormsModule,ServicesModule],
+  imports: [IonicModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
@@ -47,6 +51,7 @@ export class HomepageComponent {
 
   events:any =[];
   data= [{
+    id:'',
     name:'',
     organisation: '',
     description:'',
@@ -66,7 +71,7 @@ export class HomepageComponent {
   }
   
   
-  constructor(private service: service) {
+  constructor(private service: service,private router: Router) {
     console.log('Constructor');
   }
   
@@ -77,7 +82,8 @@ export class HomepageComponent {
       {
         const newEvent={} as events;
         
-        Object.values(res).forEach((event: { category: string; date: string; endTime: string; name: string; organisation: string; region: string; starttime: string; }) => {
+        Object.values(res).forEach((event: { id:string;category: string; date: string; endTime: string; name: string; organisation: string; region: string; starttime: string; }) => {
+          newEvent.id=event.id
           newEvent.category=event.category;
           newEvent.date=event.date;
           newEvent.endTime=event.endTime;
@@ -111,6 +117,9 @@ export class HomepageComponent {
     }
     
   } */
+  viewEvent(eventId: string) {
+    this.router.navigate(['events', eventId]);
+  }
 
 
    async ngOnInit() {
@@ -120,7 +129,7 @@ export class HomepageComponent {
           const event: events = this.data[i];
           //const region = event.region;
           const date=event.date;
-          console.log(date);
+          
          
         }
         this.data

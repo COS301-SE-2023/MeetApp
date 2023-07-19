@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from 'rxjs';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 //import { url } from "inspector";
 //import { Observable } from "rxjs";
@@ -6,6 +7,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 // EVENT INTERFACES //
 export interface events{
+    id:string;
     name:string;
     organisation:string;
     description:string;
@@ -123,6 +125,7 @@ export class service{
     {
         localStorage.removeItem(this.TOKEN_KEY);
     }
+
     //SERVICES FOR EVENTS
 
     getAllEvents()
@@ -338,5 +341,12 @@ export class service{
         }
         return this.http.post(`${url}`,body);
     }
-
+    
+    setUserType(userType: string): void {
+        this.userTypeSubject.next(userType);
+      }
+    
+      getUserType(): BehaviorSubject<string> {
+        return this.userTypeSubject;
+      }
 }
