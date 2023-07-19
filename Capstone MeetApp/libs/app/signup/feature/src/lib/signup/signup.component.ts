@@ -14,7 +14,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
-
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -30,12 +30,17 @@ export class SignupComponent {
   
   loginForm!: FormGroup;
   userType: string | undefined;
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service) {}
+ 
   
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service,private alertController: AlertController,
+    private toastController: ToastController) {}
+
   firstname="";
+  username='';
   lastname="";
   email = ''; 
-  password= ''; 
+  password= '';   
 
 
   confirmpassword="";
@@ -46,6 +51,7 @@ export class SignupComponent {
     this.loginForm = this.formBuilder.group({
       firstname: ['', Validators.required],
     lastname: ['', Validators.required],
+    username: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required]
@@ -98,18 +104,23 @@ export class SignupComponent {
     const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
     const confirmpassword = this.loginForm.value.confirmpassword;
+    const username=this.loginForm.value.username;
 
 
 
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
-    if (!strongRegex.test(password) && this.loginForm.invalid) {
+    if (!strongRegex.test(password) && this.loginForm.invalid) {   
       this.valid=false;
     }
+
+    
     
 
     
-   
+    this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
+    this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
+    
     console.log(firstname);
     console.log(lastname);
     console.log(email);
@@ -117,12 +128,22 @@ export class SignupComponent {
     console.log(confirmpassword);
 
 }
+async showErrorAlert(message: string) {
+  const alert = await this.alertController.create({
+    header: 'Account Created',
+    message: message,
+    buttons: ['OK']
+  });
 
+  await alert.present();
+}
 isvalid()
 {
 
   if (this.valid)
   {
+    const errorMessage = 'Account Created Successfully';
+                    this.showErrorAlert(errorMessage); 
     this.router.navigate(['/home']);
   }
 

@@ -11,7 +11,6 @@ import { service } from '@capstone-meet-app/services';
   templateUrl: './welcomepage.component.html',
   styleUrls: ['./welcomepage.component.css'],
  
-  
 })
 export class WelcomepageComponent {
   constructor(private router: Router,private service:service) {}

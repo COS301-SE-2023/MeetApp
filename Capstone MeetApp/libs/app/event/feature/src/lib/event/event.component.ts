@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular'; 
 import {service,events} from '@capstone-meet-app/services';
 import { Router } from '@angular/router';
+import {  OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'capstone-meet-app-event',
   standalone: true,
@@ -48,6 +50,7 @@ export class EventComponent {
 
   //Interface to hold one event from getEventbyID
   event:events={
+    id:'',
     name:'',
     organisation: '',
     description:'',
@@ -59,11 +62,17 @@ export class EventComponent {
     region:'',
     eventPoster:''
   };
-
-  constructor(private apiService: service) { 
+  
+  constructor(private apiService: service,private route: ActivatedRoute) { 
   }
 
   async ngOnInit() {
+    this.route.params.subscribe(params => {
+      const eventId = params['eventId'];
+      this.getEventbyID(eventId);
+      console.log('Ntoto',eventId);
+    });
+    
 
     await this.apiService.getAllEvents().subscribe((response: any) => { 
       console.log('Events data',response);
@@ -77,9 +86,10 @@ export class EventComponent {
       this.getOrganiserID('LTDProevents')
     });
 
-    this.getEventbyID('647218a0cd65fc66878b99ad');
+    //this.getEventbyID('647218a0cd65fc66878b99ad');
     
   }
+
 
   // Get one Event by ID
   async getEventbyID(id:string)
@@ -105,7 +115,7 @@ export class EventComponent {
     for (let i = 0; i < this.data.length; i++) {
       if(this.data[i].name==eventName)
       {
-        this.eventID=this.data[i]._id;
+        this.eventID=this.data[i]._id; 
         
         break;
       }

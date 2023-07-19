@@ -1618,6 +1618,10 @@
   version "0.17.8"
   resolved "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.17.8.tgz"
   integrity sha512-Fqy63515xl20OHGFykjJsMnoIWS+38fqfg88ClvPXyDbLtgXal2DTlhb1TfTX34qWi3u4I7Cq563QcHpqgLx8w==
+"@esbuild/win32-x64@0.17.8":
+  version "0.17.8"
+  resolved "https://registry.npmjs.org/@esbuild/win32-x64/-/win32-x64-0.17.8.tgz"
+  integrity sha512-1iuezdyDNngPnz8rLRDO2C/ZZ/emJLb72OsZeqQ6gL6Avko/XCXZw+NuxBSNhBAP13Hie418V7VMt9et1FMvpg==
 
 "@eslint-community/eslint-utils@^4.2.0":
   version "4.4.0"
@@ -2391,6 +2395,11 @@
   dependencies:
     nx-cloud "16.0.5"
 
+"@nrwl/nx-win32-x64-msvc@15.9.4":
+  version "15.9.4"
+  resolved "https://registry.npmjs.org/@nrwl/nx-win32-x64-msvc/-/nx-win32-x64-msvc-15.9.4.tgz"
+  integrity sha512-bogVju4Z/hy1jbppqaTNbmV1R4Kg0R5fKxXAXC2LaL7FL0dup31wPumdV+mXttXBNOBDjV8V/Oz1ZqdmxpOJUw==
+
 "@nrwl/tao@15.9.4":
   version "15.9.4"
   resolved "https://registry.npmjs.org/@nrwl/tao/-/tao-15.9.4.tgz"
@@ -2707,6 +2716,16 @@
     "@nx/linter" "16.2.2"
     "@nx/workspace" "16.2.2"
     tslib "^2.3.0"
+
+"@nx/nx-win32-x64-msvc@16.0.3":
+  version "16.0.3"
+  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.0.3.tgz"
+  integrity sha512-/Ezru8nlrckLAQ4s7wEAW192DULgWj9YBqREQPV0ddzwjeVC0clsHSXguH8WzMwEU44+IFnqNMJrWK3mZCvZYA==
+
+"@nx/nx-win32-x64-msvc@16.2.2":
+  version "16.2.2"
+  resolved "https://registry.npmjs.org/@nx/nx-win32-x64-msvc/-/nx-win32-x64-msvc-16.2.2.tgz"
+  integrity sha512-liHtyVVOttcqHIV3Xrg/1AJzEgfiOCeqJsleHXHGgPr1fxPx7SIZaa3/QnDY1lNMN+t6Gvj0/r2Ba3iuptYD3Q==
 
 "@nx/web@16.0.3":
   version "16.0.3"
@@ -5580,6 +5599,10 @@ dotenv@^16.0.3:
   version "16.1.4"
   resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.1.4.tgz"
   integrity sha512-m55RtE8AsPeJBpOIFKihEmqUcoVncQIwo7x9U8ZwLEZw9ZpXboz2c+rvog+jUaJvVrZ5kBOeYQBX5+8Aa/OZQw==
+dotenv@^16.3.1:
+  version "16.3.1"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.3.1.tgz"
+  integrity sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==
 
 dotenv@~10.0.0:
   version "10.0.0"
@@ -8852,6 +8875,21 @@ ng-packagr@^15.2.2:
     sass "^1.55.0"
   optionalDependencies:
     esbuild "^0.17.0"
+
+node-abort-controller@^3.0.1:
+  version "3.1.1"
+  resolved "https://registry.npmjs.org/node-abort-controller/-/node-abort-controller-3.1.1.tgz"
+  integrity sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==
+
+node-addon-api@^3.2.1:
+  version "3.2.1"
+  resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz"
+  integrity sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==
+
+ng2-search-filter@^0.4.7:
+  version "0.4.7"
+  resolved "https://registry.npmjs.org/ng2-search-filter/-/ng2-search-filter-0.4.7.tgz"
+  integrity sha512-l49diVMfN3d6BTbFBtgpvywLTHYW63/XSPpmmrfSlGP+WbxoVbbqqbG6zK/ivLvwmWWdvDAqw+b+lyhqMAkSLw==
 
 node-abort-controller@^3.0.1:
   version "3.1.1"
