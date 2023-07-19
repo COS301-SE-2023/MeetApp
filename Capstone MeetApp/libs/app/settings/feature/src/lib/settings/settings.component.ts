@@ -20,7 +20,7 @@ export class SettingsComponent {
 
   ngOnInit(){
    
-     this.updatepassword("bibo@gmail.com")
+     this.updatepassword("akani","kman78@gmail.com", ["hockey,swimming"],"kubi","a cdog running","durban");
     //sthis.updatePassword('kman123');
   }
   navigateToProfile(){
@@ -32,10 +32,10 @@ export class SettingsComponent {
   }
 
    
-  async updatepassword(password: string) {
-    const userId = '647223decd65fc66879e13dc'; 
+  async updatepassword( username: string, email: string,  interests: string[], password: string, profifilePicture:string,region:string) {
+     const userId = '64a351ddc7dc405eb315b3ba'; 
     //this.newEmail="akani@gmail.com";
-   await this.service.updateSettings(userId, password).
+   await this.service.updateSettings(userId, username, email, interests,password, profifilePicture,region).
    subscribe((response: any) =>
        {
             
@@ -44,8 +44,9 @@ export class SettingsComponent {
        }
      );
  }
-
-  
-  
-
+ 
 }
+  
+  
+
+

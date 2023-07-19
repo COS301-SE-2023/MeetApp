@@ -160,18 +160,33 @@ export class service{
     }
     
     //body JSON example = {"region": "Joburg", "profifilePicture": "http://localhost..."}
-    updateUser(id:string,username?:string,profilePicture?:string,region?:string){
+    updateUser(id:string, username?:string ,email?:string,password?:string,profilePicture?:string,region?:string){
         const url=`${this.baseURl}users/${id}`;
         const body={
             username:username,
+            email:email,
+           
+            password:password,
             profilePicture:profilePicture,
             region:region
         }
         return this.http.patch(`${url}`,body);
     }
-    updateSettings(id: string,password?: string) {
+    updateSettings(id:string, username?:string ,email?:string,  interests?: string[],password?:string,profilePicture?:string,region?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+            username:username,
+            email:email,
+            interests:interests,
+            password:password,
+            profilePicture:profilePicture,
+            region:region
+        }
+        return this.http.patch(`${url}`,body);
+    }
+    updatepassword(id: string,password?: string) {
         const url = `${this.baseURl}users/${id}`;
-        const body={password};
+        const body={password:password};
       
        
       
