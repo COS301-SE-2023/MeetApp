@@ -129,6 +129,9 @@ async showErrorAlert(message: string) {
 
   await alert.present();
 }
+onCreate() {
+  this.router.navigate(['/login']);
+}
 isvalid()
 {
 

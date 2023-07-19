@@ -67,6 +67,13 @@
             <ion-button type="submit" color="danger" expand="block" (click)="signup()"  (click)="isvalid()" [disabled]="loginForm.invalid">Sign Up</ion-button>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-text>Already have an account?&nbsp;</ion-text>
+            <a class="small-text"  (click)="onCreate()">Login</a>
+            <ion-text>&nbsp;instead</ion-text>
+          </ion-col>
+        </ion-row>
       </form>
    
   </div>
