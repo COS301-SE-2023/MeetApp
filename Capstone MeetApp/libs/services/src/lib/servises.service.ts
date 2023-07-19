@@ -342,11 +342,5 @@ export class service{
         return this.http.post(`${url}`,body);
     }
     
-    setUserType(userType: string): void {
-        this.userTypeSubject.next(userType);
-      }
     
-      getUserType(): BehaviorSubject<string> {
-        return this.userTypeSubject;
-      }
 }

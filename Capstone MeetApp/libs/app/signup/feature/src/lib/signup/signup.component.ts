@@ -31,7 +31,7 @@ import { AlertController, ToastController } from '@ionic/angular';
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  userType: string | undefined;
+  //userType: string | undefined;
  
   
 
@@ -63,10 +63,7 @@ export class SignupComponent {
     confirmpassword: ['', Validators.required]
     });
      
-    this.service.getUserType().subscribe(userType => {
-      this.userType = userType;
-      console.log('User type:', this.userType);
-    });
+    
   
     //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
     //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
@@ -132,8 +129,8 @@ export class SignupComponent {
     
 
     
-    this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
-    this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
+    //this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
+    //this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
     
     console.log(firstname);
     console.log(lastname);

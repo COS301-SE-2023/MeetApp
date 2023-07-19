@@ -108,10 +108,7 @@ export class LoginComponent {
   
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
-    this.apiService.getUserType().subscribe(userType => {
-      this.userType = userType;
-      console.log('User type:', this.userType);
-    });
+    
 
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
