@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';  // A
 import { ModalController } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
 import { user,service} from '@capstone-meet-app/services';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'capstone-meet-app-profile',
@@ -38,7 +39,7 @@ export class ProfileComponent {
   eventCount='';
   userEvents = [];
   profileId='';
-  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service) {
+  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service,private location: Location) {
     this.profileId='64722456cd65fc66879ed7ba';
     this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
     this.isEditMode = false;
@@ -61,7 +62,9 @@ export class ProfileComponent {
       console.log(this.eventCount);
     });
   }
-
+  goBack() {
+    this.location.back();
+  }
   async updateProfile(id:string,username?:string,profifilePicture?:string,region?:string){
     await this.serviceProvider.updateUser(id,username,profifilePicture,region).subscribe((response) => {
       console.log('API response:', response);

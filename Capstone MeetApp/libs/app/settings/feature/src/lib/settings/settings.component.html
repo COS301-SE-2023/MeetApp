@@ -6,7 +6,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
  
 </head>
-<ion-header><h1>Settings</h1></ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <h1 class="heading" >
+          Settings
+      </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <div id="body">
     

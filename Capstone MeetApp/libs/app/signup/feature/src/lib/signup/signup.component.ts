@@ -15,7 +15,8 @@ import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
 import { AlertController, ToastController } from '@ionic/angular';
-
+import { Location } from '@angular/common';
+import { IonIcon } from '@ionic/angular';
 
 @Component({
   selector: 'capstone-meet-app-signup',
@@ -34,7 +35,7 @@ export class SignupComponent {
   
 
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service,private alertController: AlertController,
-    private toastController: ToastController) {}
+    private toastController: ToastController,private location: Location) {}
 
   firstname="";
   username='';
@@ -66,6 +67,9 @@ export class SignupComponent {
     //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
     
 
+  }
+  goBack() {
+    this.location.back();
   }
   
  

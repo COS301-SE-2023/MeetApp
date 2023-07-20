@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 //import { service } from '@capstone-meet-app/app/services'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 @Component({
   standalone:true,
@@ -17,7 +18,7 @@ export class SettingsComponent {
   newPassword='';
   confirmPassword='';
   NewLocation='';
-  constructor(/*private service:service*/private router:Router){
+  constructor(/*private service:service*/private router:Router,private location: Location){
 
   }
 
@@ -33,7 +34,9 @@ export class SettingsComponent {
   nagivateToHome(): void {
     this.router.navigate(['/home']);
   }
-
+  goBack() {
+    this.location.back();
+  }
    
   /*async updatepassword(password: string) {
     const userId = '647223decd65fc66879e13dc'; 
