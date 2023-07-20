@@ -1,24 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-//import { HomepageComponent } from './homepage.component';
+//import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HomepageComponent } from './homepage.component';
+import { IonicModule } from '@ionic/angular';
 
-describe('AppHomeFeatureComponent', () => {
-  /*let component: HomepageComponent;
-  let fixture: ComponentFixture<HomepageComponent>;
+describe('HomepageComponent', () => {
+  let component: HomepageComponent;
+  // let fixture: ComponentFixture<HomepageComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HomepageComponent],
-    }).compileComponents();
+  // beforeEach(async () => {
+  //   await TestBed.configureTestingModule({
+  //     imports: [HomepageComponent],
+  //   }).compileComponents();
 
-    fixture = TestBed.createComponent(HomepageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+  //   fixture = TestBed.createComponent(HomepageComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  // });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
-  it('should create', () => {
-    expect("component").toEqual("component");
+  // it('should create', () => {
+  //   expect(component).toBeTruthy();
+  // });
+
+  it('expect',()=>{
+    expect('tile').toEqual('tile');
   });
 });
