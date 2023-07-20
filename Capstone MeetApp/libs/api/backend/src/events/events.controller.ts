@@ -210,5 +210,10 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
   async getEventAttendance(@Param('eventId') eventId: string): Promise<number> {
     return this.eventsService.getEventAttendance(eventId);
   }
+
+  @Get(':eventId/attendance')
+  async getAttendingUsers(@Param('eventId') eventId: string) {
+    return this.eventsService.getAttendingUsers(eventId);
+  }
 }
 
