@@ -37,10 +37,10 @@ interface Event {
 }
 
 
- 
+
 @Component({
   standalone: true,
-  selector: 'app-map',
+  selector: 'capstone-meet-app-maps',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css'],
   imports: [CommonModule, FormsModule,IonicModule],
@@ -53,11 +53,15 @@ export class MapsComponent implements AfterViewInit {
     //this.getData();
     
   }
-
+  svgIcon = {
+    url: 'https://www.clipartmax.com/png/small/5-51701_marker-icon-google-maps.png',
+    scaledSize: new google.maps.Size(50, 50)
+  };
   selectedRange: DateRange = {
     startDate: undefined,
     endDate: undefined
   };
+
 
   image="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi";
   //selectedRegion: string ;
@@ -91,13 +95,14 @@ async ngOnInit() {
   });
  
 }
-
   selectedRegion="Pretoria";
   selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
   apikey = environment.API_KEY;
   map: any;
   zoom = 8;
+  image="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi";
+  //selectedRegion: string ;
 
   options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
@@ -118,7 +123,20 @@ async ngOnInit() {
     category:'',
     region:'',
     eventPoster:''}]
-   events: Event[] = [
+  //services
+  data= [{
+    name:'',
+    organisation: '',
+    description:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    location: {latitude:0, longitude:0},
+    category:'',
+    region:'',
+    eventPoster:''
+}];
+events: Event[] = [
     {
       name:'Event 1',
       organisation:'Organiser 1',
@@ -264,6 +282,34 @@ async ngOnInit() {
       eventPoster:''
     }
   ];
+customIcon = {
+  url: 'https://lh3.googleusercontent.com/nVURMfU_P9tbGD4_tkSBZE4g2akKMtOcPXGwtkDGKLNgtwA-INpPtFKBFi6u4XZIwHKgUF237oLHrT2xKSWBm-o7nrwSLUzZ6Pw=s640',
+  size: new google.maps.Size(100, 100),
+  anchor: new google.maps.Point(15, 34),
+  labelOrigin: new google.maps.Point(15, 10),
+  scaledSize: new google.maps.Size(130, 134),
+  origin: new google.maps.Point(0, 0),
+  label: {
+    text: 'Custom Marker',
+    color: '#ffffff'
+  }
+};
+async ngOnInit() {
+  await this.service.getAllEvents().subscribe((response: any) => { 
+    this.data = response;
+    for (let i = 0; i < this.data.length; i++) {
+   const event: Event = this.data[i];
+      const region = event.region;
+      const date=event.date;
+    }
+  });
+ 
+}
+
+  
+
+  
+   
 
   private initializeMap(region: string) {
     this.map = new google.maps.Map(document.getElementById("map"), {
@@ -308,24 +354,10 @@ async ngOnInit() {
 
   
   // Marker icons
-  svgIcon = {
-    url: 'https://www.clipartmax.com/png/small/5-51701_marker-icon-google-maps.png',
-    scaledSize: new google.maps.Size(50, 50)
-  };
+  
 
   // Markers
-  customIcon = {
-    url: 'https://lh3.googleusercontent.com/nVURMfU_P9tbGD4_tkSBZE4g2akKMtOcPXGwtkDGKLNgtwA-INpPtFKBFi6u4XZIwHKgUF237oLHrT2xKSWBm-o7nrwSLUzZ6Pw=s640',
-    size: new google.maps.Size(100, 100),
-    anchor: new google.maps.Point(15, 34),
-    labelOrigin: new google.maps.Point(15, 10),
-    scaledSize: new google.maps.Size(130, 134),
-    origin: new google.maps.Point(0, 0),
-    label: {
-      text: 'Custom Marker',
-      color: '#ffffff'
-    }
-  };
+  
 
   async fillEvents(region: string, range?: DateRange) {
     // Clear existing markers if needed

@@ -2,25 +2,10 @@
   "name": "app-welcome-feature",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/app/welcome/feature/src",
+  "prefix": "capstone-meet-app",
+  "tags": [],
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/app/welcome/feature",
-        "main": "libs/app/welcome/feature/src/index.ts",
-        "tsConfig": "libs/app/welcome/feature/tsconfig.lib.json",
-        "assets": ["libs/app/welcome/feature/*.md"]
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/app/welcome/feature/**/*.ts"]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
@@ -34,7 +19,16 @@
           "codeCoverage": true
         }
       }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/app/welcome/feature/**/*.ts",
+          "libs/app/welcome/feature/**/*.html"
+        ]
+      }
     }
-  },
-  "tags": []
+  }
 }

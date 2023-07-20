@@ -15,14 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@capstone-meet-app/api/backend": ["libs/api/backend/src/index.ts"],
       "@capstone-meet-app/api/event/data-access": [
         "libs/api/event/data-access/src/index.ts"
       ],
-    
-      "@capstone-meet-app/app/services": [
-        "libs/services/src/index.ts"
-      ],
-      "@capstone-meet-app/api/backend": ["libs/api/backend/src/index.ts"],
       "@capstone-meet-app/api/event/feature": [
         "libs/api/event/feature/src/index.ts"
       ],
@@ -68,70 +64,47 @@
       "@capstone-meet-app/api/welcome/util": [
         "libs/api/welcome/util/src/index.ts"
       ],
-      "@capstone-meet-app/app/event/data-access": [
-        "libs/app/event/data-access/src/index.ts"
-      ],
       "@capstone-meet-app/app/event/feature": [
         "libs/app/event/feature/src/index.ts"
       ],
-      "@capstone-meet-app/app/event/util": ["libs/app/event/util/src/index.ts"],
-      "@capstone-meet-app/app/home/data-access": [
-        "libs/app/home/data-access/src/index.ts"
+      "@capstone-meet-app/app/friends/feature": [
+        "libs/app/friends/feature/src/index.ts"
       ],
       "@capstone-meet-app/app/home/feature": [
         "libs/app/home/feature/src/index.ts"
       ],
-      "@capstone-meet-app/app/home/util": ["libs/app/home/util/src/index.ts"],
-      "@capstone-meet-app/app/login/data-access": [
-        "libs/app/login/data-access/src/index.ts"
-      ],
       "@capstone-meet-app/app/login/feature": [
         "libs/app/login/feature/src/index.ts"
       ],
-      "@capstone-meet-app/app/login/util": ["libs/app/login/util/src/index.ts"],
-      "@capstone-meet-app/app/profile/data-access": [
-        "libs/app/profile/data-access/src/index.ts"
+      "@capstone-meet-app/app/map/feature": [
+        "libs/app/map/feature/src/index.ts"
+      ],
+      "@capstone-meet-app/app/organiser/feature": [
+        "libs/app/organiser/feature/src/index.ts"
       ],
       "@capstone-meet-app/app/profile/feature": [
         "libs/app/profile/feature/src/index.ts"
       ],
-      "@capstone-meet-app/app/profile/util": [
-        "libs/app/profile/util/src/index.ts"
+      "@capstone-meet-app/app/services": ["libs/services/src/index.ts"],
+      "@capstone-meet-app/libs/app/settings/feature": [
+        "libs/app/settings/feature/src/index.ts"
       ],
       "@capstone-meet-app/app/shared service": [
         "libs/app/shared service/index.ts"
       ],
-      "@capstone-meet-app/app/signup/data-access": [
-        "libs/app/signup/data-access/src/index.ts"
-      ],
       "@capstone-meet-app/app/signup/feature": [
         "libs/app/signup/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/app/signup/util": [
-        "libs/app/signup/util/src/index.ts"
-      ],
-      "@capstone-meet-app/app/welcome/data-access": [
-        "libs/app/welcome/data-access/src/index.ts"
       ],
       "@capstone-meet-app/app/welcome/feature": [
         "libs/app/welcome/feature/src/index.ts"
       ],
-      "@capstone-meet-app/app/welcome/util": [
-        "libs/app/welcome/util/src/index.ts"
-      ],"@capstone-meet-app/settings/feature":
-      ["libs/app/settings/feature/src/index.ts"],
+      "@capstone-meet-app/calendar/feature": [
+        "libs/app/calendar/feature/src/index.ts"
+      ],
       "@capstone-meet-app/services": ["libs/services/src/index.ts"],
       "@capstone-meet-app/services--buildable--no-interactive--dry-run": [
         "libs/services--buildable--no-interactive--dry-run/src/index.ts"
-      ],
-      "@captone-meet-app/organiser":[
-        "libs/app/organiser/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/friends":[
-        "libs/app/friends/feature/src/index.ts"
-      ],
-      "@capstone-meet-app/map":["libs/app/map/feature/src/index.ts"],
-      "@capstone-meet-app/calendar/feature":["libs/app/calendar/feature/src/index.ts"],
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

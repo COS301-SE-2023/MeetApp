@@ -22,6 +22,20 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     FormsModule,ServicesModule]
 })
 export class OrganiserComponent {
+  location: {latitude :number , longitude:number }=
+  {
+    latitude:0,
+    longitude:0
+  }
+  myLocation = {
+    latitude: 40.7128,
+    longitude: -74.0060,
+  };
+  //category:string | null = null;
+ 
+  
+  category='';
+  showCalendar=false;
   profilePictureUrl: string | null = null;
   description: string | null = null;
   selectedRegion:string | null = null;
@@ -32,6 +46,9 @@ export class OrganiserComponent {
     startTime: '',
     endTime: '',
   };
+  startDate=this.selectedRange.startDate;
+  startTime= this.selectedRange.startTime;
+  endTime= this.selectedRange.endTime;
   showForm: |boolean = false;
 
 
@@ -59,28 +76,14 @@ export class OrganiserComponent {
     this.eventName='';
     this.OrganisationName='';
   }
-  showCalendar=false;
+ 
 
   
   goBack() {
     this.llocation.back();
   }
 //services
-  location: {latitude :number , longitude:number }=
-  {
-    latitude:0,
-    longitude:0
-  }
-  myLocation = {
-    latitude: 40.7128,
-    longitude: -74.0060,
-  };
-  //category:string | null = null;
- 
-  startDate=this.selectedRange.startDate;
-  startTime= this.selectedRange.startTime;
-  endTime= this.selectedRange.endTime;
-  category='';
+
 
   
 submitForm() {

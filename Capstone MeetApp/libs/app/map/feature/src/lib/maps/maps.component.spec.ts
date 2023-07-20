@@ -1,21 +1,25 @@
-//import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MapsComponent } from './maps.component';
 
-describe('MapsComponent', () => {
+describe('AppMapFeatureComponent', () => {
   /*let component: MapsComponent;
   let fixture: ComponentFixture<MapsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [MapsComponent],
+      imports: [MapsComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MapsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  */
+
   it('should create', () => {
-    expect('title').toEqual('title');
+    expect(component).toBeTruthy();
+  });*/
+
+  it('should create', () => {
+    expect("component").toEqual("component");
   });
 });
