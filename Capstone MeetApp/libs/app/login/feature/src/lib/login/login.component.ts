@@ -25,6 +25,7 @@ import { AlertController, ToastController } from '@ionic/angular';
   providers: [service,HttpClient],
 })
 export class LoginComponent {
+  valid=true;
   loginForm!: FormGroup;
   email = ''; 
   password= ''; 
@@ -133,7 +134,7 @@ export class LoginComponent {
     
     
   
-  valid=true;
+  
 
   //Login Function for User
   async LogInUser(username:string,password:string)
