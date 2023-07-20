@@ -57,7 +57,7 @@ jobs:
       - run: npm install --legacy-peer-deps
       - run: npm run test
       - name: Coverage Report
-      - uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v3
         env: 
             CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
