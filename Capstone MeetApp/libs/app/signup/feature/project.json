@@ -2,25 +2,10 @@
   "name": "app-signup-feature",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/app/signup/feature/src",
+  "prefix": "capstone-meet-app",
+  "tags": [],
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/app/signup/feature",
-        "main": "libs/app/signup/feature/src/index.ts",
-        "tsConfig": "libs/app/signup/feature/tsconfig.lib.json",
-        "assets": ["libs/app/signup/feature/*.md"]
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/app/signup/feature/**/*.ts"]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
@@ -34,7 +19,16 @@
           "codeCoverage": true
         }
       }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/app/signup/feature/**/*.ts",
+          "libs/app/signup/feature/**/*.html"
+        ]
+      }
     }
-  },
-  "tags": []
+  }
 }
