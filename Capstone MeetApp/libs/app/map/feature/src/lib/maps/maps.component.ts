@@ -9,6 +9,8 @@ import {IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { events,service,ServicesModule} from '@capstone-meet-app/services';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
 //import { log } from 'console';
 
 
@@ -47,7 +49,7 @@ interface Event {
 })
 export class MapsComponent implements AfterViewInit {
 
-  constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
+  constructor(private m: GoogleMapsModule,private router: Router,private service: service,private location: Location) {
     //this.getData();
     
   }
@@ -75,7 +77,9 @@ export class MapsComponent implements AfterViewInit {
     eventPoster:''
 }];
 
-
+goBack() {
+  this.location.back();
+}
 async ngOnInit() {
   await this.service.getAllEvents().subscribe((response: any) => { 
     this.data = response;

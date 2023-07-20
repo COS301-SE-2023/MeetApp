@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'; // Import FormsModul
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { AlertController } from '@ionic/angular';
 
@@ -51,7 +52,7 @@ export class OrganiserComponent {
   }
  
 
-  constructor(private alertController: AlertController,private router: Router,private service:service) {
+  constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
     this.selectedRegion='';
@@ -61,7 +62,9 @@ export class OrganiserComponent {
   showCalendar=false;
 
   
-
+  goBack() {
+    this.llocation.back();
+  }
 //services
   location: {latitude :number , longitude:number }=
   {

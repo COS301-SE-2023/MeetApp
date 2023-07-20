@@ -3,12 +3,18 @@
   <head><script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA17UF-6dTXO6cegN-QeicgZ8pVs2fR8oU&v=3.exp&libraries=places">
   </script></head>
  
-
+  
+  
   <div id =body id=index class="index-page" class="scroll-container" >
-    <ion-header  class="custom-content1">
+    <ion-header>
       <ion-toolbar>
-        <ion-title >
-          <h1>Add Events</h1>
+        <ion-buttons slot="start">
+          <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <h1 class="heading" >
+              Add Events
+          </h1>
         </ion-title>
       </ion-toolbar>
     </ion-header>
