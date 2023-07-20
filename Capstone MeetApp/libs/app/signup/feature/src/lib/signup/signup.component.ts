@@ -33,7 +33,7 @@ export class SignupComponent {
   loginForm!: FormGroup;
   //userType: string | undefined;
  
-  
+  valid=true;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service,private alertController: AlertController,
     private toastController: ToastController,private activatedRoute: ActivatedRoute) {}
@@ -106,7 +106,7 @@ export class SignupComponent {
   }
   */
 
-  valid=true;
+  
 
   signup()
   {

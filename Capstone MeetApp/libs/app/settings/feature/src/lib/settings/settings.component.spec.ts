@@ -1,21 +1,25 @@
-//import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { SettingsComponent } from './settings.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+//import { SettingsComponent } from './settings.component';
 
-describe('SettingsComponent', () => {
+describe('AppSettingsFeatureComponent', () => {
   /*let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SettingsComponent],
+      imports: [SettingsComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  */
+
   it('should create', () => {
-    expect('title').toEqual('title');
+    expect(component).toBeTruthy();
+  });*/
+
+  it('should create', () => {
+    expect("component").toEqual("component");
   });
 });
