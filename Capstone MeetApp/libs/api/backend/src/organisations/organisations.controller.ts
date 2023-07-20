@@ -42,4 +42,66 @@ export class OrganisationsController {
   remove(@Param('id') id: string) {
     return this.organisationsService.remove(+id);
   }
+
+  @Get(':id/events/top3')
+  async getTop3AttendedEvents(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3AttendedEvents(organizationId);
+  }
+
+  @Get(':id/events/top')
+  async getTopAttendedEvent(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopAttendedEvent(organizationId);
+  }
+
+  @Get(':id/events/top3-categories')
+  async getTop3EventCategories(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3EventCategories(organizationId);
+  }
+
+  @Get(':id/events/top-category')
+  async getTopEventCategory(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopEventCategory(organizationId);
+  }
+
+  @Get(':id/events/top-region')
+  async getTopEventRegion(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopEventRegion(organizationId);
+  }
+
+  @Get(':id/events/top3-regions')
+  async getTop3EventRegions(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3EventRegion(organizationId);
+  }
+
+  @Get(':id/events/top3-supporters-events')
+  async getTop3SupportersAndEvents(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3SupportersAndTheirTopEvents(organizationId);
+  }
+
+  @Get(':id/events/top-supporters-events')
+  async getTopSupportersAndEvents(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopSupportersAndTheirTopEvents(organizationId);
+  }
+
+  @Get(':id/events/top3-supporters')
+  async getTop3Supporters(@Param('id') organizationId: string) {
+    return this.organisationsService.getTop3Supporters(organizationId);
+  }
+
+  @Get(':id/events/top-supporter')
+  async getTopSupporter(@Param('id') organizationId: string) {
+    return this.organisationsService.getTopSupporter(organizationId);
+  }
+
+  @Get(':id/events/region-count')
+  async getRegionCount(@Param('id') organizationId: string) {
+    return this.organisationsService.getRegionCount(organizationId);
+  }
+
+  @Get(':id/events/category-count')
+  async getCategoryCount(@Param('id') organizationId: string) {
+    return this.organisationsService.getCategoryCount(organizationId);
+  }
+  
+  
 }
