@@ -68,21 +68,7 @@ export class OrganiserComponent {
       endTime: new FormControl(this.selectedRange.endTime)
     });
    
-    this.service.createEvents(
-      'NightFall',
-      'NightParade',
-      'The night is still young so came and spend it with us ',
-      '2023-07-22',
-      '19:00',
-      '04;00',
-      this.myLocation,
-      'Concert',
-      'Pretoria',
-      this.profilePictureUrl
-    ).subscribe((response) => {
-      console.log('API response:', response);
    
-    });
     
   }
  
