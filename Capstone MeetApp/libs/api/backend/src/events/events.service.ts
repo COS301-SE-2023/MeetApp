@@ -77,4 +77,9 @@ export class EventsService {
    }
    return deletedEvent;
   }
+
+  async getEventAttendance(eventId: string): Promise<number> {
+    const eventAttendanceCount = await this.attendanceModel.countDocuments({ eventID: eventId });
+    return eventAttendanceCount;
+  }
 }
