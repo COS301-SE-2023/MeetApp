@@ -25,7 +25,7 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
-      - run: npm run affected:lint
+      - run: npm run lint
 
 
   build:
@@ -40,7 +40,7 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
-      - run: npm run affected:build
+      - run: npm run build
       
   test:
     name: test
@@ -54,7 +54,7 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
-      - run: npm run affected:test
+      - run: npm run test
 
       
 
