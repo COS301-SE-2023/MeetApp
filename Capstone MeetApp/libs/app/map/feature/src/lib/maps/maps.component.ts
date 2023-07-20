@@ -84,7 +84,7 @@ export class MapsComponent implements AfterViewInit {
 goBack() {
   this.location.back();
 }
-async ngOnInit() {
+/*async ngOnInit() {
   await this.service.getAllEvents().subscribe((response: any) => { 
     this.data = response;
     for (let i = 0; i < this.data.length; i++) {
@@ -94,14 +94,14 @@ async ngOnInit() {
     }
   });
  
-}
+}*/
   selectedRegion="Pretoria";
   selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
   apikey = environment.API_KEY;
   map: any;
   zoom = 8;
-  image="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi";
+ // image="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi";
   //selectedRegion: string ;
 
   options: google.maps.MapOptions = {
@@ -124,7 +124,7 @@ async ngOnInit() {
     region:'',
     eventPoster:''}]
   //services
-  data= [{
+ /* data= [{
     name:'',
     organisation: '',
     description:'',
@@ -135,7 +135,7 @@ async ngOnInit() {
     category:'',
     region:'',
     eventPoster:''
-}];
+}];*/
 events: Event[] = [
     {
       name:'Event 1',
@@ -306,10 +306,6 @@ async ngOnInit() {
  
 }
 
-  
-
-  
-   
 
   private initializeMap(region: string) {
     this.map = new google.maps.Map(document.getElementById("map"), {
