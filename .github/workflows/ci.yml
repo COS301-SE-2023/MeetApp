@@ -1,6 +1,8 @@
 name: Continuous Integration Production Environment
 
 on:
+  workflow_dispatch:
+  workflow_call:
   push:
     branches:
       - main
