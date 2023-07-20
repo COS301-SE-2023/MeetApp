@@ -61,7 +61,7 @@ jobs:
         env: 
             CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
-            files: coverage/lcov.info
+            files: ./Capstone MeetApp/coverage
   
   lint:
     defaults:
