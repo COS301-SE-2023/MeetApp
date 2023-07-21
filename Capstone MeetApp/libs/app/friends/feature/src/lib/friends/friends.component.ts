@@ -41,4 +41,15 @@ constructor(private location: Location)
 goBack() {
   this.location.back();
 }
+filteredData: any[] = [];
+    searchQuery = '';
+search(): void {
+  if (this.searchQuery.trim() === '') {
+    this.filteredData = this.followers;
+  } else {
+    this.filteredData = this.followers.filter((item) =>
+      item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+ }
 }

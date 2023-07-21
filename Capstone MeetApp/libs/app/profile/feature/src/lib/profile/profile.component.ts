@@ -145,5 +145,4 @@ export class ProfileComponent {
   closeEditProfilePopover() {
     this.isEditMode = false;
   }
-  
 }

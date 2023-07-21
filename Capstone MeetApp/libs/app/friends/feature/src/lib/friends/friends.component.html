@@ -13,7 +13,7 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
-  
+  <ion-searchbar show-clear-button="focus"  class="custom"  [(ngModel)]="searchQuery" (ionChange)="search()"></ion-searchbar>
   <ion-content>
     <ion-list>
       <ion-item *ngFor="let follower of followers">
