@@ -150,7 +150,7 @@ export class SignupComponent {
     {
         this.SignUpUser(username,password,'',region);
     }
-    else  if(this.userType='organiser'){
+    else  if(this.userType=='organiser'){
       this.SignUpOrg(username,name,password, this.events)
 
 
