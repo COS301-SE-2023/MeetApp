@@ -14,11 +14,11 @@ import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
 import { WelcomepageComponent } from '@capstone-meet-app/app/welcome/feature';
 
 import {ProfileComponent} from '@capstone-meet-app/app/profile/feature'
-import {SettingsComponent} from '@capstone-meet-app/libs/app/settings/feature'
-import {MapsComponent}from '@capstone-meet-app/app/map/feature'
+import {SettingsComponent} from '@capstone-meet-app/settings/feature'
+import {MapsComponent}from '@capstone-meet-app/map'
 import { EventComponent } from "@capstone-meet-app/app/event/feature";
-import {OrganiserComponent}from '@capstone-meet-app/app/organiser/feature';
-import {FriendsComponent} from '@capstone-meet-app/app/friends/feature';
+import {OrganiserComponent}from '@captone-meet-app/organiser';
+import {FriendsComponent} from '@capstone-meet-app/friends';
 export const appRoutes: Route[] = [
    { path: "", component: WelcomepageComponent },
    { path: "home", component: HomepageComponent },

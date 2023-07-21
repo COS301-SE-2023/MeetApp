@@ -16,7 +16,8 @@ import { IonicModule } from '@ionic/angular';
 import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
-
+import { Location } from '@angular/common';
+import { IonIcon } from '@ionic/angular';
 
 
 @Component({
@@ -33,11 +34,12 @@ export class SignupComponent {
   loginForm!: FormGroup;
   //userType: string | undefined;
  
-  valid=true;
+  
 
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service,private alertController: AlertController,
-    private toastController: ToastController,private activatedRoute: ActivatedRoute) {}
+    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location) {}
 
+   
 
   firstname="";
   username='';
@@ -78,6 +80,9 @@ export class SignupComponent {
     console.log('access',access_token);
 
   }
+  goBack() {
+    this.location.back();
+  }
   
  
 
@@ -106,7 +111,7 @@ export class SignupComponent {
   }
   */
 
-  
+  valid=true;
 
   signup()
   {
@@ -147,6 +152,9 @@ async showErrorAlert(message: string) {
   });
 
   await alert.present();
+}
+onCreate() {
+  this.router.navigate(['/login']);
 }
 isvalid()
 {

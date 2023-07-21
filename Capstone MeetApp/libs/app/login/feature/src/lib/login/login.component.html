@@ -11,9 +11,19 @@
 <div id="index" class="index-page" class="scroll-container">
   
 
-  <h1 class="heading" >
-    LOG IN
-</h1>
+  
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <h1 class="heading" >
+        LOG IN
+    </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
 
@@ -39,12 +49,11 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block" (click)="login(email,password)"  >Sign In</ion-button>
-        <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;</b>
+        <ion-button type="submit"  expand="block" (click)="login(email,password)"  >Sign In</ion-button>
+        <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
         <a class="small-text"  (click)="onCreate()">create an account</a>
       </ion-col>
     </ion-row>
-
   </form>
 </div>
 </ion-content>
