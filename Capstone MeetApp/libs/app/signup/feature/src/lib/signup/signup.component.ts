@@ -14,7 +14,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
+
 
 
 @Component({
@@ -29,12 +31,13 @@ import { AlertController, ToastController } from '@ionic/angular';
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  userType: string | undefined;
+  //userType: string | undefined;
  
   valid=true;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service,private alertController: AlertController,
-    private toastController: ToastController) {}
+    private toastController: ToastController,private activatedRoute: ActivatedRoute) {}
+
 
   firstname="";
   username='';
@@ -42,9 +45,12 @@ export class SignupComponent {
   email = ''; 
   password= '';   
 
+  //user type from the welcome page 
+  userType:string|null = '';
 
   confirmpassword="";
   
+  access:string|null='';
   
   submitClicked = false;
   ngOnInit() {
@@ -57,33 +63,38 @@ export class SignupComponent {
     confirmpassword: ['', Validators.required]
     });
      
-    this.service.getUserType().subscribe(userType => {
-      this.userType = userType;
-      console.log('User type:', this.userType);
-    });
+    
   
     //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
     //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
     
+    //get the userType from the Welcome page 
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
+
+    const access_token=this.apiService.getToken();
+    console.log('access',access_token);
 
   }
   
  
 
   //SignUp for a User
-  async SignUpUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)
+  async SignUpUser(username:string,password:string,profilePicture:string,region:string)
   {
-    await this.apiService.createUser(name,surname,username,email,password,phoneNumber,region,profilePicture).subscribe((response) => {
+    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response) => {
       console.log('API response:', response);
-   
+      
     });
   }
 
   
   //SignUp for a Organisation 
-  async SignUpOrg(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,orgDescription:string/*,events:string[]*/)
+  async SignUpOrg(username:string,name:string,password:string,events:string[])
   {
-    await this.apiService.createOrginiser(name,surname,username,email,password,phoneNumber,orgDescription/*,events*/).subscribe((response) => {
+    await this.apiService.createOrginiser(username,password,name,events).subscribe((response) => {
       console.log('API response:', response);
 
     });
@@ -118,8 +129,8 @@ export class SignupComponent {
     
 
     
-    this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
-    this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
+    //this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
+    //this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
     
     console.log(firstname);
     console.log(lastname);

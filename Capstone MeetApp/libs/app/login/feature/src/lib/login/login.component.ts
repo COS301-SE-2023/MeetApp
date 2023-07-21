@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
 import { ConnectableObservable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 
 
@@ -22,7 +23,7 @@ import { AlertController, ToastController } from '@ionic/angular';
   imports: [CommonModule, IonicModule,FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  providers: [service,HttpClient],
+  providers: [service,HttpClient]
 })
 export class LoginComponent {
   valid=true;
@@ -30,9 +31,9 @@ export class LoginComponent {
   email = ''; 
   password= ''; 
 
+
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
-    private toastController: ToastController) { 
-    
+    private toastController: ToastController, private authservice: service,private activatedRoute: ActivatedRoute) { 
   }
 
   
@@ -79,7 +80,9 @@ export class LoginComponent {
 
   //stores the login response for user
   loginData_organiser:any;
-  userType: string | undefined;
+
+  userType:string|null = '';
+
  
 
   async showErrorAlert(message: string) {
@@ -106,10 +109,7 @@ export class LoginComponent {
   
   //Initialise data for User and Organiser using the services 
   async ngOnInit() {
-    this.apiService.getUserType().subscribe(userType => {
-      this.userType = userType;
-      console.log('User type:', this.userType);
-    });
+    
 
     this.loginForm = this.formBuilder.group({
       email: ['', Validators.required],
@@ -126,8 +126,17 @@ export class LoginComponent {
       this.data_organiser = response;
       console.log(this.data_organiser[0]._id);
     });
-  
-    //this.LogInUser('jane_smith', 'bibo@gmail.com');
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
+    
+      
+      
+    
+    //this.LogInUser('jane_smith','bibo@gmail.com');
+
     //this.LogInOrg('LTDProevents','marketspass');
   }
   
@@ -145,6 +154,7 @@ export class LoginComponent {
       this.userLogin_payload=this.loginData_user;
       console.log('username:',this.userLogin_payload.user)
       console.log('access token:',this.userLogin_payload.access_token)
+      this.authservice.setToken(this.userLogin_payload.access_token)
       console.log('message:',this.userLogin_payload.message);
       this.current(this.userLogin_payload.access_token);
       this.getUser(this.userLogin_payload.access_token);
@@ -184,7 +194,7 @@ export class LoginComponent {
     await this.apiService.authOrganiser(username,password ).subscribe((response) => {
       console.log('API response:', response);
       this.loginData_organiser=response;
-      this.orgLogin_payload=this.loginData_user;
+      this.orgLogin_payload=this.loginData_organiser;
       console.log('username:',this.orgLogin_payload.organisation)
       console.log('access token:',this.orgLogin_payload.access_token)
       console.log('message:',this.orgLogin_payload.message);
@@ -207,14 +217,24 @@ export class LoginComponent {
   }
 
   onCreate() {
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
   login(email: string,password: string) {
     console.log('email:', email);
     console.log('password',password);
-    console.log(this.data_user);
-    this.LogInUser(email,password);
+
+    if(this.userType=='user')
+    {
+      this.LogInUser(email,password);
+      
+    }
+
+    if(this.userType=='organiser')
+    {
+      this.LogInOrg(email,password);
+    }
+   
   }
  /* onSubmit() {
     if (this.loginForm.valid) {

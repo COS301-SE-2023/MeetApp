@@ -21,6 +21,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     FormsModule,ServicesModule]
 })
 export class OrganiserComponent {
+
+
   location: {latitude :number , longitude:number }=
   {
     latitude:0,
@@ -36,6 +38,7 @@ export class OrganiserComponent {
   category='';
   showCalendar=false;
   profilePictureUrl: string | null = null;
+
   description: string | null = null;
   selectedRegion:string | null = null;
   eventName :string | null = null;
@@ -65,6 +68,8 @@ export class OrganiserComponent {
       endTime: new FormControl(this.selectedRange.endTime)
     });
    
+   
+    
   }
  
 

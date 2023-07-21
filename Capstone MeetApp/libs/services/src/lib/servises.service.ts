@@ -11,73 +11,58 @@ export interface events{
     name:string;
     organisation:string;
     description:string;
+    eventPoster:string;
     date: string;
     startTime: string;
     endTime: string;
     location: {latitude: number , longitude:number};
     category: string; 
     region: string;
-    eventPoster:string;
 }
 
 export interface createEvents{
     name:string;
     organisation:string;
     description:string;
+    eventPoster:string;
     date: string;
     startTime: string;
     endTime: string;
     location: {latitude: number , longitude:number};
     category: string; 
     region: string;
-    eventPoster:string;
+    
 }
 
 
 // USER INTERFACES //
 export interface user{
-    name:string;
-    surname:string;
     username:string;
-    email:string;
     password:string;
-    phoneNumber:string;
-    region:string;
     profilePicture:string;
+    region:string;
 }
 
 export interface createUser{
-    name:string;
-    surname:string;
     username:string;
-    email:string;
     password:string;
-    phoneNumber:string;
-    region:string;
     profilePicture:string;
+    region:string;
 }
 
 
 // ORGANISER INTERFACES //
 export interface organiser{
-    name:string;
-    surname:string;
-    username:string;
-    email:string;
+    username:string
     password:string;
-    phoneNumber:string;
-    orgDescription:string;
+    name:string
     events:string[];
 }
 
 export interface createOrginise{
-    name:string;
-    surname:string;
-    username:string;
-    email:string;
+    username:string
     password:string;
-    phoneNumber:string;
-    orgDescription:string;
+    name:string
     events:string[];
 }
 
@@ -120,8 +105,27 @@ export class service{
     constructor(private http:HttpClient){}
 
     private baseURl='http://localhost:3000/api/';
+
+    private readonly TOKEN_KEY = 'access_token';
+
+    //FUNCTIONS TO ACCESS THE TOKEN
+      
+    setToken(token: string) 
+    {
+        localStorage.setItem(this.TOKEN_KEY, token);
+      
+    }
     
-    private userTypeSubject: BehaviorSubject<string> = new BehaviorSubject<string>('');
+    getToken(): string | null 
+    {
+        return localStorage.getItem(this.TOKEN_KEY);
+    }
+    
+    removeToken() 
+    {
+        localStorage.removeItem(this.TOKEN_KEY);
+    }
+
     //SERVICES FOR EVENTS
 
     getAllEvents()
@@ -130,11 +134,21 @@ export class service{
         return this.http.get(`${url}`);
     }
 
+    // example of id 
     getEventByID(id:string){
         const url=`${this.baseURl}events/${id}`;
         return this.http.get(`${url}`);
     }
     
+    getEventByIDs(id:string,eventIds:string)
+    {
+        const url=`${this.baseURl}events/${id}`;
+        const params = {
+            eventIds: eventIds
+        };
+        return this.http.get(`${url}`,{params:params});
+    }
+
     createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:number , longitude:number},category: string,region: string,eventPoster:string)
     {
         const url=this.baseURl+'events';
@@ -143,13 +157,13 @@ export class service{
             name: name,
             organisation: organisation,
             description: description,
+            eventPoster: eventPoster,
             date: date,
             startTime: startTime,
             endTime: endTime,
             location: location,
             category: category,
-            region: region,
-            eventPoster: eventPoster
+            region: region
         }
         return this.http.post(`${url}`,body);
 
@@ -168,19 +182,15 @@ export class service{
     
     //SERVICES FOR USERS
 
-    createUser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string,region:string,profilePicture:string)
+    createUser(username:string,password:string,profilePicture:string,region:string)
     {
         const url=this.baseURl+'users/signup';
         const body=
         {
-            name:name,
-            surname:surname,
             username: username,
-            email:email,
             password:password,
-            phoneNumber:phoneNumber,
-            region:region,
-            profilePicture:profilePicture
+            profilePicture:profilePicture,
+            region:region
         }
         return this.http.post(`${url}`,body);
     }
@@ -260,18 +270,16 @@ export class service{
 
     //SERVICES FOR ORGANISER
 
-    createOrginiser(name:string,surname:string,username:string,email:string,password:string,phoneNumber:string, orgDescription:string)
+    createOrginiser(username:string,password:string,name:string,events:string[])
     {
         const url=this.baseURl+'organisations/signup';
         const body=
         {
-            name:name,
-            surname:surname,
             username: username,
-            email:email,
             password:password,
-            phoneNumber:phoneNumber,
-            orgDescription:orgDescription
+            name:name,
+            events:events
+
         }
         return this.http.post(`${url}`,body);
     }
@@ -291,6 +299,18 @@ export class service{
     {
         const url=this.baseURl+'organisations';
         return this.http.get(`${url}`);
+    }
+
+    getLogedInOrg(token: string) {
+        const url = this.baseURl + 'organisations/account';
+      
+        // Create headers object and set the desired headers including the token
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
+        // Pass the headers object as the second parameter in the get() method
+        return this.http.get(url, { headers });
     }
 
 
@@ -322,11 +342,5 @@ export class service{
         return this.http.post(`${url}`,body);
     }
     
-    setUserType(userType: string): void {
-        this.userTypeSubject.next(userType);
-      }
     
-      getUserType(): BehaviorSubject<string> {
-        return this.userTypeSubject;
-      }
 }

@@ -34,9 +34,30 @@ export class ProfileComponent {
     // Add more image URLs as needed
   ];
   
-  profile:user={name:'',surname:'',username:'',email:'',password:'',phoneNumber:'',region:'',profilePicture:''};
+  profile:user={username:'',password:'',profilePicture:'',region:''};
   eventCount='';
-  userEvents = [];
+  userEvents = [
+    {
+      eventID:'',
+      organisationID:'',
+      userID:''
+    }
+  ];
+
+  events=[{
+    name:'',
+    organisation:'',
+    description:'',
+    eventPoster:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    location: {latitude: 0 , longitude:0},
+    category: '',
+    region: ''
+  }]
+
+  orgIDs='';
   profileId='';
   constructor(private router: Router,private modalController: ModalController,private serviceProvider: service) {
     this.profileId='64722456cd65fc66879ed7ba';
@@ -48,6 +69,8 @@ export class ProfileComponent {
     this.getProfile(this.profileId);
     this.getEventCount(this.profileId);
     this.getEvents(this.profileId);
+    
+    
   }
   
   async getProfile(id :string){
@@ -55,6 +78,7 @@ export class ProfileComponent {
       this.profile = response;
     })
   }
+
   async getEventCount(id : string){
     await this.serviceProvider.getUserAttendancesCount(id).subscribe((response:any)=>{
       this.eventCount = response;
@@ -68,12 +92,41 @@ export class ProfileComponent {
    
     });
   }
+
   async getEvents(id : string){
     await this.serviceProvider.getUserAttendances(id).subscribe((response:any)=>{
       this.userEvents = response;
       console.log(this.userEvents);
+
+      for(let i=0;i<this.userEvents.length;i++)
+      {
+        if(i==this.userEvents.length-1)
+        {
+          this.orgIDs+=this.userEvents[i].organisationID;
+        }
+        else
+        {
+          this.orgIDs+=this.userEvents[i].organisationID+',';
+        }
+        
+        
+        
+      }
+      console.log(this.orgIDs);
+      this.fetchByIds('fetch-by-ids',this.orgIDs);
     });
   }
+
+  async fetchByIds(id:string ,eventIds:string)
+  {
+    await this.serviceProvider.getEventByIDs(id,eventIds).subscribe((response:any)=>{
+      console.log(response);
+      this.events = response;
+      console.log(this.events);
+    });
+  }
+
+  
   toggleEditProfile() {
     this.isEditMode = !this.isEditMode;
     this.newProfileName = this.profileName;
@@ -112,6 +165,7 @@ export class ProfileComponent {
     this.isEditMode = false;
   }
   
+
   async  convertImageToBase64(imageUrl: string): Promise<string> {
     try {
       const response = await fetch(imageUrl);
@@ -135,6 +189,7 @@ export class ProfileComponent {
   cancelEditProfile() {
     this.isEditMode = false;
   }
+  
   openEditProfilePopover() {
     this.isEditMode = true;
   }

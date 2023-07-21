@@ -6,6 +6,8 @@ export class CreateEventDto {
     
     readonly description!: string;
 
+    readonly eventPoster!: string;
+
     readonly date!: string;
    
     readonly startTime!: string;
