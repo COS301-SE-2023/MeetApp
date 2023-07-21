@@ -25,7 +25,8 @@
         </ion-img>
        </div>
       <form [formGroup]="loginForm" (ngSubmit)="signup()">
-        <ion-item lines="full">
+        <div *ngIf=" userType === 'user'">
+        <!--<ion-item lines="full">
           <ion-label position="floating">First Name</ion-label>
           <ion-input class="rounded-input" type="text" name="firstname" formControlName="firstname"required></ion-input>
           <div class="error-message" *ngIf="loginForm.controls['firstname'].touched && loginForm.controls['firstname'].hasError('required')">
@@ -39,7 +40,7 @@
           <div class="error-message" *ngIf="loginForm.controls['lastname'].touched && loginForm.controls['lastname'].hasError('required')">
             Last Name is required.
           </div>
-        </ion-item>
+        </ion-item>-->
         <ion-item lines="full">
           <ion-label position="floating">Username</ion-label>
           <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
@@ -47,7 +48,7 @@
             Username is required.
           </div>
         </ion-item>
-        <ion-item lines="full">
+       <!-- <ion-item lines="full">
           <ion-label position="floating">Email</ion-label>
           <ion-input type="email" name="email" formControlName="email"></ion-input>
           <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
@@ -56,7 +57,7 @@
           <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('email')">
             Invalid email format.
           </div>
-        </ion-item>
+        </ion-item>-->
 
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
@@ -74,6 +75,43 @@
           </div>
         </ion-item>
 
+       
+
+        <ion-item lines="full">
+          <ion-label position="floating">Region</ion-label>
+          <ion-input type="password"  name="region" formControlName="region" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['region'].touched && loginForm.controls['region'].hasError('required')">
+            Region is required.
+          </div>
+        </ion-item>
+        </div>
+
+        <div *ngIf=" userType === 'organiser'">
+          <ion-item lines="full">
+            <ion-label position="floating">Username</ion-label>
+            <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+              Username is required.
+            </div>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Organisation Name</ion-label>
+            <ion-input class="rounded-input" type="text" name="name" formControlName="name"required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['name'].touched && loginForm.controls['name'].hasError('required')">
+              Organisation Name is required.
+            </div>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" name="password" formControlName="password" required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+              password is required.
+            </div>
+          </ion-item>
+
+        </div>
         <ion-row>
           <ion-col>
             <ion-button type="submit"  expand="block" (click)="signup()"  (click)="isvalid()" [disabled]="loginForm.invalid">Sign Up</ion-button>

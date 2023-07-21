@@ -40,12 +40,13 @@ export class SignupComponent {
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location) {}
 
    
-
+    events:any =[];
   firstname="";
   username='';
   lastname="";
   email = ''; 
   password= '';   
+  region='';
 
   //user type from the welcome page 
   userType:string|null = '';
@@ -54,15 +55,18 @@ export class SignupComponent {
   
   access:string|null='';
   
+  
   submitClicked = false;
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      firstname: ['', Validators.required],
-    lastname: ['', Validators.required],
+     /*  firstname: ['', Validators.required],
+   lastname: ['', Validators.required],*/
     username: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
+   // email: ['', [Validators.required, Validators.email]],
+    region:['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8)]],
-    confirmpassword: ['', Validators.required]
+    confirmpassword: ['', Validators.required],
+    name:['', Validators.required]
     });
      
     
@@ -114,6 +118,7 @@ export class SignupComponent {
   valid=true;
 
   signup()
+
   {
     const firstname = this.loginForm.value.firstname;
     const lastname = this.loginForm.value.lastname;
@@ -121,13 +126,18 @@ export class SignupComponent {
     const password = this.loginForm.value.password;
     const confirmpassword = this.loginForm.value.confirmpassword;
     const username=this.loginForm.value.username;
-
-
-
+    const region=this.loginForm.value.region;
+    const name =this.loginForm.value.name;
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
     if (!strongRegex.test(password) && this.loginForm.invalid) {   
       this.valid=false;
+    }
+    else
+    {
+      const errorMessage = 'choose a stronger password';
+      this.showErrorToast(errorMessage);
+
     }
 
     
@@ -136,13 +146,31 @@ export class SignupComponent {
     
     //this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
     //this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
-    
+    if(this.userType=='user' )
+    {
+        this.SignUpUser(username,password,'',region);
+    }
+    else  if(this.userType='organiser'){
+      this.SignUpOrg(username,name,password, this.events)
+
+
+    }
     console.log(firstname);
     console.log(lastname);
     console.log(email);
     console.log(password);
     console.log(confirmpassword);
 
+}
+async showErrorToast(message: string) {
+  const toast = await this.toastController.create({
+    message: message,
+    duration: 3000,
+    color: 'danger',
+    position: 'top'
+  });
+
+  await toast.present();
 }
 async showErrorAlert(message: string) {
   const alert = await this.alertController.create({
@@ -214,7 +242,7 @@ isvalid()
 
 
   onSignUp() {
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/home']);
   }
 }
 
