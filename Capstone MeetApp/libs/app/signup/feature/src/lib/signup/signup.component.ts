@@ -47,6 +47,22 @@ export class SignupComponent {
   email = ''; 
   password= '';   
 
+  signupData_user:any;
+
+  userSignup_payload= {
+    access_token:'',
+    message:''
+  };
+
+  
+  signupData_org:any;
+
+  orgSignup_payload= {
+    access_token:'',
+    message:''
+  };
+
+
   //user type from the welcome page 
   userType:string|null = '';
 
@@ -91,7 +107,11 @@ export class SignupComponent {
   {
     await this.apiService.createUser(username,password,profilePicture,region).subscribe((response) => {
       console.log('API response:', response);
-      
+      this.signupData_user=response;
+      this.userSignup_payload=this.signupData_user;
+      this.apiService.setToken(this.userSignup_payload.access_token);
+      console.log('SignUp Access Token',this.userSignup_payload.access_token);
+      console.log('Message',this.userSignup_payload.message);
     });
   }
 
@@ -101,7 +121,11 @@ export class SignupComponent {
   {
     await this.apiService.createOrginiser(username,password,name,events).subscribe((response) => {
       console.log('API response:', response);
-
+      this.signupData_org=response;
+      this.orgSignup_payload=this.signupData_org;
+      this.apiService.setToken(this.orgSignup_payload.access_token);
+      console.log('SignUp Access Token',this.orgSignup_payload.access_token);
+      console.log('Message',this.orgSignup_payload.message);
     });
   }
 
