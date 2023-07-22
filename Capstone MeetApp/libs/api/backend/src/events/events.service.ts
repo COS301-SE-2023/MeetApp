@@ -6,12 +6,13 @@ import { UpdateEventDto } from './dto/update-event.dto';
 import { Model, FilterQuery } from 'mongoose';
 import { Organisation } from '../organisations/schema';
 import { Attendance } from '../attendances/schema';
+import { User } from '../users/schema';
 
 
 
 @Injectable()
 export class EventsService {
-  constructor(@InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>)
+  constructor(@InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(User.name) private userModel: Model<User>)
   {
 
   }
@@ -76,5 +77,18 @@ export class EventsService {
      throw new NotFoundException(`Student #${id} not found`);
    }
    return deletedEvent;
+  }
+
+  async getEventAttendance(eventId: string): Promise<number> {
+    const eventAttendanceCount = await this.attendanceModel.countDocuments({ eventID: eventId });
+    return eventAttendanceCount;
+  }
+
+  async getAttendingUsers(eventId: string){
+    const attendance = await this.attendanceModel.find({ eventID: eventId }).exec();
+    const attendingUserIds = attendance.map((a) => a.userID);
+    const users = await this.userModel.find({ _id: { $in: attendingUserIds } }).exec();
+
+    return users.map((user) => ({ id: user._id, username: user.username }));
   }
 }
