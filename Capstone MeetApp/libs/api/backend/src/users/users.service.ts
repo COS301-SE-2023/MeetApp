@@ -5,10 +5,11 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
 import { Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
+import { Event } from '../events/schema';
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>){
     
   }
   
@@ -25,7 +26,9 @@ export class UsersService {
   }
 
   async getUserAttendances(userId: string) {
-    return this.attendanceModel.find({ userID: userId }).exec();
+    const attendanceslist = await this.attendanceModel.find({ userID: userId }).select('eventID -_id').exec();
+    const Parsedattendanceslist = attendanceslist.map( (attendance) => {return attendance.eventID})
+    return await this.eventModel.find({_id : {$in : Parsedattendanceslist}}).exec()
   }
 
   async getUserAttendancesCount(userId: string) {
