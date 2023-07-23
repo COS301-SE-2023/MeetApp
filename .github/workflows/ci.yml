@@ -5,12 +5,12 @@ on:
     branches:
       - main
       - production
-      - development
+      
   pull_request:
     branches:
       - main
       - production
-      - development
+      
 
 jobs:
   lint:
