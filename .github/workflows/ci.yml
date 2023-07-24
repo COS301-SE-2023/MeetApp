@@ -5,12 +5,12 @@ on:
     branches:
       - main
       - production
-      - development
+      
   pull_request:
     branches:
       - main
       - production
-      - development
+      
 
 jobs:
   lint:
@@ -31,14 +31,7 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
-      - name: 
-          'PR Build application if affected by changes in in feature branch'
-      - if: env.is_pull_request== 'true'
-      - run: npm run affected:lint
-      - name:
-          'Merge: build the application'
-        if: env.is_merge =='true'
-      - run: npm run affected:lint
+      - run: npm run lint
 
 
   build:
@@ -59,15 +52,7 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
-      - name: 
-          'PR Build application if affected by changes in in feature branch'
-      - if: env.is_pull_request== 'true'
-      - run: npm run affected:build
-        
-      - name:
-          'Merge: build the application'
-        if: env.is_merge =='true'
-      - run: npm run affected:build
+      - run: npm run build
       
   test:
     name: test
@@ -87,15 +72,7 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
-      - name: 
-          'PR Build application if affected by changes in in feature branch'
-      - if: env.is_pull_request== 'true'
-      - run: npm run affected:test
-      
-      - name:
-          'Merge: build the application'
-        if: env.is_merge =='true'
-      - run: npm run affected:test
+      - run: npm run test
       
   e2e:
     name: e2e
@@ -115,14 +92,7 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
-      - name: 
-          'PR Build application if affected by changes in in feature branch'
-      - if: env.is_pull_request== 'true'
-      - run: npm run affected:e2e
-        
-      - name:
-          'Merge: build the application'
-        if: env.is_merge =='true'
-      - run: npm run affected:e2e
+      - run: npm run e2e
+
         
         
