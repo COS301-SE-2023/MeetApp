@@ -4,6 +4,10 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "build:app:development":"nx run meet-app:build:development",
+    "build:app:production":"nx run meet-app:build:production",
+    "build:api:development":"nx run meet-app-api:build:development",
+    "build:api:production":"nx run meet-app-api:build:production",
     "ci:start": "npm run lint && npm run build && npm run test",
     "lint": "nx run-many --target=lint",
     "build": "nx run-many --target=build --all --parallel",
