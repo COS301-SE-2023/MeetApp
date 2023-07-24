@@ -181,4 +181,34 @@ export class service{
         const url=`${this.baseURl}events/fetch-by-ids?eventsIds=${ids}`;
         return this.http.get(`${url}`);
     }*/
+    sendfriendrequest( requester:string, requestee:string,status:string)
+    {
+        const url=`${this.baseURl}users/${requester}/friend/send-request`;
+        const body ={
+            requester:requester,
+            requestee:requestee,
+            status:status
+        }
+        return this.http.post(`${url}`,body);
+    }
+    acceptFriendRequest(requester: string, requestee: string, status: string) {
+        const url = `${this.baseURl}users/${requestee}/friend/accept-request`;
+        const body = {
+          requester: requester,
+          requestee: requestee,
+          status: status,
+        };
+        return this.http.patch(url, body);
+      }
+    deleteFriendRequest(friendID: string, friend: string) {
+        const url = `${this.baseURl}users/${friendID}/friend/unfriend`;
+        const body = {
+          friendID: friendID,
+          friend: friend,
+        };
+    
+        return this.http.delete(url, { body: body });
+      }
+     
+
 }
