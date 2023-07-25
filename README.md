@@ -51,8 +51,7 @@ MeetApp is a location-powered, social-networking and event-planning application 
 
 * [Requirements and Design (SRS) Document](https://docs.google.com/document/d/1EHkrakkAeITL3uzxEYB2qK57-l74RdiUYAZXCMUeUTg/edit?usp=sharing)
 * [Architectural Structural Design & Requirements](https://drive.google.com/drive/folders/1HtlHt38AoDzFUmQpi_i_lWsPaaEMfXUJ?usp=sharing)
-* [Coding Standards](#)
-* [Testing Standards](#)
+* [Coding and Testing Standards](https://docs.google.com/document/d/1ZUdV4XrxWqKKbb852i9F_gth-JWqUqO0vA69SMZdbGM/edit?usp=sharing)
 * [Project Management](#)
 * [Manuals & Tutorials](#)
 * [Presentation & Videos](#)
