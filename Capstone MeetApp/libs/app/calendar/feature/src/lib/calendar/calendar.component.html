@@ -7,12 +7,17 @@
     <title>Calendar</title>
 </head>
 <ion-header>
-    <ion-toolbar>
-      <ion-title >
-        <h1>Calendar</h1>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <h1 class="heading" >
+          Calendar
+      </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 <div id="body">
         <!-- <ion-item>
             <ion-datetime color="rose"></ion-datetime>

@@ -149,7 +149,9 @@ export class service{
         return this.http.get(`${url}`,{params:params});
     }
 
-    createEvents(name: string,organisation: string,description: string, date: string, startTime: string,endTime: string,location: {latitude:number , longitude:number},category: string,region: string,eventPoster:string)
+    createEvents(name: string,organisation: string,description: string,eventPoster:string, date: string,
+         startTime: string,endTime: string,location: {latitude:number , longitude:number},
+         category: string,region: string)
     {
         const url=this.baseURl+'events';
         const body=
@@ -253,6 +255,32 @@ export class service{
         return this.http.patch(`${url}`,body);
     }
 
+    updateSettings(id: string,password?: string) {
+        const url = `${this.baseURl}users/${id}`;
+        const body={password};
+      
+       
+      
+        if (password) {
+          body.password = password;
+        }
+      
+        
+      
+        return this.http.patch(`${url}`,body);
+       
+      }
+       
+      deleteAccount(userId: string, reason: string) {
+        const url = `${this.baseURl}users/${userId}`;
+    
+        const body = {
+          deleteAccount: true,
+          reason: reason
+        };
+    
+        return this.http.delete(url, { body: body });
+      }
     getUserAttendances(id:string){
         const url=`${this.baseURl}users/${id}/attendances`;
         return this.http.get(`${url}`);

@@ -5,6 +5,7 @@ import {service,events} from '@capstone-meet-app/services';
 import { Router } from '@angular/router';
 import {  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'capstone-meet-app-event',
   standalone: true,
@@ -64,7 +65,10 @@ export class EventComponent {
     eventPoster:''
   };
   
-  constructor(private apiService: service,private route: ActivatedRoute) { 
+  constructor(private apiService: service,private route: ActivatedRoute,private location: Location) { 
+  }
+  goBack() {
+    this.location.back();
   }
 
   async ngOnInit() {

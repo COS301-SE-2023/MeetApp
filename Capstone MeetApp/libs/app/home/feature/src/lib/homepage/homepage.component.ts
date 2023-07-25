@@ -31,15 +31,14 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [IonicModule,CommonModule,FormsModule,ServicesModule],
+  imports: [IonicModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
   
 })
 export class HomepageComponent {
-  filteredData: any[] = [];
-  searchQuery = '';
+
   name='';
   organisation='';
   date='';
@@ -147,6 +146,10 @@ export class HomepageComponent {
       
     }
  
+  
+
+    filteredData: any[] = [];
+    searchQuery = '';
     
    search(): void {
     if (this.searchQuery.trim() === '') {

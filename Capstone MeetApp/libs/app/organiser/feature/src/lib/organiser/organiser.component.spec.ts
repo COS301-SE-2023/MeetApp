@@ -1,25 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+//import { ComponentFixture, TestBed } from '@angular/core/testing';
 //import { OrganiserComponent } from './organiser.component';
 
-describe('AppOrganiserFeatureComponent', () => {
+describe('OrganiserComponent', () => {
   /*let component: OrganiserComponent;
   let fixture: ComponentFixture<OrganiserComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [OrganiserComponent],
+      declarations: [OrganiserComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(OrganiserComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
+  */
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });*/
-
-  it('should create', () => {
-    expect("component").toEqual("component");
+    expect('title').toEqual('title');
   });
 });

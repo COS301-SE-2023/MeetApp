@@ -2,8 +2,13 @@
 <html lang="en">
   <ion-header>
     <ion-toolbar>
-      <ion-title >
-        Event Map
+      <ion-buttons slot="start">
+        <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+          <h1 class="heading" >
+            Event Map
+        </h1>
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -20,7 +25,7 @@
 
 <div id="body">
   <div class="container">
-
+    
   <div id="map" style="height: 600px;"></div>
   
   <ion-grid>

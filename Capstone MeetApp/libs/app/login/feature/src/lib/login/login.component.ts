@@ -26,11 +26,10 @@ import { AlertController, ToastController } from '@ionic/angular';
   providers: [service,HttpClient]
 })
 export class LoginComponent {
-  valid=true;
   loginForm!: FormGroup;
-  email = ''; 
+ email = ''; 
   password= ''; 
-
+username='';
 
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
     private toastController: ToastController, private authservice: service,private activatedRoute: ActivatedRoute) { 
@@ -112,7 +111,7 @@ export class LoginComponent {
     
 
     this.loginForm = this.formBuilder.group({
-      email: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', Validators.required]
     });
 
@@ -143,7 +142,7 @@ export class LoginComponent {
     
     
   
-  
+  valid=true;
 
   //Login Function for User
   async LogInUser(username:string,password:string)
@@ -165,7 +164,7 @@ export class LoginComponent {
 
   for (let i = 0; i < this.data_user.length; i++) {
 
-    if((this.data_user[i].username==username || this.data_user[i].email==this.email) && this.data_user[i].password==password)
+    if((this.data_user[i].username==username ||this.data_user[i].email==this.email) && this.data_user[i].password==password)
     {
       const errorMessage = 'you have succesfully logged in';
       this.showErrorAlert(errorMessage); 
@@ -199,6 +198,23 @@ export class LoginComponent {
       console.log('access token:',this.orgLogin_payload.access_token)
       console.log('message:',this.orgLogin_payload.message);
     });
+
+    for (let i = 0; i < this.data_organiser.length; i++) {
+
+      if((this.data_organiser[i].username==username || this.data_organiser[i].email==this.email) && this.data_organiser[i].password==password)
+      {
+        const errorMessage = 'you have succesfully logged in';
+        this.showErrorAlert(errorMessage); 
+        this.router.navigate(['/home']);
+        this.valid=false;
+      }
+      
+    }
+    if(this.valid)
+    {
+      const errorMessage = 'wrong username or password';
+        this.showErrorToast(errorMessage);
+    }
   }
 
 
@@ -220,19 +236,19 @@ export class LoginComponent {
     this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
-  login(email: string,password: string) {
-    console.log('email:', email);
+  login(username: string,password: string) {
+    console.log('username:', username);
     console.log('password',password);
 
     if(this.userType=='user')
     {
-      this.LogInUser(email,password);
+      this.LogInUser(username,password);
       
     }
 
     if(this.userType=='organiser')
     {
-      this.LogInOrg(email,password);
+      this.LogInOrg(username,password);
     }
    
   }

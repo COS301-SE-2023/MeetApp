@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { FormsModule } from '@angular/forms';
 export class CalendarComponent {
 
   selectedDate!: string;
-  constructor(private service:service,private router:Router){
+  constructor(private service:service,private router:Router,private location: Location){
 
   }
 
@@ -35,7 +35,9 @@ export class CalendarComponent {
   
 ];
 filteredEvents: events[] = [];
-
+goBack() {
+  this.location.back();
+}
 filterEvents() {
   // Filter events based on the selected date
   if (this.selectedDate) {
