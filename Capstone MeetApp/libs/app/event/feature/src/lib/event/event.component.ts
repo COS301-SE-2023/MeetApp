@@ -133,7 +133,7 @@ export class EventComponent {
   getOrganiserID(organisation:string)
   {
     for (let i = 0; i < this.data_organiser.length; i++) {
-      if(this.data_organiser[i].username==organisation)
+      if(this.data_organiser[i].name==organisation)
       {
         this.organisationID=this.data_organiser[i]._id;
         break;
