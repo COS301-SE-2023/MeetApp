@@ -77,7 +77,7 @@ export interface createFriend
 export class service{
     constructor(private http:HttpClient){}
 
-    private baseURl='http://localhost:3000/api/';
+    private baseURl='http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/';
 
     getAllEvents()
     {
@@ -106,7 +106,7 @@ export class service{
     }
 
      getEventsByRange(startDate?:string,endDate?:string){
-        const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
+        const url=`http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/events/daterange/${startDate}/${endDate}`;
         return this.http.get(`${url}`);
     }
     
