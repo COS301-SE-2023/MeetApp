@@ -77,7 +77,7 @@ export interface createFriend
 export class service{
     constructor(private http:HttpClient){}
 
-    private baseURl='http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com//api/';
+    private baseURl='http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/';
 
     getAllEvents()
     {
