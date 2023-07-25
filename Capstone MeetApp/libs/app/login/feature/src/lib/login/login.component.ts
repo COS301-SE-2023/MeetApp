@@ -169,7 +169,7 @@ export class LoginComponent {
     {
       const errorMessage = 'you have succesfully logged in';
       this.showErrorAlert(errorMessage); 
-      this.router.navigate(['/home']);
+      this.router.navigate(['/home',{ userType: this.userType }]);
       this.valid=false;
     }
     
