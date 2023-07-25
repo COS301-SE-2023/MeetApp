@@ -62,7 +62,7 @@ jobs:
       - name: Send zip file to s3
         run: aws s3 cp ./api_deploy.zip s3://dev-meet-app-api
       - name: update the API
-        run: aws elasticbeanstalk create-application-version --application-name meetapp --source-bundle S3Bucket="dev-meet-app-api",S3Key="api_deploy.zip" 
+        run: aws elasticbeanstalk create-application-version --application-name meetapp --source-bundle S3Bucket="dev-meet-app-api",S3Key="api_deploy.zip" --version-label "meetapp-version-${{ github.sha }}" 
       - name: deploy api to ebs
         run: aws elasticbeanstalk update-environment --environment-name Meetapp-env-1 --version-label "meetapp-version-${{github.sha}}"
     
