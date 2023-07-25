@@ -60,7 +60,7 @@ jobs:
       - name: Compress required files to deploy 
         run: Compress-Archive -Path './dist','./package.json' -DestinationPath ./api_deploy.zip
       - name: Send zip file to s3
-        run: aws s3 cp ./api_deploy s3://dev-meet-app-api
+        run: aws s3 cp ./api_deploy.zip s3://dev-meet-app-api
       - name: update the API
         run: aws elasticbeanstalk create-application-version --application-name meetapp --source-bundle S3Bucket="dev-meet-app-api",S3Key="api_deploy.zip" 
       - name: deploy api to ebs
