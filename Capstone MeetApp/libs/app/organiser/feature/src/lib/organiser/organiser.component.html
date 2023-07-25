@@ -19,8 +19,8 @@
       </ion-toolbar>
     </ion-header>
   <ion-content>
-    <form>
-      <ion-item  (ngSubmit)="submitForm()" class="profile-picture">
+    <form (ngSubmit)="submitForm()" #eventForm="ngForm">
+      <ion-item   class="profile-picture">
         <ion-avatar>
           <img [src]="profilePictureUrl" alt="Profile Picture" (click)="changeProfilePicture()">
         </ion-avatar>
@@ -80,93 +80,18 @@
       </ion-item>
 
       <ion-row>
-        <ion-col>
-          <ion-button type="submit" color="danger" expand="block" (click)=saveProfile() (click)="submitForm()" >Create Event</ion-button>
-        </ion-col>
-      </ion-row>
+    <ion-col>
+      <ion-button type="submit"  expand="block" (click)="submitForm()">Create Event</ion-button>
+    </ion-col>
+  </ion-row>
+</form>
 
-    </form>
+    
 
   </ion-content>
   </div>
-<!--<div id="body">
-  <ion-header style="color: blue;">
-    <ion-title style="color:#D4ADFC">
-      Event Organiser
-    </ion-title>
-  </ion-header>
-
-
-  <div class="icon-container left">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDj9o_I6LyEmxPyP2Eg7KktdP5WcqAFbppFkx4fwe5ztI8TM9EuIzuqahUKt6DZJMYKQ&usqp=CAU" alt="Icon 1">
-
-    
-  </div>
-
-  <div class="icon-container right">
-    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwDj9o_I6LyEmxPyP2Eg7KktdP5WcqAFbppFkx4fwe5ztI8TM9EuIzuqahUKt6DZJMYKQ&usqp=CAU" alt="Icon 3">
-
-    
-  </div>
-  <div (ngSubmit)="submitForm()" class="profile-picture">
-    <ion-avatar>
-      <img [src]="profilePictureUrl" alt="Profile Picture" (click)="changeProfilePicture()">
-    </ion-avatar>
-    <ion-button fill="clear" size="small" (click)="changeProfilePicture()">
-      Edit Image
-      <ion-icon name="camera-outline" style="color: white;"></ion-icon>
-    </ion-button>
-  </div>
-  <ion-button ion-button fill="clear" size="small" (click)="toggleForm()" class="toggle-button" style="background-color: #5C469C">Create Event</ion-button>
-
-
-  <ion-item (ngSubmit)="submitForm()" class="custom-item" >
-
-    <ion-label position="floating" class="custom-label">Event Name</ion-label>
-    <ion-input [(ngModel)]="eventName" class="custom-input" placeholder="Enter event name"></ion-input>
-  </ion-item>
-  
-  <ion-item (ngSubmit)="submitForm()" class="custom-item" >
-    <ion-label position="floating" class="custom-label">Organisation Name</ion-label>
-    <ion-input [(ngModel)]="OrganisationName" class="custom-input" placeholder="Enter Organisation name"></ion-input>
-  </ion-item>
-  
-  <ion-item (ngSubmit)="submitForm()">
-    <ion-label for="startDate" style="color: #5C469C;">Event Date:</ion-label>
-    <button ion-button outline (click)="showDateTimeFields = true" class="enter-button">Enter date and time</button>
-    <div *ngIf="showDateTimeFields" class="datetime-fields">
-      <input type="date" id="startDate" name="startDate" [(ngModel)]="this.selectedRange.startDate" class="extraordinary-input">
-      <input type="time" id="startTime" name="startTime" [(ngModel)]="this.selectedRange.startTime" class="extraordinary-input">
-      <span class="to-label">to</span>
-      <input type="time" id="endTime" name="endTime" [(ngModel)]="selectedRange.endTime" class="extraordinary-input">
-    </div>
-  </ion-item>
-  
-  
-  
-  
-
-  <ion-item >
-    <ion-label (ngSubmit)="submitForm()" position="floating" class="custom-label">Description</ion-label>
-    <ion-textarea [(ngModel)]="description"  class="custom-input"  placeholder="Enter description"></ion-textarea>
-  </ion-item>
-
-  <ion-item (ngSubmit)="submitForm()">
-    <ion-label for="region"   style="color: #5C469C">Location:</ion-label>
-    <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
-      <ion-select-option value="">-- Select Region --</ion-select-option>
-      <ion-select-option value="Pretoria">Pretoria</ion-select-option>
-      <ion-select-option value="Johannesburg">Johannesburg</ion-select-option>
-      
-      
-    </ion-select>
-    
-  </ion-item>
 
   
-  
-  <ion-button fill="clear" size="small" (click)="saveProfile()" class="save-button">Save</ion-button>
-</div>
 <div>
   <nav class="bottom-navbar">
     <ul>
@@ -191,4 +116,3 @@
     </ul>
   </nav>
 </div>
--->
