@@ -141,6 +141,9 @@ export class EventComponent {
     }
     console.log('Returned OrganiserID',this.organisationID);
   }
-
+  addEvent()
+  {
+    this.attendEvent(this.organisationID,this.eventID,this.userID);
+  }
 
 }
