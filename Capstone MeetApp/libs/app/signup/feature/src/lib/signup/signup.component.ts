@@ -130,13 +130,14 @@ export class SignupComponent {
     const name =this.loginForm.value.name;
     const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     
-    if (!strongRegex.test(password) && this.loginForm.invalid) {   
+    if (!strongRegex.test(password) && this.loginForm.invalid) {  
+      const errorMessage = 'choose a stronger password';
+      this.showErrorToast(errorMessage); 
       this.valid=false;
     }
     else
     {
-      const errorMessage = 'choose a stronger password';
-      this.showErrorToast(errorMessage);
+      this.valid=true;
 
     }
 
@@ -155,11 +156,10 @@ export class SignupComponent {
 
 
     }
-    console.log(firstname);
-    console.log(lastname);
-    console.log(email);
+    console.log(name);
     console.log(password);
-    console.log(confirmpassword);
+    console.log(region);
+    
 
 }
 async showErrorToast(message: string) {

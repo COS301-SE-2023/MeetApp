@@ -34,10 +34,10 @@
 <div>
   <form>
     <ion-item lines="full">
-      <ion-label position="floating">Email</ion-label>
-      <ion-input type="email"  [(ngModel)]="email" name="email" required></ion-input>
-      <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
-        Email is required.
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="username"  [(ngModel)]="username" name="username" required></ion-input>
+      <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+        Username is required.
       </div>
     </ion-item>
     <ion-item lines="full">
@@ -49,7 +49,7 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit"  expand="block" (click)="login(email,password)"  >Sign In</ion-button>
+        <ion-button type="submit"  expand="block" (click)="login(username,password)"  >Sign In</ion-button>
         <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
         <a class="small-text"  (click)="onCreate()">create an account</a>
       </ion-col>
