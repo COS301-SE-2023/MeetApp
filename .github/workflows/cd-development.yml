@@ -55,8 +55,8 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install --legacy-peer-deps
-      - run: cat ./tools/package.txt > package.json
       - run: npm run build:api:development
+      - run: cat ./tools/package.txt > package.json
       - name: Compress required files to deploy 
         run: Compress-Archive -Path './dist','./package.json' -DestinationPath ./api_deploy.zip
       - name: Send zip file to s3
