@@ -13,6 +13,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Router } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -65,13 +66,15 @@ export class HomepageComponent {
     eventPoster:''
   }];
 
+  userType:string|null = '';
+
   isLiked = false;
   toggleLike() {
     this.isLiked = !this.isLiked;
   }
   
   
-  constructor(private service: service,private router: Router) {
+  constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
     console.log('Constructor');
   }
   
@@ -135,6 +138,12 @@ export class HomepageComponent {
         this.data
       });
 
+      this.activatedRoute.paramMap.subscribe(params => {
+        this.userType = params.get('userType');
+        console.log('User Type:', this.userType);
+      });
+    
+      
     }
  
   
