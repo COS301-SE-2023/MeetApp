@@ -75,7 +75,7 @@ export class EventComponent {
     this.route.params.subscribe(params => {
       const eventId = params['eventId'];
       this.getEventbyID(eventId);
-      console.log('Ntoto',eventId);
+     
     });
     
 
@@ -141,6 +141,9 @@ export class EventComponent {
     }
     console.log('Returned OrganiserID',this.organisationID);
   }
-
+  addEvent()
+  {
+    this.attendEvent(this.organisationID,this.eventID,this.userID);
+  }
 
 }

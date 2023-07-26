@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 @Component({
   standalone:true,
@@ -18,7 +19,7 @@ export class SettingsComponent {
   newPassword='';
   confirmPassword='';
   NewLocation='';
-  constructor(/*private service:service*/private router:Router,private location: Location){
+  constructor(/*private service:service*/private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
 
   }
 
@@ -32,11 +33,26 @@ export class SettingsComponent {
   }
 
   nagivateToHome(): void {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/login']);
   }
   goBack() {
     this.location.back();
   }
+  
+  /*
+  gotohomefroms() {
+    this.router.navigate(['/home']);
+  }
+  gotoprofile() {
+    this.router.navigate(['/profile']);
+  }
+  gotocalendar() {
+    this.router.navigate(['/calendar']);
+  }
+  gotosettings() {
+    this.router.navigate(['/settings']);
+  }
+ */
    
   /*async updatepassword(password: string) {
     const userId = '647223decd65fc66879e13dc'; 

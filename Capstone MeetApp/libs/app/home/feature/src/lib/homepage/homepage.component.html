@@ -72,8 +72,8 @@
 
 
  
-<div class="stationary-box">
-  <a href="/map">
+<div class="stationary-box" (click)="gotomap()">
+  <a >
   <ion-card class="stationary-box1">
     <ion-card-content >
       <div class="white">
@@ -89,19 +89,22 @@
 
 </div>
 <div class="navigation-bar">
-  <a href="/home" class="navigation-item">
+  <a  (click)="gotohome()" class="navigation-item">
     <i class="fas fa-home"></i>
    
   </a>
-  <a href="/calendar" class="navigation-item">
+  <a  (click)="gotocalendar()" class="navigation-item">
     <i class="fas fa-calendar"></i>
     
   </a>
-  <a href="/notifications" class="navigation-item">
-    <i class="fas fa-bell"></i>
+  <a (click)="gotoorganiser()" class="navigation-item" *ngIf=" userType === 'organiser'">
+    <i class=" fas fa-plus"></i>
+    </a>
+  <a  (click)="gotosettings()" class="navigation-item">
+    <i class="fas fa-cog" ></i>
     
   </a>
-  <a href="/profile" class="navigation-item">
+  <a (click)="gotoprofile()" class="navigation-item">
     <i class="fas fa-user"></i>
   
   </a>

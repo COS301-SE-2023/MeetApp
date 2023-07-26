@@ -65,6 +65,7 @@ export class ProfileComponent {
     this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
     this.isEditMode = false;
   }
+  
 
   async ngOnInit(){
     this.getProfile(this.profileId);
@@ -72,6 +73,9 @@ export class ProfileComponent {
     this.getEvents(this.profileId);
     
     
+  }
+  goBack() {
+    this.location.back();
   }
   
   async getProfile(id :string){
@@ -86,9 +90,7 @@ export class ProfileComponent {
       console.log(this.eventCount);
     });
   }
-  goBack() {
-    this.location.back();
-  }
+  
   async updateProfile(id:string,username?:string,profifilePicture?:string,region?:string){
     await this.serviceProvider.updateUser(id,username,profifilePicture,region).subscribe((response) => {
       console.log('API response:', response);

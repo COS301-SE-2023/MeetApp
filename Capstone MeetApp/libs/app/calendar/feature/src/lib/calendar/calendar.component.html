@@ -36,8 +36,9 @@
           
           </div>-->
           <ion-datetime color="rose" presentation="date" displayFormat="YYYY-MM-DD" [(ngModel)]="selectedDate" (ionChange)="filterEvents()"></ion-datetime>
-
+          <ion-card>
 <ion-list>
+  
   <ion-item *ngFor="let event of filteredEvents">
     <ion-label>{{ event.name }}</ion-label>
     <ion-label>{{ event.date }}</ion-label>
@@ -45,9 +46,10 @@
   
   </ion-item>
 </ion-list>
+</ion-card>
 
-        </div>
-        <div class="navigation-bar">
+       </div>
+       <!--  <div class="navigation-bar">
           <a href="/home" class="navigation-item">
             <i class="fas fa-home"></i>
           </a>
@@ -58,5 +60,6 @@
             <i class="fas fa-user"></i>
           </a>
         </div>
+      -->
 
 </html>
