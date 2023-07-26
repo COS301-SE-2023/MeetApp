@@ -246,28 +246,92 @@ export class service{
     }
     
     //body JSON example = {"region": "Joburg", "profifilePicture": "http://localhost..."}
-    updateUser(id:string,username?:string,profilePicture?:string,region?:string){
+    updateUser(id:string, username?:string ,email?:string,password?:string,profilePicture?:string,region?:string){
         const url=`${this.baseURl}users/${id}`;
         const body={
             username:username,
+            email:email,
+           
+            password:password,
             profilePicture:profilePicture,
             region:region
         }
         return this.http.patch(`${url}`,body);
     }
 
-    updateSettings(id: string,password?: string) {
+    updateSettingsEmail(id:string,email?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            email:email,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsRegion(id:string,region?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            region:region,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingspassword(id:string,password?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            password:password,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsusername(id:string,username?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            username:username,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsinterests(id:string,interests?:string[]){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            interests:interests,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsprofilepicture(id:string,profifilePicture?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            profifilePicture:profifilePicture,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+
+    updatepassword(id: string,password?: string) {
         const url = `${this.baseURl}users/${id}`;
-        const body={password};
-      
-       
+        const body={password:password};
       
         if (password) {
           body.password = password;
         }
-      
-        
-      
         return this.http.patch(`${url}`,body);
        
       }
@@ -282,6 +346,7 @@ export class service{
     
         return this.http.delete(url, { body: body });
       }
+  
     getUserAttendances(id:string){
         const url=`${this.baseURl}users/${id}/attendances`;
         return this.http.get(`${url}`);
