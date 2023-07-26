@@ -64,7 +64,7 @@ export class MapsComponent implements AfterViewInit {
 
 
   //services
-  data= [{
+ /* data= [{
     name:'',
     organisation: '',
     description:'',
@@ -75,12 +75,12 @@ export class MapsComponent implements AfterViewInit {
     category:'',
     region:'',
     eventPoster:''
-}];
+}];*/
 
 goBack() {
   this.location.back();
 }
-/*async ngOnInit() {
+async ngOnInit() {
   await this.service.getAllEvents().subscribe((response: any) => { 
     this.data = response;
     for (let i = 0; i < this.data.length; i++) {
@@ -90,7 +90,7 @@ goBack() {
     }
   });
  
-}*/
+}
   selectedRegion="Pretoria";
   selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
@@ -120,7 +120,7 @@ goBack() {
     region:'',
     eventPoster:''}]
   //services
- /* data= [{
+ data= [{
     name:'',
     organisation: '',
     description:'',
@@ -131,7 +131,7 @@ goBack() {
     category:'',
     region:'',
     eventPoster:''
-}];*/
+}];
 events: Event[] = [
     {
       name:'Event 1',
