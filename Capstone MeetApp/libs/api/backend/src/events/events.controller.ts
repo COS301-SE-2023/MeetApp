@@ -30,7 +30,7 @@ export class EventsController {
 
   @Get()
   findAll(@Req() request: Request) {
-    console.log(request);
+    //console.log(request);
     if (request.query == null)
       return this.eventsService.findAll();
     else
@@ -168,6 +168,11 @@ export class EventsController {
     return this.eventsService.findbyOrganisation(organisation);
   }
 
+  @Get(':eventID/attendance-count')
+  getEventAttendanceCount(@Param('eventID') eventID: string) {
+    return this.eventsService.getEventAttendanceCount(eventID);
+  }
+
 
   @Put('/:id')
   async updateEvent(@Res() response : Response,@Param('id') eventId: string,
@@ -199,5 +204,16 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
     else
       return err;
   }
- }}
+ }
+
+ @Get(':eventId/attendance-count')
+  async getEventAttendance(@Param('eventId') eventId: string): Promise<number> {
+    return this.eventsService.getEventAttendance(eventId);
+  }
+
+  @Get(':eventId/attendance')
+  async getAttendingUsers(@Param('eventId') eventId: string) {
+    return this.eventsService.getAttendingUsers(eventId);
+  }
+}
 
