@@ -104,7 +104,7 @@ export interface createAttendance{
 export class service{
     constructor(private http:HttpClient){}
 
-    private baseURl='http://localhost:3000/api/';
+    private baseURl='http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/';
 
     private readonly TOKEN_KEY = 'access_token';
 
@@ -171,14 +171,15 @@ export class service{
 
     }
 
-    getEventsByRange(startDate?:string,endDate?:string){
-        const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
+
+     getEventsByRange(startDate?:string,endDate?:string){
+        const url=`http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/events/daterange/${startDate}/${endDate}`;
         return this.http.get(`${url}`);
     }
 
     getEventsByRegion(region:string)
     {
-        const url=`http://localhost:3000/api/events/region/${region}`;
+        const url=`http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/events/daterange/api/events/region/${region}`;
         return this.http.get(`${url}`);
     }
     
@@ -296,6 +297,7 @@ export class service{
         return this.http.get(`${url}`);
     }*/
 
+
     //SERVICES FOR ORGANISER
 
     createOrginiser(username:string,password:string,name:string,events:string[])
@@ -372,3 +374,4 @@ export class service{
     
     
 }
+
