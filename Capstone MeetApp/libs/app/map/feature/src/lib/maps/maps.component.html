@@ -2,8 +2,13 @@
 <html lang="en">
   <ion-header>
     <ion-toolbar>
-      <ion-title >
-        Event Map
+      <ion-buttons slot="start">
+        <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+          <h1 class="heading" >
+            Event Map
+        </h1>
       </ion-title>
     </ion-toolbar>
   </ion-header>
@@ -21,7 +26,7 @@
 <div id="body">
   <div class="container">
     
-  <div id="map" style="height: 350px;"></div>
+  <div id="map" style="height: 600px;"></div>
   
   <ion-grid>
     <ion-row>
@@ -39,7 +44,12 @@
           <ion-select-option value="">-- Select Region --</ion-select-option>
           <ion-select-option value="Pretoria">Pretoria</ion-select-option>
           <ion-select-option value="Joburg">Johannesburg</ion-select-option>
-          
+          <ion-select-option value="UCT">Cape Town</ion-select-option>
+          <ion-select-option value="Durban">Durban</ion-select-option>
+          <ion-select-option value="ELondon">East London</ion-select-option>
+          <ion-select-option value="Polokwane">Polokwane</ion-select-option>
+          <ion-select-option value="Mbombela">Mbombela</ion-select-option>
+          <ion-select-option value="Bloemfontein">Bloemfontein</ion-select-option>
           <!-- Region options here -->
         </ion-select>
       </ion-item>

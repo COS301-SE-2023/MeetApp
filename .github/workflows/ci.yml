@@ -1,6 +1,9 @@
-name: Continuous Integration Development
+
+name: Continuous Integration Production Environment
 
 on:
+  workflow_dispatch:
+  workflow_call:
   push:
     branches:
       - main
@@ -10,7 +13,6 @@ on:
     branches:
       - main
       - production
-      
 
 jobs:
   lint:
@@ -21,12 +23,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with: 
-          #needed for nx
-          fetch-depth: 0
-      - name: 
-          'derive appropriate SHAs for bas and head for nx affected commands'
-        uses: nrwl/nx-set-shas@v2
       - uses: actions/setup-node@v3
         with: 
           node-version: 18
@@ -42,12 +38,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with: 
-          #needed for nx
-          fetch-depth: 0
-      - name: 
-          'derive appropriate SHAs for bas and head for nx affected commands'
-        uses: nrwl/nx-set-shas@v2
       - uses: actions/setup-node@v3
         with: 
           node-version: 18
@@ -93,6 +83,7 @@ jobs:
           node-version: 18
       - run: npm install --legacy-peer-deps
       - run: npm run e2e
+
 
         
         

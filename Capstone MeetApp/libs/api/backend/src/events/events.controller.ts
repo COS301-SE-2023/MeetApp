@@ -157,7 +157,7 @@ export class EventsController {
     return this.eventsService.getEventsByDateRange(startDate, endDate);
   }
 
-  @Get('timeofday/:timeofday')
+  //@Get('timeofday/:timeofday')
 
   @Get('org/:organisation')
   findbyOrganisation(@Param('organisation') organisation: string) {

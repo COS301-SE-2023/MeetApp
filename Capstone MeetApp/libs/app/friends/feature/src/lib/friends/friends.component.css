@@ -9,7 +9,19 @@ body{
   justify-content: space-between;
   margin-bottom: 20px;
 }
+.heading {
 
+  color:rgb(56, 56, 56);
+  font-family: 'Roboto', serif;
+  
+}
+#body{
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: aliceblue;
+  overflow: scroll;
+}
 .back-button {
   padding: 5px 10px;
   background-color: #007bff;

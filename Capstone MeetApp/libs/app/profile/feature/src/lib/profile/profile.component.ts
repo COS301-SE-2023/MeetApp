@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';;// A
+import { IonicModule } from '@ionic/angular';  // A
 import { ModalController } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
-import { User,service} from '@capstone-meet-app/services';
+import { user,service} from '@capstone-meet-app/services';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'capstone-meet-app-profile',
@@ -33,11 +34,33 @@ export class ProfileComponent {
     'https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/bungee-jumping-in-south-africa-cover.jpg',
     // Add more image URLs as needed
   ];
-  profile:User={username:'',password:'',profilePicture:'',region:''};
+  
+  profile:user={username:'',password:'',profilePicture:'',region:''};
   eventCount='';
-  userEvents = [];
+  userEvents = [
+    {
+      eventID:'',
+      organisationID:'',
+      userID:''
+    }
+  ];
+
+  events=[{
+    name:'',
+    organisation:'',
+    description:'',
+    eventPoster:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    location: {latitude: 0 , longitude:0},
+    category: '',
+    region: ''
+  }]
+
+  orgIDs='';
   profileId='';
-  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service) {
+  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service,private location: Location) {
     this.profileId='64722456cd65fc66879ed7ba';
     this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
     this.isEditMode = false;
@@ -47,32 +70,66 @@ export class ProfileComponent {
     this.getProfile(this.profileId);
     this.getEventCount(this.profileId);
     this.getEvents(this.profileId);
+    
+    
   }
   
   async getProfile(id :string){
-    await this.serviceProvider.getUser(id).subscribe((response:any)=>{ 
+    await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
       this.profile = response;
     })
   }
+
   async getEventCount(id : string){
     await this.serviceProvider.getUserAttendancesCount(id).subscribe((response:any)=>{
       this.eventCount = response;
       console.log(this.eventCount);
     });
   }
-
+  goBack() {
+    this.location.back();
+  }
   async updateProfile(id:string,username?:string,profifilePicture?:string,region?:string){
     await this.serviceProvider.updateUser(id,username,profifilePicture,region).subscribe((response) => {
       console.log('API response:', response);
    
     });
   }
+
   async getEvents(id : string){
     await this.serviceProvider.getUserAttendances(id).subscribe((response:any)=>{
       this.userEvents = response;
       console.log(this.userEvents);
+
+      for(let i=0;i<this.userEvents.length;i++)
+      {
+        if(i==this.userEvents.length-1)
+        {
+          this.orgIDs+=this.userEvents[i].organisationID;
+        }
+        else
+        {
+          this.orgIDs+=this.userEvents[i].organisationID+',';
+        }
+        
+        
+        
+      }
+      console.log(this.orgIDs);
+      this.fetchByIds('fetch-by-ids',this.orgIDs);
     });
   }
+
+  async fetchByIds(id:string ,eventIds:string)
+  {
+    await this.serviceProvider.getEventByIDs(id,eventIds).subscribe((response:any)=>{
+      console.log(response);
+      this.events = response;
+      console.log(this.events);
+    });
+  }
+
+  
   toggleEditProfile() {
     this.isEditMode = !this.isEditMode;
     this.newProfileName = this.profileName;
@@ -111,6 +168,7 @@ export class ProfileComponent {
     this.isEditMode = false;
   }
   
+
   async  convertImageToBase64(imageUrl: string): Promise<string> {
     try {
       const response = await fetch(imageUrl);
@@ -134,6 +192,7 @@ export class ProfileComponent {
   cancelEditProfile() {
     this.isEditMode = false;
   }
+  
   openEditProfilePopover() {
     this.isEditMode = true;
   }
@@ -141,5 +200,4 @@ export class ProfileComponent {
   closeEditProfilePopover() {
     this.isEditMode = false;
   }
-  
 }
