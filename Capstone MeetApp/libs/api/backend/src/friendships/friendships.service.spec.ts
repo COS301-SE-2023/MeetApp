@@ -21,7 +21,6 @@ describe('FriendshipsService', () => {
           signOptions: { expiresIn: '1 day' },
         }),
       ]
-
     }).compile();
 
     service = module.get<FriendshipsService>(FriendshipsService);
