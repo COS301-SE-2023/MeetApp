@@ -35,7 +35,7 @@ padding: 0;
   padding: 0;
   overflow: hidden ! important;
 
-  /* Add specific styles for index.html here */
+
 }
 #index {
 background-color: white ;
@@ -83,4 +83,9 @@ input {
 
 ion-img{
   height: 300px;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }

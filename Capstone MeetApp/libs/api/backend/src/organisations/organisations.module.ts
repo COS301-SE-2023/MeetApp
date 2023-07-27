@@ -6,11 +6,17 @@ import { EventSchema } from '../events/schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { EventsModule } from '../events/events.module';
 import { Organisation, OrganisationSchema } from './schema';
+import { jwtConstants } from './constant';
+import { JwtModule } from '@nestjs/jwt';
 import { Attendance, AttendanceSchema } from '../attendances/schema';
 import { User, UserSchema } from '../users/schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Organisation.name, schema: OrganisationSchema }]),EventsModule,MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }, {name : Attendance.name, schema: AttendanceSchema}, {name : User.name, schema: UserSchema}])],
+  imports: [MongooseModule.forFeature([{ name: Organisation.name, schema: OrganisationSchema }]),EventsModule,MongooseModule.forFeature([{ name: Event.name, schema: EventSchema }, {name : Attendance.name, schema: AttendanceSchema}, {name : User.name, schema: UserSchema}]), JwtModule.register({
+    global: true,
+    secret: jwtConstants.secret,
+    signOptions: { expiresIn: '1 day' },
+  })],
   controllers: [OrganisationsController],
   providers: [OrganisationsService, EventsService],
 })
