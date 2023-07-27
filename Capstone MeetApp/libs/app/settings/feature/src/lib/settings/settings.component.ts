@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { service } from '@capstone-meet-app/app/services'; 
+import { service } from '@capstone-meet-app/services'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 @Component({
