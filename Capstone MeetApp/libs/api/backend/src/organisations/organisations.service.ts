@@ -1,22 +1,42 @@
+import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { Injectable, NotFoundException } from '@nestjs/common';
-// import { CreateOrganisationDto } from './dto/create-organisation.dto';
 // import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Organisation } from './schema';
 import { Model } from 'mongoose';
 import { EventsService } from '../events/events.service';
+import { JwtService } from '@nestjs/jwt';
 import { Attendance } from '../attendances/schema';
 import { Event } from '../events/schema';
 import { User } from '../users/schema';
 
+
 @Injectable()
 export class OrganisationsService {
-  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(User.name) private userModel: Model<User>){
+  constructor(@InjectModel(Organisation.name) private organisationModel: Model<Organisation>, private eventService :EventsService, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(User.name) private userModel: Model<User>, private jwtService: JwtService){
     
   }
-  // create(createOrganisationDto: CreateOrganisationDto) {
-  //   return 'This action adds a new organisation';
-  // }
+  async create(createOrgDto: CreateOrganisationDto) {
+    const newOrg = await new this.organisationModel(createOrgDto);
+    const newOrgSaved = newOrg.save()
+    const payload = {id : (await newOrgSaved).id, username : (await newOrgSaved).username, password: (await newOrgSaved).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
+  }
+  async login(username: string, password: string) {
+    const orgToLoginInto = await this.organisationModel.find({username : username}).exec()
+    if (orgToLoginInto.length == 0){
+      return {organisation: null, message: 'Organisation not found'}
+    }
+    else {
+      if (orgToLoginInto[0].password == password){
+        const payload = {id : orgToLoginInto[0].id, username : orgToLoginInto[0].username, password: orgToLoginInto[0].password}
+        return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
+      }
+      else{
+        return {organisation: username, message : 'Incorrect password'}
+      }
+    }
+  }
 
   findAll() {
     return this.organisationModel.find().exec();

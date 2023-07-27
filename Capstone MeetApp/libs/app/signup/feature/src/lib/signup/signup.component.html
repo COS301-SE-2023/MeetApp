@@ -2,39 +2,127 @@
 <html lang="en">
     
     <div id="index" class="index-page" class="scroll-container" >
-      <h1 class="heading" >
-        SIGN UP
-    </h1>
-    
+
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <h1 class="heading" >
+              SIGN UP
+          </h1>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+   
       <ion-content>
+       
     <div>
       <div>
         <ion-img src="assets/profile.png" width="300" height="300" alt="myimage">
         </ion-img>
        </div>
-      <form>
-        <ion-item lines="full">
+      <form [formGroup]="loginForm" (ngSubmit)="signup()">
+        <div *ngIf=" userType === 'user'">
+        <!--<ion-item lines="full">
           <ion-label position="floating">First Name</ion-label>
-          <ion-input type="text" required></ion-input>
+          <ion-input class="rounded-input" type="text" name="firstname" formControlName="firstname"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['firstname'].touched && loginForm.controls['firstname'].hasError('required')">
+            First Name is required.
+          </div>
         </ion-item>
-         
+        
         <ion-item lines="full">
-          <ion-label position="floating">Last Name</ion-label>
-          <ion-input type="text" required></ion-input>
+          <ion-label position="floating" >Last Name</ion-label>
+          <ion-input type="text" name="lastname" formControlName="lastname"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['lastname'].touched && loginForm.controls['lastname'].hasError('required')">
+            Last Name is required.
+          </div>
+        </ion-item>-->
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+            Username is required.
+          </div>
         </ion-item>
-
-        <ion-item lines="full">
+       <!-- <ion-item lines="full">
           <ion-label position="floating">Email</ion-label>
-          <ion-input type="text" required></ion-input>
-        </ion-item>
+          <ion-input type="email" name="email" formControlName="email"></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
+            Email is required.
+          </div>
+          <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('email')">
+            Invalid email format.
+          </div>
+        </ion-item>-->
 
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" required></ion-input>
+          <ion-input type="password" name="password" formControlName="password" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+            password is required.
+          </div>
         </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-input type="password"  name="confirmpassword" formControlName="confirmpassword" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['confirmpassword'].touched && loginForm.controls['confirmpassword'].hasError('required')">
+            confirm password is required.
+          </div>
+        </ion-item>
+
+       
+
+        <ion-item lines="full">
+          <ion-label position="floating">Region</ion-label>
+          <ion-input type="password"  name="region" formControlName="region" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['region'].touched && loginForm.controls['region'].hasError('required')">
+            Region is required.
+          </div>
+        </ion-item>
+        </div>
+
+        <div *ngIf=" userType === 'organiser'">
+          <ion-item lines="full">
+            <ion-label position="floating">Username</ion-label>
+            <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+              Username is required.
+            </div>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Organisation Name</ion-label>
+            <ion-input class="rounded-input" type="text" name="name" formControlName="name"required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['name'].touched && loginForm.controls['name'].hasError('required')">
+              Organisation Name is required.
+            </div>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" name="password" formControlName="password" required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+              password is required.
+            </div>
+          </ion-item>
+
+        </div>
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="danger" expand="block">Sign Up</ion-button>
+            <ion-button type="submit"  expand="block" (click)="signup()"  (click)="isvalid()" >Sign Up</ion-button>
+            <!--[disabled]="loginForm.invalid"-->
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-text>Already have an account?&nbsp;</ion-text>
+            <a class="small-text"  (click)="onCreate()">Login</a>
+            <ion-text>&nbsp;instead</ion-text>
           </ion-col>
         </ion-row>
       </form>

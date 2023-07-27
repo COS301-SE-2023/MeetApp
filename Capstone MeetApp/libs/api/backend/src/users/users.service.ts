@@ -1,24 +1,48 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-// import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
-import { Model } from 'mongoose';
+import { FilterQuery, Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
+import { JwtService } from '@nestjs/jwt';
 import { Event } from '../events/schema';
+
 
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>, @InjectModel(Event.name) private eventModel: Model<Event>, private jwtService: JwtService){
     
   }
   
-  // create(createUserDto: CreateUserDto) {
-  //   return 'This action adds a new user';
-  // }
+  async create(createUserDto: CreateUserDto) {
+    const newUser = await new this.userModel(createUserDto);
+    const newUserSaved = newUser.save()
+    const payload = {id : (await newUserSaved).id, username : (await newUserSaved).username, password: (await newUserSaved).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
+  }
+  async login(username: string, password: string) {
+    const userToLoginInto = await this.userModel.find({username : username}).exec()
+    if (userToLoginInto.length == 0){
+      return {user: null, message: 'User not found'}
+    }
+    else {
+      if (userToLoginInto[0].password == password){
+        const payload = {id : userToLoginInto[0].id, username : userToLoginInto[0].username, password: userToLoginInto[0].password}
+        return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
+      }
+      else{
+        return {user: username, message : 'Incorrect password'}
+      }
+    }
+  }
 
   findAll() {
     return this.userModel.find().exec();
+  }
+
+  findByQuery(queryIN : FilterQuery<Event>) {
+    return this.userModel.find(queryIN).exec();
   }
 
   findOne(id: string) {
