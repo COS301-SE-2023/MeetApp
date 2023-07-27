@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
   imports: [ IonicModule,FormsModule,CommonModule],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
-  providers:[serviceRouter,],
+  providers:[service],
 })
 export class SettingsComponent {
   newEmail='';
