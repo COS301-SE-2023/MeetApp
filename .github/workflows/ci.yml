@@ -1,41 +1,76 @@
-name: Main CI
+name: Continuous Integration Production Environment
 
 on:
+  workflow_dispatch:
+  workflow_call:
   push:
     branches:
       - main
       - production
-      - development
   pull_request:
+    branches:
+      - main
+      - production
 
 jobs:
+  lint:
+    name: lint
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - run: npm install --legacy-peer-deps
+      - run: npm run lint
+
+
   build:
     name: Build
     defaults:
       run:
         working-directory: Capstone MeetApp
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-        with: 
-          #needed for nx
-          fetch-depth: 0
-      - name: 
-          'derive appropriate SHAs for bas and head for nx affected commands'
-        uses: nrwl/nx-set-shas@v2
       - uses: actions/setup-node@v3
         with: 
           node-version: 18
-      - run: npm ci
-      - run: npm install
+      - run: npm install --legacy-peer-deps
+      - run: npm run build
+      
+  test:
+    name: test
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - run: npm install --legacy-peer-deps
+      - run: npm run test
 
-      - name: 
-          'PR Build application if affected by changes in in feature branch'
-        if: env.is_pull_request== 'true'
-        run: npm run affected:build
-      - name:
-          'Merge: build the application'
-        if: env.is_merge =='true'
-        run: npm run build
+      
+  e2e:
+    name: e2e
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+      - run: npm install --legacy-peer-deps
+      - run: npm run e2e
+
+
+        
         

@@ -6,7 +6,18 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
  
 </head>
-<ion-header><h1>Settings</h1></ion-header>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <h1 class="heading" >
+          Settings
+      </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <div id="body">
     
@@ -21,7 +32,7 @@
             <ion-label>Change email</ion-label>
           </ion-item>
           <ion-item class="ion-padding" slot="content">
-            <ion-input class="padding1" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
+            <ion-input class="padding1"  [(ngModel)]="newEmail" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
             <ion-button size="medium" >Save</ion-button>
           </ion-item>
           
@@ -33,8 +44,8 @@
               <ion-label>Change Password</ion-label>
             </ion-item>
             <ion-item class="ion-padding" slot="content">
-              <ion-input class="padding1" label="New password" label-placement="floating" fill="outline" placeholder="Enter new password"></ion-input>
-              <ion-input class="padding1" label="Confirm password" label-placement="floating" fill="outline" placeholder="Confirm Password"></ion-input>
+              <ion-input class="padding1" [(ngModel)]="newPassword" label="New password" label-placement="floating" fill="outline" placeholder="Enter new password"></ion-input>
+              <ion-input class="padding1" [(ngModel)]="confirmPassword" label="Confirm password" label-placement="floating" fill="outline" placeholder="Confirm Password"></ion-input>
               <ion-button size="medium">Save</ion-button>
             </ion-item>
             
@@ -48,7 +59,7 @@
               <ion-label>Location</ion-label>
             </ion-item>
             <ion-item class="ion-padding" slot="content">
-              <ion-input class="padding1" label="Enter Location" label-placement="floating" fill="outline" placeholder="Enter Location"></ion-input>
+              <ion-input class="padding1" [(ngModel)]="NewLocation" label="Enter Location" label-placement="floating" fill="outline" placeholder="Enter Location"></ion-input>
             </ion-item>
           </ion-accordion>
         
@@ -124,14 +135,26 @@
   <ion-card class="card">
       <ion-button class="logout" (click)="nagivateToHome()" >Logout</ion-button>
   </ion-card>
-  <div class="navigation-bar">
-    <a href="home"  class="navigation-item">
-      <i  class="fas fa-home"></i>
-    </a>
-    <a href="profile"  class="navigation-item">
+  <!--<div class="navigation-bar">
+
+    <i  (click)="gotohomefroms()" class="navigation-item">
+      <i class="fas fa-home"></i>
+     
+    </i>
+    <i  (click)="gotocalendar()" class="navigation-item">
+      <i class="fas fa-calendar"></i>
+      
+    </i>
+    
+    <i (click)="gotosettings()" class="navigation-item">
+      <i class="fas fa-cog" ></i>
+      
+    </i>
+    <i (click)="gotoprofile()" class="navigation-item">
       <i class="fas fa-user"></i>
-    </a>
-  </div>
+    
+    </i>
+  </div>-->
   
 </div>
 </html>

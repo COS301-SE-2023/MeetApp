@@ -1,0 +1,27 @@
+{
+  "name": "capstone-meet-app",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "start": "node dist/apps/meet-app-api/main"
+  },
+  "private": true,
+  "dependencies": {
+    "@nestjs/cli": "^9.5.0",
+    "@nestjs/common": "^9.4.2",
+    "@nestjs/core": "^9.4.2",
+    "@nestjs/cqrs": "^9.0.4",
+    "@nestjs/mapped-types": "^1.2.2",
+    "@nestjs/mongoose": "^9.2.2",
+    "@nestjs/platform-express": "^9.4.2",
+    "axios": "^1.0.0",
+    "dotenv": "^16.0.3",
+    "mongoose": "^7.2.2",
+    "ng-packagr": "^15.2.2",
+    "postcss-preset-env": "^8.5.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.5.2",
+    "zone.js": "^0.13.0"
+  }
+}

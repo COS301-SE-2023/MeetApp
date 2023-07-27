@@ -6,13 +6,15 @@ export class CreateEventDto {
     
     readonly description!: string;
 
+    readonly eventPoster!: string;
+
     readonly date!: string;
    
     readonly startTime!: string;
  
     readonly endTime!: string;
     
-    readonly location!: {latitude:string , longitude:string};
+    readonly location!: {latitude:number , longitude:number};
 
     readonly category!: string; 
 

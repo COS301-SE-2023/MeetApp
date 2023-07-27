@@ -130,7 +130,8 @@
       "@capstone-meet-app/friends":[
         "libs/app/friends/feature/src/index.ts"
       ],
-      "@capstone-meet-app/map":["libs/app/map/feature/src/index.ts"]
+      "@capstone-meet-app/map":["libs/app/map/feature/src/index.ts"],
+      "@capstone-meet-app/calendar/feature":["libs/app/calendar/feature/src/index.ts"],
     }
   },
   "exclude": ["node_modules", "tmp"]
