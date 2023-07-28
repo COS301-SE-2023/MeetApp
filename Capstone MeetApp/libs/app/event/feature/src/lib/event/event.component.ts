@@ -65,6 +65,16 @@ export class EventComponent {
     eventPoster:''
   };
   
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
+
+  user_payload:any;
+
   attendance=0;
   
   constructor(private apiService: service,private route: ActivatedRoute,private location: Location) { 
@@ -150,12 +160,24 @@ export class EventComponent {
 
   async getAttendance(id:string)
   {
-    await this.apiService.getEventAttendance(id).subscribe((response:any) => {
+    await this.apiService.getEventAttendanceCount(id).subscribe((response:any) => {
       console.log('API response:', response);
       this.attendance=response;
     });
   }
 
+  async getCurrentUser()
+  {
+    const access_token=this.apiService.getToken()
+    await this.apiService.getLogedInUser(access_token).subscribe((response) => {
+      console.log('API response:', response);
+      this.user_payload=response;
+      this.current_user=this.user_payload;
+      console.log('user ID',this.current_user.id);
+      
+    });
+
+  }
 
 }
 

@@ -180,7 +180,7 @@ export class service{
         return this.http.get(`${url}`);
     }
     
-    getEventAttendance(id:string)
+    getEventAttendanceCount(id:string)
     {
         const url=`${this.baseURl}events/${id}/attendance-count`;
         return this.http.get(`${url}`);
