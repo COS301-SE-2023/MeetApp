@@ -104,7 +104,7 @@ export interface createAttendance{
 export class service{
     constructor(private http:HttpClient){}
 
-    private baseURl='http://localhost:3000/api/';
+    private baseURl='http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/';
 
     private readonly TOKEN_KEY = 'access_token';
 
@@ -171,14 +171,15 @@ export class service{
 
     }
 
-    getEventsByRange(startDate?:string,endDate?:string){
-        const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
+
+     getEventsByRange(startDate?:string,endDate?:string){
+        const url=`http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/events/daterange/${startDate}/${endDate}`;
         return this.http.get(`${url}`);
     }
 
     getEventsByRegion(region:string)
     {
-        const url=`http://localhost:3000/api/events/region/${region}`;
+        const url=`http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/events/daterange/api/events/region/${region}`;
         return this.http.get(`${url}`);
     }
     
@@ -258,39 +259,95 @@ export class service{
         return this.http.get(url, { headers });
     }
     
-    
-    updateUser(token:string|null,username?:string,profilePicture?:string,region?:string)
-    {
-        const url=`${this.baseURl}users/update`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
-      
+    //body JSON example = {"region": "Joburg", "profifilePicture": "http://localhost..."}
+   /* updateUser(id:string, username?:string ,email?:string,password?:string,profilePicture?:string,region?:string){
+        const url=`${this.baseURl}users/${id}`;
         const body={
             username:username,
+            email:email,
+           
+            password:password,
             profilePicture:profilePicture,
             region:region
         }
 
         return this.http.patch(`${url}`,body,{headers});
+    }*/
+
+    updateSettingsEmail(id:string,email?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            email:email,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsRegion(id:string,region?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            region:region,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingspassword(id:string,password?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            password:password,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsusername(id:string,username?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            username:username,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsinterests(id:string,interests?:string[]){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            interests:interests,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
+    }
+  
+    updateSettingsprofilepicture(id:string,profifilePicture?:string){
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+           
+            profifilePicture:profifilePicture,
+          
+           
+        }
+        return this.http.patch(`${url}`,body);
     }
 
-    updateSettings(token:string|null,password?: string)
-    {
-        const url=`${this.baseURl}users/update`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
-      
-        const body={password};
+    updatepassword(id: string,password?: string) {
+        const url = `${this.baseURl}users/${id}`;
+        const body={password:password};
       
         if (password) {
           body.password = password;
         }
-    
-        return this.http.patch(`${url}`,body,{headers});
+        return this.http.patch(`${url}`,body);
        
     }
        
@@ -304,7 +361,13 @@ export class service{
         };
     
         return this.http.delete(url, { body: body },);
-    }
+        return this.http.delete(url, { body: body });
+      }
+  
+   /* getUserAttendances(id:string){
+        const url=`${this.baseURl}users/${id}/attendances`;
+        return this.http.get(`${url}`);
+    }*/
 
 
     getUserAttendances(token:string|null)
@@ -382,17 +445,19 @@ export class service{
 
     //SERVICES FOR FRIENDS
 
-    createFriend(requester:string, requestee:string, status:string)
+    
+    sendfriendrequest( requester:string, requestee:string,status:string)
     {
-        const url=this.baseURl+'friendships';
-        const body=
-        {
+        const url=`${this.baseURl}users/${requester}/friend/send-request`;
+        const body ={
             requester:requester,
-            requestee:requestee, 
+            requestee:requestee,
+
             status:status
         }
         return this.http.post(`${url}`,body);
     }
+
 
     //SERVICES FOR ATTENDANCE
 
@@ -409,4 +474,25 @@ export class service{
     }
     
     
+
+    acceptFriendRequest(requester: string, requestee: string, status: string) {
+        const url = `${this.baseURl}users/${requestee}/friend/accept-request`;
+        const body = {
+          requester: requester,
+          requestee: requestee,
+          status: status,
+        };
+        return this.http.patch(url, body);
+      }
+    deleteFriendRequest(friendID: string, friend: string) {
+        const url = `${this.baseURl}users/${friendID}/friend/unfriend`;
+        const body = {
+          friendID: friendID,
+          friend: friend,
+        };
+    
+        return this.http.delete(url, { body: body });
+      }
+     
+
 }

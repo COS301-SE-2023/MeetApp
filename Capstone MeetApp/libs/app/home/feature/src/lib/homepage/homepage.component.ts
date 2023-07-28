@@ -162,6 +162,24 @@ export class HomepageComponent {
    }
 
 
-
+   gotomap() {
+    this.router.navigate(['/map']);
+  }
+  gotohome() {
+    this.router.navigate(['/home']);
+  }
+  gotoprofile() {
+    this.router.navigate(['/profile']);
+  }
+  gotocalendar() {
+    this.router.navigate(['/calendar']);
+  }
+  gotosettings() {
+    this.router.navigate(['/settings']);
+  }
+  gotoorganiser() {
+    this.router.navigate(['/organisers']);
+  }
+  
 
 }
