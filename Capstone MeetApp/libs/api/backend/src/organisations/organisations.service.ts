@@ -58,7 +58,7 @@ export class OrganisationsService {
     );
   
     const eventInfoArr = await Promise.all(eventPromises);
-    console.log(eventInfoArr);
+    //console.log(eventInfoArr);
     return eventInfoArr;
     }
     else
