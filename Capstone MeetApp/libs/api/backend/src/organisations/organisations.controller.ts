@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Patch,
-  Param,
   Delete,
   Body,
   Request,
@@ -51,10 +50,10 @@ export class OrganisationsController {
     return this.organisationsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.organisationsService.findOne(id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.organisationsService.findOne(id);
+  // }
 
   @Patch(':id')
   // update(
@@ -127,6 +126,12 @@ export class OrganisationsController {
   @Get('events/top-supporter')
   async getTopSupporter(@Request() req : AuthenticatedRequest) {
     return this.organisationsService.getTopSupporter(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events')
+  async getEvents(@Request() req : AuthenticatedRequest) {
+    return await this.organisationsService.findEvents(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
