@@ -362,7 +362,6 @@ export class service{
         return this.http.get(`${url}`);
     }*/
 
-
     //SERVICES FOR ORGANISER
 
     createOrginiser(username:string,password:string,name:string,events:string[])
@@ -411,17 +410,19 @@ export class service{
 
     //SERVICES FOR FRIENDS
 
-    createFriend(requester:string, requestee:string, status:string)
+    
+    sendfriendrequest( requester:string, requestee:string,status:string)
     {
-        const url=this.baseURl+'friendships';
-        const body=
-        {
+        const url=`${this.baseURl}users/${requester}/friend/send-request`;
+        const body ={
             requester:requester,
-            requestee:requestee, 
+            requestee:requestee,
+
             status:status
         }
         return this.http.post(`${url}`,body);
     }
+
 
     //SERVICES FOR ATTENDANCE
 
@@ -438,5 +439,25 @@ export class service{
     }
     
     
-}
 
+    acceptFriendRequest(requester: string, requestee: string, status: string) {
+        const url = `${this.baseURl}users/${requestee}/friend/accept-request`;
+        const body = {
+          requester: requester,
+          requestee: requestee,
+          status: status,
+        };
+        return this.http.patch(url, body);
+      }
+    deleteFriendRequest(friendID: string, friend: string) {
+        const url = `${this.baseURl}users/${friendID}/friend/unfriend`;
+        const body = {
+          friendID: friendID,
+          friend: friend,
+        };
+    
+        return this.http.delete(url, { body: body });
+      }
+     
+
+}
