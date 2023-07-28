@@ -71,8 +71,8 @@
 
 
 
- 
-<div class="stationary-box" (click)="gotomap()">
+
+<div class="stationary-box" [routerLink]="['http://dev-meetapp.s3-website.af-south-1.amazonaws.com/map']"  routerLinkActive="active">
   <a >
   <ion-card class="stationary-box1">
     <ion-card-content >
@@ -89,22 +89,22 @@
 
 </div>
 <div class="navigation-bar">
-  <a  href="/home" class="navigation-item">
+  <a   [routerLink]="['http://dev-meetapp.s3-website.af-south-1.amazonaws.com/home']" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-home"></i>
    
   </a>
-  <a  href="/calendar" class="navigation-item">
+  <a   [routerLink]="['http://dev-meetapp.s3-website.af-south-1.amazonaws.com/calendar']" routerLinkActive="active"class="navigation-item">
     <i class="fas fa-calendar"></i>
     
   </a>
-  <a href="/organisers" class="navigation-item" *ngIf=" userType === 'organiser'">
+  <a  [routerLink]="['http://dev-meetapp.s3-website.af-south-1.amazonaws.com/organiser']"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
     <i class=" fas fa-plus"></i>
     </a>
-  <a  href="settings" class="navigation-item">
+  <a  [routerLink]="['http://dev-meetapp.s3-website.af-south-1.amazonaws.com/settings']"  routerLinkActive="active" class="navigation-item">
     <i class="fas fa-cog" ></i>
     
   </a>
-  <a href="profile" class="navigation-item">
+  <a [routerLink]="['http://dev-meetapp.s3-website.af-south-1.amazonaws.com/profile']" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-user"></i>
   
   </a>
