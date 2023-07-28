@@ -214,7 +214,7 @@ export class service{
         return this.http.get(`${url}`);
     }
 
-    getLogedInUser(token: string) {
+    getLogedInUser(token:string|null) {
         const url = this.baseURl + 'users/account';
       
         // Create headers object and set the desired headers including the token
@@ -226,7 +226,7 @@ export class service{
         return this.http.get(url, { headers });
     }
 
-    getUser(token:string)
+    getUser(token:string|null)
     {
         const url = this.baseURl + 'users';
       
@@ -239,7 +239,7 @@ export class service{
         return this.http.get(url, { headers });
     }
     
-    getUserByID(token:string)
+    getUserByID(token:string|null)
     {
         const url = this.baseURl + 'users';
         
@@ -253,7 +253,7 @@ export class service{
     }
     
     
-    updateUser(token:string,username?:string,profilePicture?:string,region?:string)
+    updateUser(token:string|null,username?:string,profilePicture?:string,region?:string)
     {
         const url=`${this.baseURl}users/update`;
 
@@ -270,7 +270,7 @@ export class service{
         return this.http.patch(`${url}`,body,{headers});
     }
 
-    updateSettings(token:string,password?: string)
+    updateSettings(token:string|null,password?: string)
     {
         const url=`${this.baseURl}users/update`;
 
@@ -301,7 +301,7 @@ export class service{
     }
 
 
-    getUserAttendances(token:string)
+    getUserAttendances(token:string|null)
     {
         const url=`${this.baseURl}users/attendances`;
 
@@ -312,7 +312,7 @@ export class service{
         return this.http.get(`${url}`,{ headers });
     }
 
-    getUserAttendancesCount(token:string)
+    getUserAttendancesCount(token:string|null)
     {
         const url=`${this.baseURl}users/attendances/count`;
 

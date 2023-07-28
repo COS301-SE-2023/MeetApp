@@ -67,21 +67,21 @@ export class ProfileComponent {
   }
 
   async ngOnInit(){
-    this.getProfile(this.profileId);
-    this.getEventCount(this.profileId);
-    this.getEvents(this.profileId);
-    
+    const access_token=this.serviceProvider.getToken();
+    this.getProfile(access_token);
+    this.getEventCount(access_token);
+    this.getEvents(access_token);
     
   }
   
-  async getProfile(id :string){
-    await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
+  async getProfile(token :string|null){
+    await this.serviceProvider.getUserByID(token).subscribe((response:any)=>{ 
       this.profile = response;
     })
   }
 
-  async getEventCount(id : string){
-    await this.serviceProvider.getUserAttendancesCount(id).subscribe((response:any)=>{
+  async getEventCount(token :string|null){
+    await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
       this.eventCount = response;
       console.log(this.eventCount);
     });
@@ -96,8 +96,8 @@ export class ProfileComponent {
     });
   }
 
-  async getEvents(id : string){
-    await this.serviceProvider.getUserAttendances(id).subscribe((response:any)=>{
+  async getEvents(token :string|null){
+    await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
       this.userEvents = response;
       console.log(this.userEvents);
 
