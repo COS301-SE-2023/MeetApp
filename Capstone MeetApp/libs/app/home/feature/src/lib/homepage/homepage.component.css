@@ -1,7 +1,7 @@
 
-.container1 {
+.container {
     
-  float:right;
+ background-image: url('https://t4.ftcdn.net/jpg/03/66/74/63/360_F_366746306_u56VIuFf6cNSWbyMstXS3EYHH2zd9sdt.jpg');
 }
 
 
@@ -255,7 +255,6 @@ ion-scroll {
   padding: 5px;
 }
 
-
 .content {
   display: flex;
   flex-direction: column;
@@ -284,4 +283,49 @@ padding: 0;
 .scroll-container {
   height: 300px; 
   overflow-y: scroll; 
+}
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #5C469C;
+  border-top: 1px solid #ccc;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  margin-right: 550px;
+}
+
+.bottom-navbar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-navbar li {
+  padding: 10px;
+  text-align: center;
+}
+
+.bottom-navbar li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  color: #D4ADFC;
+  font-family: sans-serif;
+}
+
+.bottom-navbar li .emoji {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.bottom-navbar li span {
+  color: #fff;
+
 }

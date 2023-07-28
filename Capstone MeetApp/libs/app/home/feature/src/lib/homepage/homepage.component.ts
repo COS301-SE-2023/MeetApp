@@ -103,6 +103,7 @@ export class HomepageComponent {
   }
  
 
+
   /* async ngOnInit() {
       this.service.getAllEvents().subscribe((response: any) => { 
       this.data = response;
@@ -144,7 +145,6 @@ export class HomepageComponent {
         console.log('User Type:', this.userType);
       });
     
-      
     }
  
   
