@@ -242,7 +242,7 @@ export class service{
         return this.http.get(url);
     }
     
-    updateUser(token:string|null, username?:string ,email?:string,password?:string,profilePicture?:string,region?:string){
+    updateUser(token:string|null, username?:string ,password?:string,profilePicture?:string,region?:string){
         
         const url=`${this.baseURl}users/update`;
 
@@ -252,7 +252,6 @@ export class service{
 
         const body={
             username:username,
-            email:email,
             password:password,
             profilePicture:profilePicture,
             region:region
@@ -260,6 +259,20 @@ export class service{
 
         return this.http.patch(`${url}`,body,{headers});
     }
+
+    updateUserID(id:string, username?:string ,password?:string,profilePicture?:string,region?:string){
+        
+        const url=`${this.baseURl}users/${id}`;
+        const body={
+            username:username,
+            password:password,
+            profilePicture:profilePicture,
+            region:region
+        }
+
+        return this.http.patch(`${url}`,body);
+    }
+
 
     updateSettingsEmail(token:string|null,email?:string){
         const url=`${this.baseURl}users/update`;
@@ -483,6 +496,17 @@ export class service{
         };
     
         return this.http.delete(url, { body: body });
+    }
+
+    getFriendCount(token:string|null)
+    {
+        const url = `${this.baseURl}users/friends/count`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
+        return this.http.get(`${url}`,{ headers });
     }
 
     //SERVICES FOR ATTENDANCE
