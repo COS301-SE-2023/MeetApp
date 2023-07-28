@@ -65,7 +65,7 @@ export class OrganisationsController {
   // }
 
   @UseGuards(AuthGuard)
-  @Delete(':id')
+  @Delete('')
   remove(@Param('id') id: string) {
     return this.organisationsService.remove(+id);
   }
@@ -76,67 +76,67 @@ export class OrganisationsController {
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top')
+  @Get('events/top')
   async getTopAttendedEvent(@Param('id') organizationId: string) {
     return this.organisationsService.getTopAttendedEvent(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top3-categories')
+  @Get('events/top3-categories')
   async getTop3EventCategories(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3EventCategories(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top-category')
+  @Get('events/top-category')
   async getTopEventCategory(@Param('id') organizationId: string) {
     return this.organisationsService.getTopEventCategory(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top-region')
+  @Get('events/top-region')
   async getTopEventRegion(@Param('id') organizationId: string) {
     return this.organisationsService.getTopEventRegion(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top3-regions')
+  @Get('events/top3-regions')
   async getTop3EventRegions(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3EventRegion(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top3-supporters-events')
+  @Get('events/top3-supporters-events')
   async getTop3SupportersAndEvents(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3SupportersAndTheirTopEvents(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top-supporters-events')
+  @Get('events/top-supporters-events')
   async getTopSupportersAndEvents(@Param('id') organizationId: string) {
     return this.organisationsService.getTopSupportersAndTheirTopEvents(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top3-supporters')
+  @Get('events/top3-supporters')
   async getTop3Supporters(@Param('id') organizationId: string) {
     return this.organisationsService.getTop3Supporters(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/top-supporter')
+  @Get('events/top-supporter')
   async getTopSupporter(@Param('id') organizationId: string) {
     return this.organisationsService.getTopSupporter(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/region-count')
+  @Get('events/region-count')
   async getRegionCount(@Param('id') organizationId: string) {
     return this.organisationsService.getRegionCount(organizationId);
   }
 
   @UseGuards(AuthGuard)
-  @Get(':id/events/category-count')
+  @Get('events/category-count')
   async getCategoryCount(@Param('id') organizationId: string) {
     return this.organisationsService.getCategoryCount(organizationId);
   }
