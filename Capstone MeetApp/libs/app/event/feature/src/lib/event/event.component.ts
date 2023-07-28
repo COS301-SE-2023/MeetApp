@@ -65,6 +65,8 @@ export class EventComponent {
     eventPoster:''
   };
   
+  attendance=0;
+  
   constructor(private apiService: service,private route: ActivatedRoute,private location: Location) { 
   }
   goBack() {
@@ -109,7 +111,7 @@ export class EventComponent {
   // Post the attendace of an event by the user 
   async attendEvent(orgID: string,eventID: string,userID: string)
   {
-    await this.apiService.attendEvent(orgID,eventID,userID).subscribe((response) => {
+    await this.apiService.attendEvent(orgID,eventID,userID).subscribe((response:any) => {
       console.log('API response:', response);
     });
   }
@@ -140,6 +142,14 @@ export class EventComponent {
       }
     }
     console.log('Returned OrganiserID',this.organisationID);
+  }
+
+  async getAttendance(id:string)
+  {
+    await this.apiService.getEventAttendance(id).subscribe((response:any) => {
+      console.log('API response:', response);
+      this.attendance=response;
+    });
   }
 
 

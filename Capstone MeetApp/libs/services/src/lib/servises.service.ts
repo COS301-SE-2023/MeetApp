@@ -182,6 +182,12 @@ export class service{
         return this.http.get(`${url}`);
     }
     
+    getEventAttendance(id:string)
+    {
+        const url=`${this.baseURl}events/${id}/attendance-count`;
+        return this.http.get(`${url}`);
+    }
+    
     //SERVICES FOR USERS
 
     createUser(username:string,password:string,profilePicture:string,region:string)
