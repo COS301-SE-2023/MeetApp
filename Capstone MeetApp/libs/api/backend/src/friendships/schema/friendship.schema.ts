@@ -18,6 +18,7 @@ export class Friendship {
 
   @Prop( /*{type: mongoose.Schema.Types.ObjectId, ref: 'Users'}*/)
   requestee!: mongoose.Schema.Types.ObjectId;
+
   @Prop({ default: false })
   status!: boolean;
 

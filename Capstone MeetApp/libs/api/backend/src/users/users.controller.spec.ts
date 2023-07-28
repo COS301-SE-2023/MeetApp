@@ -4,6 +4,8 @@ import { UsersService } from './users.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { User } from './schema';
 import { Attendance } from '../attendances/schema';
+import { JwtModule } from '@nestjs/jwt';
+import { jwtConstants } from './constant';
 import { Friendship } from '../friendships/schema';
 import { Event } from '../events/schema';
 
@@ -14,6 +16,13 @@ describe('UsersController', () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
       providers: [UsersService, { provide: getModelToken(User.name), useValue: jest.fn() }, { provide: getModelToken(Attendance.name), useValue: jest.fn() }, { provide: getModelToken(Friendship.name), useValue: jest.fn() }, { provide: getModelToken(Event.name), useValue: jest.fn() }],
+      imports: [
+        JwtModule.register({
+          global: true,
+          secret: jwtConstants.secret,
+          signOptions: { expiresIn: '1 day' },
+        }),
+      ]
     }).compile();
 
     controller = module.get<UsersController>(UsersController);

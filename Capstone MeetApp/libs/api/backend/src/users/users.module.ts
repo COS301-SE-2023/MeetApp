@@ -4,11 +4,17 @@ import { UsersController } from './users.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './schema';
 import { Attendance, AttendanceSchema } from '../attendances/schema';
-import { Friendship, FriendshipSchema } from '../friendships/schema';
+import { jwtConstants } from './constant';
+import { JwtModule } from '@nestjs/jwt';
 import { Event, EventSchema } from '../events/schema';
+import { Friendship, FriendshipSchema } from '../friendships/schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema },{ name: Attendance.name, schema: AttendanceSchema }, { name: Friendship.name, schema: FriendshipSchema }, { name: Event.name, schema: EventSchema }])],
+  imports: [MongooseModule.forFeature([{ name: User.name, schema: UserSchema },{ name: Attendance.name, schema: AttendanceSchema }, { name: Friendship.name, schema: FriendshipSchema },{ name: Event.name, schema: EventSchema }]), JwtModule.register({
+    global: true,
+    secret: jwtConstants.secret,
+    signOptions: { expiresIn: '1 day' },
+  })],
   controllers: [UsersController],
   providers: [UsersService]
 })
