@@ -359,7 +359,7 @@ events: Event[] = [
           const region = event.region;
           const date=event.date;
           const createContent =
-            '<div id="content">' +
+            '<div id="content" (click)=viewEvent()>' +
             '<h1 id="firstHeading" class="firstHeading">' + event.name + '</h1>' +
             '<div id="bodyContent">' +
             '<p><b>' + event.name + ' event</b> ' + event.description + '</p>' +
@@ -458,7 +458,9 @@ events: Event[] = [
   
     return Promise.resolve(filteredEvents);
   }
-  
+  viewEvent(eventId: string) {
+    this.router.navigate(['events', eventId]);
+  }
   
 }
 /*function isWithinRange(eventDate: string,rangeStartDate: Date | null, rangeEndDate: Date | null): boolean {

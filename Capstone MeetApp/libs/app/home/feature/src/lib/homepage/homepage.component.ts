@@ -14,6 +14,7 @@ import { IonicModule } from '@ionic/angular';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 
 
@@ -31,7 +32,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [IonicModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
+  imports: [IonicModule,RouterModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
@@ -176,6 +177,7 @@ export class HomepageComponent {
   }
   gotosettings() {
     this.router.navigate(['/settings']);
+    
   }
   gotoorganiser() {
     this.router.navigate(['/organisers']);
