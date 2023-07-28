@@ -89,22 +89,22 @@
 
 </div>
 <div class="navigation-bar">
-  <a  (click)="gotohome()" class="navigation-item">
+  <a  href="/home" class="navigation-item">
     <i class="fas fa-home"></i>
    
   </a>
-  <a  (click)="gotocalendar()" class="navigation-item">
+  <a  href="/calendar" class="navigation-item">
     <i class="fas fa-calendar"></i>
     
   </a>
-  <a (click)="gotoorganiser()" class="navigation-item" *ngIf=" userType === 'organiser'">
+  <a href="/organisers" class="navigation-item" *ngIf=" userType === 'organiser'">
     <i class=" fas fa-plus"></i>
     </a>
-  <a  (click)="gotosettings()" class="navigation-item">
+  <a  href="settings" class="navigation-item">
     <i class="fas fa-cog" ></i>
     
   </a>
-  <a (click)="gotoprofile()" class="navigation-item">
+  <a href="profile" class="navigation-item">
     <i class="fas fa-user"></i>
   
   </a>
