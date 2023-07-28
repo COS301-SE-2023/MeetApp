@@ -71,38 +71,45 @@ export class UsersController {
     return this.usersService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':userID/friends')
   async getUserFriends(@Param('userID') userID: string) {
     const friends = await this.usersService.getUserFriends(userID);
     return friends;
   }
 
+  @UseGuards(AuthGuard)
   @Get(':userId/attendances')
   getUserAttendances(@Param('userId') userId: string) {
     return this.usersService.getUserAttendances(userId);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':userId/friends/count')
   getUserFriendsCount(@Param('userId') userId: string) {
     return this.usersService.getUserFriendsCount(userId);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':userId/attendances/count')
   getUserAttendancesCount(@Param('userId') userId: string) {
     return this.usersService.getUserAttendancesCount(userId);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':userID/friend-requests')
   async getUserFriendRequests(@Param('userID') userID: string) {
     const friends = await this.usersService.getUserFriendRequests(userID);
     return friends;
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id/friend/unfriend')
   unfriend(@Param('id') id: string, @Body() friendID : {friend: string}) {
     return this.usersService.unfriend(id,friendID.friend);
@@ -113,17 +120,20 @@ export class UsersController {
     return this.usersService.sendFriendRequest(userID,requesteeID.requestee)
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id/friend/accept-request')
   acceptFriendship(@Param('id') id: string, @Body() requesterID: {requester: string}) {
     return this.usersService.acceptRequest(id, requesterID.requester);
   }
 
+  @UseGuards(AuthGuard)
   @Get(':userID/friend-requests/pending')
   async getUsersentRequests(@Param('userID') userID: string) {
     const friends = await this.usersService.getUserSentRequests(userID);
     return friends;
   }
 
+  @UseGuards(AuthGuard)
   @Get(':id/friends/events')
   async getFriendEvents(@Param('id') userId: string) {
     return this.usersService.getFriendEvents(userId);
