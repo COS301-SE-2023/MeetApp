@@ -74,7 +74,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friends')
   async getUserFriends(@Request() req : AuthenticatedRequest) {
-    const friends = await this.usersService.getUserFriends(userID);
+    const friends = await this.usersService.getUserFriends(req.user.id);
     return friends;
   }
 
@@ -87,7 +87,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friends/count')
   getUserFriendsCount(@Request() req : AuthenticatedRequest) {
-    return this.usersService.getUserFriendsCount(userId);
+    return this.usersService.getUserFriendsCount(req.user.id);
   }
 
   
@@ -104,39 +104,39 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friend-requests')
   async getUserFriendRequests(@Request() req : AuthenticatedRequest) {
-    const friends = await this.usersService.getUserFriendRequests(userID);
+    const friends = await this.usersService.getUserFriendRequests(req.user.id);
     return friends;
   }
 
   @UseGuards(AuthGuard)
   @Delete('friend/unfriend')
   unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}) {
-    return this.usersService.unfriend(id,friendID.friend);
+    return this.usersService.unfriend(req.user.id,friendID.friend);
   }
 
   @UseGuards(AuthGuard)
   @Post('friend/send-request')
   sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}) {
-    return this.usersService.sendFriendRequest(userID,requesteeID.requestee)
+    return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
   }
 
   @UseGuards(AuthGuard)
   @Patch('friend/accept-request')
   acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}) {
-    return this.usersService.acceptRequest(id, requesterID.requester);
+    return this.usersService.acceptRequest(req.user.id, requesterID.requester);
   }
 
   @UseGuards(AuthGuard)
   @Get('friend-requests/pending')
   async getUsersentRequests(@Request() req : AuthenticatedRequest) {
-    const friends = await this.usersService.getUserSentRequests(userID);
+    const friends = await this.usersService.getUserSentRequests(req.user.id);
     return friends;
   }
 
   @UseGuards(AuthGuard)
   @Get('friends/events')
   async getFriendEvents(@Request() req : AuthenticatedRequest) {
-    return this.usersService.getFriendEvents(userId);
+    return this.usersService.getFriendEvents(req.user.id);
   }
 
 
