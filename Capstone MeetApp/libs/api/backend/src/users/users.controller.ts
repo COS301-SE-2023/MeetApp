@@ -66,27 +66,40 @@ export class UsersController {
       return this.usersService.findByQuery(request.query)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   switch (id) {
+  //     case 'friends':
+  //       this.getUserFriends(re)
+  //       break;
+    
+  //     default:
+  //       break;
+  //   }
+  //   return this.usersService.findOne(id);
+  // }
 
-  @Get(':userID/friends')
-  async getUserFriends(@Param('userID') userID: string) {
-    const friends = await this.usersService.getUserFriends(userID);
+  @UseGuards(AuthGuard)
+  @Get('friends')
+  async getUserFriends(@Request() req : AuthenticatedRequest) {
+    console.log("here")
+    const friends = await this.usersService.getUserFriends(req.user.id);
     return friends;
   }
+
 
   @Get(':userId/attendances')
   getUserAttendances(@Param('userId') userId: string) {
     return this.usersService.getUserAttendances(userId);
   }
 
-  @Get(':userId/friends/count')
-  getUserFriendsCount(@Param('userId') userId: string) {
-    return this.usersService.getUserFriendsCount(userId);
+  @UseGuards(AuthGuard)
+  @Get('friends/count')
+  getUserFriendsCount(@Request() req : AuthenticatedRequest) {
+    return this.usersService.getUserFriendsCount(req.user.id);
   }
 
+  
   @Get(':userId/attendances/count')
   getUserAttendancesCount(@Param('userId') userId: string) {
     return this.usersService.getUserAttendancesCount(userId);
@@ -97,36 +110,42 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto);
   }
 
-  @Get(':userID/friend-requests')
-  async getUserFriendRequests(@Param('userID') userID: string) {
-    const friends = await this.usersService.getUserFriendRequests(userID);
+  @UseGuards(AuthGuard)
+  @Get('friend-requests')
+  async getUserFriendRequests(@Request() req : AuthenticatedRequest) {
+    const friends = await this.usersService.getUserFriendRequests(req.user.id);
     return friends;
   }
 
-  @Delete(':id/friend/unfriend')
-  unfriend(@Param('id') id: string, @Body() friendID : {friend: string}) {
-    return this.usersService.unfriend(id,friendID.friend);
+  @UseGuards(AuthGuard)
+  @Delete('friend/unfriend')
+  unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}) {
+    return this.usersService.unfriend(req.user.id,friendID.friend);
   }
 
-  @Post(':userID/friend/send-request')
-  sendFriendRequest(@Param('userID') userID: string, @Body() requesteeID : {requestee: string}) {
-    return this.usersService.sendFriendRequest(userID,requesteeID.requestee)
+  @UseGuards(AuthGuard)
+  @Post('friend/send-request')
+  sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}) {
+    return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
   }
 
-  @Patch(':id/friend/accept-request')
-  acceptFriendship(@Param('id') id: string, @Body() requesterID: {requester: string}) {
-    return this.usersService.acceptRequest(id, requesterID.requester);
+  @UseGuards(AuthGuard)
+  @Patch('friend/accept-request')
+  acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}) {
+    return this.usersService.acceptRequest(req.user.id, requesterID.requester);
   }
 
-  @Get(':userID/friend-requests/pending')
-  async getUsersentRequests(@Param('userID') userID: string) {
-    const friends = await this.usersService.getUserSentRequests(userID);
+  @UseGuards(AuthGuard)
+  @Get('friend-requests/pending')
+  async getUsersentRequests(@Request() req : AuthenticatedRequest) {
+    const friends = await this.usersService.getUserSentRequests(req.user.id);
     return friends;
   }
 
-  @Get(':id/friends/events')
-  async getFriendEvents(@Param('id') userId: string) {
-    return this.usersService.getFriendEvents(userId);
+  @UseGuards(AuthGuard)
+  @Get('friends/events')
+  async getFriendEvents(@Request() req : AuthenticatedRequest) {
+    return this.usersService.getFriendEvents(req.user.id);
   }
 
 
