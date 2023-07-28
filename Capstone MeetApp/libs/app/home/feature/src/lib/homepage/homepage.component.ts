@@ -101,6 +101,13 @@ export class HomepageComponent {
       });
   }
  
+  getCurrentUser()
+  {
+    const access_token=this.service.getToken()
+    this.service.getLogedInUser(access_token).subscribe((response) => {
+      console.log('API response:', response);
+    });
+  }
 
   /* async ngOnInit() {
       this.service.getAllEvents().subscribe((response: any) => { 
@@ -143,7 +150,7 @@ export class HomepageComponent {
         console.log('User Type:', this.userType);
       });
     
-      
+      this.getCurrentUser();
     }
  
   

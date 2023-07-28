@@ -58,6 +58,16 @@ export class ProfileComponent {
     region: ''
   }]
 
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
+
+  user_payload:any;
+
   orgIDs='';
   profileId='';
   constructor(private router: Router,private modalController: ModalController,private serviceProvider: service,private location: Location) {
@@ -69,7 +79,7 @@ export class ProfileComponent {
 
   async ngOnInit(){
     const access_token=this.serviceProvider.getToken();
-    this.getProfile(access_token);
+    this.getCurrentUser();
     this.getEventCount(access_token);
     this.getEvents(access_token);
     
@@ -78,9 +88,10 @@ export class ProfileComponent {
     this.location.back();
   }
   
-  async getProfile(token :string|null){
-    await this.serviceProvider.getUserByID(token).subscribe((response:any)=>{ 
+  async getProfile(id :string){
+    await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
       this.profile = response;
+      console.log(this.profile);
     })
   }
 
@@ -129,6 +140,19 @@ export class ProfileComponent {
       this.events = response;
       console.log(this.events);
     });
+  }
+
+  async getCurrentUser()
+  {
+    const access_token=this.serviceProvider.getToken()
+    await this.serviceProvider.getLogedInUser(access_token).subscribe((response) => {
+      console.log('API response:', response);
+      this.user_payload=response;
+      this.current_user=this.user_payload;
+      console.log('user ID',this.current_user.id);
+      this.getProfile(this.current_user.id);
+    });
+
   }
 
   
