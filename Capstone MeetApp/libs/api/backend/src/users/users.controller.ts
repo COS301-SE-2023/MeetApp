@@ -66,14 +66,23 @@ export class UsersController {
       return this.usersService.findByQuery(request.query)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   switch (id) {
+  //     case 'friends':
+  //       this.getUserFriends(re)
+  //       break;
+    
+  //     default:
+  //       break;
+  //   }
+  //   return this.usersService.findOne(id);
+  // }
 
   @UseGuards(AuthGuard)
   @Get('friends')
   async getUserFriends(@Request() req : AuthenticatedRequest) {
+    console.log("here")
     const friends = await this.usersService.getUserFriends(req.user.id);
     return friends;
   }
