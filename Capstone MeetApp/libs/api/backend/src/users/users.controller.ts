@@ -72,13 +72,13 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
-  @Get(':userID/friends')
+  @Get('friends')
   async getUserFriends(@Param('userID') userID: string) {
     const friends = await this.usersService.getUserFriends(userID);
     return friends;
   }
 
-  @UseGuards(AuthGuard)
+
   @Get(':userId/attendances')
   getUserAttendances(@Param('userId') userId: string) {
     return this.usersService.getUserAttendances(userId);
@@ -90,13 +90,12 @@ export class UsersController {
     return this.usersService.getUserFriendsCount(userId);
   }
 
-  @UseGuards(AuthGuard)
+  
   @Get(':userId/attendances/count')
   getUserAttendancesCount(@Param('userId') userId: string) {
     return this.usersService.getUserAttendancesCount(userId);
   }
 
-  @UseGuards(AuthGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
