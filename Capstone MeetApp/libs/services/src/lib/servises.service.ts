@@ -239,39 +239,57 @@ export class service{
         return this.http.get(url, { headers });
     }
     
-    getUserByID(id:string){
-        const url=`${this.baseURl}users/${id}`;
-        return this.http.get(`${url}`);
+    getUserByID(token:string)
+    {
+        const url = this.baseURl + 'users';
+        
+        // Create headers object and set the desired headers including the token
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
+        // Pass the headers object as the second parameter in the get() method
+        return this.http.get(url, { headers });
     }
     
-    //body JSON example = {"region": "Joburg", "profifilePicture": "http://localhost..."}
-    updateUser(id:string,username?:string,profilePicture?:string,region?:string){
-        const url=`${this.baseURl}users/${id}`;
+    
+    updateUser(token:string,username?:string,profilePicture?:string,region?:string)
+    {
+        const url=`${this.baseURl}users/update`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
         const body={
             username:username,
             profilePicture:profilePicture,
             region:region
         }
-        return this.http.patch(`${url}`,body);
+
+        return this.http.patch(`${url}`,body,{headers});
     }
 
-    updateSettings(id: string,password?: string) {
-        const url = `${this.baseURl}users/${id}`;
-        const body={password};
+    updateSettings(token:string,password?: string)
+    {
+        const url=`${this.baseURl}users/update`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
       
-       
+        const body={password};
       
         if (password) {
           body.password = password;
         }
-      
-        
-      
-        return this.http.patch(`${url}`,body);
+    
+        return this.http.patch(`${url}`,body,{headers});
        
-      }
+    }
        
-      deleteAccount(userId: string, reason: string) {
+    deleteAccount(userId: string, reason: string) 
+    {
         const url = `${this.baseURl}users/${userId}`;
     
         const body = {
@@ -279,16 +297,30 @@ export class service{
           reason: reason
         };
     
-        return this.http.delete(url, { body: body });
-      }
-    getUserAttendances(id:string){
-        const url=`${this.baseURl}users/${id}/attendances`;
-        return this.http.get(`${url}`);
+        return this.http.delete(url, { body: body },);
     }
 
-    getUserAttendancesCount(id:string){
-        const url=`${this.baseURl}users/${id}/attendances/count`;
-        return this.http.get(`${url}`);
+
+    getUserAttendances(token:string)
+    {
+        const url=`${this.baseURl}users/attendances`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
+        return this.http.get(`${url}`,{ headers });
+    }
+
+    getUserAttendancesCount(token:string)
+    {
+        const url=`${this.baseURl}users/attendances/count`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+      
+        return this.http.get(`${url}`,{ headers });
     }
 
     /*getUserAttendancesEventsList(ids:string[]){
