@@ -95,7 +95,10 @@ export class ProfileComponent {
       console.log(this.profile);
     })
   }
-
+  gotofriends() {
+    this.router.navigate(['/friends']);
+    
+  }
   async getEventCount(token :string|null){
     await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
       this.eventCount = response;
