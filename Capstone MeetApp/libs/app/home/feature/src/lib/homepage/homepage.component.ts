@@ -178,23 +178,23 @@ export class HomepageComponent {
 
 
    gotomap() {
-    this.router.navigate(['/map']);
+    this.router.navigateByUrl('/map');
   }
   gotohome() {
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/home');
   }
   gotoprofile() {
-    this.router.navigate(['/profile']);
+    this.router.navigateByUrl('/profile');
   }
   gotocalendar() {
-    this.router.navigate(['/calendar']);
+    this.router.navigateByUrl('/calendar');
   }
   gotosettings() {
-    this.router.navigate(['/settings']);
+    this.router.navigateByUrl('/settings');
     
   }
   gotoorganiser() {
-    this.router.navigate(['/organisers']);
+    this.router.navigateByUrl('/organisers');
   }
   
 

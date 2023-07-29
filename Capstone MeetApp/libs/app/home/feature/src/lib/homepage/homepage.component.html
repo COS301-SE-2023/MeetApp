@@ -68,10 +68,7 @@
 
 
 
-
-<div class="stationary-box" [routerLink]="['/map']"  routerLinkActive="active">
-=======
-
+<div class="stationary-box" (click)="gotomap()"  routerLinkActive="active">
   <a >
   <ion-card class="stationary-box1">
     <ion-card-content >
@@ -88,25 +85,22 @@
 
 </div>
 <div class="navigation-bar">
-
-  <a   [routerLink]="['/home']" routerLinkActive="active" class="navigation-item">
+  <a   (click)="gotohome()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-home"></i>
    
   </a>
-  <a   [routerLink]="['/calendar']" routerLinkActive="active"class="navigation-item">
+  <a   (click)="gotocalendar()" routerLinkActive="active"class="navigation-item">
     <i class="fas fa-calendar"></i>
     
   </a>
-  <a  [routerLink]="['/organiser']"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
+  <a  (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
     <i class=" fas fa-plus"></i>
     </a>
-  <a  href="/settings"  routerLinkActive="active" class="navigation-item">
+  <a  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
     <i class="fas fa-cog" ></i>
     
   </a>
-
-  <a href="/profile" routerLinkActive="active" class="navigation-item">
-
+  <a (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-user"></i>
   
   </a>
