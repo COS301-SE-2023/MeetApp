@@ -25,9 +25,17 @@ export class SettingsComponent {
 
   ngOnInit(){
 
-     //this.updatepassword(this.newPassword)
-     //this.updatepassword("testing123");
-     //this.updateUsername("kmanthecehquebook");
+      const access_token=this.service.getToken();
+      console.log(access_token);
+      if (access_token !== null) {
+      
+      this.updatepassword(access_token,"test123");
+      console.log("kman rocks");
+      
+    }
+    this.updatepassword(access_token,"test123");
+    
+     //this.updateUsername("kmantheceh,quebook");
      //this.updateRegion("pretoria")
      //sthis.updatePassword('kman123');
   }
@@ -42,10 +50,11 @@ export class SettingsComponent {
   
   
   
- async updateemail( email? :string) {
-  const userId = '64a351ddc7dc405eb315b3ba'; 
+ async updatepassword(access_token:string|null, email? :string) {
+  //const userId = '64a351ddc7dc405eb315b3ba'; 
  //this.newEmail="akani@gmail.com";
-  await this.service.updateSettingspassword(userId, email).
+   access_token=this.service.getToken();
+  await this.service.updateSettingspassword(access_token, email).
   subscribe((response: any) =>
       {     
         console.log(response);
@@ -53,10 +62,11 @@ export class SettingsComponent {
     );
  }
   
-  async updateUsername( username? :string) {
-    const userId = '64a351ddc7dc405eb315b3ba'; 
+  async updateUsername(access_token:string, username? :string) {
+    //const userId = '64a351ddc7dc405eb315b3ba'; 
+    
    //this.newEmail="akani@gmail.com";
-    await this.service.updateSettingsusername(userId, username).
+    await this.service.updateSettingsusername(access_token, username).
     subscribe((response: any) =>
         {
 
@@ -67,10 +77,10 @@ export class SettingsComponent {
 
 }
   
-async updateRegion( region? :string) {
+async updateRegion( access_token:string, region? :string) {
   const userId = '64a351ddc7dc405eb315b3ba'; 
  //this.newEmail="akani@gmail.com";
-  await this.service.updateSettingsRegion(userId, region).
+  await this.service.updateSettingsRegion(access_token,region).
   subscribe((response: any) =>
       {
 

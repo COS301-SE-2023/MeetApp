@@ -80,6 +80,7 @@ export class ProfileComponent {
 
   async ngOnInit(){
     const access_token=this.serviceProvider.getToken();
+    console.log(access_token);
     this.getCurrentUser();
     this.getEventCount(access_token);
     this.getEvents(access_token);
@@ -157,7 +158,7 @@ export class ProfileComponent {
   async getCurrentUser()
   {
     const access_token=this.serviceProvider.getToken();
-    await this.serviceProvider.getLogedInUser(access_token).subscribe((response) => {
+     await this.serviceProvider.getLogedInUser(access_token).subscribe((response) => {
       console.log('API response:', response);
       this.user_payload=response;
       this.current_user=this.user_payload;
