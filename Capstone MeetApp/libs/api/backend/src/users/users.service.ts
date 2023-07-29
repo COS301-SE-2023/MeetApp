@@ -149,4 +149,9 @@ export class UsersService {
       };
     }
   }
+
+  async recommendByRegion(userId: string){
+    const currentUser = await this.userModel.findById(userId).exec();
+    return await this.eventModel.find({region: currentUser?.region})
+  }
 }
