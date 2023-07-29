@@ -348,7 +348,7 @@ export class service{
         return this.http.patch(`${url}`,body,{headers});
     }
   
-    updateSettingsprofilepicture(token:string|null,profifilePicture?:string){
+    updateSettingsprofilepicture(token:string|null,profilePicture?:string){
         const url=`${this.baseURl}users/update`;
 
         const headers = new HttpHeaders()
@@ -357,7 +357,7 @@ export class service{
 
         const body={
            
-            profifilePicture:profifilePicture,
+            profifilePicture:profilePicture,
           
            
         }
@@ -377,7 +377,7 @@ export class service{
         if (password) {
           body.password = password;
         }
-        return this.http.patch(`${url}`,body);
+        return this.http.patch(`${url}`,body,{headers});
        
     }
        
