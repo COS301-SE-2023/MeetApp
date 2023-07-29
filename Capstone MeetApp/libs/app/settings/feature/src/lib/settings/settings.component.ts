@@ -20,9 +20,6 @@ export class SettingsComponent {
   confirmPassword='';
   NewLocation='';
 
-  constructor(private service:service,private router:Router,private activatedRoute: ActivatedRoute){
-
-
   current_user={
     id:'',
     password:'',
@@ -136,6 +133,6 @@ export class SettingsComponent {
  
 }
   
-  
+
 
 
