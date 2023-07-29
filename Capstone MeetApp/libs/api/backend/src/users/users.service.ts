@@ -154,4 +154,17 @@ export class UsersService {
     const currentUser = await this.userModel.findById(userId).exec();
     return await this.eventModel.find({region: currentUser?.region})
   }
+
+  async recommendByCategory(userId: string){
+    const attendances = await this.attendanceModel.find({userID: userId}).exec()
+    const eventsIDArr = attendances.map((attendance) => {return attendance.eventID})
+    const eventsDetailsArr = await this.eventModel.find({_id : {$in: eventsIDArr}}).exec()
+    const categoryCount: { [key: string]: number } = {};
+    eventsDetailsArr.forEach((event) => {
+      if (event != null){
+      const category = event.category;
+      categoryCount[category] = (categoryCount[category] || 0) + 1;}
+    });
+    return categoryCount
+  }
 }
