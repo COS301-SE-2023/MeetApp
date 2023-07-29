@@ -93,7 +93,7 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Post('attend')
-  async attendEvent(@Request() req : AuthenticatedRequest, @Body('eventId') eventToAttend : {eventID : string}) {
+  async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}) {
     return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
 
   }
