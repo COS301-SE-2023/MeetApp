@@ -158,7 +158,7 @@ export class UsersService {
 
       const isAttendBool = isAttending ? true : false;
       return {
-        ...eventNow,
+        ...eventNow.toObject(),
         attending: isAttendBool,
       };
     }
