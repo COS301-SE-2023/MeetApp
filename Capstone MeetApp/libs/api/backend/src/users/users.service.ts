@@ -155,7 +155,7 @@ export class UsersService {
     return await this.eventModel.find({region: currentUser?.region})
   }
 
-  async recommendByCategory(userId: string){
+  async InterestCategory(userId: string){
     const attendances = await this.attendanceModel.find({userID: userId}).exec()
     const eventsIDArr = attendances.map((attendance) => {return attendance.eventID})
     const eventsDetailsArr = await this.eventModel.find({_id : {$in: eventsIDArr}}).exec()
