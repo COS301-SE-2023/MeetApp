@@ -37,7 +37,7 @@ export class ProfileComponent {
   
   profile:user={username:'',password:'',profilePicture:'',region:''};
   eventCount='';
-  friendCount='';
+  friendCount=0;
   userEvents = [
     {
       eventID:'',
