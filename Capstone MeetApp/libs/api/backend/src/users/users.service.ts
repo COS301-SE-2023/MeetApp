@@ -126,11 +126,12 @@ export class UsersService {
         userID: userId,
         eventID: event._id,
       });
+      const isAttendBool = isAttending ? true : false;
 
       // Create a new object with the event details and the attending field
       return {
-        ...event,
-        attending: isAttending,
+        ...event.toObject(),
+        attending: isAttendBool,
       };
     });
 
