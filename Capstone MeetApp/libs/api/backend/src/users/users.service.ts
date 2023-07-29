@@ -69,19 +69,16 @@ export class UsersService {
   // }
 
   async attendEvent(userId: string, eventId: string) {
-    // Check if the user exists in the database
     const user = await this.userModel.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    // Check if the event exists in the database
     const eventToCheck = await this.eventModel.findById(eventId);
     if (!eventToCheck) {
       throw new NotFoundException('Event not found');
     }
 
-    // Check if the user has already attended the event
     const existingAttendance = await this.attendanceModel.findOne({
       userID: userId,
       eventID: eventId,
@@ -91,15 +88,12 @@ export class UsersService {
       return {message : 'User already attending', payload : existingAttendance, changes : false}
     }
 
-    // Fetch the organization ID based on the organization name
     const organization = await this.orgModel.findOne({ name:  eventToCheck.organisation}).exec();
 
-    // If the organization doesn't exist, throw an error or handle it as needed
     if (!organization) {
       throw new NotFoundException('Organization not found');
     }
 
-    // If user has not attended the event, add attendance to the database
     const newAttendance = new this.attendanceModel({
       userID: userId,
       eventID: eventId,
@@ -110,43 +104,35 @@ export class UsersService {
   }
 
   async getUserEvents(userId: string) {
-    // Check if the user exists in the database
     const user = await this.userModel.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    // Fetch all events
     const events = await this.eventModel.find();
 
-    // Iterate through the events and check if the user is attending each event
     const eventsWithAttending = events.map(async (event) => {
-      // Check if the user has attended the event
       const isAttending = await this.attendanceModel.exists({
         userID: userId,
         eventID: event._id,
       });
       const isAttendBool = isAttending ? true : false;
 
-      // Create a new object with the event details and the attending field
       return {
         ...event.toObject(),
         attending: isAttendBool,
       };
     });
 
-    // Wait for all the promises to resolve and return the events with the attending field
     return Promise.all(eventsWithAttending);
   }
 
   async getUserEvent(userId: string, eventId: string){
-    // Check if the user exists in the database
     const user = await this.userModel.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    // Fetch all events
     const eventNow = await this.eventModel.findById(eventId).exec();
 
     if (!eventNow)
