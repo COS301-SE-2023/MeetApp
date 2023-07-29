@@ -6,9 +6,11 @@ import { User } from './schema';
 import { FilterQuery, Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
 import { JwtService } from '@nestjs/jwt';
+import { Organisation } from '../organisations/schema';
+import { Event } from '../events/schema';
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>){
     
   }
   
@@ -65,4 +67,86 @@ export class UsersService {
   // remove(id: number) {
   //   return `This action removes a #${id} user`;
   // }
+
+  async attendEvent(userId: string, eventId: string) {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const eventToCheck = await this.eventModel.findById(eventId);
+    if (!eventToCheck) {
+      throw new NotFoundException('Event not found');
+    }
+
+    const existingAttendance = await this.attendanceModel.findOne({
+      userID: userId,
+      eventID: eventId,
+    }).exec();
+
+    if (existingAttendance) {
+      return {message : 'User already attending', payload : existingAttendance, changes : false}
+    }
+
+    const organization = await this.orgModel.findOne({ name:  eventToCheck.organisation}).exec();
+
+    if (!organization) {
+      throw new NotFoundException('Organization not found');
+    }
+
+    const newAttendance = new this.attendanceModel({
+      userID: userId,
+      eventID: eventId,
+      organisationID: organization._id,
+    });
+
+    return {message : "Attendance Added",  payload : await newAttendance.save(), changes : true};
+  }
+
+  async getUserEvents(userId: string) {
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const events = await this.eventModel.find();
+
+    const eventsWithAttending = events.map(async (event) => {
+      const isAttending = await this.attendanceModel.exists({
+        userID: userId,
+        eventID: event._id,
+      });
+      const isAttendBool = isAttending ? true : false;
+
+      return {
+        ...event.toObject(),
+        attending: isAttendBool,
+      };
+    });
+
+    return Promise.all(eventsWithAttending);
+  }
+
+  async getUserEvent(userId: string, eventId: string){
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const eventNow = await this.eventModel.findById(eventId).exec();
+
+    if (!eventNow)
+      return null;
+    else {
+      const isAttending = await this.attendanceModel.exists({
+        userID: userId,
+        eventID: eventNow._id,})
+
+      const isAttendBool = isAttending ? true : false;
+      return {
+        ...eventNow.toObject(),
+        attending: isAttendBool,
+      };
+    }
+  }
 }

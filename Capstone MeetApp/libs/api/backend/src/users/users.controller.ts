@@ -66,10 +66,10 @@ export class UsersController {
       return this.usersService.findByQuery(request.query)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.usersService.findOne(id);
+  // }
 
   @Get(':userId/attendances')
   getUserAttendances(@Param('userId') userId: string) {
@@ -90,4 +90,23 @@ export class UsersController {
   // remove(@Param('id') id: string) {
   //   return this.usersService.remove(+id);
   // }
+
+  @UseGuards(AuthGuard)
+  @Post('attend')
+  async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}) {
+    return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
+
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('all-events')
+  async getAllEvents(@Request() req : AuthenticatedRequest){
+    return await this.usersService.getUserEvents(req.user.id)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('event/:eventID')
+  async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string){
+    return await this.usersService.getUserEvent(req.user.id, eventID)
+  }
 }
