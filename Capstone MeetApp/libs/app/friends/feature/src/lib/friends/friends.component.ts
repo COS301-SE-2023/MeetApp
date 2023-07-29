@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 //import {service,events} from '@capstone-meet-app/app/services'
@@ -13,7 +13,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
   standalone:true,
   selector: 'capstone-meet-app-friends',
   templateUrl: './friends.component.html',
-  imports: [CommonModule, FormsModule,IonicModule],
+  imports: [CommonModule, FormsModule,IonicModule,Ng2SearchPipeModule],
   styleUrls: ['./friends.component.css'],
   providers:[service],
 })
@@ -23,6 +23,7 @@ export class FriendsComponent {
   followers= [{
     name:'shiluvelo',
     profilepicture:'assets/profile.png'
+
     },
     {
       name:'shiluvelo',
