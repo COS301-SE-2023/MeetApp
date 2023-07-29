@@ -103,4 +103,10 @@ export class UsersController {
   async getAllEvents(@Request() req : AuthenticatedRequest){
     return await this.usersService.getUserEvents(req.user.id)
   }
+
+  @UseGuards(AuthGuard)
+  @Get('event/:eventID')
+  async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string){
+    return await this.usersService.getUserEvent(req.user.id, eventID)
+  }
 }
