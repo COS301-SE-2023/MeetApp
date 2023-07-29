@@ -16,6 +16,7 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule, Routes } from '@angular/router';
 
+import { NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -76,7 +77,20 @@ export class HomepageComponent {
   
   
   constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
-    console.log('Constructor');
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        console.log('Navigation started');
+      }
+      if (event instanceof NavigationEnd) {
+        console.log('Navigation ended successfully');
+      }
+      if (event instanceof NavigationError) {
+        console.error('Navigation error:', event.error);
+      }
+      if (event instanceof NavigationCancel) {
+        console.warn('Navigation canceled');
+      }
+    });
   }
   
 

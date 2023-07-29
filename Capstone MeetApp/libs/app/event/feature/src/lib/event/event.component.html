@@ -7,7 +7,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+      <ion-back-button   defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>
         <h1 class="heading" >
@@ -50,20 +50,15 @@
         <ion-label><b>Time : </b></ion-label>
         <ion-text class="bold-text">from &nbsp; {{event.startTime}} &nbsp;to&nbsp; {{event.endTime}}</ion-text>
       </ion-item>
-      <ion-item>
-        <ion-label>Interested</ion-label>
-        <ion-badge slot="end" color="secondary">5.5k</ion-badge>
-      </ion-item>
+      
       <ion-item>
       <ion-label>Going</ion-label>
-        <ion-badge slot="end" color="secondary">1.2k</ion-badge>
+        <ion-badge slot="end" color="secondary">{{attendance}}</ion-badge>
       </ion-item>
       
     <ion-card-content class="btn-bottom">
-        <ion-button  >
-          <i  class="fas fa-star"></i> &nbsp; Interested 
-        </ion-button>
-        <ion-button class="left">  &nbsp; <i  class="fas fa-thumbs-up" (click)="addEvent()"></i> &nbsp; Going  &nbsp;
+        
+        <ion-button class="left" (click)="addEvent()">  &nbsp; <i  class="fas fa-thumbs-up" ></i> &nbsp; Going  &nbsp;
         </ion-button>
       </ion-card-content>
     

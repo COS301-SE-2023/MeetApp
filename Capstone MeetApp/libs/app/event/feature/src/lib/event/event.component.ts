@@ -5,7 +5,7 @@ import {service,events} from '@capstone-meet-app/services';
 import { Router } from '@angular/router';
 import {  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Location } from '@angular/common';
+
 @Component({
   selector: 'capstone-meet-app-event',
   standalone: true,
@@ -20,6 +20,8 @@ export class EventComponent {
   organisationID='';
   eventID='';
   userID='';
+
+  organisationName='';
   
   //Array that holds all the data in the getAllEvents response
   data= [{
@@ -77,17 +79,15 @@ export class EventComponent {
 
   attendance=0;
   
-  constructor(private apiService: service,private route: ActivatedRoute,private location: Location) { 
+  constructor(private apiService: service,private route: ActivatedRoute,) { 
   }
-  goBack() {
-    this.location.back();
-  }
+  
 
   async ngOnInit() {
     this.route.params.subscribe(params => {
       const eventId = params['eventId'];
       this.getEventbyID(eventId);
-     
+      this.eventID=eventId
     });
     
 
@@ -99,11 +99,14 @@ export class EventComponent {
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       console.log('Organiser data',response);
       this.data_organiser = response;
-      this.getEventID('PriceToPay');
-      this.getOrganiserID('LTDProevents')
+      //this.getEventID('PriceToPay');
+      this.getOrganiserID(this.event.organisation)
+      
     });
-
+    
     //this.getEventbyID('647218a0cd65fc66878b99ad');
+    this.getCurrentUser();
+    this.getAttendance(this.eventID);
     
   }
 
@@ -153,8 +156,12 @@ export class EventComponent {
     }
     console.log('Returned OrganiserID',this.organisationID);
   }
+
   addEvent()
   {
+    
+    
+    console.log(this.userID,'g',this.organisationID,' gg',this.eventID);
     this.attendEvent(this.organisationID,this.eventID,this.userID);
   }
 
@@ -173,6 +180,7 @@ export class EventComponent {
       console.log('API response:', response);
       this.user_payload=response;
       this.current_user=this.user_payload;
+      this.userID=this.current_user.id;
       console.log('user ID',this.current_user.id);
       
     });
