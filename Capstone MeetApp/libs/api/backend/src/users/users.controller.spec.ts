@@ -6,6 +6,8 @@ import { User } from './schema';
 import { Attendance } from '../attendances/schema';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constant';
+import { Event } from '../events/schema';
+import { Organisation } from '../organisations/schema';
 
 describe('UsersController', () => {
   let controller: UsersController;
@@ -13,7 +15,7 @@ describe('UsersController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [UsersService, { provide: getModelToken(User.name), useValue: jest.fn() }, { provide: getModelToken(Attendance.name), useValue: jest.fn() }],
+      providers: [UsersService, { provide: getModelToken(User.name), useValue: jest.fn() }, { provide: getModelToken(Attendance.name), useValue: jest.fn() }, { provide: getModelToken(Organisation.name), useValue: jest.fn() }, { provide: getModelToken(Event.name), useValue: jest.fn() }],
       imports: [
         JwtModule.register({
           global: true,
