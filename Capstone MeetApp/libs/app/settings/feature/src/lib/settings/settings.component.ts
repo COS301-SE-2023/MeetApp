@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
-import { service } from '@capstone-meet-app/services'; 
+import { service , user } from '@capstone-meet-app/services'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -16,20 +16,30 @@ import { FormsModule } from '@angular/forms';
 })
 export class SettingsComponent {
   newEmail='';
-  newPassword='';
+  newPassword='aka08';
   confirmPassword='';
   NewLocation='';
-  constructor(private service:service,private router:Router,private activatedRoute: ActivatedRoute){
+
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+  }
+
+  profile:user={username:'',password:'',profilePicture:'',region:''};
+
+  user_payload:any;
+
+  constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
 
   }
 
-  ngOnInit(){
-
-     //this.updatepassword(this.newPassword)
-     //this.updatepassword("testing123");
-     //this.updateUsername("kmanthecehquebook");
-     //this.updateRegion("pretoria")
-     //sthis.updatePassword('kman123');
+  async ngOnInit(){
+   
+    this.getCurrentUser();
+    
   }
   
   navigateToProfile(){
@@ -42,7 +52,7 @@ export class SettingsComponent {
   
   
   
- async updateemail( email? :string) {
+  async updateEmail( email? :string) {
   const userId = '64a351ddc7dc405eb315b3ba'; 
  //this.newEmail="akani@gmail.com";
   await this.service.updateSettingspassword(userId, email).
@@ -51,7 +61,7 @@ export class SettingsComponent {
         console.log(response);
       }
     );
- }
+  }
   
   async updateUsername( username? :string) {
     const userId = '64a351ddc7dc405eb315b3ba'; 
@@ -65,25 +75,64 @@ export class SettingsComponent {
         }
       );
 
-}
+  }
   
-async updateRegion( region? :string) {
-  const userId = '64a351ddc7dc405eb315b3ba'; 
- //this.newEmail="akani@gmail.com";
-  await this.service.updateSettingsRegion(userId, region).
-  subscribe((response: any) =>
-      {
+  async updateRegion( region? :string) {
+    const userId = '64a351ddc7dc405eb315b3ba'; 
+  //this.newEmail="akani@gmail.com";
+    await this.service.updateSettingsRegion(userId, region).
+    subscribe((response: any) =>
+        {
 
-        console.log(response);
+          console.log(response);
 
-      }
-    );
+        }
+      );
 
-}
+  }
+
+  async getCurrentUser()
+  {
+    const access_token=this.service.getToken();
+    await this.service.getLogedInUser(access_token).subscribe((response) => {
+      console.log('API response:', response);
+      this.user_payload=response;
+      this.current_user=this.user_payload;
+      console.log('user ID',this.current_user.id);
+      this.getProfile(this.current_user.id);
+    });
+
+  }
   
+  async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
+    await this.service.updateUser(token,username,password,profilePicture,region).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+  }
+
+  async getProfile(id :string){
+    await this.service.getUserByID(id).subscribe((response:any)=>{ 
+      this.profile = response;
+      console.log(this.profile);
+    });
+  }
+
+
+  savePassword()
+  {
+    const access_token=this.service.getToken();
+    this.updateProfile(access_token,this.profile.username,this.newPassword,this.profile.profilePicture,this.profile.region);
+  }
+
+  saveRegion()
+  {
+    const access_token=this.service.getToken();
+    this.updateProfile(access_token,this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation);
+  }
  
 }
   
-  
+
 
 

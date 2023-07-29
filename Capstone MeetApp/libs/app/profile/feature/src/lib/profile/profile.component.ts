@@ -211,8 +211,9 @@ export class ProfileComponent {
       console.log(this. profilePictureUrl);
     }
 
-    location.reload();
     this.isEditMode = false;
+    //location.reload();
+    
   }
   
 
