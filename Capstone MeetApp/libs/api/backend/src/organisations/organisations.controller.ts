@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Patch,
-  Param,
   Delete,
   Body,
   Request,
@@ -51,10 +50,10 @@ export class OrganisationsController {
     return this.organisationsService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.organisationsService.findOne(id);
-  }
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.organisationsService.findOne(id);
+  // }
 
   @Patch(':id')
   // update(
@@ -64,8 +63,88 @@ export class OrganisationsController {
   //   return this.organisationsService.update(+id, updateOrganisationDto);
   // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.organisationsService.remove(+id);
+  @UseGuards(AuthGuard)
+  @Delete('')
+  remove(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.remove(+req.organisation.id);
   }
+  @UseGuards(AuthGuard)
+  @Get(':id/events/top3')
+  async getTop3AttendedEvents(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTop3AttendedEvents(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top')
+  async getTopAttendedEvent(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTopAttendedEvent(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top3-categories')
+  async getTop3EventCategories(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTop3EventCategories(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top-category')
+  async getTopEventCategory(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTopEventCategory(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top-region')
+  async getTopEventRegion(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTopEventRegion(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top3-regions')
+  async getTop3EventRegions(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTop3EventRegion(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top3-supporters-events')
+  async getTop3SupportersAndEvents(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTop3SupportersAndTheirTopEvents(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top-supporters-events')
+  async getTopSupportersAndEvents(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTopSupportersAndTheirTopEvents(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top3-supporters')
+  async getTop3Supporters(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTop3Supporters(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/top-supporter')
+  async getTopSupporter(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getTopSupporter(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events')
+  async getEvents(@Request() req : AuthenticatedRequest) {
+    return await this.organisationsService.findEvents(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/region-count')
+  async getRegionCount(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getRegionCount(req.organisation.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/category-count')
+  async getCategoryCount(@Request() req : AuthenticatedRequest) {
+    return this.organisationsService.getCategoryCount(req.organisation.id);
+  }
+  
+  
 }

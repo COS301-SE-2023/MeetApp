@@ -1,46 +1,51 @@
 import { Component } from '@angular/core';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 //import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+
+import { events,service,ServicesModule} from '@capstone-meet-app/services';
+
 @Component({
   standalone:true,
   selector: 'capstone-meet-app-friends',
   templateUrl: './friends.component.html',
-  imports: [CommonModule, FormsModule,IonicModule],
+  imports: [CommonModule, FormsModule,IonicModule,Ng2SearchPipeModule],
   styleUrls: ['./friends.component.css'],
+  providers:[service],
 })
 export class FriendsComponent {
+
   
   followers= [{
     name:'shiluvelo',
     profilepicture:'assets/profile.png'
   },
   {
-    name:'shiluvelo',
+    name:'jones',
     profilepicture:'assets/profile.png'
   },
   {
-    name:'shiluvelo',
+    name:'akani',
     profilepicture:'assets/profile.png'
   },
   {
-    name:'shiluvelo',
+    name:'jane',
     profilepicture:'assets/profile.png'
   },
   {
-    name:'shiluvelo',
+    name:'miley',
     profilepicture:'assets/profile.png'
   }
 ];
 
-constructor(private location: Location)
-{}
-goBack() {
-  this.location.back();
-}
+
+//goBack() {
+ // this.location.back();
+//}
 filteredData: any[] = [];
     searchQuery = '';
 search(): void {
@@ -52,4 +57,51 @@ search(): void {
     );
   }
  }
+
+
+  status: string|undefined
+constructor(private servicesService: service) {}
+
+    ngOnInit(){
+    this.sendFriendRequest();
+   // this.acceptRequest();
+   // this.deletefriend();
+  }
+  async sendFriendRequest() {
+  const requesterID = '647223decd65fc66879e13dc'; // Replace with the actual requester ID
+  const requesteeID = '647223f8cd65fc66879e3f1f'; // Replace with the actual requestee ID
+  status ='true';
+   this.servicesService
+      .sendfriendrequest(requesterID, requesteeID, status)
+      .subscribe((response: any) => {
+        console.log(response);
+        // Handle the res ponse or UI updates after the friend request is sent successfully
+      }) 
+}
+async acceptRequest() {
+  const requesterID = '647223decd65fc66879e13dc'; // Replace with the actual requester ID
+  const requesteeID = '647223f8cd65fc66879e3f1f'; // Replace with the actual requestee ID
+  status ='true';
+   this.servicesService
+      .acceptFriendRequest(requesterID, requesteeID, status)
+      .subscribe((response: any) => {
+        console.log(response);
+       
+        // Handle the res ponse or UI updates after the friend request is sent successfully
+      }) 
+}
+async deletefriend() {
+  const requesterID = '647223decd65fc66879e13dc'; // Replace with the actual requester ID
+  const requesteeID = '647223f8cd65fc66879e3f1f'; // Replace with the actual requestee ID
+  status ='true';
+   this.servicesService
+      .deleteFriendRequest(requesterID, requesteeID)
+      .subscribe((response: any) => {
+        console.log(response);
+        // Handle the res ponse or UI updates after the friend request is sent successfully
+      })
+
+ 
+
+}
 }

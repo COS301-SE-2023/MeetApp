@@ -3,7 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { service } from '@capstone-meet-app/services'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Location } from '@angular/common';
+
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 @Component({
@@ -19,7 +19,7 @@ export class SettingsComponent {
   newPassword='';
   confirmPassword='';
   NewLocation='';
-  constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
+  constructor(private service:service,private router:Router,private activatedRoute: ActivatedRoute){
 
   }
 
@@ -40,9 +40,7 @@ export class SettingsComponent {
     this.router.navigate(['/login']);
   }
   
-  goBack() {
-    this.location.back();
-  }
+  
   
  async updateemail( email? :string) {
   const userId = '64a351ddc7dc405eb315b3ba'; 
