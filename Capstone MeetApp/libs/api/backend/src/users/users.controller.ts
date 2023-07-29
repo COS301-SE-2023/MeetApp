@@ -90,4 +90,11 @@ export class UsersController {
   // remove(@Param('id') id: string) {
   //   return this.usersService.remove(+id);
   // }
+
+  @UseGuards(AuthGuard)
+  @Post('attend')
+  async attendEvent(@Request() req : AuthenticatedRequest, @Body('eventId') eventToAttend : {eventID : string}) {
+    return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
+
+  }
 }
