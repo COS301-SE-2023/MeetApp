@@ -97,4 +97,10 @@ export class UsersController {
     return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
 
   }
+
+  @UseGuards(AuthGuard)
+  @Get('all-events')
+  async getAllEvents(@Request() req : AuthenticatedRequest){
+    return await this.usersService.getUserEvents(req.user.id)
+  }
 }
