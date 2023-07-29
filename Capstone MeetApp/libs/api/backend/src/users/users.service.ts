@@ -108,4 +108,33 @@ export class UsersService {
 
     return {message : "Attendance Added",  payload : await newAttendance.save(), changes : true};
   }
+
+  async getUserEvents(userId: string) {
+    // Check if the user exists in the database
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Fetch all events
+    const events = await this.eventModel.find();
+
+    // Iterate through the events and check if the user is attending each event
+    const eventsWithAttending = events.map(async (event) => {
+      // Check if the user has attended the event
+      const isAttending = await this.attendanceModel.exists({
+        userID: userId,
+        eventID: event._id,
+      });
+
+      // Create a new object with the event details and the attending field
+      return {
+        ...event,
+        attending: isAttending,
+      };
+    });
+
+    // Wait for all the promises to resolve and return the events with the attending field
+    return Promise.all(eventsWithAttending);
+  }
 }
