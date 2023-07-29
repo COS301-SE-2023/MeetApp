@@ -6,9 +6,11 @@ import { User } from './schema';
 import { FilterQuery, Model } from 'mongoose';
 import { Attendance } from '../attendances/schema';
 import { JwtService } from '@nestjs/jwt';
+import { Organisation } from '../organisations/schema';
+import { Event } from '../events/schema';
 @Injectable()
 export class UsersService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService){
+  constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>){
     
   }
   
@@ -65,4 +67,45 @@ export class UsersService {
   // remove(id: number) {
   //   return `This action removes a #${id} user`;
   // }
+
+  async attendEvent(userId: string, eventId: string) {
+    // Check if the user exists in the database
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Check if the event exists in the database
+    const eventToCheck = await this.eventModel.findById(eventId);
+    if (!eventToCheck) {
+      throw new NotFoundException('Event not found');
+    }
+
+    // Check if the user has already attended the event
+    const existingAttendance = await this.attendanceModel.findOne({
+      userID: userId,
+      eventID: eventId,
+    }).exec();
+
+    if (existingAttendance) {
+      return {message : 'User already attending', payload : existingAttendance, changes : false}
+    }
+
+    // Fetch the organization ID based on the organization name
+    const organization = await this.orgModel.findOne({ name:  eventToCheck.organisation}).exec();
+
+    // If the organization doesn't exist, throw an error or handle it as needed
+    if (!organization) {
+      throw new NotFoundException('Organization not found');
+    }
+
+    // If user has not attended the event, add attendance to the database
+    const newAttendance = new this.attendanceModel({
+      userID: userId,
+      eventID: eventId,
+      organisationID: organization._id,
+    });
+
+    return {message : "Attendance Added",  payload : await newAttendance.save(), changes : true};
+  }
 }
