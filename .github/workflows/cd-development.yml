@@ -1,0 +1,68 @@
+
+name: Continuous deployment Development
+
+on:
+  workflow_dispatch:
+  
+  push:
+    branches:
+      - development
+      
+jobs:
+  #reuse of workflow CI
+  ci-dev:
+    uses: ./.github/workflows/ci-development.yaml
+    
+  Deploy-frontend:
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    needs: ci-dev
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: aws-actions/configure-aws-credentials@v1
+        with :
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: af-south-1
+          
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+          cache: 'npm'
+      - run: npm install --legacy-peer-deps
+      - run: npm run build:app:development
+      - run: aws s3 sync ./dist/apps/meet-app s3://dev-meetapp
+      
+      
+  Deploy-backend:
+    defaults:
+      run:
+        working-directory: Capstone MeetApp
+    needs: ci-dev
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: aws-actions/configure-aws-credentials@v1
+        with :
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-region: af-south-1
+          
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+          cache: 'npm'
+      - run: npm install --legacy-peer-deps
+      - run: npm run build:api:development
+      - run: cat ./tools/package.txt > package.json
+      - name: Compress required files to deploy 
+        run: Compress-Archive -Path './dist','./package.json' -DestinationPath ./api_deploy.zip
+      - name: Send zip file to s3
+        run: aws s3 cp ./api_deploy.zip s3://dev-meet-app-api
+      - name: update the API
+        run: aws elasticbeanstalk create-application-version --application-name meetapp --source-bundle S3Bucket="dev-meet-app-api",S3Key="api_deploy.zip" --version-label "meetapp-version-${{ github.sha }}" 
+      - name: deploy api to ebs
+        run: aws elasticbeanstalk update-environment --environment-name Meetapp-env-1 --version-label "meetapp-version-${{github.sha}}"
+    
