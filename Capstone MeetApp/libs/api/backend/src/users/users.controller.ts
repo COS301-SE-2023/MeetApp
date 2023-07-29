@@ -115,4 +115,10 @@ export class UsersController {
   async getRecRegion(@Request() req : AuthenticatedRequest){
     return await this.usersService.recommendByRegion(req.user.id)
   }
+
+  @UseGuards(AuthGuard)
+  @Get('recommendations-category')
+  async getRecCategory(@Request() req : AuthenticatedRequest){
+    return await this.usersService.recommendByCategory(req.user.id)
+  }
 }
