@@ -109,4 +109,10 @@ export class UsersController {
   async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string){
     return await this.usersService.getUserEvent(req.user.id, eventID)
   }
+
+  @UseGuards(AuthGuard)
+  @Get('recommendations-region')
+  async getRecRegion(@Request() req : AuthenticatedRequest){
+    return await this.usersService.recommendByRegion(req.user.id)
+  }
 }
