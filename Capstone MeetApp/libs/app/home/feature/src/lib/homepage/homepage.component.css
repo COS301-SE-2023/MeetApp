@@ -191,10 +191,11 @@ ion-scroll {
   min-height: 160px; 
   height: auto;
 
-      .scroll-content {
-      padding: 0px !important;
-  }    
+         
 }
+.scroll-content {
+  padding: 0px !important;
+} 
 .navigation-bar {
   position: fixed;
   bottom: 0;
