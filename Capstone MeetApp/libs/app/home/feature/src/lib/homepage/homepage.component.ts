@@ -70,6 +70,8 @@ export class HomepageComponent {
 
   userType:string|null = '';
 
+  attendance=0;
+  
   isLiked = false;
   toggleLike() {
     this.isLiked = !this.isLiked;
@@ -116,6 +118,13 @@ export class HomepageComponent {
       });
   }
  
+  async getAttendance(id:string)
+  {
+    await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
+      console.log('API response:', response);
+      this.attendance=response;
+    });
+  }
 
 
   /* async ngOnInit() {
