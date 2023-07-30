@@ -34,7 +34,7 @@
 </div>
 
 <div>
-<ion-card *ngFor="let item of data | filter:searchQuery" class="custom-card"  (click)="viewEvent(item._id)">
+<ion-card *ngFor="let item of data | filter:searchQuery" class="custom-card"   (click)="viewEvent(item._id)">
   <ion-card-content>
   <ion-card-title class="heading">{{ item.name}}</ion-card-title>
 </ion-card-content>
@@ -53,7 +53,8 @@
   
   <ion-item>
   <ion-label>Going</ion-label>
-    <ion-badge slot="end" color="secondary">1.2k</ion-badge>
+  
+    <ion-badge slot="end" color="secondary">{{attendance}}</ion-badge>
   </ion-item>
  <!-- <ion-card-content>
   <ion-button  >
