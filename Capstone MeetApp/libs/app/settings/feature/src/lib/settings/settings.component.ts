@@ -120,10 +120,15 @@ export class SettingsComponent {
   }
 
 
-  savePassword()
-  {
-    const access_token=this.service.getToken();
-    this.updateProfile(access_token,this.profile.username,this.newPassword,this.profile.profilePicture,this.profile.region);
+  savePassword() {
+    if (this.newPassword !== this.confirmPassword) {
+      // Handle password mismatch
+      console.log('Passwords do not match.');
+      return;
+    }
+
+    const access_token = this.service.getToken();
+    this.updateProfile(access_token, this.profile.username, this.newPassword, this.profile.profilePicture, this.profile.region);
   }
 
   saveRegion()
