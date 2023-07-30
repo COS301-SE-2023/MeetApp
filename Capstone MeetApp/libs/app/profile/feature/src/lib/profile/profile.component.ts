@@ -83,7 +83,7 @@ export class ProfileComponent {
     console.log(access_token);
     this.getCurrentUser();
     this.getEventCount(access_token);
-    this.getEvents(access_token);
+    //this.getEvents(access_token);
     this.getFriendCount();
   }
   goBack() {
@@ -142,7 +142,7 @@ export class ProfileComponent {
         
       }
       console.log(this.orgIDs);
-      this.fetchByIds('fetch-by-ids',this.orgIDs);
+      //this.fetchByIds('fetch-by-ids',this.orgIDs);
     });
   }
 
@@ -212,12 +212,23 @@ export class ProfileComponent {
       console.log(this. profilePictureUrl);
     }
 
+    
     this.isEditMode = false;
-    //location.reload();
+    this.refreshPageWithDelay(2000); 
+
     
   }
   
+  refreshPage() {
+    window.location.reload();
+  }
 
+  refreshPageWithDelay(delayInMilliseconds: number) {
+    setTimeout(() => {
+      window.location.reload();
+    }, delayInMilliseconds);
+  }
+  
   async  convertImageToBase64(imageUrl: string): Promise<string> {
     try {
       const response = await fetch(imageUrl);
