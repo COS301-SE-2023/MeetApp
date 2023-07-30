@@ -215,7 +215,10 @@ submitForm() {
       
     }
   }
-  
+  gotohome()
+  {
+    this.router.navigate(['/home']);
+  }
   toggleForm() {
    
     this.showForm = !this.showForm;
