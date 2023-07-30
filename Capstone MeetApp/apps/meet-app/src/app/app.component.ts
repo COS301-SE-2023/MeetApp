@@ -12,7 +12,7 @@ import { ServicesModule } from "@capstone-meet-app/app/services";
 import { HttpClient, HttpClientModule} from '@angular/common/http';
 
 import {SettingsComponent} from '@capstone-meet-app/settings/feature'
-
+import { CalendarComponent} from '@capstone-meet-app/calendar/feature'
 import { EventComponent } from "@capstone-meet-app/app/event/feature";
 import {OrganiserComponent}from '@captone-meet-app/organiser';
 import {FriendsComponent} from '@capstone-meet-app/friends';
@@ -26,7 +26,7 @@ import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
 
 @Component({
   standalone: true,
-  imports: [HttpClientModule,ServicesModule,NxWelcomeComponent,FormsModule, RouterModule,FriendsComponent,OrganiserComponent,EventComponent ,SettingsComponent,MapsComponent,ProfileComponent,LoginComponent,SignupComponent, IonicModule,WelcomepageComponent,HomepageComponent],
+  imports: [HttpClientModule,ServicesModule,CalendarComponent,NxWelcomeComponent,FormsModule, RouterModule,FriendsComponent,OrganiserComponent,EventComponent ,SettingsComponent,MapsComponent,ProfileComponent,LoginComponent,SignupComponent, IonicModule,WelcomepageComponent,HomepageComponent],
   selector: "capstone-meet-app-root",
   templateUrl: './app.component.html',
   styleUrls: ["./app.component.scss"],

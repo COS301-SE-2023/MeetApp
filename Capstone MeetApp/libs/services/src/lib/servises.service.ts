@@ -348,7 +348,7 @@ export class service{
         return this.http.patch(`${url}`,body,{headers});
     }
   
-    updateSettingsprofilepicture(token:string|null,profifilePicture?:string){
+    updateSettingsprofilepicture(token:string|null,profilePicture?:string){
         const url=`${this.baseURl}users/update`;
 
         const headers = new HttpHeaders()
@@ -357,7 +357,7 @@ export class service{
 
         const body={
            
-            profifilePicture:profifilePicture,
+            profifilePicture:profilePicture,
           
            
         }
@@ -377,7 +377,7 @@ export class service{
         if (password) {
           body.password = password;
         }
-        return this.http.patch(`${url}`,body);
+        return this.http.patch(`${url}`,body,{headers});
        
     }
        
@@ -465,37 +465,52 @@ export class service{
     //SERVICES FOR FRIENDS
 
     
-    sendfriendrequest( requester:string, requestee:string,status:string)
+    sendfriendrequest(token:string|null,requester:string, requestee:string,status:string)
     {
-        const url=`${this.baseURl}users/${requester}/friend/send-request`;
+        const url=`${this.baseURl}users/friend/send-request`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+
         const body ={
             requester:requester,
             requestee:requestee,
 
             status:status
         }
-        return this.http.post(`${url}`,body);
+        return this.http.post(`${url}`,body,{ headers });
     }
 
     
-    acceptFriendRequest(requester: string, requestee: string, status: string) {
-        const url = `${this.baseURl}users/${requestee}/friend/accept-request`;
+    acceptFriendRequest(token:string|null,requester: string, requestee: string, status: string) {
+        const url = `${this.baseURl}users/friend/accept-request`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+
         const body = {
           requester: requester,
           requestee: requestee,
           status: status,
         };
-        return this.http.patch(url, body);
+        return this.http.patch(`${url}`, body,{ headers });
     }
       
-    deleteFriendRequest(friendID: string, friend: string) {
-        const url = `${this.baseURl}users/${friendID}/friend/unfriend`;
+    deleteFriendRequest(token:string|null,friendID: string, friend: string) {
+        const url = `${this.baseURl}users/friend/unfriend`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+
         const body = {
           friendID: friendID,
           friend: friend,
         };
     
-        return this.http.delete(url, { body: body });
+        return this.http.delete(`${url}`, {headers,body});
     }
 
     getFriendCount(token:string|null)

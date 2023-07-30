@@ -54,7 +54,7 @@ export class HomepageComponent {
 
   events:any =[];
   data= [{
-    id:'',
+    _id:'',
     name:'',
     organisation: '',
     description:'',
@@ -66,16 +66,25 @@ export class HomepageComponent {
     category:'',
     region:'',
     eventPoster:''
+    
   }];
 
   userType:string|null = '';
+  attendance=0;
+  
+   updatedData = this.data.map(item => ({
+    ...item, 
+    attendance: this.attendance
+  }));
 
+   
+ 
   isLiked = false;
   toggleLike() {
     this.isLiked = !this.isLiked;
   }
   
-  
+  attendanceData: { [_id: string]: number } = {};
   constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -115,7 +124,34 @@ export class HomepageComponent {
         console.log('fhsh  '+newEvent)
       });
   }
+  async ngOnInit() {
+    this.service.getAllEvents().subscribe((response: any) => { 
+      this.data = response;
+      for (let i = 0; i < this.data.length; i++) {
+        //const event: events = this.data[i];
+        console.log('test',this.data[i]._id);
+        //const region = event.region;
+        this.getAttendance(this.data[i]._id);
+       
+      }
+      
+    });
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
+  
+  }
  
+  async getAttendance(id:string,)
+  {
+     await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
+      console.log('API response:', response);
+      this.attendance=response;
+      this.attendanceData[id] = response;
+    });
+  }
 
 
   /* async ngOnInit() {
@@ -141,25 +177,7 @@ export class HomepageComponent {
   }
 
 
-   async ngOnInit() {
-      this.service.getAllEvents().subscribe((response: any) => { 
-        this.data = response;
-        for (let i = 0; i < this.data.length; i++) {
-          const event: events = this.data[i];
-          //const region = event.region;
-          const date=event.date;
-          
-         
-        }
-        this.data
-      });
-
-      this.activatedRoute.paramMap.subscribe(params => {
-        this.userType = params.get('userType');
-        console.log('User Type:', this.userType);
-      });
-    
-    }
+   
  
   
 
@@ -178,23 +196,23 @@ export class HomepageComponent {
 
 
    gotomap() {
-    this.router.navigate(['/map']);
+    this.router.navigateByUrl('/map');
   }
   gotohome() {
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/home');
   }
   gotoprofile() {
-    this.router.navigate(['/profile']);
+    this.router.navigateByUrl('/profile');
   }
   gotocalendar() {
-    this.router.navigate(['/calendar']);
+    this.router.navigateByUrl('/calendar');
   }
   gotosettings() {
-    this.router.navigate(['/settings']);
+    this.router.navigateByUrl('/settings');
     
   }
   gotoorganiser() {
-    this.router.navigate(['/organisers']);
+    this.router.navigateByUrl('/organisers');
   }
   
 

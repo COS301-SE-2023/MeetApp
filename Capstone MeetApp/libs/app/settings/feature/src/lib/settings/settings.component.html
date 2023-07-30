@@ -20,7 +20,7 @@
 </ion-header>
 
 <div id="body">
-    
+    <ion-content>
   <ion-card class="card1">
     <ion-card-header>
       <ion-card-title>Personal Details</ion-card-title>
@@ -131,8 +131,17 @@
           </ion-accordion>
       </ion-accordion-group>
   </ion-card>
-
+  <ion-card class="card" >
+    <ion-card-header>
+    <ion-card-title>About</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>Version 1.0.0.0</ion-card-content>
+    <ion-card-content>Terms and Conditions</ion-card-content>
+    <ion-card-content>Privacy Policy</ion-card-content>
+    <ion-card-content>Support</ion-card-content>
+  </ion-card >
   <ion-card class="card">
+    
       <ion-button class="logout" (click)="nagivateToHome()" >Logout</ion-button>
   </ion-card>
   <!--<div class="navigation-bar">
@@ -155,6 +164,6 @@
     
     </i>
   </div>-->
-  
+</ion-content>
 </div>
 </html>
