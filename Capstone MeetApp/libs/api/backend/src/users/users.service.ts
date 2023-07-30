@@ -180,4 +180,20 @@ export class UsersService {
     });
     return regionCount
   }
+
+  async recommendationCategory(userId: string){
+    const attendances = await this.attendanceModel.find({userID: userId}).exec()
+    const eventsIDArr = attendances.map((attendance) => {return attendance.eventID})
+    const eventsDetailsArr = await this.eventModel.find({_id : {$in: eventsIDArr}}).exec()
+    const categoryCount: { [key: string]: number } = {};
+    eventsDetailsArr.forEach((event) => {
+      if (event != null){
+      const category = event.category;
+      categoryCount[category] = (categoryCount[category] || 0) + 1;}
+    });
+    const sortCat = Object.keys(categoryCount).sort(
+      (a, b) => categoryCount[b] - categoryCount[a]
+    );
+    return await this.eventModel.find({category: sortCat[0]})
+  }
 }
