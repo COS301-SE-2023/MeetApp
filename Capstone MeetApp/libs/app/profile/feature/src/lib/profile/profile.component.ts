@@ -82,8 +82,8 @@ export class ProfileComponent {
     const access_token=this.serviceProvider.getToken();
     this.getCurrentUser();
     this.getEventCount(access_token);
-    this.getEvents(access_token);
-    //this.getFriendCount();
+    //this.getEvents(access_token);
+    this.getFriendCount();
   }
   goBack() {
     this.location.back();
