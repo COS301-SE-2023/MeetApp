@@ -117,12 +117,32 @@ export class HomepageComponent {
         console.log('fhsh  '+newEvent)
       });
   }
+  async ngOnInit() {
+    this.service.getAllEvents().subscribe((response: any) => { 
+      this.data = response;
+      for (let i = 0; i < this.data.length; i++) {
+        const event: events = this.data[i];
+        //const region = event.region;
+        const id=event.id;
+        console.log('test',this.data[i].id);
+       
+      }
+      
+    });
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
+  
+  }
  
   async getAttendance(id:string)
   {
-    await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
+     await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
       console.log('API response:', response);
       this.attendance=response;
+     
     });
   }
 
@@ -150,25 +170,7 @@ export class HomepageComponent {
   }
 
 
-   async ngOnInit() {
-      this.service.getAllEvents().subscribe((response: any) => { 
-        this.data = response;
-        for (let i = 0; i < this.data.length; i++) {
-          const event: events = this.data[i];
-          //const region = event.region;
-          const date=event.date;
-          
-         
-        }
-        this.data
-      });
-
-      this.activatedRoute.paramMap.subscribe(params => {
-        this.userType = params.get('userType');
-        console.log('User Type:', this.userType);
-      });
-    
-    }
+   
  
   
 
@@ -187,23 +189,23 @@ export class HomepageComponent {
 
 
    gotomap() {
-    this.router.navigate(['/map']);
+    this.router.navigateByUrl('/map');
   }
   gotohome() {
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/home');
   }
   gotoprofile() {
-    this.router.navigate(['/profile']);
+    this.router.navigateByUrl('/profile');
   }
   gotocalendar() {
-    this.router.navigate(['/calendar']);
+    this.router.navigateByUrl('/calendar');
   }
   gotosettings() {
-    this.router.navigate(['/settings']);
+    this.router.navigateByUrl('/settings');
     
   }
   gotoorganiser() {
-    this.router.navigate(['/organisers']);
+    this.router.navigateByUrl('/organisers');
   }
   
 
