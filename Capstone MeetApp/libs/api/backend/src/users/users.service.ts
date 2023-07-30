@@ -8,11 +8,18 @@ import { Attendance } from '../attendances/schema';
 import { JwtService } from '@nestjs/jwt';
 import { Organisation } from '../organisations/schema';
 import { Event } from '../events/schema';
+
+interface TimeOfDay {
+  [key: string]: number;
+}
 @Injectable()
+
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>){
     
   }
+
+  
   
   async create(createUserDto: CreateUserDto) {
     const newUser = await new this.userModel(createUserDto);
@@ -195,5 +202,65 @@ export class UsersService {
       (a, b) => categoryCount[b] - categoryCount[a]
     );
     return await this.eventModel.find({category: sortCat[0]})
+  }
+
+  async getUserTimeOfDayRecommendation(userId: string){
+
+    
+    // Check if the user exists in the database
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Find attended events for the user
+    const attendances = await this.attendanceModel.find({userID: userId}).exec()
+    const eventsIDArr = attendances.map((attendance) => {return attendance.eventID})
+    const attendedEvents = await this.eventModel.find({_id : {$in: eventsIDArr}}).exec()
+
+    // Get the frequency of each time of day
+    const timeOfDayFrequency: TimeOfDay = {
+      morning: 0,
+      afternoon: 0,
+      evening: 0,
+      night: 0,
+    };
+
+    attendedEvents.forEach((event) => {
+      const startTime = parseInt(event.startTime.split(':')[0], 10);
+      if (startTime >= 0 && startTime < 6) {
+        timeOfDayFrequency['night']++;
+      } else if (startTime >= 6 && startTime < 12) {
+        timeOfDayFrequency['morning']++;
+      } else if (startTime >= 12 && startTime < 18) {
+        timeOfDayFrequency['afternoon']++;
+      } else {
+        timeOfDayFrequency['evening']++;
+      }
+    });
+
+    console.log(timeOfDayFrequency)
+
+    // Find the most frequent time of day
+    const mostFrequentTimeOfDay = Object.keys(timeOfDayFrequency).reduce((a, b) =>
+      timeOfDayFrequency[a] > timeOfDayFrequency[b] ? a : b
+    );
+
+    // Filter events falling under the most frequent time of day
+    const eventsForRecommendation = attendedEvents.filter((event) => {
+      const startTime = parseInt(event.startTime.split(':')[0], 10);
+      if (mostFrequentTimeOfDay === 'morning' && startTime >= 6 && startTime < 12) {
+        return true;
+      } else if (mostFrequentTimeOfDay === 'afternoon' && startTime >= 12 && startTime < 18) {
+        return true;
+      } else if (mostFrequentTimeOfDay === 'evening' && startTime >= 18) {
+        return true;
+      } else if (mostFrequentTimeOfDay === 'night' && (startTime >= 0 && startTime < 6)) {
+        return true;
+      }
+      return false;
+    });
+
+    return eventsForRecommendation;
   }
 }
