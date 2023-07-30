@@ -121,4 +121,10 @@ export class UsersController {
   async getIntCategory(@Request() req : AuthenticatedRequest){
     return await this.usersService.InterestCategory(req.user.id)
   }
+
+  @UseGuards(AuthGuard)
+  @Get('interests/region')
+  async getIntRegion(@Request() req : AuthenticatedRequest){
+    return await this.usersService.InterestRegion(req.user.id)
+  }
 }
