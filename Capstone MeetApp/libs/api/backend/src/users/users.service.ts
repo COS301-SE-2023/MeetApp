@@ -167,4 +167,17 @@ export class UsersService {
     });
     return categoryCount
   }
+
+  async InterestRegion(userId: string){
+    const attendances = await this.attendanceModel.find({userID: userId}).exec()
+    const eventsIDArr = attendances.map((attendance) => {return attendance.eventID})
+    const eventsDetailsArr = await this.eventModel.find({_id : {$in: eventsIDArr}}).exec()
+    const regionCount: { [key: string]: number } = {};
+    eventsDetailsArr.forEach((event) => {
+      if (event != null){
+      const region = event.region;
+      regionCount[region] = (regionCount[region] || 0) + 1;}
+    });
+    return regionCount
+  }
 }
