@@ -117,6 +117,12 @@ export class UsersController {
   }
 
   @UseGuards(AuthGuard)
+  @Get('recommendations/category')
+  async getRecCategory(@Request() req : AuthenticatedRequest){
+    return await this.usersService.recommendationCategory(req.user.id)
+  }
+
+  @UseGuards(AuthGuard)
   @Get('interests/category')
   async getIntCategory(@Request() req : AuthenticatedRequest){
     return await this.usersService.InterestCategory(req.user.id)
