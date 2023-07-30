@@ -12,6 +12,11 @@ import { Event } from '../events/schema';
 interface TimeOfDay {
   [key: string]: number;
 }
+
+// interface DurationFrequency {
+//   interval: string;
+//   frequency: number;
+// }
 @Injectable()
 
 export class UsersService {
@@ -263,4 +268,53 @@ export class UsersService {
 
     return eventsForRecommendation;
   }
+
+  // async getUserInterestDuration(userId: string) {
+  //   // Check if the user exists in the database
+  //   const user = await this.userModel.findById(userId);
+  //   if (!user) {
+  //     throw new NotFoundException('User not found');
+  //   }
+
+  //   // Find attended events for the user
+  //   const attendances = await this.attendanceModel.find({userID: userId}).exec()
+  //   const eventsIDArr = attendances.map((attendance) => {return attendance.eventID})
+  //   const attendedEvents = await this.eventModel.find({_id : {$in: eventsIDArr}}).exec()
+
+  //   // Calculate duration frequencies for each interval
+  //   const durationFrequencies: DurationFrequency[] = [];
+  //   const intervals: number[] = [30, 60, 90, 120, 150, 180, 210, 240, 270, 300]; // Minutes
+
+  //   attendedEvents.forEach((event) => {
+  //     const startTime = new Date(event.startTime);
+  //     const endTime = new Date(event.endTime);
+  //     const durationInMinutes = Math.round((endTime.getTime() - startTime.getTime()) / (1000 * 60));
+
+  //     // Find the appropriate interval for the event duration
+  //     let interval = '30m';
+  //     for (const i of intervals) {
+  //       if (durationInMinutes <= i) {
+  //         interval = `${i}m`;
+  //         break;
+  //       }
+  //     }
+
+  //     // Check if the interval already exists in the durationFrequencies array
+  //     const existingFrequency = durationFrequencies.find((df) => df.interval === interval);
+
+  //     if (existingFrequency) {
+  //       existingFrequency.frequency++;
+  //     } else {
+  //       durationFrequencies.push({ interval, frequency: 1 });
+  //     }
+  //   });
+
+  //   // Convert durationFrequencies array to the desired format
+  //   const formattedDurationFrequencies: unknown[] = durationFrequencies.map((df) => ({
+  //     interval: df.interval.includes('h') ? df.interval : `${df.interval}m`,
+  //     frequency: df.frequency,
+  //   }));
+
+  //   return formattedDurationFrequencies;
+  // }
 }
