@@ -30,5 +30,5 @@ export const appRoutes: Route[] = [
    ,{path: "events/:eventId", component: EventComponent}
    ,{path: "friends", component: FriendsComponent},
    {path: "organisers", component: OrganiserComponent},
-   {path: "calendar",component:CalendarComponent},
+   {path: "calendar",component:CalendarComponent}
 ];

@@ -86,25 +86,25 @@
 
 </div>
 <div class="navigation-bar">
-  <a   (click)="gotohome()" routerLinkActive="active" class="navigation-item">
+  <div  (click)="gotohome()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-home"></i>
    
-  </a>
-  <a   (click)="gotocalendar()" routerLinkActive="active"class="navigation-item">
+  </div>
+  <div  (click)="gotocalendar()" routerLinkActive="active"class="navigation-item">
     <i class="fas fa-calendar"></i>
     
-  </a>
-  <a  (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
+  </div>
+  <div (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
     <i class=" fas fa-plus"></i>
-    </a>
-  <a  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
+  </div>
+  <div  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
     <i class="fas fa-cog" ></i>
     
-  </a>
-  <a (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
+  </div>
+  <div (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-user"></i>
   
-  </a>
+  </div>
 </div>
 
 <!--<!DOCTYPE html>

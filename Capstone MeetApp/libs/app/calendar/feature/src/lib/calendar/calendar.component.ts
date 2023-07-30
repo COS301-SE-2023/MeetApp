@@ -4,6 +4,7 @@ import {IonicModule } from '@ionic/angular';
 import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
 @Component({
   selector: 'capstone-meet-app-calendar',
   standalone: true,
@@ -15,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class CalendarComponent {
 
   selectedDate!: string;
-  constructor(private service:service,private router:Router){
+  constructor(private service:service,private router:Router,private location: Location){
 
   }
 
