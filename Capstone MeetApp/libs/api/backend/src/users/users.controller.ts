@@ -66,6 +66,11 @@ export class UsersController {
       return this.usersService.findByQuery(request.query)
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.usersService.findOne(id);
+  }
+  
   // @Get(':id')
   // findOne(@Param('id') id: string) {
   //   switch (id) {
