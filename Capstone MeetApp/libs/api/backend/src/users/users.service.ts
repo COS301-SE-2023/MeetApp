@@ -269,6 +269,38 @@ export class UsersService {
     return eventsForRecommendation;
   }
 
+  async getUserInterestAverageDuration(userId: string){
+    // Check if the user exists in the database
+    const user = await this.userModel.findById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    // Find attended events for the user
+    const attendances = await this.attendanceModel.find({userID: userId}).exec()
+    const eventsIDArr = attendances.map((attendance) => {return attendance.eventID})
+    const attendedEvents = await this.eventModel.find({_id : {$in: eventsIDArr}}).exec()
+
+    // Calculate the average duration of all events
+    const totalDurationInMinutes = attendedEvents.reduce((total, event) => {
+      const startTime = new Date(event.startTime);
+      const endTime = new Date(event.endTime);
+      return total + Math.round((endTime.getTime() - startTime.getTime()) / (1000 * 60));
+    }, 0);
+    const averageDurationInMinutes = Math.round(totalDurationInMinutes / attendedEvents.length);
+    console.log(averageDurationInMinutes)
+
+    // Find events falling 30 minutes above and 30 minutes below the average duration
+    const eventIntervals: Event[] = attendedEvents.filter((event) => {
+      const startTime = new Date(event.startTime);
+      const endTime = new Date(event.endTime);
+      const durationInMinutes = Math.round((endTime.getTime() - startTime.getTime()) / (1000 * 60));
+      return durationInMinutes >= averageDurationInMinutes - 30 && durationInMinutes <= averageDurationInMinutes + 30;
+    });
+
+    return eventIntervals;
+  }
+
   // async getUserInterestDuration(userId: string) {
   //   // Check if the user exists in the database
   //   const user = await this.userModel.findById(userId);
