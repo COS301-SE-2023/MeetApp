@@ -54,7 +54,7 @@ export class HomepageComponent {
 
   events:any =[];
   data= [{
-    id:'',
+    _id:'',
     name:'',
     organisation: '',
     description:'',
@@ -66,18 +66,25 @@ export class HomepageComponent {
     category:'',
     region:'',
     eventPoster:''
+    
   }];
 
   userType:string|null = '';
-
   attendance=0;
   
+   updatedData = this.data.map(item => ({
+    ...item, 
+    attendance: this.attendance
+  }));
+
+   
+ 
   isLiked = false;
   toggleLike() {
     this.isLiked = !this.isLiked;
   }
   
-  
+  attendanceData: { [_id: string]: number } = {};
   constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -121,10 +128,10 @@ export class HomepageComponent {
     this.service.getAllEvents().subscribe((response: any) => { 
       this.data = response;
       for (let i = 0; i < this.data.length; i++) {
-        const event: events = this.data[i];
+        //const event: events = this.data[i];
+        console.log('test',this.data[i]._id);
         //const region = event.region;
-        const id=event.id;
-        console.log('test',this.data[i].id);
+        this.getAttendance(this.data[i]._id);
        
       }
       
@@ -137,12 +144,12 @@ export class HomepageComponent {
   
   }
  
-  async getAttendance(id:string)
+  async getAttendance(id:string,)
   {
      await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
       console.log('API response:', response);
       this.attendance=response;
-     
+      this.attendanceData[id] = response;
     });
   }
 
