@@ -46,7 +46,7 @@
             <ion-item class="ion-padding" slot="content">
               <ion-input class="padding1" [(ngModel)]="newPassword" label="New password" label-placement="floating" fill="outline" placeholder="Enter new password"></ion-input>
               <ion-input class="padding1" [(ngModel)]="confirmPassword" label="Confirm password" label-placement="floating" fill="outline" placeholder="Confirm Password"></ion-input>
-              <ion-button size="medium">Save</ion-button>
+              <ion-button size="medium" (click)="savePassword()">Save</ion-button>
             </ion-item>
             
           </ion-accordion>
@@ -60,7 +60,9 @@
             </ion-item>
             <ion-item class="ion-padding" slot="content">
               <ion-input class="padding1" [(ngModel)]="NewLocation" label="Enter Location" label-placement="floating" fill="outline" placeholder="Enter Location"></ion-input>
+              <ion-button size="medium" (click)="saveRegion()">Save</ion-button>
             </ion-item>
+          
           </ion-accordion>
         
       </ion-accordion-group>
