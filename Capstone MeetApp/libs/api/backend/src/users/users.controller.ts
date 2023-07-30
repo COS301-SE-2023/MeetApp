@@ -133,6 +133,12 @@ export class UsersController {
   async getIntCategory(@Request() req : AuthenticatedRequest){
     return await this.usersService.InterestCategory(req.user.id)
   }
+
+  @UseGuards(AuthGuard)
+  @Get('recommendations/duration')
+  async getRecDuration(@Request() req : AuthenticatedRequest){
+    return await this.usersService.getUserInterestAverageDuration(req.user.id)
+  }
   
   // @UseGuards(AuthGuard)
   // @Get('interests/duration')
