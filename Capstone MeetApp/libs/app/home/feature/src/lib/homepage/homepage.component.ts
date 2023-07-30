@@ -14,7 +14,9 @@ import { IonicModule } from '@ionic/angular';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+import { NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -31,7 +33,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [IonicModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
+  imports: [IonicModule,RouterModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
@@ -68,6 +70,8 @@ export class HomepageComponent {
 
   userType:string|null = '';
 
+  attendance=0;
+  
   isLiked = false;
   toggleLike() {
     this.isLiked = !this.isLiked;
@@ -75,7 +79,20 @@ export class HomepageComponent {
   
   
   constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
-    console.log('Constructor');
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        console.log('Navigation started');
+      }
+      if (event instanceof NavigationEnd) {
+        console.log('Navigation ended successfully');
+      }
+      if (event instanceof NavigationError) {
+        console.error('Navigation error:', event.error);
+      }
+      if (event instanceof NavigationCancel) {
+        console.warn('Navigation canceled');
+      }
+    });
   }
   
 
@@ -101,6 +118,14 @@ export class HomepageComponent {
       });
   }
  
+  async getAttendance(id:string)
+  {
+    await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
+      console.log('API response:', response);
+      this.attendance=response;
+    });
+  }
+
 
   /* async ngOnInit() {
       this.service.getAllEvents().subscribe((response: any) => { 
@@ -143,7 +168,6 @@ export class HomepageComponent {
         console.log('User Type:', this.userType);
       });
     
-      
     }
  
   
@@ -162,6 +186,25 @@ export class HomepageComponent {
    }
 
 
-
+   gotomap() {
+    this.router.navigate(['/map']);
+  }
+  gotohome() {
+    this.router.navigate(['/home']);
+  }
+  gotoprofile() {
+    this.router.navigate(['/profile']);
+  }
+  gotocalendar() {
+    this.router.navigate(['/calendar']);
+  }
+  gotosettings() {
+    this.router.navigate(['/settings']);
+    
+  }
+  gotoorganiser() {
+    this.router.navigate(['/organisers']);
+  }
+  
 
 }

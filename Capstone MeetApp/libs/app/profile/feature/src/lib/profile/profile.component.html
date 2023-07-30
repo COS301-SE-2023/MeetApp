@@ -7,7 +7,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
+      <ion-back-button  defaultHref="/home"></ion-back-button>
     </ion-buttons>
     <ion-title>
         <h1 class="heading" >
@@ -34,9 +34,9 @@
             <ion-badge color="primary">{{eventCount}}</ion-badge>
           </ion-item>
   
-          <ion-item class="list">
+          <ion-item (click)="gotofriends()" class="list">
             <ion-label>Friendships</ion-label>
-            <ion-badge color="primary">22k</ion-badge>
+            <ion-badge color="primary">{{friendCount}}</ion-badge>
           </ion-item>
           
         </ion-list>
@@ -72,7 +72,7 @@
             </a>
           </div> 
       </div>
-    <nav class="bottom-navbar">
+    <!--<nav class="bottom-navbar">
         <ul>
           <li>
             <a href="/home" routerLinkActive="active">
@@ -93,7 +93,7 @@
             </a>
           </li>
         </ul>
-    </nav>
+    </nav>-->
 
   </div>
 </html>

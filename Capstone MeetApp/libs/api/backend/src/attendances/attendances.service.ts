@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Attendance } from './schema';
-// import { CreateAttendanceDto } from './dto/create-attendance.dto';
+import { CreateAttendanceDto } from './dto/create-attendance.dto';
 // import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 
 @Injectable()
@@ -10,9 +10,10 @@ export class AttendancesService {
   constructor(@InjectModel(Attendance.name) private attendanceModel: Model<Attendance>){
     
   }
-  // create(createAttendanceDto: CreateAttendanceDto) {
-  //   return 'This action adds a new attendance';
-  // }
+  async create(createAttendanceDto: CreateAttendanceDto) {
+    const newAttendance = await new this.attendanceModel(createAttendanceDto);
+    return newAttendance.save();
+  }
 
   findAll() {
     return this.attendanceModel.find().exec();
@@ -26,7 +27,11 @@ export class AttendancesService {
   //   return `This action updates a #${id} attendance`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} attendance`;
-  }
+  async remove(id: string) {
+    const deletedAttend = await this.attendanceModel.findByIdAndDelete(id);
+   if (!deletedAttend) {
+     throw new NotFoundException(`Attendance #${id} not found`);
+   }
+   return deletedAttend;
+}
 }
