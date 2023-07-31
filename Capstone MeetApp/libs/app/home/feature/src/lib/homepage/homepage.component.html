@@ -1,4 +1,113 @@
 <!DOCTYPE html>
+<head>
+  
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+
+<ion-searchbar show-clear-button="focus"  class="custom"  [(ngModel)]="searchQuery" (ionChange)="search()"></ion-searchbar>
+
+<div id="index" class="index-page" class="scroll-container">
+
+  
+
+  
+
+<ion-content class="font">
+  <div>
+
+  <div class="heading1">
+    <h1>Recommended Events</h1>
+  </div>
+  <div class="scroll-container1" >
+    <ion-card *ngFor="let item of data" class="card-first">
+      <ion-card-header>
+        <ion-card-title class="heading">{{ item.name }}</ion-card-title>
+      </ion-card-header>
+      <ion-img alt="Silhouette of mountains" src="assets/eventTest.jpg" ></ion-img>
+      <ion-card-content>
+        {{ item.description }}
+      </ion-card-content>
+    </ion-card>
+  </div>
+</div>
+
+<div>
+<ion-card *ngFor="let item of data | filter:searchQuery "  class="custom-card"   (click)="viewEvent(item._id)">
+  <ion-card-content>
+  <ion-card-title class="heading">{{ item.name}}</ion-card-title>
+</ion-card-content>
+  <ion-img src="assets/eventTest.jpg" alt="Silhouette of mountains" ></ion-img>
+  <ion-card-header>
+    
+      <!--<ion-text class="bold-text">from &nbsp;{{ item.startTime}} &nbsp;to&nbsp; {{ item.endTime}} </ion-text>-->
+      <ion-text class="bold-text">{{ item.date }}</ion-text>
+      <ion-text class="bold-text">{{ item.region }}</ion-text>
+  </ion-card-header>
+
+ 
+    <ion-card-content>
+    {{ item.description }}
+  </ion-card-content> 
+  
+  <ion-item>
+  <ion-label>Going</ion-label>
+  
+    <ion-badge  slot="end" color="secondary">{{attendanceData[item._id] }}</ion-badge>
+  </ion-item>
+ <!-- <ion-card-content>
+  <ion-button  >
+    <i  class="fas fa-star"></i> &nbsp; Interested 
+  </ion-button>
+  <ion-button class="left">  &nbsp; <i  class="fas fa-thumbs-up"></i> &nbsp; Going &nbsp;  &nbsp; &nbsp;</ion-button>
+</ion-card-content>-->
+</ion-card>
+</div>
+</ion-content>
+
+
+
+
+<div class="stationary-box" (click)="gotomap()"  routerLinkActive="active">
+  <a >
+  <ion-card class="stationary-box1">
+    <ion-card-content >
+      <div class="white">
+      <i  class="fas fa-map"></i>
+      <span> &nbsp;Map</span>
+    </div>
+    
+    </ion-card-content>
+  </ion-card>
+</a>
+</div>
+
+
+</div>
+<div class="navigation-bar">
+  <div  (click)="gotohome()" routerLinkActive="active" class="navigation-item">
+    <i class="fas fa-home"></i>
+   
+  </div>
+  <div routerLink="/calendar" routerLinkActive="active"class="navigation-item">
+    <i class="fas fa-calendar"></i>
+    
+  </div>
+  <div (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
+    <i class=" fas fa-plus"></i>
+  </div>
+  <div  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
+    <i class="fas fa-cog" ></i>
+    
+  </div>
+  <div (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
+    <i class="fas fa-user"></i>
+  
+  </div>
+</div>
+
+<!--<!DOCTYPE html>
 <html>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +120,8 @@
     <div class="heading-container">
       <i class="fas fa-heart pink"></i>
       <h1 class="heading">MeetApp&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-      <i class="fas fa-cog pink"></i>
+      <a href="/settings" routerLink="/settings" routerLinkActive="active-link">
+      <i class="fas fa-cog pink"></i></a>
     </div>
 
     <div class="search-bar">
@@ -32,7 +142,7 @@
             </div>
           <p><strong>Where?</strong> {{ item.region }}</p>
           <p><strong>When?</strong> {{ item.date }}</p>
-          <p>{{ item.description }}<a href="">&nbsp;&nbsp;more...</a></p>
+          <p>{{ item.description }} <a href="/event" routerLink="/event" routerLinkActive="active-link">&nbsp;&nbsp;more...</a></p>
         </div>
       </div>
 <div  *ngFor="let item of data" class="box" class="box" >
@@ -43,22 +153,45 @@
       </div>
     <p><strong>Where?</strong> {{ item.region }}</p>
     <p><strong>When?</strong> {{ item.date }}</p>
-    <p>{{ item.description }}<a href="">&nbsp;&nbsp;more...</a></p>
+    <p>{{ item.description }} <a href="/event" routerLink="/event" routerLinkActive="active-link">&nbsp;&nbsp;more...</a></p>
   </div>
 </div>
-<div class="navigation-bar">
-  <a href="#" class="navigation-item">
-    <i class="fas fa-home"></i>
-  </a>
-  <a href="#" class="navigation-item">
-    <i class="fas fa-bell"></i>
-  </a>
-  <a href="#" class="navigation-item">
-    <i class="fas fa-user"></i>
-  </a>
-</div>
+<nav class="bottom-navbar">
+  <ul>
+    <li>
+      <a href="/home" routerLinkActive="active">
+        <i class="fas fa-home"></i>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="/profile">
+        <i class="fas fa-bell"></i>
+        Notification
+      </a>
+    </li>
+    <li>
+      <a href="/home">
+        <i class="fas fa-calendar"></i>
+       Calender
+      </a>
+    </li>
+    <li>
+      <a href="/organisers">
+        <i class="fas fa-plus-circle"></i>
+     Post Event
+      </a>
+    </li>
+    <li>
+      <a href="/profile" >
+        <i class="fas fa-user"></i>
+        Profile
+      </a>
+    </li>
+  </ul>
+</nav>
 
 </div>
 </html>
-
+-->
       

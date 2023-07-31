@@ -1,8 +1,10 @@
+
 #body {
     height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: black;
+    overflow: scroll;
+
   }
   
 .background-image {
@@ -14,16 +16,17 @@
     background-image: url(https://blog.hootsuite.com/wp-content/uploads/2021/07/free-stock-photos-02-scaled.jpg);
     background-size: cover;
     background-position: center;
-   
-
   }
 
-  
+  .Events{
+      text-align: center;
+    
+  }
   .circle {
     width: 130px; /* Adjust the size of the circle as needed */
     height: 130px;
     border-radius: 50%;
-    
+    border-color: black;
     overflow: hidden;
     position: relative;
     margin: 0 auto;
@@ -41,14 +44,15 @@
     padding: 20px;
     margin-top: 60px; 
     font-family: sans-serif;
+    
 }
 
   
    .profile-info {
         margin-top: 20px;
+        text-align: center!important;
         justify-content: space-between;
-        color: aliceblue;
-       
+       position: relative;
     }
     
     .profile-info h2 {
@@ -59,8 +63,8 @@
         margin: 0;
     }
     .follow-button {
-        background-color: #D4ADFC;
-        color: #000;
+        background-color: #51afed;
+        color: #ffffff;
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
@@ -70,29 +74,32 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-
+        padding-right: 2px;
+        padding-left: 2px;
     }
 
     .part1 .image-container {
         width: 33.33%;
         text-align: center;
         margin-bottom: 0px;
-        height: 85%;
+        height: 97px;
+        padding: 2px;
     }
 
     .part1 .top-group {
         margin-bottom: 0;
+        
     }
 
     .part1 .image-container img {
         max-width: 100%;
-        height: auto;
+        height: 100%;
     }
     .bottom-navbar {
         position: fixed;
         bottom: 0;
         width: 100%;
-        background-color: #5C469C;
+        background-color: #efefef;
        
         border-top: 1px solid #ccc;
       border-top-left-radius: 30px;
@@ -119,7 +126,7 @@
         text-decoration: none;
         color: #fff;
         font-size: 14px;
-        color: #D4ADFC;
+        color: #737373;
         font-family: sans-serif;
     
       }
@@ -192,3 +199,10 @@
         max-width: 100%;
         border-radius: 5px;
       }
+
+    .list{
+        width: 100%;
+        --padding-end:5px;
+        --padding-bottom:2px;
+        display: flex;
+    }

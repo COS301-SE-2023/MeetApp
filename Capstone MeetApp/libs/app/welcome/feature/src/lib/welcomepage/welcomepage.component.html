@@ -6,46 +6,32 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
-    <style>
-      /* Styles specific to index.html */
-      body.index-page {
-        height: 100vh; 
-        background-color: black;
-        margin: 0;
-        padding: 0;
-        overflow: hidden ! important;
-
-        /* Add specific styles for index.html here */
-      }
-      #index {
-  background-image: url('https://wallpaperaccess.com/full/5819894.jpg');
-  background-size: cover;
-  background-position: center center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-      
-    </style>
-  </head>
-  <div id="index" class="index-page">
-    <h1 class="heading" >
-        Meet-App
-    </h1>
    
+  </head>
+  <div id="index" class="index-page" class="scroll-container">
+    <h1 class="heading" >
+        WELCOME
+    </h1>
+    <ion-content>
     <!--div class="image-container" style="display: flex; justify-content: center;  margin-bottom: 3%;">
       <img src="https://4kwallpapers.com/images/walls/thumbs_3t/6671.jpg" alt="Image 1" style="width: 68%; height: 68%;">
-    </div-->
+    </div
     
     <div>
         <button class="button-user" (click)="onSignUp()">User</button>
-    </div>
-
-    <div>
-      <button class="button-organiser"(click)="onSignUp()" >Organiser</button>
- </div> 
- 
-             
-
+    </div>-->
+    
+       <!--<button class="button-organiser"(click)="onSignUp()" >Organiser</button>
+ </div>-->
+ <div>
+ <ion-img src="assets/wave.jpg" alt="myimage">
+ </ion-img>
 </div>
-</html>
+
+    <div class="button-container">   
+
+      <ion-button  class="same-size-button" (click)="onSignUp()" (click)="setUserType('user')">USER</ion-button>
+       <ion-button  class="same-size-button" (click)="onSignUp()"  (click)="setUserType('organiser')">ORGANISER</ion-button>
+    
+    </div>
+  </ion-content>

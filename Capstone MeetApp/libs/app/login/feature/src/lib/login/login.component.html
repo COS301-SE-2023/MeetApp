@@ -1,52 +1,60 @@
- <!DOCTYPE html>
-  <html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <style>
-    body {
-  background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
-  background-size: cover;
-  background-position: center center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-      /* Add any additional styling for the form, if needed */
-    </style>
-  </head>
-  <body>
-    <div>
-      <h1 class="heading">Log In</h1>
-    </div>
-    
-    <div class="holder" style="background-color: #111C20; width: 40%; margin-left: 25%; border-radius: 10px; padding: 16px;">
-      <form [formGroup]="loginForm"  (submit)="login()">
-        <div class="form-group">
-          <label for="email" style="color: white;">Email</label>
-          <input type="email" id="email" formControlName="email" required>
-        </div>
-        <div class="form-group">
-          <label for="password" style="color: white;">Password</label>
-          <input type="password" id="password" formControlName="password" required>
-        </div>
-        <button type="submit" style="justify-content: center; display: flex; margin: 20px auto; width: 60%; height: 30px; text-align:
-        center; background-color: #C396F0;
-        
-         border-radius: 6px;
-         color: white;
-        ">Login</button>
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; margin-bottom: 10px;">
-            <input type="checkbox" id="rememberMe" name="rememberMe" style="margin-right: 5px;">
-            <label for="rememberMe" style="color: white; font-size: 12px;font-family: sans-serif; white-space: nowrap;">Remember me</label>
-          </div>
-          <a href="#" style="color: white; font-size: 12px; font-family: sans-serif;">Forgot password?</a>
-        </div>
-      </form>
-    </div>
-    
-    
+    <meta charset="utf-8" />
+    <title>login</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
    
-  </body>
-  </html>
+  </head>
+<div id="index" class="index-page" class="scroll-container">
   
+
+  
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      <h1 class="heading" >
+        LOG IN
+    </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+<div >
+  <ion-img src="assets/profile.png"  width="300" height="300" alt="myimage">
+  </ion-img>
+ </div>
+<div>
+  <form>
+    <ion-item lines="full">
+      <ion-label position="floating">Username</ion-label>
+      <ion-input type="username"  [(ngModel)]="username" name="username" required></ion-input>
+      <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+        Username is required.
+      </div>
+    </ion-item>
+    <ion-item lines="full">
+      <ion-label position="floating">Password</ion-label>
+      <ion-input type="password"  [(ngModel)]="password" name="password" required></ion-input>
+      <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+        Password is required.
+      </div>
+    </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit"  expand="block" (click)="login(username,password)"  >Sign In</ion-button>
+        <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
+        <a class="small-text"  (click)="onCreate()">create an account</a>
+      </ion-col>
+    </ion-row>
+  </form>
+</div>
+</ion-content>
+</div>

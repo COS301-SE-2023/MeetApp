@@ -1,27 +1,35 @@
 <!Doctype html>
-<html lang="en">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title >
-        Event Map
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  
   
 <head>
-    <meta charset="utf-8">
-    <title>Event Map</title>
+   
+    
     <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=(apikey)&libraries=places&language=en">
     </script>
 </head>
 
-<div id="body">
+
+<div id="body"  class="scroll-container">
+  <ion-content>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button   defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <h1 class="heading" >
+              Event Map
+          </h1>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
   <div class="container">
     
-  <div id="map" style="height: 350px;"></div>
+  <div id="map" style="height: 600px;"></div>
   
   <ion-grid>
     <ion-row>
@@ -30,17 +38,22 @@
     </ion-row>
   </ion-grid>
   </div>
-    
+    <ion-card>
   <div id="filter">
     <form (ngSubmit)="onSubmit()" class="form">
       <ion-item>
         <ion-label for="region">Select Region:</ion-label>
-        <ion-select id="region" name="region" [(ngModel)]="selectedRegion" class="select-region">
+        <ion-select id="region" name="selectedRegion" [(ngModel)]="selectedRegion" class="select-region">
           <ion-select-option value="">-- Select Region --</ion-select-option>
           <ion-select-option value="Pretoria">Pretoria</ion-select-option>
           <ion-select-option value="Joburg">Johannesburg</ion-select-option>
+          <ion-select-option value="UCT">Cape Town</ion-select-option>
+          <ion-select-option value="Durban">Durban</ion-select-option>
+          <ion-select-option value="ELondon">East London</ion-select-option>
+          <ion-select-option value="Polokwane">Polokwane</ion-select-option>
+          <ion-select-option value="Mbombela">Mbombela</ion-select-option>
+          <ion-select-option value="Bloemfontein">Bloemfontein</ion-select-option>
           
-          <!-- Region options here -->
         </ion-select>
       </ion-item>
       <ion-item>
@@ -48,7 +61,7 @@
         <ion-datetime-button datetime="startDate"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate" class="extraordinary-datetime"></ion-datetime>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="startDate" [(ngModel)]="selectedRange.startDate" name="selectedRange.startDate" class="extraordinary-datetime"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
@@ -58,7 +71,7 @@
         <ion-datetime-button datetime="EndDate"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime [showDefaultButtons]="true" presentation="date" id="EndDate" [(ngModel)]="selectedRange.endDate" class="extraordinary-datetime"></ion-datetime>
+            <ion-datetime [showDefaultButtons]="true" presentation="date" id="EndDate" [(ngModel)]="selectedRange.endDate" name="selectedRange.endDate" class="extraordinary-datetime"></ion-datetime>
           </ng-template>
         </ion-modal>
       </ion-item>
@@ -67,7 +80,7 @@
       <button type="submit" class="submit-button">Submit</button>
     </form>
   </div>
-  
+
   <ion-footer>
     <ion-segment value="maps">
       <ion-segment-button value="list" (click)="BACKTOHOME()">
@@ -78,9 +91,8 @@
       </ion-segment-button>
     </ion-segment>
   </ion-footer>
-  
-  
+</ion-card>
+</ion-content>
 </div>
 
 
-</html>
