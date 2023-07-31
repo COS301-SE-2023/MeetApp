@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { service , user } from '@capstone-meet-app/services'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -133,6 +134,10 @@ export class SettingsComponent {
  
 }
   
+
+
+
+
 
 
 

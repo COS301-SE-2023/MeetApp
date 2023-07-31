@@ -34,7 +34,7 @@
 </div>
 
 <div>
-<ion-card *ngFor="let item of data | filter:searchQuery" class="custom-card"  (click)="viewEvent(item._id)">
+<ion-card *ngFor="let item of data | filter:searchQuery "  class="custom-card"   (click)="viewEvent(item._id)">
   <ion-card-content>
   <ion-card-title class="heading">{{ item.name}}</ion-card-title>
 </ion-card-content>
@@ -53,7 +53,8 @@
   
   <ion-item>
   <ion-label>Going</ion-label>
-    <ion-badge slot="end" color="secondary">1.2k</ion-badge>
+  
+    <ion-badge  slot="end" color="secondary">{{attendanceData[item._id] }}</ion-badge>
   </ion-item>
  <!-- <ion-card-content>
   <ion-button  >
@@ -68,10 +69,7 @@
 
 
 
-
-<div class="stationary-box" [routerLink]="['/map']"  routerLinkActive="active">
-=======
-
+<div class="stationary-box" (click)="gotomap()"  routerLinkActive="active">
   <a >
   <ion-card class="stationary-box1">
     <ion-card-content >
@@ -88,28 +86,25 @@
 
 </div>
 <div class="navigation-bar">
-
-  <a   [routerLink]="['/home']" routerLinkActive="active" class="navigation-item">
+  <div  (click)="gotohome()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-home"></i>
    
-  </a>
-  <a   [routerLink]="['/calendar']" routerLinkActive="active"class="navigation-item">
+  </div>
+  <div routerLink="/calendar" routerLinkActive="active"class="navigation-item">
     <i class="fas fa-calendar"></i>
     
-  </a>
-  <a  [routerLink]="['/organiser']"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
+  </div>
+  <div (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
     <i class=" fas fa-plus"></i>
-    </a>
-  <a  href="/settings"  routerLinkActive="active" class="navigation-item">
+  </div>
+  <div  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
     <i class="fas fa-cog" ></i>
     
-  </a>
-
-  <a href="/profile" routerLinkActive="active" class="navigation-item">
-
+  </div>
+  <div (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-user"></i>
   
-  </a>
+  </div>
 </div>
 
 <!--<!DOCTYPE html>

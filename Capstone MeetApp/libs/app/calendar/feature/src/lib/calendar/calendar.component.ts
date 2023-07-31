@@ -3,19 +3,23 @@ import { CommonModule } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Location } from '@angular/common';
+
+
 @Component({
   selector: 'capstone-meet-app-calendar',
   standalone: true,
   imports: [CommonModule, FormsModule,IonicModule],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
-  providers:[service,Router]
+  providers:[service]
 })
 export class CalendarComponent {
 
   selectedDate!: string;
-  constructor(private service:service,private router:Router){
+  constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
 
   }
 
