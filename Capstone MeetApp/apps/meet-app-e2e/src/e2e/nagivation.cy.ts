@@ -2,14 +2,14 @@ describe("Navigation  ",() =>{
     //log in to home page
     beforeEach(() => {
         cy.visit("/");
-        //cy.wait(2000);
+        cy.wait(2000);
         cy.get("#User").click();
-        //cy.wait(4000);
+        cy.wait(4000);
         cy.get("h1").contains("LOG IN");
         cy.get("#username").type("laura_adams");
         cy.get("#passwd").type("laurapass");
         cy.get("#submit").click();
-        //cy.wait(4000);
+        cy.wait(4000);
         
     });
 
@@ -24,7 +24,7 @@ describe("Navigation  ",() =>{
     it("Navigation to settings",()=>{
         cy.get("h1").contains("Recommended Events");
         cy.get("#settings").click();
-        //cy.wait(2000);
+        cy.wait(2000);
         cy.get("h1").contains("Settings");
     });
 
@@ -46,7 +46,7 @@ describe("Navigation  ",() =>{
      it("Navigation from settings to home",()=>{
         cy.get("h1").contains("Recommended Events");
         cy.get("#settings").click();
-        //cy.wait(2000);
+        cy.wait(2000);
         cy.get("h1").contains("Settings");
      });
  

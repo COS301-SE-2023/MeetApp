@@ -2,13 +2,13 @@ describe("log in ",() =>{
     //log in to home page
     beforeEach(() => {
         cy.visit("/");
-        //cy.wait(2000);
+        cy.wait(2000);
         cy.get("#Org").click();
         cy.get("h1").contains("LOG IN");
         cy.get("#username").type("LTDProevents");
         cy.get("#passwd").type("marketspass");
         cy.get("#submit").click();
-        //cy.wait(1000);
+        cy.wait(1000);
         
         
     });
@@ -16,10 +16,10 @@ describe("log in ",() =>{
     //create a event
     
     it("Create Event",()=>{
-        //cy.wait(2000);
+        cy.wait(2000);
         cy.get("h1").contains("Recommended Events");
         cy.get("#event").click();
-        //cy.wait(3000);
+        cy.wait(3000);
         cy.get("h1").contains("Add Events");
         //image must be added
         cy.get("#Ename").type("Chrismas Party");
@@ -33,7 +33,7 @@ describe("log in ",() =>{
         cy.get("#long").type("-74.0060");
         cy.get("#category").type("Party")
         //cy.get("#submit").click();
-        //cy.wait(3000);
+        cy.wait(3000);
     })
     
 
