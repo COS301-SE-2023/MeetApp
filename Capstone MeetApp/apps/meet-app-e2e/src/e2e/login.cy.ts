@@ -10,7 +10,7 @@ describe("log in ",() =>{
         cy.get("#username").type("laura_adams");
         cy.get("#passwd").type("laurapass");
         cy.get("#submit").click();
-        cy.wait(3000);
+        cy.wait(2000);
         cy.get("h1").contains("Recommended Events");
     });
 
@@ -23,8 +23,9 @@ describe("log in ",() =>{
         cy.get("#username").type("LTDProevents");
         cy.get("#passwd").type("marketspass");
         cy.get("#submit").click();
-        cy.wait(3000);
+        cy.wait(2000);
         cy.get("h1").contains("Recommended Events");
+
     })
 
 })

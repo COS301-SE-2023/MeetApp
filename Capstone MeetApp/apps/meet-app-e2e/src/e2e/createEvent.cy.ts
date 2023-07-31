@@ -8,6 +8,7 @@ describe("log in ",() =>{
         cy.get("#username").type("LTDProevents");
         cy.get("#passwd").type("marketspass");
         cy.get("#submit").click();
+        cy.wait(1000);
         
         
     });
@@ -30,7 +31,8 @@ describe("log in ",() =>{
         cy.get("#region").type("New York");
         cy.get("#lat").type("40.7128");
         cy.get("#long").type("-74.0060");
-        cy.get("#submit").click();
+        cy.get("#category").type("Party")
+        //cy.get("#submit").click();
         cy.wait(3000);
     })
     
