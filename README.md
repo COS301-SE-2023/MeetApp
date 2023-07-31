@@ -44,7 +44,7 @@ MeetApp is a location-powered, social-networking and event-planning application 
 ## Demo
 * [Demo 1](https://drive.google.com/drive/folders/1ps4zFMsyaVffrnx9De-d89HhVjqKa4a8?usp=sharing)
 * [Demo 2](https://drive.google.com/drive/folders/1lhjC10czva_b4yBKryF5oluZXzLEgXGw?usp=sharing)
-* [Demo 3](https://drive.google.com/drive/folders/1453wSnG1ylgLTB513S1_4exm6wyxCFl_?usp=sharing)
+* [Demo 3](https://drive.google.com/drive/folders/10877WNUu53RTN3vDDCvJ8azz0lDuctlB?usp=sharing)
 * [Demo 4](https://drive.google.com/drive/folders/16xwQ6kkNhPFYnNHqJk9s1PFm1F6NmNd-?usp=sharing)
 
 ## Documentation
