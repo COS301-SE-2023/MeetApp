@@ -103,6 +103,7 @@ export class service{
 
     private baseURl='http://meetapp-env-1.eba-ehi39aq5.af-south-1.elasticbeanstalk.com/api/';
 
+
     private readonly TOKEN_KEY = 'access_token';
 
     //FUNCTIONS TO ACCESS THE TOKEN
@@ -447,6 +448,7 @@ export class service{
     {
         const url=this.baseURl+'organisations';
         return this.http.get(`${url}`);
+
     }
 
     getLogedInOrg(token: string) {
@@ -540,3 +542,4 @@ export class service{
     
      
 }
+
