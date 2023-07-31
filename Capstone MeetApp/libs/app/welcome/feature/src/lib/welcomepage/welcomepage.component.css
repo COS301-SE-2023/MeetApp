@@ -6,15 +6,38 @@ html{
     align-items: center;
     justify-content: center;
     padding: 16px;
-    color: white;
+    color: black;
     margin: 0 auto;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto',serif;
 
 }
-
+.scroll-container {
+    height: 300px; 
+    overflow-y: scroll; 
+  }
 .bold {
     font-weight: bold;
   }
+ 
+  /* Styles specific to index.html */
+  .body.index-page {
+    height: 100vh; 
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    overflow: hidden ! important;
+
+    /* Add specific styles for index.html here */
+  }
+  #index {
+background-color: white ;
+background-size: cover;
+background-position: center center;
+min-height: 100vh;
+margin: 0;
+padding: 0;
+}
+  
 
 .button-user{
     background-color: #AD5DFF;;
@@ -38,6 +61,21 @@ html{
     font-family: 'Roboto  ', sans-serif;
         
 }
+.button-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 40px; 
+  }
+  
+.same-size-button {
+    width: 150px; /* Set the desired width */
+    height: 40px; /* Set the desired height */
+    margin-top: 40px;
+  }
+  
       
 .button-organiser {
     background-color: #AD5DFF;;
@@ -58,7 +96,7 @@ html{
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
 }
+ion-img{
+  height: 500px;
+}
 
-
-
-          

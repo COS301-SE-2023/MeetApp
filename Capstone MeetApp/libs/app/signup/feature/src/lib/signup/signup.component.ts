@@ -10,50 +10,216 @@ import { FormGroup, FormControl } from '@angular/forms';
 //import { Injectable } from '@angular/core';
 //import { HttpClient, HttpHeaders } from '@angular/common/http';
 //import {ApiService } from '../../../../../shared service/api.service';
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+//import { Injectable } from '@angular/core';
+import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
+import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController, ToastController } from '@ionic/angular';
+import { Location } from '@angular/common';
+import { IonIcon } from '@ionic/angular';
 
 
 @Component({
   selector: 'capstone-meet-app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule,HttpClientModule],
+  imports: [CommonModule,IonicModule , FormsModule, ReactiveFormsModule,HttpClientModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
-  //providers: [ApiService]
+  providers: [service,HttpClient]
 })
 
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  constructor(private router: Router, private formBuilder: FormBuilder,/* private apiService: ApiService*/) {}
-
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      
-        
-    });
-    
-  }
-  passwordFormControl = new FormControl('', [
-    Validators.required,
-    Validators.minLength(8),
-    this.checkPasswordStrength
-  ]);
+  //userType: string | undefined;
+ 
   
+
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service,private alertController: AlertController,
+    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location) {}
+
+   
+    events:any =[];
+  firstname="";
+  username='';
+  lastname="";
+  email = ''; 
+  password= '';   
+  region='';
+
+  signupData_user:any;
+
+  userSignup_payload= {
+    access_token:'',
+    message:''
+  };
+
+  
+  signupData_org:any;
+
+  orgSignup_payload= {
+    access_token:'',
+    message:''
+  };
+
+
+  //user type from the welcome page 
+  userType:string|null = '';
+
+  confirmpassword="";
+  
+  access:string|null='';
+  
+  
+  submitClicked = false;
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+     /*  firstname: ['', Validators.required],
+   lastname: ['', Validators.required],*/
+    username: ['', Validators.required],
+   // email: ['', [Validators.required, Validators.email]],
+    region:['', Validators.required],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    confirmpassword: ['', Validators.required],
+    name:['', Validators.required]
+    });
+     
+    
+  
+    //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
+    //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
+    
+    //get the userType from the Welcome page 
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
+
+    const access_token=this.apiService.getToken();
+    console.log('access',access_token);
+
+  }
+  goBack() {
+    this.location.back();
+  }
+  
+ 
+
+  //SignUp for a User
+  async SignUpUser(username:string,password:string,profilePicture:string,region:string)
+  {
+    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response) => {
+      console.log('API response:', response);
+      this.signupData_user=response;
+      this.userSignup_payload=this.signupData_user;
+      this.apiService.setToken(this.userSignup_payload.access_token);
+      console.log('SignUp Access Token',this.userSignup_payload.access_token);
+      console.log('Message',this.userSignup_payload.message);
+    });
+  }
+
+  
+  //SignUp for a Organisation 
+  async SignUpOrg(username:string,name:string,password:string,events:string[])
+  {
+    await this.apiService.createOrginiser(username,password,name,events).subscribe((response) => {
+      console.log('API response:', response);
+      this.signupData_org=response;
+      this.orgSignup_payload=this.signupData_org;
+      this.apiService.setToken(this.orgSignup_payload.access_token);
+      console.log('SignUp Access Token',this.orgSignup_payload.access_token);
+      console.log('Message',this.orgSignup_payload.message);
+    });
+  }
+
+  /*
   checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
     const password = control.value;
-    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
-    
-    if (!strongRegex.test(password)) {
-      return { 'weakPassword': true };
-    }
-    
-    return null;
   }
+  */
+
+  valid=true;
+
+  signup()
+
+  {
+    const firstname = this.loginForm.value.firstname;
+    const lastname = this.loginForm.value.lastname;
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.password;
+    const confirmpassword = this.loginForm.value.confirmpassword;
+    const username=this.loginForm.value.username;
+    const region=this.loginForm.value.region;
+    const name =this.loginForm.value.name;
+   // const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
+    //!strongRegex.test(password) &&
+    if ( this.loginForm.invalid) {  
+      const errorMessage = 'choose a stronger password';
+      this.showErrorToast(errorMessage); 
+      this.valid=false;
+    }
+    else
+    {
+      this.valid=true;
+
+    }
+
+    
+    
+
+    
+    //this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
+    //this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
+    if(this.userType=='user' )
+    {
+        this.SignUpUser(username,password,'',region);
+    }
+    else  if(this.userType=='organiser'){
+      this.SignUpOrg(username,name,password, this.events)
+
+
+    }
+    console.log(name);
+    console.log(password);
+    console.log(region);
+    
+
+}
+async showErrorToast(message: string) {
+  const toast = await this.toastController.create({
+    message: message,
+    duration: 3000,
+    color: 'danger',
+    position: 'top'
+  });
+
+  await toast.present();
+}
+async showErrorAlert(message: string) {
+  const alert = await this.alertController.create({
+    header: 'Account Created',
+    message: message,
+    buttons: ['OK']
+  });
+
+  await alert.present();
+}
+onCreate() {
+  this.router.navigate(['/login']);
+}
+isvalid()
+{
+
+  if (this.valid)
+  {
+    const errorMessage = 'Account Created Successfully';
+                    this.showErrorAlert(errorMessage); 
+    this.router.navigate(['/home']);
+  }
+
+}
+  
   onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
    /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
       {
@@ -64,9 +230,10 @@ export class SignupComponent {
         }
       }
       
-    );
-      */
+    );*/
+      
   }
+    
   /*onSubmit() {
     if (this.loginForm.valid) {
       const loginInfo = {
@@ -99,7 +266,7 @@ export class SignupComponent {
 
 
   onSignUp() {
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/home']);
   }
 }
 
@@ -108,3 +275,4 @@ export class SignupComponent {
 
 
 
+  

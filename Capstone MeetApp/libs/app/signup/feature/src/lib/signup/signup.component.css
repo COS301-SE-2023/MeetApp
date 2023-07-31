@@ -4,11 +4,22 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
-  color: white;
+  color: black;
   margin: 0 auto;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', serif;
+}
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
+
+       
+.scroll-container {
+  height: 700px; 
+  overflow-y: auto; 
+}
 .holder {
   display: flex;
   flex-direction: column;
@@ -43,4 +54,41 @@ input {
 
 
   color :white;
+}
+
+
+.body.index-page {
+  height: 100vh; 
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  overflow: hidden ! important;
+
+  /* Add specific styles for index.html here */
+}
+#index {
+background-color: white ;
+background-size: cover;
+background-position: center center;
+min-height: 100vh;
+margin: 0;
+padding: 0;
+}
+.left-image {
+      
+  margin-left: 40px;
+  margin-top:20px;
+}
+
+    body {
+  background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
+  background-size: cover;
+  background-position: center center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+ion-img{
+  height: 300px;
 }

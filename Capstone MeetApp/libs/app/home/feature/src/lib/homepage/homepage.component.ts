@@ -1,14 +1,22 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+
 import { FormBuilder,  Validators } from '@angular/forms';
-import { Router } from "@angular/router";
+
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormGroup, FormControl } from '@angular/forms';
 //import {ApiService } from '@capstone-meet-app/app/shared service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IonicModule } from '@ionic/angular';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Router } from "@angular/router";
+import { ActivatedRoute } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+
+import { NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -16,6 +24,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 //import { HomepageService } from 'libs/api/home/feature/src/homepage.service';
 //import {events, service} from '';
+
+//http://localhost:3000/api/events/647218a0cd65fc66878b99ad/attendance-count
 import { events,service,ServicesModule} from '@capstone-meet-app/services';
 
 
@@ -23,48 +33,75 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [CommonModule,FormsModule,ServicesModule],
+  imports: [IonicModule,RouterModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
   
 })
 export class HomepageComponent {
-  eventName='';
-    organisation='';
-    date='';
-    starttime='';
-    endtime='';
-    eventDate='';
-    loactionln='';
-    locactionlat='';
-   // location:Record<number,unknown>;
-    category='';
-    region='';
 
-    events:any =[];
-    data= [{
-      name:'',
-      organisation: '',
-      date: '',
-      startTime: '',
-      endTime: '',
-      eventDate: '',
-      lng: 0,
-      lat: 0,
-      location: {latitude:'' , longitude:''},
-      category:'',
-      region:'',
-      description:''
-  }
+  name='';
+  organisation='';
+  date='';
+  starttime='';
+  endtime='';
+  eventDate='';
+  locationln='';
+  locactionlat='';
+  category='';
+  region='';
+
+  events:any =[];
+  data= [{
+    _id:'',
+    name:'',
+    organisation: '',
+    description:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    eventDate: '',
+    location: {latitude:0 , longitude:0},
+    category:'',
+    region:'',
+    eventPoster:''
     
-  ];
+  }];
+
+  userType:string|null = '';
+  attendance=0;
   
-  constructor(private service: service) {
-    console.log('Constructor');
+   updatedData = this.data.map(item => ({
+    ...item, 
+    attendance: this.attendance
+  }));
+
+   
+ 
+  isLiked = false;
+  toggleLike() {
+    this.isLiked = !this.isLiked;
   }
   
-
+  attendanceData: { [_id: string]: number } = {};
+  constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        console.log('Navigation started');
+      }
+      if (event instanceof NavigationEnd) {
+        console.log('Navigation ended successfully');
+      }
+      if (event instanceof NavigationError) {
+        console.error('Navigation error:', event.error);
+      }
+      if (event instanceof NavigationCancel) {
+        console.warn('Navigation canceled');
+      }
+    });
+  }
+  
 
   getEvents()
   {
@@ -72,14 +109,14 @@ export class HomepageComponent {
       {
         const newEvent={} as events;
         
-        Object.values(res).forEach((event: { category: string; date: string; endTime: string; eventName: string; organisation: string; loactionln: number; region: string; starttime: string; }) => {
+        Object.values(res).forEach((event: { id:string;category: string; date: string; endTime: string; name: string; organisation: string; region: string; starttime: string; }) => {
+          newEvent.id=event.id
           newEvent.category=event.category;
           newEvent.date=event.date;
           newEvent.endTime=event.endTime;
-          newEvent.name=event.eventName;
+          newEvent.name=event.name;
           newEvent.organisation=event.organisation;
           newEvent.date=event.date;
-          newEvent.lng=event.loactionln;
           newEvent.region=event.region;
           newEvent.startTime=event.starttime; 
         });
@@ -87,7 +124,35 @@ export class HomepageComponent {
         console.log('fhsh  '+newEvent)
       });
   }
+  async ngOnInit() {
+    this.service.getAllEvents().subscribe((response: any) => { 
+      this.data = response;
+      for (let i = 0; i < this.data.length; i++) {
+        //const event: events = this.data[i];
+        console.log('test',this.data[i]._id);
+        //const region = event.region;
+        this.getAttendance(this.data[i]._id);
+       
+      }
+      
+    });
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
+  
+  }
  
+  async getAttendance(id:string,)
+  {
+     await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
+      console.log('API response:', response);
+      this.attendance=response;
+      this.attendanceData[id] = response;
+    });
+  }
+
 
   /* async ngOnInit() {
       this.service.getAllEvents().subscribe((response: any) => { 
@@ -107,20 +172,12 @@ export class HomepageComponent {
     }
     
   } */
+  viewEvent(eventId: string) {
+    this.router.navigate(['events', eventId]);
+  }
 
 
-   async ngOnInit() {
-      this.service.getAllEvents().subscribe((response: any) => { 
-        this.data = response;
-        for (let i = 0; i < this.data.length; i++) {
-          const event: events = this.data[i];
-          const region = event.region;
-          const date=event.date;
-          console.log(date);
-         
-        }
-      });
-    }
+   
  
   
 
@@ -138,6 +195,25 @@ export class HomepageComponent {
    }
 
 
-
+   gotomap() {
+    this.router.navigateByUrl('/map');
+  }
+  gotohome() {
+    this.router.navigateByUrl('/home');
+  }
+  gotoprofile() {
+    this.router.navigateByUrl('/profile');
+  }
+  gotocalendar() {
+    this.router.navigateByUrl('/calendar');
+  }
+  gotosettings() {
+    this.router.navigateByUrl('/settings');
+    
+  }
+  gotoorganiser() {
+    this.router.navigateByUrl('/organisers');
+  }
+  
 
 }

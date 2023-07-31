@@ -1,70 +1,136 @@
 <!DOCTYPE html>
-  <html>
-  <head>
-    <style>
-    body {
-  background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
-  background-size: cover;
-  background-position: center center;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-}
-
-      /* Add any additional styling for the form, if needed */
-    </style>
-  </head>
-  <body>
-    <div>
-      <h1 class="heading">Sign Up</h1>
-    </div>
+<html lang="en">
     
-    <div class="holder" style="background-color: #111C20; width: 40%; height: 20%; margin-left: 25%; border-radius: 10px; padding: 16px;">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value.name, loginForm.value.email, loginForm.value.phoneNumber, loginForm.value.password, loginForm.value.confirmPassword)">
-        <label for="name" style="color: white;">Name</label>
-        <input type="text" id="name" formControlName="name" required>
-       <label for="email " style="color: white;"> Email</label>
-          <input type="email" id="email" formControlName="email" required>
-        
-          <label for="phoneNumber" style="color: white;">Phone Number</label>
-          <input type="tel" id="phoneNumber" formControlName="phoneNumber" required>
-       
-       
-          <label for="password" style="color: white; margin-top:3px">Password</label>
-          <input type="password" id="password" formControlName="password" required style[formControl]="passwordFormControl">
-          <div *ngIf="passwordFormControl.hasError('required')">
-            Password is required.
-          </div>
-          <div *ngIf="passwordFormControl.hasError('minlength')">
-            Password should have at least 8 characters.
-          </div>
-          <div *ngIf="passwordFormControl.hasError('weakPassword')">
-            Password should be strong and contain at least one lowercase letter, one uppercase letter, one digit, and one special character.
-          </div>
-       
-          <label for="confirmPassword" style="color: white;">Confirm Password</label>
-  <input type="password" id="confirmPassword" formControlName="confirmPassword" required>
+    <div id="index" class="index-page" class="scroll-container" >
 
-       
-          <button type="submit" style="justify-content: center; display: flex; margin: 20px auto; width: 60%; height: 30px; text-align:
-           center; background-color: #C396F0;
-           margin-top: 5px;
-            border-radius: 6px;
-            color: white;
-           ">Submit</button>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <h1 class="heading" >
+              SIGN UP
+          </h1>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
 
-        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;">
-          <div style="display: flex; align-items: center; margin-bottom: 10px;">
-            <input type="checkbox" id="rememberMe" name="rememberMe" style="margin-right: 5px;">
-            <label for="rememberMe" style="color: white; font-size: 12px; font-family: sans-serif; white-space: nowrap;">Remember me</label>
-          </div>
-        
-        </div>
-      </form>
-    </div>
-    
-    
    
-  </body>
-  </html>
+      <ion-content>
+       
+    <div>
+      <div>
+        <ion-img src="assets/profile.png" width="300" height="300" alt="myimage">
+        </ion-img>
+       </div>
+      <form [formGroup]="loginForm" (ngSubmit)="signup()">
+        <div *ngIf=" userType === 'user'">
+        <!--<ion-item lines="full">
+          <ion-label position="floating">First Name</ion-label>
+          <ion-input class="rounded-input" type="text" name="firstname" formControlName="firstname"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['firstname'].touched && loginForm.controls['firstname'].hasError('required')">
+            First Name is required.
+          </div>
+        </ion-item>
+        
+        <ion-item lines="full">
+          <ion-label position="floating" >Last Name</ion-label>
+          <ion-input type="text" name="lastname" formControlName="lastname"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['lastname'].touched && loginForm.controls['lastname'].hasError('required')">
+            Last Name is required.
+          </div>
+        </ion-item>-->
+        <ion-item lines="full">
+          <ion-label position="floating">Username</ion-label>
+          <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+            Username is required.
+          </div>
+        </ion-item>
+       <!-- <ion-item lines="full">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" name="email" formControlName="email"></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
+            Email is required.
+          </div>
+          <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('email')">
+            Invalid email format.
+          </div>
+        </ion-item>-->
+
+        <ion-item lines="full">
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" name="password" formControlName="password" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+            password is required.
+          </div>
+        </ion-item>
+
+        <ion-item lines="full">
+          <ion-label position="floating">Confirm Password</ion-label>
+          <ion-input type="password"  name="confirmpassword" formControlName="confirmpassword" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['confirmpassword'].touched && loginForm.controls['confirmpassword'].hasError('required')">
+            confirm password is required.
+          </div>
+        </ion-item>
+
+       
+
+        <ion-item lines="full">
+          <ion-label position="floating">Region</ion-label>
+          <ion-input type="password"  name="region" formControlName="region" required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['region'].touched && loginForm.controls['region'].hasError('required')">
+            Region is required.
+          </div>
+        </ion-item>
+        </div>
+
+        <div *ngIf=" userType === 'organiser'">
+          <ion-item lines="full">
+            <ion-label position="floating">Username</ion-label>
+            <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+              Username is required.
+            </div>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Organisation Name</ion-label>
+            <ion-input class="rounded-input" type="text" name="name" formControlName="name"required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['name'].touched && loginForm.controls['name'].hasError('required')">
+              Organisation Name is required.
+            </div>
+          </ion-item>
+
+          <ion-item lines="full">
+            <ion-label position="floating">Password</ion-label>
+            <ion-input type="password" name="password" formControlName="password" required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+              password is required.
+            </div>
+          </ion-item>
+
+        </div>
+        <ion-row>
+          <ion-col>
+            <ion-button type="submit"  expand="block"   (click)="isvalid()" >Sign Up</ion-button>
+            <!--[disabled]="loginForm.invalid"-->
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-text>Already have an account?&nbsp;</ion-text>
+            <a class="small-text"  (click)="onCreate()">Login</a>
+            <ion-text>&nbsp;instead</ion-text>
+          </ion-col>
+        </ion-row>
+      </form>
+   
+  </div>
+</ion-content>
+    </div>
+    
+ 
+  
   

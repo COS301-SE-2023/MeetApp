@@ -3,76 +3,100 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    
-    <style>
-
-body{
-
-   padding: 0;
-margin-top: 0;
-margin: 0;
-background-color: #0C134F;
-height:100vh;
-}
-    </style>
 </head>
-<body>
-    <h1 class="center-heading">Gala Dinner</h1>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button   defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <h1 class="heading" >
+          Event Page
+      </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<div id="body"  class="scroll-container">
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>
+        {{event.name}}
+      </ion-card-title>
+      <ion-card-subtitle>{{event.organisation}}</ion-card-subtitle>
+    </ion-card-header>
     
-    <div class="center-image">
-        <img src="https://www.i-eventplanner.com/wp-content/uploads/revslider/Avada_Full_Width/Corporate-Event-planner.jpg" alt="Centered Image" 
-        style="height: 50%; width: 50%;">
-    </div>
-   
-    <div class="center-div">
-        <div>Description</div>
-        <div>Event Information</div>
-        <div>Event Location</div>
-    </div>
+      <ion-img src="https://www.i-eventplanner.com/wp-content/uploads/revslider/Avada_Full_Width/Corporate-Event-planner.jpg" alt="Centered Image">
+      </ion-img>
     
+      <ion-item>
+        <ion-label class="bold-text"><b>Description</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-text class="bold-text"> {{event.description}}</ion-text>
+      </ion-item>
+      
+      <ion-item>
+        <ion-label><b>Region : </b></ion-label>
+        <ion-text class="bold-text">{{event.region}}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Date : </b></ion-label>
+        <ion-text class="bold-text">{{event.date}}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Time : </b></ion-label>
+        <ion-text class="bold-text">from &nbsp; {{event.startTime}} &nbsp;to&nbsp; {{event.endTime}}</ion-text>
+      </ion-item>
+      
+      <ion-item>
+      <ion-label>Going</ion-label>
+        <ion-badge slot="end" color="secondary">{{attendance}}</ion-badge>
+      </ion-item>
+      
+    <ion-card-content class="btn-bottom">
+        
+        <ion-button class="left" (click)="addEvent()">  &nbsp; <i  class="fas fa-thumbs-up" ></i> &nbsp; Going  &nbsp;
+        </ion-button>
+      </ion-card-content>
+    
+  </ion-card>
+  <!--
     <div class="heart-icon">
-        <input type="checkbox" id="attending-checkbox">
-        <label for="attending-checkbox" class="attending-label">Attending</label>
-        <i class="fas fa-heart fa-lg"></i>
-      </div>
-      <div id="counter">0</div>
+      <ion-button for="attending-checkbox" class="attending-label">Click To Attend</ion-button>
+      </div>-->
       
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const heartIcon = document.querySelector('.heart-icon ');
-          const counterElement = document.getElementById('counter');
-          let counter = 0;
       
-          heartIcon.addEventListener('click', function() {
-            counter++;
-            counterElement.textContent = counter.toString();
-          });
-        });
-      </script>
-<nav class="bottom-navbar">
+    </div>
+
+<!--<footer>
+  <nav class="bottom-navbar">
     <ul>
       <li>
         <a href="/home" routerLinkActive="active">
           <i class="fas fa-home"></i>
-          Home
+         
         </a>
       </li>
       <li>
-        <a href="/profile">
+        <a href="/calendar">
           <i class="fas fa-bell"></i>
-          Notification
+          
         </a>
       </li>
       <li>
         <a href="/profile" >
           <i class="fas fa-user"></i>
-          Profile
+          
         </a>
       </li>
     </ul>
   </nav>
   
-  </body>
+
+</footer>-->
   
 
 

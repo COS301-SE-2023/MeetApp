@@ -1,7 +1,7 @@
 
-.container1 {
+.container {
     
-  float:right;
+ background-image: url('https://t4.ftcdn.net/jpg/03/66/74/63/360_F_366746306_u56VIuFf6cNSWbyMstXS3EYHH2zd9sdt.jpg');
 }
 
 
@@ -19,8 +19,8 @@
 .image-container1 {
   
   
-  display: flex; /* Use flexbox to center the image */
-  justify-content: center; /* Center items horizontally */
+  display: flex; 
+  justify-content: center; 
   border-radius: 20px;
 
 }
@@ -37,20 +37,31 @@
   height: auto;
   
 }
-
+.liked {
+  color: red; 
+}
 
 .fa-heart{
   font-size: 30px; 
-  color: #D4ADFC;
+  color: grey;
   margin-right: 40px; 
+ 
+}
+.left
+{
+  margin-left:40px;
+}
+.right
+{
+  margin-right: 35px;
+
 }
 
-
-.fa-cog {
+/*.fa-cog {
   font-size: 30px; 
   color: #D4ADFC;
   margin-right: 40px; 
-}
+}*/
 html {
   height: 100%;
 }
@@ -78,15 +89,113 @@ html {
   margin-left: 10px;
 }
 .heading {
-  
-  text-align: center;
-    padding: 16px;
-     color: white;
-     margin: 0 auto;
-     font-family: 'Roboto', sans-serif;
-     margin-left: 10px; 
+
+     color:rgb(56, 56, 56);
+     font-family: 'Roboto', serif;
+     
+}
+.font
+{
+  font-family: 'Roboto', sans-serif;
+}
+.scroll-zoom-wrapper {
+  white-space: nowrap;
 }
 
+.stationary-box1 {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 100px;
+  height: 45px;
+  margin-bottom: 20px;
+  background-color: rgb(34, 32, 32);
+  border-radius: 20px;
+}
+.white
+{
+  
+  margin-bottom: 50px;
+  color: white;
+}
+.stationary-box {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%); 
+  width: 100px;
+  height: 45px;
+  margin-bottom: 20px;
+ 
+}
+
+
+
+.heading1 {
+
+  font-family: 'Roboto', serif;
+  text-align: left;
+  padding: 1px;
+  margin-bottom: 0px;
+  margin-left: 20px;
+  color:rgb(56, 56, 56);
+
+}
+
+
+ion-searchbar.custom {
+  --background: white;
+  --color: grey;
+  --placeholder-color: grey;
+  --icon-color:grey;
+  --clear-button-color:grey;
+--border:grey;
+  --border-radius: 13px;
+  --border-color:black;
+  --border-width: 20px;
+  --box-shadow: 0 15px 20px rgba(0, 0, 0, 0.2);
+  --font-size: 20px; 
+  --padding-start: 20px; 
+  --padding-end: 20px;
+  
+}
+
+ion-searchbar.ios.custom {
+  --cancel-button-color: #19422d;
+}
+
+ion-searchbar.md.custom {
+  --cancel-button-color: #fff;
+}
+.custom-card {
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+
+.scroll-container1 {
+  display: flex;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.card-first {
+  flex-shrink: 0;
+  width: 200px; 
+  margin-right: 10px; 
+}
+
+ion-scroll {
+  min-height: 160px; 
+  height: auto;
+
+         
+}
+.scroll-content {
+  padding: 0px !important;
+} 
 .navigation-bar {
   position: fixed;
   bottom: 0;
@@ -95,18 +204,24 @@ html {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: #460c68;
+  background-color:white;
   height: 60px;
   box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
   box-shadow: 0px -2px 4px rgba(0, 0, 0, 0.2);
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+.bold-text {
+  font-weight: bold;
+  color: black;
+  
+}
+
 
 
 .navigation-item {
   text-decoration: none;
-  color: #D4ADFC;
+  color:grey;
 }
 
 .navigation-item i {
@@ -139,4 +254,79 @@ html {
   background-color: transparent;
   cursor: pointer;
   padding: 5px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.body.index-page {
+  height: 100vh; 
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  overflow: hidden ! important;
+
+  /* Add specific styles for index.html here */
+}
+#index {
+background-color: white ;
+background-size: cover;
+background-position: center center;
+min-height: 100vh;
+margin: 0;
+padding: 0;
+}
+
+.scroll-container {
+  height: 300px; 
+  overflow-y: scroll; 
+}
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #5C469C;
+  border-top: 1px solid #ccc;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  margin-right: 550px;
+}
+
+.bottom-navbar ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+.bottom-navbar li {
+  padding: 10px;
+  text-align: center;
+}
+
+.bottom-navbar li a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  color: #D4ADFC;
+  font-family: sans-serif;
+}
+
+.bottom-navbar li .emoji {
+  font-size: 24px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.bottom-navbar li span {
+  color: #fff;
+
 }

@@ -3,6 +3,11 @@ import { IonContent } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'; // Import FormsModul
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+import { FormBuilder,  Validators } from '@angular/forms';
 
 import { AlertController } from '@ionic/angular';
 
@@ -20,7 +25,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
     FormsModule,ServicesModule]
 })
 export class OrganiserComponent {
+  EventForm!: FormGroup;
   profilePictureUrl: string | null = null;
+
   description: string | null = null;
   selectedRegion:string | null = null;
   eventName :string | null = null;
@@ -30,10 +37,14 @@ export class OrganiserComponent {
     startTime: '',
     endTime: '',
   };
- 
+  showForm: |boolean = false;
+
+
+  address: string | null=null;
   showDateTimeFields = false;
   SelectedRangeControl = new FormControl();
   formGroup: FormGroup<{ startDate: FormControl<string | null>; startTime: FormControl<string | null>; endTime: FormControl<string | null>; }> | undefined;
+  myForm: any;
  
   
   ngOnInit() {
@@ -43,44 +54,48 @@ export class OrganiserComponent {
       endTime: new FormControl(this.selectedRange.endTime)
     });
    
+   
+    
   }
-  pickerOptions = {
-    buttons: [
-      {
-        text: 'Cancel',
-        role: 'cancel',
-      },
-      {
-        text: 'Done',
-      },
-    ],
-  };
-  constructor(private alertController: AlertController,private service: service) {
+ 
+
+  constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
     this.selectedRegion='';
     this.eventName='';
     this.OrganisationName='';
   }
+  showCalendar=false;
 
   
-
+  goBack() {
+    this.llocation.back();
+  }
 //services
-  location: {latitude :string , longitude:string }| null = null;
+  location: {latitude :number , longitude:number }=
+  {
+    latitude:0,
+    longitude:0
+  }
   myLocation = {
-    latitude: "40.7128",
-    longitude: "-74.0060",
+    latitude: 40.7128,
+    longitude: -74.0060,
   };
   //category:string | null = null;
  
   startDate=this.selectedRange.startDate;
   startTime= this.selectedRange.startTime;
   endTime= this.selectedRange.endTime;
-  category="science Fair";
+  category='';
 
   
 submitForm() {
-  if (this.eventName !== null && this.OrganisationName !== null && this.description !== null && this.profilePictureUrl !== null && this.selectedRange.startDate !== null && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null && this.myLocation !== null && this.category !== null && this.selectedRegion !== null) {
+  if (this.eventName !== null && this.OrganisationName !== null && this.description !== null &&
+     this.profilePictureUrl !== null && this.selectedRange.startDate !== null
+      && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&
+       this.location !== null && this.category !== null && this.selectedRegion !== null) {
+
     this.service.createEvents(
       this.eventName,
       this.OrganisationName,
@@ -89,20 +104,29 @@ submitForm() {
       this.selectedRange.startDate,
       this.selectedRange.startTime,
       this.selectedRange.endTime,
-      this.myLocation,
+      this.location,
       this.category,
       this.selectedRegion
+      
     ).subscribe((response) => {
       console.log('API response:', response);
    
     });
   }
+  console.log('Description:', this.description);
+      console.log('Selected Region:', this.selectedRegion);
+      console.log('EventName:', this.eventName);
+      console.log('Organiser:', this.OrganisationName);
+      console.log('startDate',this.selectedRange.startDate)
+      console.log('endTime',this.selectedRange.endTime)
+      console.log('startTime',this.selectedRange.startTime)
+
+      console.log('latitude',this.location.latitude)
+      console.log('longitude',this.location.longitude)
+      console.log('category',this.category);
+      console.log('profileurl',this.profilePictureUrl)
   
 }
-
-
-
-
 
   changeProfilePicture() {
     const input = document.createElement('input');
@@ -165,25 +189,49 @@ submitForm() {
       &&this.eventName
     ) {
       
-      
+      /*
       console.log('Description:', this.description);
       console.log('Selected Region:', this.selectedRegion);
       console.log('EventName:', this.eventName);
-      console.log('Organiser:', this.eventName);
+      console.log('Organiser:', this.OrganisationName);
       console.log('startDate',this.selectedRange.startDate)
       console.log('endTime',this.selectedRange.endTime)
       console.log('startTime',this.selectedRange.startTime)
-  
+
+      console.log('latitude',this.location.latitude)
+      console.log('longitude',this.location.longitude)
+      console.log('category',this.category)*/
+     //this.router.navigate(['/home']);
       
     } else {
       const alert = await this.alertController.create({
         header: 'Incomplete Fields',
         message: 'Please fill in all fields.',
         buttons: ['OK'],
+
       });
   
       await alert.present();
+      
     }
   }
-  
+  gotohome()
+  {
+    this.router.navigate(['/home']);
+  }
+  toggleForm() {
+   
+    this.showForm = !this.showForm;
+        
+  if (!this.showForm) {
+    // Reset the form or perform any necessary actions after submitting
+    // For example, you can reset the form controls to their initial values
+    // or clear the form data.
+    this.myForm.reset(); // Assuming `myForm` is the form instance name
+
+    // Navigate to '/home' when hiding the form
+    this.router.navigate(['/home']);
+  }
+ 
+}
 }
