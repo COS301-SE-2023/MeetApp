@@ -85,13 +85,14 @@ username='';
  
 
   async showErrorAlert(message: string) {
-    const alert = await this.alertController.create({
+    /*const alert = await this.alertController.create({
       header: 'login Successful',
       message: message,
+      cssClass:'lg',
       buttons: ['OK']
     });
   
-    await alert.present();
+    await alert.present();*/
   }
   
   async showErrorToast(message: string) {

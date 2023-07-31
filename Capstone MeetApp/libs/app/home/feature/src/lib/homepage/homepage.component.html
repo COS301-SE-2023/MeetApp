@@ -87,22 +87,22 @@
 </div>
 <div class="navigation-bar">
   <div  (click)="gotohome()" routerLinkActive="active" class="navigation-item">
-    <i class="fas fa-home"></i>
+    <i id="home" class="fas fa-home"></i>
    
   </div>
   <div routerLink="/calendar" routerLinkActive="active"class="navigation-item">
-    <i class="fas fa-calendar"></i>
+    <i id="calendar" class="fas fa-calendar"></i>
     
   </div>
   <div (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
-    <i class=" fas fa-plus"></i>
+    <i id="event" class=" fas fa-plus"></i>
   </div>
   <div  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
-    <i class="fas fa-cog" ></i>
+    <i id="settings" class="fas fa-cog" ></i>
     
   </div>
   <div (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
-    <i class="fas fa-user"></i>
+    <i id="profile" class="fas fa-user"></i>
   
   </div>
 </div>
