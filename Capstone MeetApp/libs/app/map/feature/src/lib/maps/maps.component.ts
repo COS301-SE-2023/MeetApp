@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
 import { Injectable } from '@angular/core';
 import { GoogleMapsModule, MapInfoWindow, MapMarker } from '@angular/google-maps';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { events,service,ServicesModule} from '@capstone-meet-app/services';
@@ -49,7 +49,7 @@ interface Event {
 })
 export class MapsComponent implements AfterViewInit {
 
-  constructor(private m: GoogleMapsModule,private router: Router,private service: service,private location: Location) {
+  constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
     //this.getData();
     
   }
@@ -77,9 +77,7 @@ export class MapsComponent implements AfterViewInit {
     eventPoster:''
 }];*/
 
-goBack() {
-  this.location.back();
-}
+
 async ngOnInit() {
   await this.service.getAllEvents().subscribe((response: any) => { 
     this.data = response;
@@ -359,7 +357,7 @@ events: Event[] = [
           const region = event.region;
           const date=event.date;
           const createContent =
-            '<div id="content">' +
+            '<div id="content" (click)=viewEvent()>' +
             '<h1 id="firstHeading" class="firstHeading">' + event.name + '</h1>' +
             '<div id="bodyContent">' +
             '<p><b>' + event.name + ' event</b> ' + event.description + '</p>' +
@@ -458,7 +456,9 @@ events: Event[] = [
   
     return Promise.resolve(filteredEvents);
   }
-  
+  viewEvent(eventId: string) {
+    this.router.navigate(['events', eventId]);
+  }
   
 }
 /*function isWithinRange(eventDate: string,rangeStartDate: Date | null, rangeEndDate: Date | null): boolean {

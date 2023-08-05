@@ -12,6 +12,10 @@
     justify-content: center;
     /*padding: 20px;*/
   }
+  .scroll-container {
+    height: 300px; 
+    overflow-y: scroll; 
+  }
   
   .form {
     display: flex;
@@ -47,12 +51,9 @@
   
   #map {
     width: 100%;
-  }
-  ion-button{
-
-    
     
   }
+  
   .ion-footer{
 
     margin-bottom: 30%;

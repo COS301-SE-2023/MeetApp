@@ -152,9 +152,9 @@ export class SignupComponent {
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
-    const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
-    
-    if (!strongRegex.test(password) && this.loginForm.invalid) {  
+   // const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
+    //!strongRegex.test(password) &&
+    if ( this.loginForm.invalid) {  
       const errorMessage = 'choose a stronger password';
       this.showErrorToast(errorMessage); 
       this.valid=false;

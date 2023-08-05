@@ -37,6 +37,7 @@ export class ProfileComponent {
   
   profile:user={username:'',password:'',profilePicture:'',region:''};
   eventCount='';
+  friendCount=0;
   userEvents = [
     {
       eventID:'',
@@ -58,6 +59,16 @@ export class ProfileComponent {
     region: ''
   }]
 
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
+
+  user_payload:any;
+
   orgIDs='';
   profileId='';
   constructor(private router: Router,private modalController: ModalController,private serviceProvider: service,private location: Location) {
@@ -68,11 +79,12 @@ export class ProfileComponent {
   
 
   async ngOnInit(){
-    this.getProfile(this.profileId);
-    this.getEventCount(this.profileId);
-    this.getEvents(this.profileId);
-    
-    
+    const access_token=this.serviceProvider.getToken();
+    console.log(access_token);
+    this.getCurrentUser();
+    this.getEventCount(access_token);
+    //this.getEvents(access_token);
+    this.getFriendCount();
   }
   goBack() {
     this.location.back();
@@ -81,25 +93,37 @@ export class ProfileComponent {
   async getProfile(id :string){
     await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
       this.profile = response;
+      console.log(this.profile);
     })
   }
-
-  async getEventCount(id : string){
-    await this.serviceProvider.getUserAttendancesCount(id).subscribe((response:any)=>{
+  gotofriends() {
+    this.router.navigate(['/friends']);
+    
+  }
+  async getEventCount(token :string|null){
+    await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
       this.eventCount = response;
       console.log(this.eventCount);
     });
   }
   
-  async updateProfile(id:string,username?:string,profifilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(id,username,profifilePicture,region).subscribe((response) => {
+  async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
+    await this.serviceProvider.updateUser(token,username,password,profilePicture,region).subscribe((response) => {
       console.log('API response:', response);
    
     });
   }
 
-  async getEvents(id : string){
-    await this.serviceProvider.getUserAttendances(id).subscribe((response:any)=>{
+  async updateProfileID(id :string,username?:string ,password?:string,profilePicture?:string,region?:string){
+    await this.serviceProvider.updateUser(id,username,password,profilePicture,region).subscribe((response) => {
+      console.log('API response:', response);
+   
+    });
+  }
+
+
+  async getEvents(token :string|null){
+    await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
       this.userEvents = response;
       console.log(this.userEvents);
 
@@ -118,7 +142,7 @@ export class ProfileComponent {
         
       }
       console.log(this.orgIDs);
-      this.fetchByIds('fetch-by-ids',this.orgIDs);
+      //this.fetchByIds('fetch-by-ids',this.orgIDs);
     });
   }
 
@@ -131,6 +155,27 @@ export class ProfileComponent {
     });
   }
 
+  async getCurrentUser()
+  {
+    const access_token=this.serviceProvider.getToken();
+     await this.serviceProvider.getLogedInUser(access_token).subscribe((response) => {
+      console.log('API response:', response);
+      this.user_payload=response;
+      this.current_user=this.user_payload;
+      console.log('user ID',this.current_user.id);
+      this.getProfile(this.current_user.id);
+    });
+
+  }
+
+  async getFriendCount()
+  {
+    const access_token=this.serviceProvider.getToken();
+    await this.serviceProvider.getFriendCount(access_token).subscribe((response:any) => {
+      console.log('API response:', response);
+      this.friendCount=response;
+    });
+  }
   
   toggleEditProfile() {
     this.isEditMode = !this.isEditMode;
@@ -151,26 +196,39 @@ export class ProfileComponent {
 
   saveProfile() {
       console.log('THE FUNCTION IS RUNNING');
+      const access_token=this.serviceProvider.getToken();
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
-      this.updateProfile(this.profileId,this.newProfileName,this.newProfilePicUrl);
+      this.updateProfile(access_token,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
       console.log(this. profilePictureUrl);
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
-      this.updateProfile(this.profileId,this.newProfileName);
+      this.updateProfile(access_token,this.newProfileName);
     }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this. profilePictureUrl);
-      this.updateProfile(this.profileId,this.profileName,this.profilePictureUrl);
+      this.updateProfile(access_token,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
       console.log(this. profilePictureUrl);
     }
 
-    location.reload();
+    
     this.isEditMode = false;
+    this.refreshPageWithDelay(2000); 
+
+    
   }
   
+  refreshPage() {
+    window.location.reload();
+  }
 
+  refreshPageWithDelay(delayInMilliseconds: number) {
+    setTimeout(() => {
+      window.location.reload();
+    }, delayInMilliseconds);
+  }
+  
   async  convertImageToBase64(imageUrl: string): Promise<string> {
     try {
       const response = await fetch(imageUrl);

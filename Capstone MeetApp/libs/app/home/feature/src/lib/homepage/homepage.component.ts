@@ -14,7 +14,9 @@ import { IonicModule } from '@ionic/angular';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
+import { NavigationStart, NavigationEnd, NavigationError, NavigationCancel } from '@angular/router';
 
 
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -31,7 +33,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [IonicModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
+  imports: [IonicModule,RouterModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
@@ -52,7 +54,7 @@ export class HomepageComponent {
 
   events:any =[];
   data= [{
-    id:'',
+    _id:'',
     name:'',
     organisation: '',
     description:'',
@@ -64,18 +66,40 @@ export class HomepageComponent {
     category:'',
     region:'',
     eventPoster:''
+    
   }];
 
   userType:string|null = '';
+  attendance=0;
+  
+   updatedData = this.data.map(item => ({
+    ...item, 
+    attendance: this.attendance
+  }));
 
+   
+ 
   isLiked = false;
   toggleLike() {
     this.isLiked = !this.isLiked;
   }
   
-  
+  attendanceData: { [_id: string]: number } = {};
   constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
-    console.log('Constructor');
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        console.log('Navigation started');
+      }
+      if (event instanceof NavigationEnd) {
+        console.log('Navigation ended successfully');
+      }
+      if (event instanceof NavigationError) {
+        console.error('Navigation error:', event.error);
+      }
+      if (event instanceof NavigationCancel) {
+        console.warn('Navigation canceled');
+      }
+    });
   }
   
 
@@ -100,7 +124,35 @@ export class HomepageComponent {
         console.log('fhsh  '+newEvent)
       });
   }
+  async ngOnInit() {
+    this.service.getAllEvents().subscribe((response: any) => { 
+      this.data = response;
+      for (let i = 0; i < this.data.length; i++) {
+        //const event: events = this.data[i];
+        console.log('test',this.data[i]._id);
+        //const region = event.region;
+        this.getAttendance(this.data[i]._id);
+       
+      }
+      
+    });
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+      console.log('User Type:', this.userType);
+    });
+  
+  }
  
+  async getAttendance(id:string,)
+  {
+     await this.service.getEventAttendanceCount(id).subscribe((response:any) => {
+      console.log('API response:', response);
+      this.attendance=response;
+      this.attendanceData[id] = response;
+    });
+  }
+
 
   /* async ngOnInit() {
       this.service.getAllEvents().subscribe((response: any) => { 
@@ -125,26 +177,7 @@ export class HomepageComponent {
   }
 
 
-   async ngOnInit() {
-      this.service.getAllEvents().subscribe((response: any) => { 
-        this.data = response;
-        for (let i = 0; i < this.data.length; i++) {
-          const event: events = this.data[i];
-          //const region = event.region;
-          const date=event.date;
-          
-         
-        }
-        this.data
-      });
-
-      this.activatedRoute.paramMap.subscribe(params => {
-        this.userType = params.get('userType');
-        console.log('User Type:', this.userType);
-      });
-    
-      
-    }
+   
  
   
 
@@ -163,22 +196,23 @@ export class HomepageComponent {
 
 
    gotomap() {
-    this.router.navigate(['/map']);
+    this.router.navigateByUrl('/map');
   }
   gotohome() {
-    this.router.navigate(['/home']);
+    this.router.navigateByUrl('/home');
   }
   gotoprofile() {
-    this.router.navigate(['/profile']);
+    this.router.navigateByUrl('/profile');
   }
   gotocalendar() {
-    this.router.navigate(['/calendar']);
+    this.router.navigateByUrl('/calendar');
   }
   gotosettings() {
-    this.router.navigate(['/settings']);
+    this.router.navigateByUrl('/settings');
+    
   }
   gotoorganiser() {
-    this.router.navigate(['/organisers']);
+    this.router.navigateByUrl('/organisers');
   }
   
 

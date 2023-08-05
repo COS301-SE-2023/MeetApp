@@ -1,30 +1,32 @@
 <!Doctype html>
-<html lang="en">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button  (click)="goBack()" defaultHref=""></ion-back-button>
-      </ion-buttons>
-      <ion-title>
-          <h1 class="heading" >
-            Event Map
-        </h1>
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  
   
 <head>
-    <meta charset="utf-8">
-    <title>Event Map</title>
+   
+    
     <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=(apikey)&libraries=places&language=en">
     </script>
 </head>
 
-<div id="body">
+
+<div id="body"  class="scroll-container">
   <ion-content>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button   defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            <h1 class="heading" >
+              Event Map
+          </h1>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header>
   <div class="container">
     
   <div id="map" style="height: 600px;"></div>
@@ -36,7 +38,7 @@
     </ion-row>
   </ion-grid>
   </div>
-    
+    <ion-card>
   <div id="filter">
     <form (ngSubmit)="onSubmit()" class="form">
       <ion-item>
@@ -78,7 +80,7 @@
       <button type="submit" class="submit-button">Submit</button>
     </form>
   </div>
-  
+
   <ion-footer>
     <ion-segment value="maps">
       <ion-segment-button value="list" (click)="BACKTOHOME()">
@@ -89,9 +91,8 @@
       </ion-segment-button>
     </ion-segment>
   </ion-footer>
-  
+</ion-card>
 </ion-content>
 </div>
 
 
-</html>

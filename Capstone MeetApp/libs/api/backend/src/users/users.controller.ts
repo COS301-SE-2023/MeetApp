@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards, Request } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards, Request, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -66,16 +66,25 @@ export class UsersController {
       return this.usersService.findByQuery(request.query)
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.usersService.findOne(id);
-  // }
+  @UseGuards(AuthGuard)
+  @Get('friends')
+  async getUserFriends(@Request() req : AuthenticatedRequest) {
+    const friends = await this.usersService.getUserFriends(req.user.id);
+    return friends;
+  }
 
   @Get(':userId/attendances')
   getUserAttendances(@Param('userId') userId: string) {
     return this.usersService.getUserAttendances(userId);
   }
 
+  @UseGuards(AuthGuard)
+  @Get('friends/count')
+  getUserFriendsCount(@Request() req : AuthenticatedRequest) {
+    return this.usersService.getUserFriendsCount(req.user.id);
+  }
+
+  
   @Get(':userId/attendances/count')
   getUserAttendancesCount(@Param('userId') userId: string) {
     return this.usersService.getUserAttendancesCount(userId);
@@ -85,6 +94,46 @@ export class UsersController {
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.usersService.update(id, updateUserDto);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('friend-requests')
+  async getUserFriendRequests(@Request() req : AuthenticatedRequest) {
+    const friends = await this.usersService.getUserFriendRequests(req.user.id);
+    return friends;
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('friend/unfriend')
+  unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}) {
+    return this.usersService.unfriend(req.user.id,friendID.friend);
+  }
+
+  @UseGuards(AuthGuard)
+  @Post('friend/send-request')
+  sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}) {
+    return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
+  }
+
+  @UseGuards(AuthGuard)
+  @Patch('friend/accept-request')
+  acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}) {
+    return this.usersService.acceptRequest(req.user.id, requesterID.requester);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('friend-requests/pending')
+  async getUsersentRequests(@Request() req : AuthenticatedRequest) {
+    const friends = await this.usersService.getUserSentRequests(req.user.id);
+    return friends;
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('friends/events')
+  async getFriendEvents(@Request() req : AuthenticatedRequest) {
+    return this.usersService.getFriendEvents(req.user.id);
+  }
+
+
 
   // @Delete(':id')
   // remove(@Param('id') id: string) {
