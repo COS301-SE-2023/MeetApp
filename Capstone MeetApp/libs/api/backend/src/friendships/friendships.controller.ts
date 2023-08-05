@@ -3,6 +3,7 @@ import { FriendshipsService } from './friendships.service';
 // import { CreateFriendshipDto } from './dto/create-friendship.dto';
 // import { UpdateFriendshipDto } from './dto/update-friendship.dto';
 import { Request } from 'express';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @Controller('friendships')
 export class FriendshipsController {
