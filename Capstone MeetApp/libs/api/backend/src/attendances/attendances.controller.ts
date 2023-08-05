@@ -1,8 +1,10 @@
 import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
 import { AttendancesService } from './attendances.service';
 import { CreateAttendanceDto } from './dto/create-attendance.dto';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @Controller('attendances')
+@ApiTags('Attendances')
 export class AttendancesController {
   constructor(private readonly attendancesService: AttendancesService) {}
 
