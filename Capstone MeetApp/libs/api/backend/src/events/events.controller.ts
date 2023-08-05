@@ -7,14 +7,12 @@ import { FilterQuery } from 'mongoose';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery } from '@nestjs/swagger';
 
-//import { Category } from '../utils/enums';
-
 @Controller('events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new event' }) // Add an operation description
+  @ApiOperation({ summary: 'Create a new event' }) 
   @ApiResponse({ status: 201, description: 'Event created successfully' })
    async createEvent(@Res() response : Response, @Body() createEventdto: CreateEventDto, @Headers('x-api-key') apiXHeader: string) {
   try {
@@ -76,16 +74,12 @@ export class EventsController {
     
   }
 
-  @Get(':id/attendees')
-
-  @Get(':id/organiser')
-
   @Get('today')
   @ApiOperation({ summary: 'Find events for today' })
   getEventsForToday(){
     const todaysDate = new Date();
     console.log('hi');
-    const formattedDate = todaysDate.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const formattedDate = todaysDate.toISOString().split('T')[0]; 
     console.log(formattedDate);
     const query: FilterQuery<Event> = {date: formattedDate}
     return this.eventsService.findByQuery({ query });
@@ -96,9 +90,9 @@ export class EventsController {
   getEventsForThisWeek() {
     const today = new Date();
     const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
-    const formattedStartDate = startOfWeek.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const formattedStartDate = startOfWeek.toISOString().split('T')[0]; 
     const endOfWeek = new Date(today.setDate(today.getDate() + 6));
-    const formattedEndDate = endOfWeek.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const formattedEndDate = endOfWeek.toISOString().split('T')[0]; 
 
     const query: FilterQuery<Event> = {
       date: { $gte: formattedStartDate, $lte: formattedEndDate },
@@ -111,9 +105,9 @@ export class EventsController {
   getEventsForThisMonth(){
     const today = new Date();
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
-    const formattedStartDate = startOfMonth.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const formattedStartDate = startOfMonth.toISOString().split('T')[0]; 
     const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-    const formattedEndDate = endOfMonth.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const formattedEndDate = endOfMonth.toISOString().split('T')[0]; 
 
     const query: FilterQuery<Event> = {
       date: { $gte: formattedStartDate, $lte: formattedEndDate },
@@ -126,10 +120,9 @@ export class EventsController {
   getEventsForThisYear() {
     const today = new Date();
     const startOfYear = new Date(today.getFullYear(), 0, 1);
-    const formattedStartDate = startOfYear.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
+    const formattedStartDate = startOfYear.toISOString().split('T')[0]; 
     const endOfYear = new Date(today.getFullYear(), 11, 31);
-    const formattedEndDate = endOfYear.toISOString().split('T')[0]; // Get 'yyyy-mm-dd' format
-
+    const formattedEndDate = endOfYear.toISOString().split('T')[0]; 
     const query: FilterQuery<Event> = {
       date: { $gte: formattedStartDate, $lte: formattedEndDate },
     };
@@ -168,8 +161,6 @@ export class EventsController {
     return this.eventsService.findByQuery(query)
   }
 
- // @Get('duration/:duration')
-
   @Get('daterange/:startDate/:endDate')
   @ApiOperation({ summary: 'Find events for a specific date range (inclusive ranges)' })
   @ApiParam({ name: 'startDate', description: 'The lower boundary date you want to find events for', required: true })
@@ -181,16 +172,10 @@ export class EventsController {
     return this.eventsService.getEventsByDateRange(startDate, endDate);
   }
 
-  //@Get('timeofday/:timeofday')
-
   @Get('org/:organisation')
   @ApiOperation({ summary: 'Find events for a specific organisation' })
   @ApiParam({ name: 'organisation', description: 'The organisation (name) you want to find events for', required: true })
   findbyOrganisation(@Param('organisation') organisation: string) {
-    //const parsedOrg = organisation.replace('%20',' ');
-    //console.log(parsedOrg);
-    //console.log(organisation);
-    //console.log(3);
     return this.eventsService.findbyOrganisation(organisation);
   }
 
