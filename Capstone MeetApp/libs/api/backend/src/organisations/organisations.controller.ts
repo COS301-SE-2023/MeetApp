@@ -2,7 +2,6 @@ import {
   Controller,
   Get,
   Post,
-  Patch,
   Delete,
   Body,
   Request,
@@ -49,19 +48,6 @@ export class OrganisationsController {
   findAll() {
     return this.organisationsService.findAll();
   }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.organisationsService.findOne(id);
-  // }
-
-  @Patch(':id')
-  // update(
-  //   @Param('id') id: string,
-  //   @Body() updateOrganisationDto: UpdateOrganisationDto
-  // ) {
-  //   return this.organisationsService.update(+id, updateOrganisationDto);
-  // }
 
   @UseGuards(AuthGuard)
   @Delete('')
