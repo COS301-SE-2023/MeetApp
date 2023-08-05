@@ -66,32 +66,12 @@ export class UsersController {
       return this.usersService.findByQuery(request.query)
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
-  }
-  
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   switch (id) {
-  //     case 'friends':
-  //       this.getUserFriends(re)
-  //       break;
-    
-  //     default:
-  //       break;
-  //   }
-  //   return this.usersService.findOne(id);
-  // }
-
   @UseGuards(AuthGuard)
   @Get('friends')
   async getUserFriends(@Request() req : AuthenticatedRequest) {
-    console.log("here")
     const friends = await this.usersService.getUserFriends(req.user.id);
     return friends;
   }
-
 
   @Get(':userId/attendances')
   getUserAttendances(@Param('userId') userId: string) {
@@ -159,4 +139,65 @@ export class UsersController {
   // remove(@Param('id') id: string) {
   //   return this.usersService.remove(+id);
   // }
+
+  @UseGuards(AuthGuard)
+  @Post('attend')
+  async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}) {
+    return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
+
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('all-events')
+  async getAllEvents(@Request() req : AuthenticatedRequest){
+    return await this.usersService.getUserEvents(req.user.id)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('event/:eventID')
+  async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string){
+    return await this.usersService.getUserEvent(req.user.id, eventID)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('recommendations/region')
+  async getRecRegion(@Request() req : AuthenticatedRequest){
+    return await this.usersService.recommendByRegion(req.user.id)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('recommendations/category')
+  async getRecCategory(@Request() req : AuthenticatedRequest){
+    return await this.usersService.recommendationCategory(req.user.id)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('recommendations/timeofday')
+  async getRecTOD(@Request() req : AuthenticatedRequest){
+    return await this.usersService.getUserTimeOfDayRecommendation(req.user.id)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('interests/category')
+  async getIntCategory(@Request() req : AuthenticatedRequest){
+    return await this.usersService.InterestCategory(req.user.id)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('recommendations/duration')
+  async getRecDuration(@Request() req : AuthenticatedRequest){
+    return await this.usersService.getUserInterestAverageDuration(req.user.id)
+  }
+  
+  // @UseGuards(AuthGuard)
+  // @Get('interests/duration')
+  // async getIntDuration(@Request() req : AuthenticatedRequest){
+  //   return await this.usersService.getUserInterestDuration(req.user.id)
+  // }
+
+  @UseGuards(AuthGuard)
+  @Get('interests/region')
+  async getIntRegion(@Request() req : AuthenticatedRequest){
+    return await this.usersService.InterestRegion(req.user.id)
+  }
 }
