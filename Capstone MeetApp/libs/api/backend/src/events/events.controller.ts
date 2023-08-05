@@ -45,22 +45,23 @@ export class EventsController {
   @ApiOperation({ summary: 'Find an event by ID' })
   @ApiParam({ name: 'id', description: 'Event ID or special keyword (today, thisweek, thismonth, thisyear, fetch-by-ids)' })
   @ApiQuery({ name: 'eventIds', description: 'Comma-separated list of event IDs (for fetch-by-ids endpoint)', required: false })
-  findOne(@Param('id') id: string, @Query('eventIds') eventIds: string) {
+  findOne(@Param('id') id: string, @Query('eventIds') eventIds: string, @Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     let eventIdArray : string[];
     if (id == 'today')
-      return this.getEventsForToday();
+      return this.getEventsForToday(apiXHeader);
     switch (id) {
       case 'today':
-        return this.getEventsForToday();
+        return this.getEventsForToday(apiXHeader);
         break;
       case 'thisweek':
-        return this.getEventsForThisWeek();
+        return this.getEventsForThisWeek(apiXHeader);
         break;
       case 'thismonth':
-        return this.getEventsForThisMonth();
+        return this.getEventsForThisMonth(apiXHeader);
         break;
       case 'thisyear':
-        return this.getEventsForThisYear();
+        return this.getEventsForThisYear(apiXHeader);
         break;
       case 'fetch-by-ids':
         eventIdArray = eventIds.split(',');
@@ -76,7 +77,8 @@ export class EventsController {
 
   @Get('today')
   @ApiOperation({ summary: 'Find events for today' })
-  getEventsForToday(){
+  getEventsForToday(@Headers('x-api-key') apiXHeader: string){
+    Logger.log(`API Key: ${apiXHeader}`)
     const todaysDate = new Date();
     const formattedDate = todaysDate.toISOString().split('T')[0]; 
     const query: FilterQuery<Event> = {date: formattedDate}
@@ -85,7 +87,8 @@ export class EventsController {
 
   @Get('thisweek')
   @ApiOperation({ summary: 'Find events for this week' })
-  getEventsForThisWeek() {
+  getEventsForThisWeek(@Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     const today = new Date();
     const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay()));
     const formattedStartDate = startOfWeek.toISOString().split('T')[0]; 
@@ -100,7 +103,8 @@ export class EventsController {
 
   @Get('thismonth')
   @ApiOperation({ summary: 'Find events for this month' })
-  getEventsForThisMonth(){
+  getEventsForThisMonth(@Headers('x-api-key') apiXHeader: string){
+    Logger.log(`API Key: ${apiXHeader}`)
     const today = new Date();
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
     const formattedStartDate = startOfMonth.toISOString().split('T')[0]; 
@@ -115,7 +119,8 @@ export class EventsController {
 
   @Get('thisyear')
   @ApiOperation({ summary: 'Find events for this year' })
-  getEventsForThisYear() {
+  getEventsForThisYear(@Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     const today = new Date();
     const startOfYear = new Date(today.getFullYear(), 0, 1);
     const formattedStartDate = startOfYear.toISOString().split('T')[0]; 
@@ -130,7 +135,8 @@ export class EventsController {
   @Get('region/:region')
   @ApiOperation({ summary: 'Find events for a specific region' })
   @ApiParam({ name: 'region', description: 'The region you want to find events for', required: true })
-  getEventsByRegion(@Param('region') region: string) {
+  getEventsByRegion(@Param('region') region: string, @Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     const query: FilterQuery<Event> = { region: region };
     return this.eventsService.findByQuery(query)
   }
@@ -138,7 +144,8 @@ export class EventsController {
   @Get('month/:month')
   @ApiOperation({ summary: 'Find events for a specific month' })
   @ApiParam({ name: 'month', description: 'The month (MM format) you want to find events for', required: true })
-  getEventsByMonth(@Param('month') month: string){
+  getEventsByMonth(@Param('month') month: string, @Headers('x-api-key') apiXHeader: string){
+    Logger.log(`API Key: ${apiXHeader}`)
     const query: FilterQuery<Event> = { date: { $regex: `.*-${month}-.*` } };
     return this.eventsService.findByQuery(query)
   }
@@ -146,7 +153,8 @@ export class EventsController {
   @Get('year/:year')
   @ApiOperation({ summary: 'Find events for a specific year' })
   @ApiParam({ name: 'year', description: 'The year you want to find events for', required: true })
-  getEventsByYear(@Param('year') year: string){
+  getEventsByYear(@Param('year') year: string, @Headers('x-api-key') apiXHeader: string){
+    Logger.log(`API Key: ${apiXHeader}`)
     const query: FilterQuery<Event> = { date: { $regex: `^${year}-.*` } };
     return this.eventsService.findByQuery(query)
   }
@@ -154,7 +162,8 @@ export class EventsController {
   @Get('category/:category')
   @ApiOperation({ summary: 'Find events for a specific region' })
   @ApiParam({ name: 'region', description: 'The region you want to find events for', required: true })
-  getEventsByCategory(@Param('category') category: string) {
+  getEventsByCategory(@Param('category') category: string, @Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     const query: FilterQuery<Event> = { category: category };
     return this.eventsService.findByQuery(query)
   }
@@ -166,21 +175,25 @@ export class EventsController {
   getEventsByDateRange(
     @Param('startDate') startDate: string,
     @Param('endDate') endDate: string,
+    @Headers('x-api-key') apiXHeader: string
   ) {
+    Logger.log(`API Key: ${apiXHeader}`)
     return this.eventsService.getEventsByDateRange(startDate, endDate);
   }
 
   @Get('org/:organisation')
   @ApiOperation({ summary: 'Find events for a specific organisation' })
   @ApiParam({ name: 'organisation', description: 'The organisation (name) you want to find events for', required: true })
-  findbyOrganisation(@Param('organisation') organisation: string) {
+  findbyOrganisation(@Param('organisation') organisation: string, @Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     return this.eventsService.findbyOrganisation(organisation);
   }
 
   @Get(':eventID/attendance-count')
   @ApiOperation({ summary: 'Find total number of people attending an event' })
   @ApiParam({ name: 'eventID', description: 'The event ID', required: true })
-  getEventAttendanceCount(@Param('eventID') eventID: string) {
+  getEventAttendanceCount(@Param('eventID') eventID: string, @Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     return this.eventsService.getEventAttendanceCount(eventID);
   }
 
@@ -190,7 +203,8 @@ export class EventsController {
   @ApiParam({ name: 'id', description: 'The id of the event', required: true })
   @ApiResponse({ status: 201, description: 'Event has been successfully updated' })
   async updateEvent(@Res() response : Response,@Param('id') eventId: string,
-  @Body() updateEventdto: UpdateEventDto) {
+  @Body() updateEventdto: UpdateEventDto, @Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     try {
       const exisitingEvent = await this.eventsService.update(eventId, updateEventdto);
       return response.status(HttpStatus.OK).json({
@@ -208,8 +222,9 @@ export class EventsController {
 @ApiOperation({ summary: 'Delete an event' })
 @ApiParam({ name: 'id', description: 'The id of the event', required: true })
 @ApiResponse({ status: 201, description: 'Event has been deleted successfully' })
-async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
+async deleteEvent(@Res() response: Response, @Param('id') eventId: string, @Headers('x-api-key') apiXHeader: string)
 {
+  Logger.log(`API Key: ${apiXHeader}`)
   try {
     const deletedEvent = await this.eventsService.remove(eventId);
     return response.status(HttpStatus.OK).json({
@@ -226,7 +241,8 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
  @Get(':eventId/attendance-count')
  @ApiOperation({ summary: 'Find total number of people attending an event' })
  @ApiParam({ name: 'eventID', description: 'The event ID', required: true })
-  async getEventAttendance(@Param('eventId') eventId: string): Promise<number> {
+  async getEventAttendance(@Param('eventId') eventId: string, @Headers('x-api-key') apiXHeader: string): Promise<number> {
+    Logger.log(`API Key: ${apiXHeader}`)
     return this.eventsService.getEventAttendance(eventId);
   }
 
@@ -234,7 +250,8 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string)
   @Get(':eventId/attendance')
   @ApiOperation({ summary: 'Find the people attending an event' })
   @ApiParam({ name: 'eventID', description: 'The event ID', required: true })
-  async getAttendingUsers(@Param('eventId') eventId: string) {
+  async getAttendingUsers(@Param('eventId') eventId: string, @Headers('x-api-key') apiXHeader: string) {
+    Logger.log(`API Key: ${apiXHeader}`)
     return this.eventsService.getAttendingUsers(eventId);
   }
 }
