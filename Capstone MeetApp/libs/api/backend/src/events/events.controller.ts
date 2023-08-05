@@ -78,9 +78,7 @@ export class EventsController {
   @ApiOperation({ summary: 'Find events for today' })
   getEventsForToday(){
     const todaysDate = new Date();
-    console.log('hi');
     const formattedDate = todaysDate.toISOString().split('T')[0]; 
-    console.log(formattedDate);
     const query: FilterQuery<Event> = {date: formattedDate}
     return this.eventsService.findByQuery({ query });
   }
