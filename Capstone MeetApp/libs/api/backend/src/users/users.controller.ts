@@ -133,18 +133,10 @@ export class UsersController {
     return this.usersService.getFriendEvents(req.user.id);
   }
 
-
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.usersService.remove(+id);
-  // }
-
   @UseGuards(AuthGuard)
   @Post('attend')
   async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}) {
     return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
-
   }
 
   @UseGuards(AuthGuard)
