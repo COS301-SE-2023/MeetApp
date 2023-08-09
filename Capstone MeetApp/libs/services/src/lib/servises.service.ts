@@ -128,13 +128,21 @@ export class service{
     getAllEvents()
     {
         const url=this.baseURl+'events';
-        return this.http.get(`${url}`);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        return this.http.get(`${url}`,{headers});
     }
 
     getEventByID(id:string)
     {
         const url=`${this.baseURl}events/${id}`;
-        return this.http.get(`${url}`);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        return this.http.get(`${url}`,{headers});
     }
     
     getEventByIDs(id:string,eventIds:string)
@@ -151,6 +159,10 @@ export class service{
          category: string,region: string)
     {
         const url=this.baseURl+'events';
+        
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
         const body=
         {
             name: name,
@@ -164,33 +176,59 @@ export class service{
             category: category,
             region: region
         }
-        return this.http.post(`${url}`,body);
+        return this.http.post(`${url}`,body,{headers});
 
     }
 
-
     getEventsByRange(startDate?:string,endDate?:string){
         const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
-        return this.http.get(`${url}`);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        return this.http.get(`${url}`,{headers});
     }
 
     getEventsByRegion(region:string)
     {
         const url=`http://localhost:3000/api/events/daterange/api/events/region/${region}`;
-        return this.http.get(`${url}`);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+
+        return this.http.get(`${url}`,{headers});
     }
     
     getEventAttendanceCount(id:string)
     {
         const url=`${this.baseURl}events/${id}/attendance-count`;
-        return this.http.get(`${url}`);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        return this.http.get(`${url}`,{headers});
     }
     
+    getEventAttendance(id:string){
+        const url=`${this.baseURl}events/${id}/attendance`;
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        return this.http.get(`${url}`,{headers});
+    }
+
+
     //SERVICES FOR USERS
 
     createUser(username:string,password:string,profilePicture:string,region:string)
     {
         const url=this.baseURl+'users/signup';
+        
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
         const body=
         {
             username: username,
@@ -198,48 +236,65 @@ export class service{
             profilePicture:profilePicture,
             region:region
         }
-        return this.http.post(`${url}`,body);
+        return this.http.post(`${url}`,body,{headers});
     }
 
     authUser(username:string, password:string)
     {
         const url=this.baseURl+'users/login';
+        
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
         const body=
         {
             username:username,
             password:password
         }
-        return this.http.post(`${url}`,body);
+        return this.http.post(`${url}`,body,{headers});
     }
 
     getAllUsers()
     {
         const url=this.baseURl+'users';
-        return this.http.get(`${url}`);
+        
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        return this.http.get(`${url}`,{headers});
     }
 
     getLogedInUser(token:string|null) {
         const url = this.baseURl + 'users/account';
       
-        // Create headers object and set the desired headers including the token
+    
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
       
-        // Pass the headers object as the second parameter in the get() method
-        return this.http.get(url, { headers });
+        return this.http.get(`${url}`, { headers });
     }
 
     getUser(id:string)
     {
         const url=`${this.baseURl}users/${id}`;
-        return this.http.get(url);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        
+        return this.http.get(`${url}`,{headers});
     }
     
     getUserByID(id:string)
     {
         const url=`${this.baseURl}users/${id}`;
-        return this.http.get(url);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+        
+        return this.http.get(`${url}`,{headers});
     }
     
     updateUser(token:string|null, username?:string ,password?:string,profilePicture?:string,region?:string){
@@ -247,8 +302,9 @@ export class service{
         const url=`${this.baseURl}users/update`;
 
         const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+        .set('Content-Type', 'application/json')
+        .set('Authorization', `Bearer ${token}`)
+        .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body={
             username:username,
@@ -260,26 +316,14 @@ export class service{
         return this.http.patch(`${url}`,body,{headers});
     }
 
-    updateUserID(id:string, username?:string ,password?:string,profilePicture?:string,region?:string){
-        
-        const url=`${this.baseURl}users/${id}`;
-        const body={
-            username:username,
-            password:password,
-            profilePicture:profilePicture,
-            region:region
-        }
-
-        return this.http.patch(`${url}`,body);
-    }
-
 
     updateSettingsEmail(token:string|null,email?:string){
         const url=`${this.baseURl}users/update`;
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body={
             email:email, 
@@ -292,7 +336,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body={
             region:region,
@@ -305,7 +350,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body={
            
@@ -321,7 +367,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body={
            
@@ -337,7 +384,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body={
            
@@ -353,7 +401,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body={
            
@@ -369,7 +418,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
 
         const body={password:password};
@@ -399,7 +449,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
       
         return this.http.get(`${url}`,{ headers });
     }
@@ -410,7 +461,8 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
       
         return this.http.get(`${url}`,{ headers });
     }
@@ -452,12 +504,13 @@ export class service{
     getLogedInOrg(token: string) {
         const url = this.baseURl + 'organisations/account';
       
-        // Create headers object and set the desired headers including the token
+        
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
-      
-        // Pass the headers object as the second parameter in the get() method
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        
         return this.http.get(url, { headers });
     }
 
@@ -465,49 +518,46 @@ export class service{
     //SERVICES FOR FRIENDS
 
     
-    sendfriendrequest(token:string|null,requester:string, requestee:string,status:string)
+    sendfriendrequest(token:string|null,requestee:string)
     {
         const url=`${this.baseURl}users/friend/send-request`;
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body ={
-            requester:requester,
-            requestee:requestee,
-
-            status:status
+            requestee:requestee
         }
         return this.http.post(`${url}`,body,{ headers });
     }
 
     
-    acceptFriendRequest(token:string|null,requester: string, requestee: string, status: string) {
+    acceptFriendRequest(token:string|null,requester: string) {
         const url = `${this.baseURl}users/friend/accept-request`;
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body = {
-          requester: requester,
-          requestee: requestee,
-          status: status,
+          requester: requester
         };
         return this.http.patch(`${url}`, body,{ headers });
     }
       
-    deleteFriendRequest(token:string|null,friendID: string, friend: string) {
+    deleteFriendRequest(token:string|null,friendID: string) {
         const url = `${this.baseURl}users/friend/unfriend`;
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
 
         const body = {
-          friendID: friendID,
-          friend: friend,
+          friendID: friendID
         };
     
         return this.http.delete(`${url}`, {headers,body});
@@ -519,16 +569,43 @@ export class service{
 
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`);
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
       
         return this.http.get(`${url}`,{ headers });
     }
 
+    getFriends(token:string|null)
+    {
+        const url = `${this.baseURl}users/friends`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+      
+        return this.http.get(`${url}`,{ headers });
+    }
+
+    getFriendRequest(token:string|null)
+    {
+        const url = `${this.baseURl}users/friend-requests`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+      
+        return this.http.get(`${url}`,{ headers });
+    }
+
+    
     //SERVICES FOR ATTENDANCE
 
     attendEvent(organisationID: string,eventID: string,userID: string)
     {
         const url=this.baseURl+'attendances';
+
         const body=
         {
             organisationID:organisationID,
@@ -538,5 +615,21 @@ export class service{
         return this.http.post(`${url}`,body);
     }
     
+    
+    attendEventUser(token:string|null,eventID:string)
+    {
+        const url = `${this.baseURl}users/attend`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        const body = {
+          eventID
+        };
+        return this.http.patch(`${url}`, body,{ headers });
+    }
+
      
 }
