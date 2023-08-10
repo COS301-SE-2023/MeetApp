@@ -5,7 +5,7 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { Request, Response } from 'express';
 import { FilterQuery } from 'mongoose';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiSecurity } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiSecurity, ApiBody } from '@nestjs/swagger';
 
 @Controller('events')
 @ApiSecurity('Api-Key')
@@ -14,7 +14,8 @@ export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new event' }) 
+  @ApiOperation({ summary: 'Create a new event'})
+  @ApiBody({description: 'Fill in information about the event', type: CreateEventDto})
   @ApiResponse({ status: 201, description: 'Event created successfully' })
    async createEvent(@Res() response : Response, @Body() createEventdto: CreateEventDto, ) {
   try {
@@ -34,7 +35,7 @@ export class EventsController {
 
   @Get()
   @ApiOperation({ summary: 'Find all events' })
-  @ApiResponse({ status: 200, description: 'List of events' })
+  @ApiResponse({ status: 200, description: 'List of events' , type : [CreateEventDto]})
   findAll(@Req() request: Request, ) {
     
     if (request.query == null)
