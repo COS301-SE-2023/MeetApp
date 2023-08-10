@@ -18,6 +18,7 @@ async function bootstrap() {
     .setDescription('API documentation for Meet App')
     .setVersion('1.0')
     .addBearerAuth()
+    .addApiKey({type: 'apiKey', name: 'x-api-key', in: 'header'}, 'Api-Key')
     .build();
     const document = SwaggerModule.createDocument(app, config);
     SwaggerModule.setup('api/', app, document);
