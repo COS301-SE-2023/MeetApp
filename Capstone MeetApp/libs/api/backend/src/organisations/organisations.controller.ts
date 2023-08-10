@@ -11,13 +11,14 @@ import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { AuthGuard } from './organisations.guard';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBody, ApiSecurity } from '@nestjs/swagger';
 
 interface AuthenticatedRequest extends Request {
   organisation: {id : string, username : string, password: string};
 }
 
 @Controller('organisations')
+@ApiSecurity('Api-Key')
 @ApiTags('Organisations')
 export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
