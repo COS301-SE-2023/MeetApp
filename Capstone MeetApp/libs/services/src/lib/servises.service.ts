@@ -513,7 +513,7 @@ export class service{
         const body = {
           eventID
         };
-        return this.http.patch(`${url}`, body,{ headers });
+        return this.http.post(`${url}`, body,{ headers });
     }
 
      
