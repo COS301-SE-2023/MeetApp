@@ -4,13 +4,14 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity } from '@nestjs/swagger';
 
 interface AuthenticatedRequest extends Request {
   user: {id : string, username : string, password: string};
 }
 
 @Controller('users')
+@ApiSecurity('Api-Key')
 @ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -38,8 +39,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('account')
   @ApiBearerAuth()
-  getAccount(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  getAccount(@Request() req : AuthenticatedRequest) {
+    //Logger.log(apiXHeader)
       return req.user;
   }
 
