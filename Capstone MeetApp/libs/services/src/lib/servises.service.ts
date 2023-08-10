@@ -358,6 +358,10 @@ export class service{
     createOrginiser(username:string,password:string,name:string,events:string[])
     {
         const url=this.baseURl+'organisations/signup';
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
         const body=
         {
             username: username,
@@ -366,18 +370,22 @@ export class service{
             events:events
 
         }
-        return this.http.post(`${url}`,body);
+        return this.http.post(`${url}`,body,{headers});
     }
 
     authOrganiser(username:string, password:string)
     {
         const url=this.baseURl+'organisations/login';
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
         const body=
         {
             username:username,
             password:password
         }
-        return this.http.post(`${url}`,body);
+        return this.http.post(`${url}`,body,{headers});
     }
 
     getAllOrganisers()
