@@ -51,47 +51,6 @@ export class SettingsComponent {
     this.router.navigate(['/login']);
   }
   
-  
-  
-  async updateEmail( email? :string) {
-  const userId = '64a351ddc7dc405eb315b3ba'; 
- //this.newEmail="akani@gmail.com";
-  await this.service.updateSettingspassword(userId, email).
-  subscribe((response: any) =>
-      {     
-        console.log(response);
-      }
-    );
-  }
-  
-  async updateUsername( username? :string) {
-    const userId = '64a351ddc7dc405eb315b3ba'; 
-   //this.newEmail="akani@gmail.com";
-    await this.service.updateSettingsusername(userId, username).
-    subscribe((response: any) =>
-        {
-
-          console.log(response);
-
-        }
-      );
-
-  }
-  
-  async updateRegion( region? :string) {
-    const userId = '64a351ddc7dc405eb315b3ba'; 
-  //this.newEmail="akani@gmail.com";
-    await this.service.updateSettingsRegion(userId, region).
-    subscribe((response: any) =>
-        {
-
-          console.log(response);
-
-        }
-      );
-
-  }
-
   async getCurrentUser()
   {
     const access_token=this.service.getToken();
@@ -118,7 +77,6 @@ export class SettingsComponent {
       console.log(this.profile);
     });
   }
-
 
   savePassword() {
     if (this.newPassword !== this.confirmPassword) {

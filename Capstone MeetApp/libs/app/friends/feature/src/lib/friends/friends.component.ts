@@ -64,11 +64,12 @@ export class FriendsComponent {
   constructor(private servicesService: service) {}
 
     ngOnInit(){
-      this.sendFriendRequest();
+      //this.sendFriendRequest();
     // this.acceptRequest();
     // this.deletefriend();
     }
-
+    
+ /*
     async sendFriendRequest() {
     const requesterID = '647223decd65fc66879e13dc'; // Replace with the actual requester ID
     const requesteeID = '647223f8cd65fc66879e3f1f'; // Replace with the actual requestee ID
@@ -109,5 +110,5 @@ export class FriendsComponent {
           })
 
     }
-
+    */
 }
