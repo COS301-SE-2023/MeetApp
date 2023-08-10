@@ -1,9 +1,10 @@
 import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
 import { AttendancesService } from './attendances.service';
 import { CreateAttendanceDto } from './dto/create-attendance.dto';
-import { ApiOperation, ApiResponse, ApiParam, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiSecurity } from '@nestjs/swagger';
 
 @Controller('attendances')
+@ApiSecurity('Api-Key')
 @ApiTags('Attendances')
 export class AttendancesController {
   constructor(private readonly attendancesService: AttendancesService) {}
