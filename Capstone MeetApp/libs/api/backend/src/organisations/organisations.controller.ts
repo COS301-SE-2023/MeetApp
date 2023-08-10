@@ -11,7 +11,7 @@ import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { AuthGuard } from './organisations.guard';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBody, ApiSecurity } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBody, ApiSecurity, ApiBearerAuth } from '@nestjs/swagger';
 
 interface AuthenticatedRequest extends Request {
   organisation: {id : string, username : string, password: string};
@@ -47,6 +47,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('account')
+  @ApiBearerAuth()
   getAccount(@Request() req : AuthenticatedRequest, ) {
     
     return req.organisation;
@@ -54,6 +55,7 @@ export class OrganisationsController {
 
 
   @Get()
+  @ApiBearerAuth()
   findAll() {
     
     return this.organisationsService.findAll();
@@ -61,12 +63,14 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Delete('')
+  @ApiBearerAuth()
   remove(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.remove(+req.organisation.id);
   }
   @UseGuards(AuthGuard)
   @Get(':id/events/top3')
+  @ApiBearerAuth()
   async getTop3AttendedEvents(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTop3AttendedEvents(req.organisation.id);
@@ -74,6 +78,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top')
+  @ApiBearerAuth()
   async getTopAttendedEvent(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTopAttendedEvent(req.organisation.id);
@@ -81,6 +86,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top3-categories')
+  @ApiBearerAuth()
   async getTop3EventCategories(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTop3EventCategories(req.organisation.id);
@@ -88,6 +94,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top-category')
+  @ApiBearerAuth()
   async getTopEventCategory(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTopEventCategory(req.organisation.id);
@@ -95,6 +102,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top-region')
+  @ApiBearerAuth()
   async getTopEventRegion(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTopEventRegion(req.organisation.id);
@@ -102,6 +110,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top3-regions')
+  @ApiBearerAuth()
   async getTop3EventRegions(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTop3EventRegion(req.organisation.id);
@@ -109,6 +118,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top3-supporters-events')
+  @ApiBearerAuth()
   async getTop3SupportersAndEvents(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTop3SupportersAndTheirTopEvents(req.organisation.id);
@@ -116,6 +126,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top-supporters-events')
+  @ApiBearerAuth()
   async getTopSupportersAndEvents(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTopSupportersAndTheirTopEvents(req.organisation.id);
@@ -123,6 +134,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top3-supporters')
+  @ApiBearerAuth()
   async getTop3Supporters(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTop3Supporters(req.organisation.id);
@@ -130,6 +142,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/top-supporter')
+  @ApiBearerAuth()
   async getTopSupporter(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getTopSupporter(req.organisation.id);
@@ -137,6 +150,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events')
+  @ApiBearerAuth()
   async getEvents(@Request() req : AuthenticatedRequest, ) {
     
     return await this.organisationsService.findEvents(req.organisation.id);
@@ -144,6 +158,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/region-count')
+  @ApiBearerAuth()
   async getRegionCount(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getRegionCount(req.organisation.id);
@@ -151,6 +166,7 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('events/category-count')
+  @ApiBearerAuth()
   async getCategoryCount(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getCategoryCount(req.organisation.id);
