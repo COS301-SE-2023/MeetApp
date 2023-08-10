@@ -5,9 +5,10 @@ import { CreateEventDto } from './dto/create-event.dto';
 import { Request, Response } from 'express';
 import { FilterQuery } from 'mongoose';
 import { UpdateEventDto } from './dto/update-event.dto';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiSecurity } from '@nestjs/swagger';
 
 @Controller('events')
+@ApiSecurity('Api-Key')
 @ApiTags('Events')
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
