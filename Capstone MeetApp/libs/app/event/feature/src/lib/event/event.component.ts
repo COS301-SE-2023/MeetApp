@@ -96,5 +96,12 @@ export class EventComponent {
     });
   }
 
+  async sendRequest(token:string|null,requestee:string)
+  {
+    await this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
+      console.log('Send Request :',response);
+    });
+  }
+
 }
 
