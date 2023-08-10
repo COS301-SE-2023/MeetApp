@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards, Request, Delete, Headers, Logger } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post, Req, UseGuards, Request, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,14 +17,12 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('signup')
-  create(@Body() createUserDto: CreateUserDto, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Post('login')
-  signup(@Body() LoginInfo : UpdateUserDto, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader)
+  signup(@Body() LoginInfo : UpdateUserDto){
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
         return this.usersService.login(LoginInfo.username,LoginInfo.password)
@@ -40,39 +38,39 @@ export class UsersController {
   @Get('account')
   @ApiBearerAuth()
   getAccount(@Request() req : AuthenticatedRequest) {
-    //Logger.log(apiXHeader)
+    //
       return req.user;
   }
 
   @UseGuards(AuthGuard)
   @Get('attendances')
   @ApiBearerAuth()
-  getUserAttendancesJWT(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  getUserAttendancesJWT(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getUserAttendances(req.user.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('attendances/count')
   @ApiBearerAuth()
-  getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getUserAttendancesCount(req.user.id);
   }
 
   @UseGuards(AuthGuard)
   @Patch('update')
   @ApiBearerAuth()
-  updateJWT(@Request() req : AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  updateJWT(@Request() req : AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto, ) {
+    
     return this.usersService.update(req.user.id, updateUserDto);
   }
 
 
   
   @Get()
-  findAll(@Req() request: RequestExpress, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  findAll(@Req() request: RequestExpress, ) {
+    
     if (request.query == null)
       return this.usersService.findAll();
     else
@@ -82,44 +80,44 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friends')
   @ApiBearerAuth()
-  async getUserFriends(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  async getUserFriends(@Request() req : AuthenticatedRequest, ) {
+    
     const friends = await this.usersService.getUserFriends(req.user.id);
     return friends;
   }
 
   @Get(':userId/attendances')
-  getUserAttendances(@Param('userId') userId: string, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  getUserAttendances(@Param('userId') userId: string, ) {
+    
     return this.usersService.getUserAttendances(userId);
   }
 
   @UseGuards(AuthGuard)
   @Get('friends/count')
   @ApiBearerAuth()
-  getUserFriendsCount(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  getUserFriendsCount(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getUserFriendsCount(req.user.id);
   }
 
   
   @Get(':userId/attendances/count')
-  getUserAttendancesCount(@Param('userId') userId: string, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  getUserAttendancesCount(@Param('userId') userId: string, ) {
+    
     return this.usersService.getUserAttendancesCount(userId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, ) {
+    
     return this.usersService.update(id, updateUserDto);
   }
 
   @UseGuards(AuthGuard)
   @Get('friend-requests')
   @ApiBearerAuth()
-  async getUserFriendRequests(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  async getUserFriendRequests(@Request() req : AuthenticatedRequest, ) {
+    
     const friends = await this.usersService.getUserFriendRequests(req.user.id);
     return friends;
   }
@@ -127,32 +125,32 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Delete('friend/unfriend')
   @ApiBearerAuth()
-  unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}, ) {
+    
     return this.usersService.unfriend(req.user.id,friendID.friend);
   }
 
   @UseGuards(AuthGuard)
   @Post('friend/send-request')
   @ApiBearerAuth()
-  sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}, ) {
+    
     return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
   }
 
   @UseGuards(AuthGuard)
   @Patch('friend/accept-request')
   @ApiBearerAuth()
-  acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}, ) {
+    
     return this.usersService.acceptRequest(req.user.id, requesterID.requester);
   }
 
   @UseGuards(AuthGuard)
   @Get('friend-requests/pending')
   @ApiBearerAuth()
-  async getUsersentRequests(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  async getUsersentRequests(@Request() req : AuthenticatedRequest, ) {
+    
     const friends = await this.usersService.getUserSentRequests(req.user.id);
     return friends;
   }
@@ -160,72 +158,72 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friends/events')
   @ApiBearerAuth()
-  async getFriendEvents(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  async getFriendEvents(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getFriendEvents(req.user.id);
   }
 
   @UseGuards(AuthGuard)
   @Post('attend')
   @ApiBearerAuth()
-  async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader);
+  async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}, ) {
+    
     return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
   }
 
   @UseGuards(AuthGuard)
   @Get('all-events')
   @ApiBearerAuth()
-  async getAllEvents(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getAllEvents(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.getUserEvents(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('event/:eventID')
   @ApiBearerAuth()
-  async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string, ){
+    
     return await this.usersService.getUserEvent(req.user.id, eventID)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/region')
   @ApiBearerAuth()
-  async getRecRegion(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getRecRegion(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.recommendByRegion(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/category')
   @ApiBearerAuth()
-  async getRecCategory(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getRecCategory(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.recommendationCategory(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/timeofday')
   @ApiBearerAuth()
-  async getRecTOD(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getRecTOD(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.getUserTimeOfDayRecommendation(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('interests/category')
   @ApiBearerAuth()
-  async getIntCategory(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getIntCategory(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.InterestCategory(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/duration')
   @ApiBearerAuth()
-  async getRecDuration(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getRecDuration(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.getUserInterestAverageDuration(req.user.id)
   }
   
@@ -239,8 +237,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('interests/region')
   @ApiBearerAuth()
-  async getIntRegion(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(apiXHeader);
+  async getIntRegion(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.InterestRegion(req.user.id)
   }
 }
