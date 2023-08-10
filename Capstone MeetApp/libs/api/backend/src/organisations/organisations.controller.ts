@@ -5,9 +5,7 @@ import {
   Delete,
   Body,
   Request,
-  Headers,
   UseGuards,
-  Logger
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
@@ -28,14 +26,14 @@ export class OrganisationsController {
   @ApiOperation({summary: 'sign up as a new organisation'})
   @ApiResponse({status: 201, description: 'A user access token (JWT) and a message'})
   @ApiBody({type: 'application/json', description: 'JSON object containing: username : string, password : string, name :string, events : [ObjectId]'})
-  create(@Body() createOrganisationDto: CreateOrganisationDto, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  create(@Body() createOrganisationDto: CreateOrganisationDto, ) {
+    
     return this.organisationsService.create(createOrganisationDto);
   }
 
   @Post('login')
-  login(@Body() LoginInfo : UpdateOrganisationDto, @Headers('x-api-key') apiXHeader: string){
-    Logger.log(`API Key: ${apiXHeader}`)
+  login(@Body() LoginInfo : UpdateOrganisationDto, ){
+    
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
         return this.organisationsService.login(LoginInfo.username,LoginInfo.password)
@@ -48,112 +46,112 @@ export class OrganisationsController {
 
   @UseGuards(AuthGuard)
   @Get('account')
-  getAccount(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  getAccount(@Request() req : AuthenticatedRequest, ) {
+    
     return req.organisation;
   }
 
 
   @Get()
-  findAll(@Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  findAll() {
+    
     return this.organisationsService.findAll();
   }
 
   @UseGuards(AuthGuard)
   @Delete('')
-  remove(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  remove(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.remove(+req.organisation.id);
   }
   @UseGuards(AuthGuard)
   @Get(':id/events/top3')
-  async getTop3AttendedEvents(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTop3AttendedEvents(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTop3AttendedEvents(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top')
-  async getTopAttendedEvent(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTopAttendedEvent(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTopAttendedEvent(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top3-categories')
-  async getTop3EventCategories(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTop3EventCategories(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTop3EventCategories(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top-category')
-  async getTopEventCategory(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTopEventCategory(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTopEventCategory(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top-region')
-  async getTopEventRegion(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTopEventRegion(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTopEventRegion(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top3-regions')
-  async getTop3EventRegions(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTop3EventRegions(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTop3EventRegion(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top3-supporters-events')
-  async getTop3SupportersAndEvents(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTop3SupportersAndEvents(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTop3SupportersAndTheirTopEvents(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top-supporters-events')
-  async getTopSupportersAndEvents(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTopSupportersAndEvents(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTopSupportersAndTheirTopEvents(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top3-supporters')
-  async getTop3Supporters(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTop3Supporters(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTop3Supporters(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/top-supporter')
-  async getTopSupporter(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getTopSupporter(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getTopSupporter(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events')
-  async getEvents(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getEvents(@Request() req : AuthenticatedRequest, ) {
+    
     return await this.organisationsService.findEvents(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/region-count')
-  async getRegionCount(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getRegionCount(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getRegionCount(req.organisation.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('events/category-count')
-  async getCategoryCount(@Request() req : AuthenticatedRequest, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(`API Key: ${apiXHeader}`)
+  async getCategoryCount(@Request() req : AuthenticatedRequest, ) {
+    
     return this.organisationsService.getCategoryCount(req.organisation.id);
   }
   
