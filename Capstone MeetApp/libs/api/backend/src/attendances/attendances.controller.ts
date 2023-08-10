@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Delete, Post, Body, Headers, Logger } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
 import { AttendancesService } from './attendances.service';
 import { CreateAttendanceDto } from './dto/create-attendance.dto';
 import { ApiOperation, ApiResponse, ApiParam, ApiTags } from '@nestjs/swagger';
@@ -11,16 +11,16 @@ export class AttendancesController {
   @Post()
   @ApiOperation({ summary: 'Create a new attendance' }) 
   @ApiResponse({ status: 201, description: 'Attendance created successfully' })
-  create(@Body() createAttendanceDto: CreateAttendanceDto, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  create(@Body() createAttendanceDto: CreateAttendanceDto, ) {
+    
     return this.attendancesService.create(createAttendanceDto);
   }
 
   @Get()
   @ApiOperation({ summary: 'Get all attendances' }) 
   @ApiResponse({ status: 201, description: 'List of attendances' })
-  findAll(@Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  findAll() {
+    
     return this.attendancesService.findAll();
   }
 
@@ -28,8 +28,8 @@ export class AttendancesController {
   @ApiOperation({ summary: 'Get a specific attendance' }) 
   @ApiResponse({ status: 201, description: 'Specified attendance' })
   @ApiParam({name : 'id', description: 'The attendance id to find', required: true})
-  findOne(@Param('id') id: string, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  findOne(@Param('id') id: string, ) {
+    
     return this.attendancesService.findOne(id);
   }
 
@@ -37,8 +37,8 @@ export class AttendancesController {
   @ApiOperation({ summary: 'Delete a specific attendance' }) 
   @ApiResponse({ status: 201, description: 'Deleted attendance' })
   @ApiParam({name : 'id', description: 'The attendance id to delete', required: true})
-  remove(@Param('id') id: string, @Headers('x-api-key') apiXHeader: string) {
-    Logger.log(apiXHeader)
+  remove(@Param('id') id: string, ) {
+    
     return this.attendancesService.remove(id);
   }
 }
