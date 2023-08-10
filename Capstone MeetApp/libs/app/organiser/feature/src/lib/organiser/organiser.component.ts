@@ -1,19 +1,14 @@
 import { Component } from '@angular/core';
-import { IonContent } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms'; // Import FormsModul
+import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-
-import { FormBuilder,  Validators } from '@angular/forms';
-
 import { AlertController } from '@ionic/angular';
-
 import { FormControl, FormGroup } from '@angular/forms';
-import { events,service,ServicesModule} from '@capstone-meet-app/services';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {service,ServicesModule} from '@capstone-meet-app/services';
+import { HttpClient} from '@angular/common/http';
+
 @Component({
   standalone: true,
   selector: 'capstone-meet-app-organiser',

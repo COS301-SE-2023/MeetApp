@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';  // A
+import { IonicModule } from '@ionic/angular';  
 import { ModalController } from '@ionic/angular';
-import { RouterModule, Routes } from '@angular/router';
 import { user,service} from '@capstone-meet-app/services';
 import { Location } from '@angular/common';
 
@@ -83,9 +82,10 @@ export class ProfileComponent {
     console.log(access_token);
     this.getCurrentUser();
     this.getEventCount(access_token);
-    //this.getEvents(access_token);
+    this.getUserEvents(access_token);
     this.getFriendCount();
   }
+
   goBack() {
     this.location.back();
   }
@@ -96,10 +96,12 @@ export class ProfileComponent {
       console.log(this.profile);
     })
   }
+
   gotofriends() {
     this.router.navigate(['/friends']);
     
   }
+
   async getEventCount(token :string|null){
     await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
       this.eventCount = response;
@@ -114,41 +116,9 @@ export class ProfileComponent {
     });
   }
 
-  async updateProfileID(id :string,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(id,username,password,profilePicture,region).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
-  }
-
-
-  async getEvents(token :string|null){
-    await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
-      this.userEvents = response;
-      console.log(this.userEvents);
-
-      for(let i=0;i<this.userEvents.length;i++)
-      {
-        if(i==this.userEvents.length-1)
-        {
-          this.orgIDs+=this.userEvents[i].organisationID;
-        }
-        else
-        {
-          this.orgIDs+=this.userEvents[i].organisationID+',';
-        }
-        
-        
-        
-      }
-      console.log(this.orgIDs);
-      //this.fetchByIds('fetch-by-ids',this.orgIDs);
-    });
-  }
-
-  async fetchByIds(id:string ,eventIds:string)
+  async getUserEvents(token :string|null)
   {
-    await this.serviceProvider.getEventByIDs(id,eventIds).subscribe((response:any)=>{
+    await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
       console.log(response);
       this.events = response;
       console.log(this.events);
@@ -260,4 +230,5 @@ export class ProfileComponent {
   closeEditProfilePopover() {
     this.isEditMode = false;
   }
+
 }

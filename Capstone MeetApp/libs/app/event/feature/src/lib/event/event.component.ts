@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular'; 
 import {service,events} from '@capstone-meet-app/services';
 import { Router } from '@angular/router';
-import {  OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

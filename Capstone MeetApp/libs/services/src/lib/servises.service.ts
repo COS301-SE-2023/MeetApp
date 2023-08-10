@@ -383,7 +383,11 @@ export class service{
     getAllOrganisers()
     {
         const url=this.baseURl+'organisations';
-        return this.http.get(`${url}`);
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+
+        return this.http.get(`${url}`,{headers});
     }
 
     getLogedInOrg(token: string) {
