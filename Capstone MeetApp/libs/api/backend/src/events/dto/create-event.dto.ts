@@ -23,7 +23,7 @@ export class CreateEventDto {
     @ApiProperty({example: '20:00', description: 'The time at which the event ends in hh:mm format (24h).'})
     readonly endTime!: string;
     
-    @ApiProperty({example: {latitude : 51.5074, longitude : -0.1278}, description: 'The location of the event in longitude and latitude.'})
+    @ApiProperty({example: {latitude : 51.5074, longitude : -0.1278}, description: 'The location of the event in longitude and latitude.', type : 'OrderedMap'})
     readonly location!: {latitude:number , longitude:number};
 
     @ApiProperty({example: 'Technology', description: 'The category of the event.'})
