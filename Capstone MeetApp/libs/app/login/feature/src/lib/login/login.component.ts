@@ -110,7 +110,16 @@ username='';
       password: ['', Validators.required]
     });
 
-    
+    await this.apiService.getAllUsers().subscribe((response: any) => { 
+      console.log(response);
+      this.data_user = response;  
+    });
+  
+    await this.apiService.getAllOrganisers().subscribe((response: any) => { 
+      console.log(response);
+      this.data_organiser = response;
+    });
+
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
       console.log('User Type:', this.userType);
