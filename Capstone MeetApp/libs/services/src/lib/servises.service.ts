@@ -472,7 +472,7 @@ export class service{
         return this.http.get(`${url}`,{ headers });
     }
 
-    getFriends(token:string|null)
+     getFriends(token:string|null)
     {
         const url = `${this.baseURl}users/friends`;
 

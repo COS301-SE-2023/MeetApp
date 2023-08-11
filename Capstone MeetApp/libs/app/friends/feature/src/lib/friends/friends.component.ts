@@ -55,6 +55,22 @@ export class FriendsComponent {
 
   status: string|undefined
   constructor(private servicesService: service) {}
+   ngOnInit()
+  {
+    const access_token=this.servicesService.getToken();
+    this.getFriends( access_token);
+  }
 
+  async getFriends(token:string|null)
+  {
+      
+    this.servicesService.getFriends(token).subscribe((response:any)=>{
+      
+      console.log(response);
+    });
+          
+  }
+ 
    
+  
 }
