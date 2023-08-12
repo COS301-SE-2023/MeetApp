@@ -95,6 +95,7 @@
       "@capstone-meet-app/app/profile/util": [
         "libs/app/profile/util/src/index.ts"
       ],
+      "@capstone-meet-app/app/profile2": ["libs/app/profile2/src/index.ts"],
       "@capstone-meet-app/app/services": ["libs/services/src/index.ts"],
       "@capstone-meet-app/app/shared service": [
         "libs/app/shared service/index.ts"
@@ -107,6 +108,9 @@
       ],
       "@capstone-meet-app/app/signup/util": [
         "libs/app/signup/util/src/index.ts"
+      ],
+      "@capstone-meet-app/app/suggested-friends": [
+        "libs/app/suggested-friends/src/index.ts"
       ],
       "@capstone-meet-app/app/welcome/data-access": [
         "libs/app/welcome/data-access/src/index.ts"
