@@ -19,6 +19,7 @@ import {MapsComponent}from '@capstone-meet-app/map'
 import { EventComponent } from "@capstone-meet-app/app/event/feature";
 import {OrganiserComponent}from '@captone-meet-app/organiser';
 import {FriendsComponent} from '@capstone-meet-app/friends';
+import {AppAttendeesComponent} from '@capstone-meet-app/app/attendees';
 export const appRoutes: Route[] = [
    { path: "", component: WelcomepageComponent },
    { path: "home", component: HomepageComponent },
@@ -30,5 +31,6 @@ export const appRoutes: Route[] = [
    ,{path: "events/:eventId", component: EventComponent}
    ,{path: "friends", component: FriendsComponent},
    {path: "organisers", component: OrganiserComponent},
-   {path: "calendar",component:CalendarComponent}
+   {path: "calendar",component:CalendarComponent},
+   {path: "attendees",component:AppAttendeesComponent}
 ];
