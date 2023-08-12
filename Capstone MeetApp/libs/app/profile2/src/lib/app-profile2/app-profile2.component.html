@@ -1,1 +1,78 @@
-<p>app-profile2 works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <h1 class="heading" >
+          Profile
+      </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<div id="body">
+    <div class="background-image"></div>
+       
+    <div class="profile">
+        
+        <div class="profile-info">
+            <h3>shiluvelo Makhubele</h3>
+        <ion-list class="list">
+          <ion-item class="list">
+            <ion-label>Events</ion-label>
+            <ion-badge color="primary">3</ion-badge>
+          </ion-item>
+  
+          <ion-item (click)="gotofriends()" class="list">
+            <ion-label>Friendships</ion-label>
+            <ion-badge color="primary">200</ion-badge>
+          </ion-item>
+          
+        </ion-list>
+        
+            <ion-button class="left" >Add friend</ion-button>
+          
+        
+    
+        </div> 
+    
+        
+
+        
+    </div>
+
+    
+    
+    <!--<nav class="bottom-navbar">
+        <ul>
+          <li>
+            <a href="/home" routerLinkActive="active">
+              <i class="fas fa-home"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/profile">
+              <i class="fas fa-bell"></i>
+              Notification
+            </a>
+          </li>
+          <li>
+            <a href="/profile" >
+              <i class="fas fa-user"></i>
+              Profile
+            </a>
+          </li>
+        </ul>
+    </nav>-->
+
+  </div>
+</html>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';  // A
+import { IonicModule } from '@ionic/angular';  
 import { ModalController } from '@ionic/angular';
 import { RouterModule, Routes } from '@angular/router';
 import { user,service} from '@capstone-meet-app/services';
