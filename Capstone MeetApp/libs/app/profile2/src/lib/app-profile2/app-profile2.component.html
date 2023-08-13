@@ -22,7 +22,10 @@
     <div class="background-image"></div>
        
     <div class="profile">
-        
+      <div class="circle">
+        <ion-img src="assets/profile.png" alt="Circle Image">
+        </ion-img>
+      </div>
         <div class="profile-info">
             <h3>shiluvelo Makhubele</h3>
         <ion-list class="list">
@@ -49,7 +52,13 @@
         
     </div>
 
-    
+    <div class="part1">
+      <div class="image-container top-group" *ngFor="let imageUrl of imageList">
+          <a href="/event" routerLinkActive="active">
+            <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
+          </a>
+        </div> 
+    </div>
     
     <!--<nav class="bottom-navbar">
         <ul>
