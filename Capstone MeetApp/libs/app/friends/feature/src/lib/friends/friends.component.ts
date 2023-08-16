@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 //import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+
 
 
 import { events,service,ServicesModule} from '@capstone-meet-app/services';

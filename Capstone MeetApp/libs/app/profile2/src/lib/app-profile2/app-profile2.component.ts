@@ -1,26 +1,18 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular'; 
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';  
-import { ModalController } from '@ionic/angular';
-import { RouterModule, Routes } from '@angular/router';
 import { user,service} from '@capstone-meet-app/services';
-import { Location } from '@angular/common';
 
 @Component({
-  selector: 'capstone-meet-app-profile',
+  selector: 'capstone-meet-app-app-profile2',
   standalone: true,
-  imports: [CommonModule, FormsModule,IonicModule],
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  imports: [CommonModule,FormsModule ,IonicModule],
+  templateUrl: './app-profile2.component.html',
+  styleUrls: ['./app-profile2.component.css'],
 })
-export class ProfileComponent {
-  profilePictureUrl: string | null = null
-  profileName: string |undefined;
-  isEditMode: boolean;
-  newProfileName:string | undefined;
-  newProfilePicUrl: string | null = null;
+export class AppProfile2Component {
 
   imageList = [
     'https://img.freepik.com/free-photo/table-setting-with-focus-goblets-plates_8353-9901.jpg?w=2000',
@@ -34,7 +26,8 @@ export class ProfileComponent {
     'https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/bungee-jumping-in-south-africa-cover.jpg',
     // Add more image URLs as needed
   ];
-  
+  constructor(private router: Router)
+  {}
   profile:user={username:'',password:'',profilePicture:'',region:''};
   eventCount='';
   friendCount=0;
@@ -45,219 +38,8 @@ export class ProfileComponent {
       userID:''
     }
   ];
-
-  events=[{
-    name:'',
-    organisation:'',
-    description:'',
-    eventPoster:'',
-    date: '',
-    startTime: '',
-    endTime: '',
-    location: {latitude: 0 , longitude:0},
-    category: '',
-    region: ''
-  }]
-
-  current_user={
-    id:'',
-    password:'',
-    username:'',
-    exp:0,
-    iat: 0
- }
-
-  user_payload:any;
-
-  orgIDs='';
-  profileId='';
-  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service,private location: Location) {
-    this.profileId='64722456cd65fc66879ed7ba';
-    this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
-    this.isEditMode = false;
-  }
-  
-
-  async ngOnInit(){
-    const access_token=this.serviceProvider.getToken();
-    console.log(access_token);
-    this.getCurrentUser();
-    this.getEventCount(access_token);
-    //this.getEvents(access_token);
-    this.getFriendCount();
-  }
-  goBack() {
-    this.location.back();
-  }
-  
-  async getProfile(id :string){
-    await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
-      this.profile = response;
-      console.log(this.profile);
-    })
-  }
   gotofriends() {
     this.router.navigate(['/friends']);
     
-  }
-  async getEventCount(token :string|null){
-    await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
-      this.eventCount = response;
-      console.log(this.eventCount);
-    });
-  }
-  
-  async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(token,username,password,profilePicture,region).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
-  }
-
-  async updateProfileID(id :string,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(id,username,password,profilePicture,region).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
-  }
-
-
-  async getEvents(token :string|null){
-    await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
-      this.userEvents = response;
-      console.log(this.userEvents);
-
-      for(let i=0;i<this.userEvents.length;i++)
-      {
-        if(i==this.userEvents.length-1)
-        {
-          this.orgIDs+=this.userEvents[i].organisationID;
-        }
-        else
-        {
-          this.orgIDs+=this.userEvents[i].organisationID+',';
-        }
-        
-        
-        
-      }
-      console.log(this.orgIDs);
-      //this.fetchByIds('fetch-by-ids',this.orgIDs);
-    });
-  }
-
-  async fetchByIds(id:string ,eventIds:string)
-  {
-    await this.serviceProvider.getEventByIDs(id,eventIds).subscribe((response:any)=>{
-      console.log(response);
-      this.events = response;
-      console.log(this.events);
-    });
-  }
-
-  async getCurrentUser()
-  {
-    const access_token=this.serviceProvider.getToken();
-     await this.serviceProvider.getLogedInUser(access_token).subscribe((response) => {
-      console.log('API response:', response);
-      this.user_payload=response;
-      this.current_user=this.user_payload;
-      console.log('user ID',this.current_user.id);
-      this.getProfile(this.current_user.id);
-    });
-
-  }
-
-  async getFriendCount()
-  {
-    const access_token=this.serviceProvider.getToken();
-    await this.serviceProvider.getFriendCount(access_token).subscribe((response:any) => {
-      console.log('API response:', response);
-      this.friendCount=response;
-    });
-  }
-  
-  toggleEditProfile() {
-    this.isEditMode = !this.isEditMode;
-    this.newProfileName = this.profileName;
-    this.newProfilePicUrl = '';
-  }
-
-  onProfilePicChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.newProfilePicUrl = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  saveProfile() {
-      console.log('THE FUNCTION IS RUNNING');
-      const access_token=this.serviceProvider.getToken();
-    if(this.newProfileName&&this.newProfilePicUrl){
-      this.profileName = this.newProfileName;
-      this. profilePictureUrl = this.newProfilePicUrl;
-      this.updateProfile(access_token,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
-      console.log(this. profilePictureUrl);
-    }else if(this.newProfileName){
-      this.profileName = this.newProfileName;
-      this.updateProfile(access_token,this.newProfileName);
-    }else if(this.newProfilePicUrl){
-      this. profilePictureUrl = this.newProfilePicUrl;
-      this.convertImageToBase64(this. profilePictureUrl);
-      this.updateProfile(access_token,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
-      console.log(this. profilePictureUrl);
-    }
-
-    
-    this.isEditMode = false;
-    this.refreshPageWithDelay(2000); 
-
-    
-  }
-  
-  refreshPage() {
-    window.location.reload();
-  }
-
-  refreshPageWithDelay(delayInMilliseconds: number) {
-    setTimeout(() => {
-      window.location.reload();
-    }, delayInMilliseconds);
-  }
-  
-  async  convertImageToBase64(imageUrl: string): Promise<string> {
-    try {
-      const response = await fetch(imageUrl);
-      const blob = await response.blob();
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64String = reader.result as string;
-          resolve(base64String);
-          this.profilePictureUrl=base64String;
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(blob);
-      });
-    } catch (error) {
-      console.error('Error:', error);
-      throw error;
-    }
-  }
-  
-  cancelEditProfile() {
-    this.isEditMode = false;
-  }
-  
-  openEditProfilePopover() {
-    this.isEditMode = true;
-  }
-  
-  closeEditProfilePopover() {
-    this.isEditMode = false;
   }
 }
