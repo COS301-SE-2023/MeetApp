@@ -1,18 +1,14 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-//import { IonText } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-//import {ApiService } from '@capstone-meet-app/app/shared service';
-//import { Injectable } from '@angular/core';
+import { Component} from '@angular/core';
+import { FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
-import { ConnectableObservable } from 'rxjs';
+import { HttpClient} from '@angular/common/http';
+import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 
@@ -105,8 +101,7 @@ username='';
     await toast.present();
   }
   
-  
-  //Initialise data for User and Organiser using the services 
+
   async ngOnInit() {
     
 
@@ -123,7 +118,6 @@ username='';
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       console.log(response);
       this.data_organiser = response;
-      console.log(this.data_organiser[0]._id);
     });
 
     this.activatedRoute.paramMap.subscribe(params => {
@@ -131,20 +125,12 @@ username='';
       console.log('User Type:', this.userType);
     });
     
-      
-      
-    
-    //this.LogInUser('jane_smith','bibo@gmail.com');
-
-    //this.LogInOrg('LTDProevents','marketspass');
   }
    
-    
-    
   
   valid=true;
 
-  //Login Function for User
+  
   async LogInUser(username:string,password:string)
   {
     await this.apiService.authUser(username,password ).subscribe((response) => {
@@ -155,39 +141,33 @@ username='';
       console.log('access token:',this.userLogin_payload.access_token)
       this.authservice.setToken(this.userLogin_payload.access_token)
       console.log('message:',this.userLogin_payload.message);
-      this.current(this.userLogin_payload.access_token);
-     
     });
 
    
    
 
-  for (let i = 0; i < this.data_user.length; i++) {
+    for (let i = 0; i < this.data_user.length; i++) {
 
-    if((this.data_user[i].username==username ||this.data_user[i].email==this.email) && this.data_user[i].password==password)
-    {
-      const errorMessage = 'you have succesfully logged in';
-      this.showErrorAlert(errorMessage); 
-      this.router.navigate(['/home',{ userType: this.userType }]);
-      this.valid=false;
+      if((this.data_user[i].username==username ||this.data_user[i].email==this.email) && this.data_user[i].password==password)
+      {
+        const errorMessage = 'you have succesfully logged in';
+        this.showErrorAlert(errorMessage); 
+        this.router.navigate(['/home',{ userType: this.userType }]);
+        this.valid=false;
+      }
+      
     }
-    
-  }
-  if(this.valid)
-  {
-    const errorMessage = 'wrong username or password';
-      this.showErrorToast(errorMessage);
-  }
-                   
+    if(this.valid)
+    {
+      const errorMessage = 'wrong username or password';
+        this.showErrorToast(errorMessage);
+    }
+                    
     
 
   }
 
   
-  
- 
-
-  //Login Function for Organisation
   async LogInOrg(username:string,password:string)
   {
     await this.apiService.authOrganiser(username,password ).subscribe((response) => {
@@ -218,14 +198,6 @@ username='';
   }
 
 
-  async current(token:string)
-  {
-    await this.apiService.getLogedInUser(token).subscribe((response) => {
-      console.log('API response',response)
-    });
-  }
-
-
   onCreate() {
     this.router.navigate(['/signup', { userType: this.userType }]);
   }
@@ -246,38 +218,6 @@ username='';
     }
    
   }
- /* onSubmit() {
-    if (this.loginForm.valid) {
-      const loginInfo = {
-        username: this.loginForm.get('email')?.value,
-        password: this.loginForm.get('password')?.value,
-      };
+ 
 
-      console.log('Form values:', loginInfo);
-
-      const result = this.apiService.loginMock(loginInfo);
-
-      if (result) {
-        // Login success
-        console.log('Login successful');
-        console.log(result);
-        this.router.navigate(['/home']);
-       // this.router.navigate(['/signup']);
-      } else {
-        // Login failed
-        console.log('Login failed');
-      }
-    }
-  }
-  
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
-  }
-
-  onSignUp() {
-    this.router.navigate(['/signup']);
-  }*/
 }

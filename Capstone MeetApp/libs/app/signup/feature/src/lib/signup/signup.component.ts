@@ -5,19 +5,13 @@ import { FormBuilder,  Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormGroup, FormControl } from '@angular/forms';
-//import {ApiService } from '@capstone-meet-app/app/shared service'
-//import { Injectable } from '@angular/core';
-//import { HttpClient, HttpHeaders } from '@angular/common/http';
-//import {ApiService } from '../../../../../shared service/api.service';
-//import { Injectable } from '@angular/core';
-import { HttpClient, /*HttpHeaders*/ } from '@angular/common/http';
+import { FormGroup} from '@angular/forms';
+import { HttpClient} from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
-import { service,/*ServicesModule*/} from '@capstone-meet-app/services';
+import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { IonIcon } from '@ionic/angular';
 
 
 @Component({
@@ -32,15 +26,11 @@ import { IonIcon } from '@ionic/angular';
 export class SignupComponent {
   
   loginForm!: FormGroup;
-  //userType: string | undefined;
  
-  
-
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private service:service,private alertController: AlertController,
+  constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location) {}
-
    
-    events:any =[];
+  events:any =[];
   firstname="";
   username='';
   lastname="";
@@ -48,31 +38,24 @@ export class SignupComponent {
   password= '';   
   region='';
 
-  signupData_user:any;
-
   userSignup_payload= {
     access_token:'',
     message:''
   };
-
-  
-  signupData_org:any;
 
   orgSignup_payload= {
     access_token:'',
     message:''
   };
 
-
-  //user type from the welcome page 
   userType:string|null = '';
 
   confirmpassword="";
   
   access:string|null='';
   
-  
   submitClicked = false;
+
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
      /*  firstname: ['', Validators.required],
@@ -86,47 +69,33 @@ export class SignupComponent {
     });
      
     
-  
-    //this.SignUpUser('Scoot','Henderson','HAX0808','Akani43@gmail.com','admin08','0789657845','Pretoria','');
-    //this.SignUpOrg('Dave','Anderson','EventforUS','EventforUS@gmail.com','Us1234','0153425467','We do events any type of event on an affordable rate');
-    
-    //get the userType from the Welcome page 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
       console.log('User Type:', this.userType);
     });
 
-    const access_token=this.apiService.getToken();
-    console.log('access',access_token);
-
   }
+
   goBack() {
     this.location.back();
   }
-  
- 
 
-  //SignUp for a User
   async SignUpUser(username:string,password:string,profilePicture:string,region:string)
   {
-    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response) => {
+    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response:any) => {
       console.log('API response:', response);
-      this.signupData_user=response;
-      this.userSignup_payload=this.signupData_user;
+      this.userSignup_payload=response;
       this.apiService.setToken(this.userSignup_payload.access_token);
       console.log('SignUp Access Token',this.userSignup_payload.access_token);
       console.log('Message',this.userSignup_payload.message);
     });
   }
 
-  
-  //SignUp for a Organisation 
   async SignUpOrg(username:string,name:string,password:string,events:string[])
   {
-    await this.apiService.createOrginiser(username,password,name,events).subscribe((response) => {
+    await this.apiService.createOrginiser(username,password,name,events).subscribe((response:any) => {
       console.log('API response:', response);
-      this.signupData_org=response;
-      this.orgSignup_payload=this.signupData_org;
+      this.orgSignup_payload=response;
       this.apiService.setToken(this.orgSignup_payload.access_token);
       console.log('SignUp Access Token',this.orgSignup_payload.access_token);
       console.log('Message',this.orgSignup_payload.message);
@@ -141,9 +110,7 @@ export class SignupComponent {
 
   valid=true;
 
-  signup()
-
-  {
+  signup(){
     const firstname = this.loginForm.value.firstname;
     const lastname = this.loginForm.value.lastname;
     const email = this.loginForm.value.email;
@@ -152,7 +119,7 @@ export class SignupComponent {
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
-   // const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
+    // const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
     //!strongRegex.test(password) &&
     if ( this.loginForm.invalid) {  
       const errorMessage = 'choose a stronger password';
@@ -164,110 +131,63 @@ export class SignupComponent {
       this.valid=true;
 
     }
-
     
-    
-
-    
-    //this.SignUpUser(firstname,lastname,username,email,password,'0789657845','Pretoria','');
-    //this.SignUpOrg(firstname,lastname,username,email,password,'0153425467','We do events any type of event on an affordable rate');
     if(this.userType=='user' )
     {
         this.SignUpUser(username,password,'',region);
     }
     else  if(this.userType=='organiser'){
       this.SignUpOrg(username,name,password, this.events)
-
-
     }
+
     console.log(name);
     console.log(password);
     console.log(region);
     
+  }
 
-}
-async showErrorToast(message: string) {
-  const toast = await this.toastController.create({
-    message: message,
-    duration: 3000,
-    color: 'danger',
-    position: 'top'
-  });
+  async showErrorToast(message: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000,
+      color: 'danger',
+      position: 'top'
+    });
 
-  await toast.present();
-}
-async showErrorAlert(message: string) {
-  const alert = await this.alertController.create({
-    header: 'Account Created',
-    message: message,
-    buttons: ['OK']
-  });
+    await toast.present();
+  }
 
-  await alert.present();
-}
-onCreate() {
-  this.router.navigate(['/login']);
-}
-isvalid()
-{
+  async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Account Created',
+      message: message,
+      buttons: ['OK']
+    });
 
-  if (this.valid)
+    await alert.present();
+  }
+
+  onCreate() {
+    this.router.navigate(['/login']);
+  }
+
+  isvalid()
   {
-    const errorMessage = 'Account Created Successfully';
-                    this.showErrorAlert(errorMessage); 
-    this.router.navigate(['/home']);
-  }
 
-}
-  
-  onSubmit(username: string, email: string,phoneNo:string, password: string,confirmPass:string) {
-   /* this.signupService.signup(username, email,phoneNo, password,confirmPass).subscribe(
-      {
-        complete: () => console.info('signup successfull') ,
-        error: (err: any) => {
-          // Handle any errors that occur during the request
-          console.error(err);
-        }
-      }
-      
-    );*/
-      
-  }
-    
-  /*onSubmit() {
-    if (this.loginForm.valid) {
-      const loginInfo = {
-        username: this.loginForm.get('name')?.value,
-        email: this.loginForm.get('email')?.value,
-        phoneNumber: this.loginForm.get('phoneNumber')?.value,
-        password: this.loginForm.get('password')?.value,
-        confirmPassword: this.loginForm.get('confirmPassword')?.value
-      };
-      console.log("kman");
-      console.log('Form values:', loginInfo);
-
-      const result = this.apiService.loginMock(loginInfo);
-      console.log("kman");
-      if (result) {
-        // Login success
-        console.log('Login successful');
-        this.router.navigate(['/home']);
-        console.log(result);
-        // this.router.navigate(['/signup']);
-      } else {
-        // Login failed
-        console.log('Login failed');
-      }
+    if (this.valid)
+    {
+      const errorMessage = 'Account Created Successfully';
+      this.showErrorAlert(errorMessage); 
+      this.router.navigate(['/home']);
     }
 
-    
-
-  }*/
-
-
+  }
+  
   onSignUp() {
     this.router.navigate(['/home']);
   }
+
+
 }
 
 

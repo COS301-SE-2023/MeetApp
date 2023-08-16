@@ -1,11 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { IonicModule } from '@ionic/angular';
-import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { events,service,ServicesModule} from '@capstone-meet-app/services';
 
 
 @Component({
@@ -18,7 +14,7 @@ import { events,service,ServicesModule} from '@capstone-meet-app/services';
 })
 export class WelcomepageComponent {
 
-  constructor(private router: Router,private service:service)/*, private apiService: ApiService*/  {}
+  constructor(private router: Router)  {}
 
   @Output() loginType = new EventEmitter<string>();
   user='Not set';
