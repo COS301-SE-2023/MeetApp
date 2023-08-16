@@ -4,11 +4,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody, ApiProperty } from '@nestjs/swagger';
+import { AuthenticatedRequest, UserLoginRequest} from '../interfaces';
 
-interface AuthenticatedRequest extends Request {
-  user: {id : string, username : string, password: string};
-}
 
 @Controller('users')
 @ApiSecurity('Api-Key')
@@ -17,11 +15,16 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('signup')
+  @ApiOperation({summary: 'Create a new user'})
+  @ApiBody({description: 'Fill in your information', type: CreateUserDto})
+  @ApiResponse({ status: 201, description: 'User created successfully' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Post('login')
+  @ApiOperation({summary: 'Log into an existing account'})
+  @ApiBody({description: 'Fill in your the account\'s credentials', type: UserLoginRequest})
   signup(@Body() LoginInfo : UpdateUserDto){
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
@@ -37,6 +40,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('account')
   @ApiBearerAuth()
+  @ApiResponse({type: AuthenticatedRequest, description: "The user's credentials"})
   getAccount(@Request() req : AuthenticatedRequest) {
     //
       return req.user;
