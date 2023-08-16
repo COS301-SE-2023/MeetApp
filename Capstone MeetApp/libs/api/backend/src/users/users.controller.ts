@@ -4,8 +4,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody, ApiProperty } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
 import { AuthenticatedRequest, UserLoginRequest} from '../interfaces';
+import { CreateEventDto } from '../events/dto/create-event.dto';
 
 
 @Controller('users')
@@ -49,6 +50,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('attendances')
   @ApiBearerAuth()
+  @ApiResponse({type: [CreateEventDto], description: "A list of events attended by the user"})
   getUserAttendancesJWT(@Request() req : AuthenticatedRequest, ) {
     
     return this.usersService.getUserAttendances(req.user.id);
