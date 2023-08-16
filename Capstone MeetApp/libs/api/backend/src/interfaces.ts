@@ -1,6 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class AuthenticatedRequest extends Request {
+    @ApiProperty({description: "The user's credentials", example: {id: "747223dedd65fc64879e13dc", username: "TimothyJones24", password: "pass435"}})
     readonly user!: {id : string, username : string, password: string};
   }
 
