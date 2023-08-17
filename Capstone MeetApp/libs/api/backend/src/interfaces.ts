@@ -8,9 +8,17 @@ export interface AuthenticatedRequest extends Request {
      user: {id : string, username : string, password: string};
   }
 
-export class AuthenticatedRequestClass {
-    @ApiProperty({description: "The user's credentials", example: {id: "747223dedd65fc64879e13dc", username: "TimothyJones24", password: "pass435"}, type : 'OrderedMap'})
-     readonly user!: {id : string, username : string, password: string};
+export class UserAccountInfo {
+  @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's desired username.", type: "string"})
+     readonly id! : string;
+     @ApiProperty({example: "user_man23", description : "The user's desired username."})
+     readonly username! : string;
+     @ApiProperty({example: "password101", description : "The user's chosen password."})
+     readonly password! : string;
+     @ApiProperty({example: 1516239022, description : "A number showing when the access was granted."})
+     readonly iat! : number;
+     @ApiProperty({example: 1516245960, description : "A number showing when the access will be expired."})
+     readonly exp!: number;
   }
 
 export class UserLoginRequest {
