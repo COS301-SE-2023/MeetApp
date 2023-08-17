@@ -9,7 +9,7 @@ export interface AuthenticatedRequest extends Request {
   }
 
 export class AuthenticatedRequestClass {
-    @ApiProperty({description: "The user's credentials", example: {id: "747223dedd65fc64879e13dc", username: "TimothyJones24", password: "pass435"}})
+    @ApiProperty({description: "The user's credentials", example: {id: "747223dedd65fc64879e13dc", username: "TimothyJones24", password: "pass435"}, type : 'OrderedMap'})
      readonly user!: {id : string, username : string, password: string};
   }
 
