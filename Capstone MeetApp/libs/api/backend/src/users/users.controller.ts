@@ -237,6 +237,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('recommendations/timeofday')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on time of day'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on time of day"})
   async getRecTOD(@Request() req : AuthenticatedRequest, ){
     
     return await this.usersService.getUserTimeOfDayRecommendation(req.user.id)
