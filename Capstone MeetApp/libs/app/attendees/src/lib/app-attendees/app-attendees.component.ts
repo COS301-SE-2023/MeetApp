@@ -1,22 +1,21 @@
+
 import { Component } from '@angular/core';
 import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
+//import {service,events} from '@capstone-meet-app/app/services'
+import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import {service} from '@capstone-meet-app/services';
-
 
 @Component({
-  standalone:true,
-  selector: 'capstone-meet-app-friends',
-  templateUrl: './friends.component.html',
-  imports: [CommonModule, FormsModule,IonicModule,Ng2SearchPipeModule],
-  styleUrls: ['./friends.component.css'],
-  providers:[service],
+  selector: 'capstone-meet-app-app-attendees',
+  standalone: true,
+  imports: [CommonModule,Ng2SearchPipeModule,FormsModule,IonicModule],
+  templateUrl: './app-attendees.component.html',
+  styleUrls: ['./app-attendees.component.css'],
 })
-export class FriendsComponent {
-
-  
+export class AppAttendeesComponent {
+   
   followers= [{
     name:'shiluvelo',
     profilepicture:'assets/profile.png'
@@ -41,6 +40,9 @@ export class FriendsComponent {
   ];
 
 
+  //goBack() {
+  // this.location.back();
+  //}
   filteredData: any[] = [];
       searchQuery = '';
   search(): void {
@@ -52,26 +54,4 @@ export class FriendsComponent {
       );
     }
   }
-
-
-  status: string|undefined
-  constructor(private servicesService: service) {}
-   ngOnInit()
-  {
-    const access_token=this.servicesService.getToken();
-    this.getFriends( access_token);
-  }
-
-  async getFriends(token:string|null)
-  {
-      
-    this.servicesService.getFriends(token).subscribe((response:any)=>{
-      
-      console.log(response);
-    });
-          
-  }
- 
-   
-  
 }

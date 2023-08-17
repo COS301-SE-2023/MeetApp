@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   imports: [CommonModule,IonicModule],
   templateUrl: './event.component.html',
   styleUrls: ['./event.component.css'],
-  providers:[service,Router]
+  providers:[service]
 })
 export class EventComponent {
   
@@ -38,7 +38,7 @@ export class EventComponent {
 
   attendance=0;
   
-  constructor(private apiService: service,private route: ActivatedRoute,) { 
+  constructor(private apiService: service,private route: ActivatedRoute,private router: Router) { 
   }
   
 
@@ -76,6 +76,13 @@ export class EventComponent {
   {
     console.log('eventID',this.eventID);
     this.attendEvent(this.eventID);
+  }
+
+
+  viewAttendees()
+  {
+    this.router.navigateByUrl('/attendees');
+    console.log('mama');
   }
 
 
