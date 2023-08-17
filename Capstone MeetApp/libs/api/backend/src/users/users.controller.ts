@@ -183,6 +183,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friends/events')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events a logged-in user\'s friends are attending'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events attended by the user's friends"})
   async getFriendEvents(@Request() req : AuthenticatedRequest, ) {
     
     return this.usersService.getFriendEvents(req.user.id);
