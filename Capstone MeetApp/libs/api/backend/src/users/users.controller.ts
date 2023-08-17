@@ -276,7 +276,7 @@ export class UsersController {
   @Get('interests/region')
   @ApiBearerAuth()
   @ApiOperation({summary: 'View the top 3 regions the user may be interested in based on attendances'})
-  @ApiResponse({type: InterestRegionResponse, description: "The top 3 regions the user may be interested in based on attendances"})
+  @ApiResponse({type: InterestRegionResponse, description: "The top 3 regions the user may be interested in based on attendances along with their frequencies"})
   async getIntRegion(@Request() req : AuthenticatedRequest, ){
     
     return await this.usersService.InterestRegion(req.user.id)
