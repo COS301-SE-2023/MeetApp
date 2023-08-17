@@ -81,6 +81,7 @@ export class UsersController {
 
   
   @Get()
+  @ApiOperation({summary: "View a list of all existing users"})
   @ApiResponse({type: [User], description: "A list of all existing users"})
   findAll(@Req() request: RequestExpress, ) {
     
@@ -92,7 +93,9 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('friends')
-  @ApiBearerAuth()@ApiResponse({type: [UserFriends], description: "A list of the user's friends"})
+  @ApiOperation({summary: "View a list of the logged-in user's friends"})
+  @ApiBearerAuth()
+  @ApiResponse({type: [UserFriends], description: "A list of the user's friends"})
   async getUserFriends(@Request() req : AuthenticatedRequest, ) {
     
     const friends = await this.usersService.getUserFriends(req.user.id);
@@ -108,6 +111,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friends/count')
   @ApiBearerAuth()
+  @ApiOperation({summary: "View the total number of friends of the logged-in user"})
   @ApiResponse({type: Number, description: "The total number of friends the user has"})
   getUserFriendsCount(@Request() req : AuthenticatedRequest, ) {
     
@@ -130,6 +134,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friend-requests')
   @ApiBearerAuth()
+  @ApiOperation({summary: "View a list of the logged-in user's friend requests"})
+  @ApiResponse({type: [UserFriends], description: "A list of the user's friend requests"})
   async getUserFriendRequests(@Request() req : AuthenticatedRequest, ) {
     
     const friends = await this.usersService.getUserFriendRequests(req.user.id);
@@ -163,6 +169,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friend-requests/pending')
   @ApiBearerAuth()
+  @ApiOperation({summary: "View a list of the logged-in user's pending friend requests"})
+  @ApiResponse({type: [UserFriends], description: "A list of the user's pending friend requests"})
   async getUsersentRequests(@Request() req : AuthenticatedRequest, ) {
     
     const friends = await this.usersService.getUserSentRequests(req.user.id);
