@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, AuthenticatedRequestClass, UserFriends, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, UserAccountInfo, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 
@@ -42,7 +42,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('account')
   @ApiBearerAuth()
-  @ApiResponse({type: AuthenticatedRequestClass, description: "The user's credentials"})
+  @ApiResponse({type: UserAccountInfo, description: "The user's credentials"})
   getAccount(@Request() req : AuthenticatedRequest) {
     //
       return req.user;
