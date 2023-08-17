@@ -227,6 +227,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('recommendations/category')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on category'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on category"})
   async getRecCategory(@Request() req : AuthenticatedRequest, ){
     
     return await this.usersService.recommendationCategory(req.user.id)
