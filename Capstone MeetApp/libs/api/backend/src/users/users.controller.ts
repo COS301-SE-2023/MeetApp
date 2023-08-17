@@ -41,6 +41,7 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('account')
+  @ApiOperation({summary: 'View logged-in user\'s credentials'})
   @ApiBearerAuth()
   @ApiResponse({type: UserAccountInfo, description: "The user's credentials"})
   getAccount(@Request() req : AuthenticatedRequest) {
@@ -51,6 +52,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('attendances')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events a logged-in user is attending'})
   @ApiResponse({type: [CreateEventDto], description: "A list of events attended by the user"})
   getUserAttendancesJWT(@Request() req : AuthenticatedRequest, ) {
     
@@ -60,6 +62,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('attendances/count')
   @ApiBearerAuth()
+  @ApiOperation({summary: "View the total number of events attended by the logged-in user"})
   @ApiResponse({type: Number, description: "The total number of events attended by the user"})
   getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest, ) {
     
@@ -68,6 +71,7 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Patch('update')
+  @ApiOperation({summary: "Update the logged-in user's information"})
   @ApiBearerAuth()
   updateJWT(@Request() req : AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto, ) {
     
