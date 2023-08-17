@@ -10,7 +10,7 @@ export type UserDocument = HydratedDocument<User>;
 @Schema({collection : "Users"})
 export class User {
 
-  @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's desired username."})
+  @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's desired username.", type: "string"})
   @Prop()
   ID!: mongoose.Schema.Types.ObjectId;
 
