@@ -56,3 +56,13 @@ export class UserLoginRequest {
     @ApiProperty({description : 'Whether changes were made to the friendship entry in the database', example: true})
     readonly changes! : boolean
   }
+
+  export class InterestCategoryResponse {
+    @ApiProperty({description: 'The most frequent category in the user\'s attendance list', example: {Technology: 7}, type: 'OrderedMap'})
+    readonly category1st! : {category: string, frequency: number}
+    @ApiProperty({description: 'The second most frequent category in the user\'s attendance list', example: {Education: 4}, type: 'OrderedMap'})
+    readonly category2nd! : {category: string, frequency: number}
+    @ApiProperty({description: 'The thrid most frequent category in the user\'s attendance list', example: {Festival: 2}, type: 'OrderedMap'})
+    readonly category3rd! : {category: string, frequency: number}
+  }
+
