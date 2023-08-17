@@ -2,6 +2,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { Request } from '@nestjs/common';
 import mongoose from "mongoose";
+import { Friendship } from "./friendships/schema";
 
 export interface AuthenticatedRequest extends Request {
     //@ApiProperty({description: "The user's credentials", example: {id: "747223dedd65fc64879e13dc", username: "TimothyJones24", password: "pass435"}})
@@ -45,4 +46,13 @@ export class UserLoginRequest {
   export class UnfriendBody {
     @ApiProperty({example : {friend : "647223dedd65fc64879e13dc"}, description: "The ID of the friend a logged-in user wants to remove", type: "OrderedMap"})
     readonly friendID! : {friend : string}
+  }
+
+  export class UnfriendResponse {
+    @ApiProperty({description : 'An existing friendship or null.', example: {_id: "6472234ecd65fc66879d2dbf", requester: "647223decd65fc66879e13dc", requestee: "647223f8cd65fc66879e3f1f", status: true}, type: "OrderedMap"})
+    readonly friendship!: Friendship|null
+    @ApiProperty({description : 'An message indicated the success/failure of unfriending', example: 'Friend removed successfully!'})
+    readonly message! : string
+    @ApiProperty({description : 'Whether changes were made to the friendship entry in the database', example: true})
+    readonly changes! : boolean
   }
