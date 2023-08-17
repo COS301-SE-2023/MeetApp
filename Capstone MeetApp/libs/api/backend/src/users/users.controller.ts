@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, AuthenticatedRequestClass, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, AuthenticatedRequestClass, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 
@@ -88,7 +88,7 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('friends')
-  @ApiBearerAuth()
+  @ApiBearerAuth()@ApiResponse({type: UserFriends, description: "A list of the user's friends"})
   async getUserFriends(@Request() req : AuthenticatedRequest, ) {
     
     const friends = await this.usersService.getUserFriends(req.user.id);
@@ -104,6 +104,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('friends/count')
   @ApiBearerAuth()
+  @ApiResponse({type: Number, description: "The total number of friends the user has"})
   getUserFriendsCount(@Request() req : AuthenticatedRequest, ) {
     
     return this.usersService.getUserFriendsCount(req.user.id);
