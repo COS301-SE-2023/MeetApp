@@ -88,7 +88,7 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('friends')
-  @ApiBearerAuth()@ApiResponse({type: UserFriends, description: "A list of the user's friends"})
+  @ApiBearerAuth()@ApiResponse({type: [UserFriends], description: "A list of the user's friends"})
   async getUserFriends(@Request() req : AuthenticatedRequest, ) {
     
     const friends = await this.usersService.getUserFriends(req.user.id);
