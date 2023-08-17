@@ -255,6 +255,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('recommendations/duration')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on duration'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on duration"})
   async getRecDuration(@Request() req : AuthenticatedRequest, ){
     
     return await this.usersService.getUserInterestAverageDuration(req.user.id)
