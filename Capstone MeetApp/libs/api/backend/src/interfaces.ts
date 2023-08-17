@@ -24,7 +24,7 @@ export class UserLoginRequest {
 
   export class UserFriends {
 
-    @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's desired username."})
+    @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's desired username.", type: "string"})
     readonly ID!: mongoose.Schema.Types.ObjectId;
 
     @ApiProperty({description : 'An existing username.', example: 'john_doe'})
