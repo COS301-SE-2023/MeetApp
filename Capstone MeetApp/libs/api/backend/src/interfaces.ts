@@ -66,3 +66,11 @@ export class UserLoginRequest {
     readonly category3rd! : {category: string, frequency: number}
   }
 
+  export class InterestRegionResponse {
+    @ApiProperty({description: 'The most frequent region in the user\'s attendance list', example: {Pretoria: 13}, type: 'OrderedMap'})
+    readonly region1st! : {region: string, frequency: number}
+    @ApiProperty({description: 'The second most frequent region in the user\'s attendance list', example: {Joburg: 5}, type: 'OrderedMap'})
+    readonly region2nd! : {region: string, frequency: number}
+    @ApiProperty({description: 'The thrid most frequent region in the user\'s attendance list', example: {Nelspruit: 1}, type: 'OrderedMap'})
+    readonly region3rd! : {region: string, frequency: number}
+  }
