@@ -41,3 +41,8 @@ export class UserLoginRequest {
     @ApiProperty({example: "em=e?vftb+asi...", description : "Base64/BSON representation of profile picture."})
     readonly profilePicture!: string;
   }
+
+  export class UnfriendBody {
+    @ApiProperty({example : {friend : "647223dedd65fc64879e13dc"}, description: "The ID of the friend a logged-in user wants to remove", type: "OrderedMap"})
+    readonly friendID! : {friend : string}
+  }
