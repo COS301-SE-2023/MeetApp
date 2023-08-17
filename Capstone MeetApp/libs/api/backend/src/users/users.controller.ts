@@ -5,8 +5,9 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, AuthenticatedRequestClass, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
+import { User } from './schema';
 
 
 @Controller('users')
@@ -41,7 +42,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('account')
   @ApiBearerAuth()
-  @ApiResponse({type: AuthenticatedRequest, description: "The user's credentials"})
+  @ApiResponse({type: AuthenticatedRequestClass, description: "The user's credentials"})
   getAccount(@Request() req : AuthenticatedRequest) {
     //
       return req.user;
@@ -59,6 +60,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('attendances/count')
   @ApiBearerAuth()
+  @ApiResponse({type: Number, description: "The total number of events attended by the user"})
   getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest, ) {
     
     return this.usersService.getUserAttendancesCount(req.user.id);
@@ -75,6 +77,7 @@ export class UsersController {
 
   
   @Get()
+  @ApiResponse({type: [User], description: "A list of all existing users"})
   findAll(@Req() request: RequestExpress, ) {
     
     if (request.query == null)
