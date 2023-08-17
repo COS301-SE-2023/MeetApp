@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, UserAccountInfo, UserFriends, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, UnfriendBody, UnfriendResponse, UserAccountInfo, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 
@@ -145,6 +145,9 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Delete('friend/unfriend')
   @ApiBearerAuth()
+  @ApiBody({type: UnfriendBody})
+  @ApiOperation({summary: "Remove a logged-in user's friend"})
+  @ApiResponse({type: UnfriendResponse, description: "Details of success or failure of unfriend process"})
   unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}, ) {
     
     return this.usersService.unfriend(req.user.id,friendID.friend);
