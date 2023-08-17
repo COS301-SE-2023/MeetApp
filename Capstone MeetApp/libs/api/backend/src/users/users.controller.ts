@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, UnfriendBody, UnfriendResponse, UserAccountInfo, UserFriends, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, InterestRegionResponse, UnfriendBody, UnfriendResponse, UserAccountInfo, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 
@@ -272,6 +272,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('interests/region')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View the top 3 regions the user may be interested in based on attendances'})
+  @ApiResponse({type: InterestRegionResponse, description: "The top 3 regions the user may be interested in based on attendances"})
   async getIntRegion(@Request() req : AuthenticatedRequest, ){
     
     return await this.usersService.InterestRegion(req.user.id)
