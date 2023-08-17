@@ -217,6 +217,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('recommendations/region')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on region'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on region"})
   async getRecRegion(@Request() req : AuthenticatedRequest, ){
     
     return await this.usersService.recommendByRegion(req.user.id)
