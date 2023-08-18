@@ -118,7 +118,6 @@ export class LoginComponent {
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
-      console.log('User Type:', this.userType);
     });
     
   }
