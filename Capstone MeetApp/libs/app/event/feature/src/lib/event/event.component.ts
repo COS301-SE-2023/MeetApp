@@ -31,10 +31,6 @@ export class EventComponent {
     eventPoster:''
   };
 
-  attandance_list=[{
-    id:'',
-    username:''
-  }]
 
   attendance=0;
   
@@ -73,10 +69,10 @@ export class EventComponent {
     this.attendEvent(this.eventID);
   }
 
-
   viewAttendees()
   {
     this.router.navigateByUrl('/attendees');
+    this.router.navigate(['attendees', this.eventID]);
   }
 
   async getAttendance(id:string)
@@ -85,7 +81,6 @@ export class EventComponent {
       this.attendance=response;
     });
   }
-
 
 }
 

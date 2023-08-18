@@ -1,10 +1,9 @@
-
 import { Component } from '@angular/core';
 import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
-//import {service,events} from '@capstone-meet-app/app/services'
-import { Router } from '@angular/router';
+import {service,events} from '@capstone-meet-app/app/services'
+import { Router ,ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,6 +15,14 @@ import { FormsModule } from '@angular/forms';
 })
 export class AppAttendeesComponent {
    
+  attandance_list=[{
+    id:'',
+    username:''
+  }]
+
+  eventID='';
+  
+
   followers= [{
     name:'shiluvelo',
     profilepicture:'assets/profile.png'
@@ -39,12 +46,8 @@ export class AppAttendeesComponent {
     }
   ];
 
-
-  //goBack() {
-  // this.location.back();
-  //}
   filteredData: any[] = [];
-      searchQuery = '';
+  searchQuery = '';
   search(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredData = this.followers;
@@ -54,4 +57,34 @@ export class AppAttendeesComponent {
       );
     }
   }
+
+  constructor(private apiService: service,private route: ActivatedRoute) { 
+  }
+
+  async ngOnInit() {
+    this.route.params.subscribe(params => {
+      const eventId = params['eventId'];
+      this.eventID=eventId
+    });
+  
+    this.getListAttendances(this.eventID);
+  }
+
+  async getListAttendances(id:string)
+  {
+    await this.apiService.getEventAttendance(id).subscribe((response:any) =>{
+      this.attandance_list=response;
+      console.log('Attendace List :',this.attandance_list);
+    });
+  }
+
+  async sendRequest(requestee:string)
+  {
+    const token=this.apiService.getToken();
+    await this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
+      console.log('Send Request :',response);
+    });
+  }
+  
+
 }
