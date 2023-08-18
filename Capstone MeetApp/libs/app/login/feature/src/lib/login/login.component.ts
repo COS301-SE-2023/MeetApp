@@ -23,9 +23,9 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
- email = ''; 
+  email = ''; 
   password= ''; 
-username='';
+  username='';
 
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
     private toastController: ToastController, private authservice: service,private activatedRoute: ActivatedRoute) { 
@@ -59,7 +59,7 @@ username='';
   //stores the login response for user
   loginData_user:any;
 
-    
+   
   //storing the organisers data  
   data_organiser= [{
     _id:'',
@@ -78,7 +78,6 @@ username='';
 
   userType:string|null = '';
 
- 
 
   async showErrorAlert(message: string) {
     const alert = await this.alertController.create({
@@ -103,20 +102,17 @@ username='';
   
 
   async ngOnInit() {
-    
-
+  
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
 
     await this.apiService.getAllUsers().subscribe((response: any) => { 
-      console.log(response);
       this.data_user = response;  
     });
   
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
-      console.log(response);
       this.data_organiser = response;
     });
 
@@ -130,21 +126,12 @@ username='';
   
   valid=true;
 
-  
   async LogInUser(username:string,password:string)
   {
-    await this.apiService.authUser(username,password ).subscribe((response) => {
-      console.log('API response:', response);
-      this.loginData_user=response;
-      this.userLogin_payload=this.loginData_user;
-      console.log('username:',this.userLogin_payload.user)
-      console.log('access token:',this.userLogin_payload.access_token)
+    await this.apiService.authUser(username,password ).subscribe((response:any) => {
+      this.userLogin_payload=response;
       this.authservice.setToken(this.userLogin_payload.access_token)
-      console.log('message:',this.userLogin_payload.message);
     });
-
-   
-   
 
     for (let i = 0; i < this.data_user.length; i++) {
 
@@ -157,26 +144,21 @@ username='';
       }
       
     }
+
     if(this.valid)
     {
       const errorMessage = 'wrong username or password';
-        this.showErrorToast(errorMessage);
+      this.showErrorToast(errorMessage);
     }
                     
-    
-
+  
   }
 
   
   async LogInOrg(username:string,password:string)
   {
-    await this.apiService.authOrganiser(username,password ).subscribe((response) => {
-      console.log('API response:', response);
-      this.loginData_organiser=response;
-      this.orgLogin_payload=this.loginData_organiser;
-      console.log('username:',this.orgLogin_payload.organisation)
-      console.log('access token:',this.orgLogin_payload.access_token)
-      console.log('message:',this.orgLogin_payload.message);
+    await this.apiService.authOrganiser(username,password ).subscribe((response:any) => {
+      this.orgLogin_payload=response;
     });
 
     for (let i = 0; i < this.data_organiser.length; i++) {
@@ -203,9 +185,6 @@ username='';
   }
 
   login(username: string,password: string) {
-    console.log('username:', username);
-    console.log('password',password);
-
     if(this.userType=='user')
     {
       this.LogInUser(username,password);
