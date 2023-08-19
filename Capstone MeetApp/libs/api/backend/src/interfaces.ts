@@ -65,7 +65,7 @@ export class UserLoginRequest {
     @ApiProperty({description : 'An access token (JWT bearer token) that also stores the user\'s session information.', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NzIyM2Y4Y2Q2NWZjNjY4NzllM2YxZiIsInVzZXJuYW1lIjoiam9obl9kb2UiLCJwYXNzd29yZCI6InBhc3MxMjMiLCJpYXQiOjE2OTI0ODEzNjUsImV4cCI6MTY5MjU2Nzc2NX0.W576UcvKr21DPGEEZKLsluVxxADiAeg5gJoiwoQc1v8'})
     readonly access_token! : string;
 
-    @ApiProperty({description : 'A message stating the success or failure of the login'})
+    @ApiProperty({description : 'A message stating the success or failure of the login', example: 'Login successful'})
     readonly message! : string;
   }
 
