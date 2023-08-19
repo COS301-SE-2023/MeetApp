@@ -31,6 +31,15 @@ export class UserLoginRequest {
     readonly password! : string;
   }
 
+  export class OrganisationLoginRequest {
+
+    @ApiProperty({description : 'An existing username.', example: 'techTuks'})
+     readonly username! : string;
+
+    @ApiProperty({description : 'The password associated with username.', example: 'thetitans'})
+    readonly password! : string;
+  }
+
   export class UserFriends {
 
     @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's desired username.", type: "string"})
