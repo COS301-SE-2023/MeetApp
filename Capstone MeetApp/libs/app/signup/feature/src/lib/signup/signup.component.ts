@@ -58,10 +58,7 @@ export class SignupComponent {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-     /*  firstname: ['', Validators.required],
-   lastname: ['', Validators.required],*/
     username: ['', Validators.required],
-   // email: ['', [Validators.required, Validators.email]],
     region:['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required],
@@ -71,7 +68,6 @@ export class SignupComponent {
     
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
-      console.log('User Type:', this.userType);
     });
 
   }
@@ -83,44 +79,27 @@ export class SignupComponent {
   async SignUpUser(username:string,password:string,profilePicture:string,region:string)
   {
     await this.apiService.createUser(username,password,profilePicture,region).subscribe((response:any) => {
-      console.log('API response:', response);
       this.userSignup_payload=response;
       this.apiService.setToken(this.userSignup_payload.access_token);
-      console.log('SignUp Access Token',this.userSignup_payload.access_token);
-      console.log('Message',this.userSignup_payload.message);
     });
   }
 
   async SignUpOrg(username:string,name:string,password:string,events:string[])
   {
     await this.apiService.createOrginiser(username,password,name,events).subscribe((response:any) => {
-      console.log('API response:', response);
       this.orgSignup_payload=response;
       this.apiService.setToken(this.orgSignup_payload.access_token);
-      console.log('SignUp Access Token',this.orgSignup_payload.access_token);
-      console.log('Message',this.orgSignup_payload.message);
     });
   }
-
-  /*
-  checkPasswordStrength(control: FormControl): { [key: string]: boolean } | null {
-    const password = control.value;
-  }
-  */
 
   valid=true;
 
   signup(){
-    const firstname = this.loginForm.value.firstname;
-    const lastname = this.loginForm.value.lastname;
-    const email = this.loginForm.value.email;
     const password = this.loginForm.value.password;
-    const confirmpassword = this.loginForm.value.confirmpassword;
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
-    // const strongRegex = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])');
-    //!strongRegex.test(password) &&
+    
     if ( this.loginForm.invalid) {  
       const errorMessage = 'choose a stronger password';
       this.showErrorToast(errorMessage); 

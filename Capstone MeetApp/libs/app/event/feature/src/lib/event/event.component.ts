@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular'; 
-import {service,events} from '@capstone-meet-app/services';
+import { service,events} from '@capstone-meet-app/services';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 
@@ -31,10 +31,6 @@ export class EventComponent {
     eventPoster:''
   };
 
-  attandance_list=[{
-    id:'',
-    username:''
-  }]
 
   attendance=0;
   
@@ -50,7 +46,6 @@ export class EventComponent {
     });
   
     this.getAttendance(this.eventID);
-    this.getListAttendances(this.eventID);
   }
 
 
@@ -58,7 +53,6 @@ export class EventComponent {
   {
     await this.apiService.getEventByID(id).subscribe((response:any)=>{
       this.event=response;
-      console.log('Returned EventByID',this.event)
     });
   }
 
@@ -66,47 +60,25 @@ export class EventComponent {
   async attendEvent(eventID: string)
   {
     const access_token=this.apiService.getToken()
-    await this.apiService.attendEventUser(access_token,eventID).subscribe((response:any) => {
-      console.log('API response:', response);
-    });
+    await this.apiService.attendEventUser(access_token,eventID).subscribe();
   }
 
 
   addEvent()
   {
-    console.log('eventID',this.eventID);
     this.attendEvent(this.eventID);
   }
-
 
   viewAttendees()
   {
     this.router.navigateByUrl('/attendees');
-    console.log('mama');
+    this.router.navigate(['attendees', this.eventID]);
   }
-
 
   async getAttendance(id:string)
   {
     await this.apiService.getEventAttendanceCount(id).subscribe((response:any) => {
-      console.log('API response:', response);
       this.attendance=response;
-    });
-  }
-
-
-  async getListAttendances(id:string)
-  {
-    await this.apiService.getEventAttendance(id).subscribe((response:any) =>{
-      this.attandance_list=response;
-      console.log('Attendace List :',this.attandance_list);
-    });
-  }
-
-  async sendRequest(token:string|null,requestee:string)
-  {
-    await this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
-      console.log('Send Request :',response);
     });
   }
 

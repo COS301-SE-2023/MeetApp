@@ -34,7 +34,7 @@ export const appRoutes: Route[] = [
    ,{path: "friends", component: FriendsComponent},
    {path: "organisers", component: OrganiserComponent},
    {path: "calendar",component:CalendarComponent},
-   {path: "attendees",component:AppAttendeesComponent},
    {path: "profileusers/:username",component:AppProfile2Component},
+   {path: "attendees/:eventId",component:AppAttendeesComponent},
    {path:"suggestedfriends",component:AppSuggestedFriendsComponent}
 ];
