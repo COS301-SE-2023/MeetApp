@@ -71,7 +71,7 @@ export class OrganisationsController {
     return this.organisationsService.remove(+req.organisation.id);
   }
   @UseGuards(AuthGuard)
-  @Get(':id/events/top3')
+  @Get('events/top3')
   @ApiBearerAuth()
   @ApiOperation({summary: "View the logged-in organisation's top 3 most attended events"})
   async getTop3AttendedEvents(@Request() req : AuthenticatedRequest, ) {
