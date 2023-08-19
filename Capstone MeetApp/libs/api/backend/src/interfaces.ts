@@ -127,6 +127,11 @@ export class UserLoginRequest {
     readonly category! : {category: string, frequency: number}
   }
 
+  export class RegionCountResponse {
+    @ApiProperty({description: 'Key-value pair of a region and the frequency of its use in the organisation', example: {Pretoria: 13}, type: 'OrderedMap'})
+    readonly region! : {region: string, frequency: number}
+  }
+
   
 
   
