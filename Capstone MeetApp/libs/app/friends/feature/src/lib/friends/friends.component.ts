@@ -39,8 +39,8 @@ export class FriendsComponent {
       profilepicture:'assets/profile.png'
     }
   ];
-
-
+  
+  friends:any =[];
   filteredData: any[] = [];
       searchQuery = '';
   search(): void {
@@ -66,8 +66,10 @@ export class FriendsComponent {
   {
       
     this.servicesService.getFriends(token).subscribe((response:any)=>{
-      
+     
+      this.friends=response;
       console.log(response);
+      console.log('wwewe',this.friends[0].username)
     });
           
   }
