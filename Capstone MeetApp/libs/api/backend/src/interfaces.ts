@@ -132,6 +132,11 @@ export class UserLoginRequest {
     readonly region! : {region: string, frequency: number}
   }
 
+  export class TopRegion {
+    @ApiProperty({description: 'The most popular region', type: 'string', example: 'Pretoria'})
+    readonly region!: string
+  }
+
   
 
   
