@@ -24,7 +24,7 @@ export class OrganisationsController {
   constructor(private readonly organisationsService: OrganisationsService) {}
 
   @Post('signup')
-  @ApiOperation({summary: 'sign up as a new organisation'})
+  @ApiOperation({summary: 'Sign up as a new organisation'})
   @ApiResponse({status: 201, description: 'A user access token (JWT) and a message'})
   @ApiBody({type: 'application/json', description: 'JSON object containing: username : string, password : string, name :string, events : [ObjectId]'})
   create(@Body() createOrganisationDto: CreateOrganisationDto, ) {
@@ -33,6 +33,7 @@ export class OrganisationsController {
   }
 
   @Post('login')
+  @ApiOperation({summary: "Login into an existing organisation's account"})
   login(@Body() LoginInfo : UpdateOrganisationDto, ){
     
     if (LoginInfo != null){
