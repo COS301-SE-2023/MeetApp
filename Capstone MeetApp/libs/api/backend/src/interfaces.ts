@@ -10,7 +10,7 @@ export interface AuthenticatedRequest extends Request {
   }
 
 export class UserAccountInfo {
-  @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's desired username.", type: "string"})
+  @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's unique ID.", type: "string"})
      readonly id! : string;
      @ApiProperty({example: "user_man23", description : "The user's desired username."})
      readonly username! : string;
