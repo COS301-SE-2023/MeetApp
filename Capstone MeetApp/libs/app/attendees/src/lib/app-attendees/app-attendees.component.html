@@ -16,16 +16,18 @@
   <ion-searchbar show-clear-button="focus"  class="custom"  [(ngModel)]="searchQuery" (ionChange)="search()"></ion-searchbar>
   <ion-content>
     <ion-list>
-      <ion-item *ngFor="let follower of followers | filter:searchQuery">
+      <ion-item *ngFor="let friend of attandance_list | filter:searchQuery; let i = index">
        
         <ion-avatar slot="start">
-          <img [src]="follower.profilepicture" alt="Profile Picture">
+          <img src="assets/profile.png" alt="Profile Picture">
         </ion-avatar>
-        <ion-label>{{ follower.name }}</ion-label>
-        <ion-button class="left" >Add friend</ion-button>
+        <a [routerLink]="['/profileusers', friend.username]"><ion-label>   {{ friend.username }}</ion-label></a>
+        <ion-button  class="add-friend-button">Add friend</ion-button>
       </ion-item>
     </ion-list>
   </ion-content>
+  
+
   
   
 </div>
