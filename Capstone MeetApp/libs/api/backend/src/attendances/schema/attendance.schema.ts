@@ -16,7 +16,7 @@ export class Attendance {
   @Prop()
   organisationID!: mongoose.Schema.Types.ObjectId;
 
-  @ApiProperty({description: "The unique ID of the even being attended", example: "6494b7d2d53259fc23bc0cfd", required: true, type: "string"})
+  @ApiProperty({description: "The unique ID of the event being attended", example: "6494b7d2d53259fc23bc0cfd", required: true, type: "string"})
   @Prop()
   eventID!: mongoose.Schema.Types.ObjectId;
 
