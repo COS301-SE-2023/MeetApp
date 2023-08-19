@@ -26,7 +26,7 @@ export class OrganisationsController {
   @Post('signup')
   @ApiOperation({summary: 'Sign up as a new organisation'})
   @ApiResponse({status: 201, description: 'A user access token (JWT) and a message'})
-  @ApiBody({type: 'application/json', description: 'JSON object containing: username : string, password : string, name :string, events : [ObjectId]'})
+  @ApiBody({type: CreateOrganisationDto, description: 'The initial information needed to create a new organisation'})
   create(@Body() createOrganisationDto: CreateOrganisationDto, ) {
     
     return this.organisationsService.create(createOrganisationDto);
