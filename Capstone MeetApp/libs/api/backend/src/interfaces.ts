@@ -122,5 +122,11 @@ export class UserLoginRequest {
     @ApiProperty({description: 'The user\'s top attended event', type: Event})
     readonly topEvent!: Event
   }
+  export class CategoryCountResponse {
+    @ApiProperty({description: 'Key-value pair of a category and the frequency of its use in the organisation', example: {Technology: 7}, type: 'OrderedMap'})
+    readonly category! : {category: string, frequency: number}
+  }
+
+  
 
   
