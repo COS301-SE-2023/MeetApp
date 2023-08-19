@@ -4,13 +4,14 @@ import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import {service} from '@capstone-meet-app/services';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   standalone:true,
   selector: 'capstone-meet-app-friends',
   templateUrl: './friends.component.html',
-  imports: [CommonModule, FormsModule,IonicModule,Ng2SearchPipeModule],
+  imports: [CommonModule, FormsModule,IonicModule,Ng2SearchPipeModule,RouterModule],
   styleUrls: ['./friends.component.css'],
   providers:[service],
 })
@@ -69,7 +70,7 @@ export class FriendsComponent {
      
       this.friends=response;
       console.log(response);
-      console.log('wwewe',this.friends[0].username)
+     
     });
           
   }

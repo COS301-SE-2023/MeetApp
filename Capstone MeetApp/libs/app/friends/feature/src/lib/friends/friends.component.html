@@ -21,7 +21,8 @@
         <ion-avatar slot="start">
           <img src="assets/profile.png" alt="Profile Picture">
         </ion-avatar>
-        <ion-label>   {{ friend.username }}</ion-label>
+        
+         <a [routerLink]="['/profileusers', friend.username]"><ion-label>   {{ friend.username }}</ion-label></a>
       </ion-item>
     </ion-list>
   </ion-content>
