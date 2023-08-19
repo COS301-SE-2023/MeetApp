@@ -12,6 +12,7 @@ import { CreateOrganisationDto } from './dto/create-organisation.dto';
 import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { AuthGuard } from './organisations.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBody, ApiSecurity, ApiBearerAuth } from '@nestjs/swagger';
+import { OrganisationLoginRequest, OrganisationLoginResponse } from '../interfaces';
 
 interface AuthenticatedRequest extends Request {
   organisation: {id : string, username : string, password: string};
@@ -34,7 +35,9 @@ export class OrganisationsController {
 
   @Post('login')
   @ApiOperation({summary: "Login into an existing organisation's account"})
-  login(@Body() LoginInfo : UpdateOrganisationDto, ){
+  @ApiResponse({status: 201, description: 'A user access token (JWT) and a message', type: OrganisationLoginResponse})
+  @ApiBody({description: 'Fill in the account\'s credentials', type: OrganisationLoginRequest})
+  login(@Body() LoginInfo : OrganisationLoginRequest, ){
     
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
