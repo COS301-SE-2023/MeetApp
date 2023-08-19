@@ -137,6 +137,9 @@ export class UserLoginRequest {
     readonly region!: string
   }
 
-  
+  export class TopCategory {
+    @ApiProperty({description: 'The most popular category', type: 'string', example: 'Technology'})
+    readonly category!: string
+  }
 
   
