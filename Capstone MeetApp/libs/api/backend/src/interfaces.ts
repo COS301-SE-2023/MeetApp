@@ -22,6 +22,19 @@ export class UserAccountInfo {
      readonly exp!: number;
   }
 
+  export class OrganisationAccountInfo {
+    @ApiProperty({example: "64723154d01ba2f73db88fe0", description : "The organisation's unique ID.", type: "string"})
+       readonly id! : string;
+       @ApiProperty({example: "techTuks", description : "The organisation's desired username."})
+       readonly username! : string;
+       @ApiProperty({example: "thetitans", description : "The organisation's chosen password."})
+       readonly password! : string;
+       @ApiProperty({example: 1516239022, description : "A number showing when the access was granted."})
+       readonly iat! : number;
+       @ApiProperty({example: 1516245960, description : "A number showing when the access will be expired."})
+       readonly exp!: number;
+    }
+
 export class UserLoginRequest {
 
     @ApiProperty({description : 'An existing username.', example: 'john_doe'})
