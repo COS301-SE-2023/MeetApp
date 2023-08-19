@@ -56,7 +56,6 @@ export class OrganisationsController {
 
 
   @Get()
-  @ApiBearerAuth()
   @ApiOperation({summary: "View all existing organisations"})
   findAll() {
     
