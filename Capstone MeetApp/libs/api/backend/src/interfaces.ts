@@ -3,6 +3,8 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Request } from '@nestjs/common';
 import mongoose from "mongoose";
 import { Friendship } from "./friendships/schema";
+import { User } from "./users/schema";
+import { Event } from "./events/schema";
 
 export interface AuthenticatedRequest extends Request {
     //@ApiProperty({description: "The user's credentials", example: {id: "747223dedd65fc64879e13dc", username: "TimothyJones24", password: "pass435"}})
@@ -112,3 +114,13 @@ export class UserLoginRequest {
     @ApiProperty({description: 'The thrid most frequent region in the user\'s attendance list', example: {Nelspruit: 1}, type: 'OrderedMap'})
     readonly region3rd! : {region: string, frequency: number}
   }
+
+  export class SupporterAndTopEvent {
+    @ApiProperty({description: 'The user\'s information', type: User})
+    readonly supporter!: User
+
+    @ApiProperty({description: 'The user\'s top attended event', type: Event})
+    readonly topEvent!: Event
+  }
+
+  
