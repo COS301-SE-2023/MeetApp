@@ -26,8 +26,8 @@ export class UsersController {
 
   @Post('login')
   @ApiOperation({summary: 'Log into an existing account'})
-  @ApiBody({description: 'Fill in your the account\'s credentials', type: UserLoginRequest})
-  signup(@Body() LoginInfo : UpdateUserDto){
+  @ApiBody({description: 'Fill in the account\'s credentials', type: UserLoginRequest})
+  signup(@Body() LoginInfo : UserLoginRequest){
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
         return this.usersService.login(LoginInfo.username,LoginInfo.password)
