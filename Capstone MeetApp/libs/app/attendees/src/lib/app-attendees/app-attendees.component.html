@@ -22,7 +22,7 @@
           <img src="assets/profile.png" alt="Profile Picture">
         </ion-avatar>
         <a [routerLink]="['/profileusers', friend.username]"><ion-label>   {{ friend.username }}</ion-label></a>
-        <ion-button  class="add-friend-button">Add friend</ion-button>
+        <ion-button  class="add-friend-button" (click)="sendRequest(friend.username,friend)" [disabled]="friend.requestSent">{{ friend.requestSent ? 'Request Sent' : 'Add friend' }}</ion-button>
       </ion-item>
     </ion-list>
   </ion-content>

@@ -79,12 +79,13 @@ export class AppAttendeesComponent {
     });
   }
 
-  async sendRequest(requestee:string)
+  async sendRequest(requestee:string, friend: any)
   {
     const token=this.apiService.getToken();
     await this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
       console.log('Send Request :',response);
     });
+    friend.requestSent = true;
   }
   
 
