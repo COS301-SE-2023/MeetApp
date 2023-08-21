@@ -4,13 +4,14 @@ import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import {service} from '@capstone-meet-app/services';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   standalone:true,
   selector: 'capstone-meet-app-friends',
   templateUrl: './friends.component.html',
-  imports: [CommonModule, FormsModule,IonicModule,Ng2SearchPipeModule],
+  imports: [CommonModule, FormsModule,IonicModule,Ng2SearchPipeModule,RouterModule],
   styleUrls: ['./friends.component.css'],
   providers:[service],
 })
@@ -39,8 +40,8 @@ export class FriendsComponent {
       profilepicture:'assets/profile.png'
     }
   ];
-
-
+  
+  friends:any =[];
   filteredData: any[] = [];
       searchQuery = '';
   search(): void {
@@ -66,8 +67,10 @@ export class FriendsComponent {
   {
       
     this.servicesService.getFriends(token).subscribe((response:any)=>{
-      
+     
+      this.friends=response;
       console.log(response);
+     
     });
           
   }

@@ -452,7 +452,7 @@ events: Event[] = [
     //];
   
     // Filter events based on the specified region
-    const filteredEvents = this.events.filter(event => event.region === region);
+    const filteredEvents = this.data.filter(event => event.region === region);
   
     return Promise.resolve(filteredEvents);
   }
