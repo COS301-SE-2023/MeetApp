@@ -109,7 +109,8 @@ export class LoginComponent {
     });
 
     await this.apiService.getAllUsers().subscribe((response: any) => { 
-      this.data_user = response;  
+      this.data_user = response;
+      console.log(response);  
     });
   
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
