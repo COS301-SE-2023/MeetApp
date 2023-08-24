@@ -23,6 +23,10 @@ export class AppNotificationsComponent {
     
   ];
 
+  requesters=[{
+      _id:'',
+      username:''
+  }];
 
   constructor(private apiService: service) { 
   }
@@ -34,14 +38,18 @@ export class AppNotificationsComponent {
   async getRequest(){
     const token=this.apiService.getToken();
     await this.apiService.getFriendRequest(token).subscribe((response:any) =>{
-      console.log('FriendRequest List :',response);
+      this.requesters=response
+      console.log('FriendRequest List :',this.requesters);
     });
   }
 
-/*
-  async acceptRequest(){
-
+  
+  async acceptRequest(requester: string){
+     const token=this.apiService.getToken();
+     await this.apiService.acceptFriendRequest(token,requester).subscribe((response:any) =>{
+      console.log('Payload :',response);
+    });
   }
-  */
+  
 
 }
