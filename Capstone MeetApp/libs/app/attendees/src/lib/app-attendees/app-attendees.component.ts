@@ -5,11 +5,12 @@ import {IonicModule } from '@ionic/angular';
 import {service,events} from '@capstone-meet-app/app/services'
 import { Router ,ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'capstone-meet-app-app-attendees',
   standalone: true,
-  imports: [CommonModule,Ng2SearchPipeModule,FormsModule,IonicModule],
+  imports: [CommonModule,Ng2SearchPipeModule,FormsModule,IonicModule,RouterModule ],
   templateUrl: './app-attendees.component.html',
   styleUrls: ['./app-attendees.component.css'],
 })
@@ -78,12 +79,13 @@ export class AppAttendeesComponent {
     });
   }
 
-  async sendRequest(requestee:string)
+  async sendRequest(requestee:string, friend: any)
   {
     const token=this.apiService.getToken();
     await this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
       console.log('Send Request :',response);
     });
+    friend.requestSent = true;
   }
   
 

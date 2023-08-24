@@ -86,6 +86,9 @@
         "libs/app/login/feature/src/index.ts"
       ],
       "@capstone-meet-app/app/login/util": ["libs/app/login/util/src/index.ts"],
+      "@capstone-meet-app/app/notifications": [
+        "libs/app/notifications/src/index.ts"
+      ],
       "@capstone-meet-app/app/profile/data-access": [
         "libs/app/profile/data-access/src/index.ts"
       ],
