@@ -1,1 +1,18 @@
-<p>app-notifications works!</p>
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Notifications
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+        <ion-item *ngFor="let notification of notifications">
+          <ion-icon name="notifications"></ion-icon>
+          {{ notification.text }}
+        </ion-item>
+      </ion-list>
+      
+  </ion-content>
+  
