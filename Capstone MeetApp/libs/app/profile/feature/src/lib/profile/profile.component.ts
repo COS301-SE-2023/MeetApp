@@ -79,8 +79,6 @@ export class ProfileComponent {
 
   async ngOnInit(){
     const access_token=this.serviceProvider.getToken();
-    console.log(access_token);
-    this.getCurrentUser();
     this.getEventCount(access_token);
     this.getUserEvents(access_token);
     this.getFriendCount();
@@ -90,13 +88,6 @@ export class ProfileComponent {
     this.location.back();
   }
   
-  async getProfile(id :string){
-    await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
-      this.profile = response;
-      console.log(this.profile);
-    })
-  }
-
   gotofriends() {
     this.router.navigate(['/friends']);
     
@@ -105,44 +96,25 @@ export class ProfileComponent {
   async getEventCount(token :string|null){
     await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
       this.eventCount = response;
-      console.log(this.eventCount);
     });
   }
   
   async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(token,username,password,profilePicture,region).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
+    await this.serviceProvider.updateUser(token,username,password,profilePicture,region).subscribe();
   }
 
   async getUserEvents(token :string|null)
   {
     await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
-      console.log(response);
       this.events = response;
-      console.log(this.events);
     });
   }
 
-  async getCurrentUser()
-  {
-    const access_token=this.serviceProvider.getToken();
-     await this.serviceProvider.getLogedInUser(access_token).subscribe((response) => {
-      console.log('API response:', response);
-      this.user_payload=response;
-      this.current_user=this.user_payload;
-      console.log('user ID',this.current_user.id);
-      this.getProfile(this.current_user.id);
-    });
-
-  }
 
   async getFriendCount()
   {
     const access_token=this.serviceProvider.getToken();
     await this.serviceProvider.getFriendCount(access_token).subscribe((response:any) => {
-      console.log('API response:', response);
       this.friendCount=response;
     });
   }
