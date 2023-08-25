@@ -179,3 +179,8 @@ export class UserLoginRequest {
     readonly requester! : string
   }
 
+  export class RequesteeBody {
+    @ApiProperty({description: 'The id of the requestee', type: 'string', example: '64723154d01ba2f73db88fe0'})
+    readonly requestee! : string
+  }
+
