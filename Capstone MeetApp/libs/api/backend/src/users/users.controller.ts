@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, UnfriendBody, UnfriendResponse, UserAccountInfo, UserAttendEventBody, UserAttendEventResponse, UserFriends, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, RequesteeBody, RequesterBody, UnfriendBody, UnfriendResponse, UserAccountInfo, UserAttendEventBody, UserAttendEventResponse, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 import { Event } from '../events/schema';
@@ -166,6 +166,7 @@ export class UsersController {
   @Post('friend/send-request')
   @ApiBearerAuth()
   @ApiOperation({summary: "Send a friend request to another user"})
+  @ApiBody({description: 'An object with the requestee\'s id', type: RequesteeBody})
   sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}, ) {
     
     return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
@@ -175,7 +176,7 @@ export class UsersController {
   @Patch('friend/accept-request')
   @ApiBearerAuth()
   @ApiOperation({summary: "Accept a friend request received from another user"})
-  
+  @ApiBody({description: 'An object with the requester\'s id', type: RequesterBody})
   acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}, ) {
     
     return this.usersService.acceptRequest(req.user.id, requesterID.requester);
