@@ -168,3 +168,8 @@ export class UserLoginRequest {
     @ApiProperty({description: 'Indicating whether the user is attending an event or not', type: 'bollean', example: 'false'})
     readonly isAttending! : boolean
   }
+
+  export class UserAttendEventBody {
+    @ApiProperty({description: 'The id of the event', type: 'string', example: '64723154d01ba2f73db88fe0'})
+    readonly eventID! : string
+  }
