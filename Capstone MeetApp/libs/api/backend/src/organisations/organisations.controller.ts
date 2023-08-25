@@ -9,9 +9,8 @@ import {
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
-import { UpdateOrganisationDto } from './dto/update-organisation.dto';
 import { AuthGuard } from './organisations.guard';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBody, ApiSecurity, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags, ApiBody, ApiSecurity, ApiBearerAuth } from '@nestjs/swagger';
 import { CategoryCountResponse, OrganisationAccountInfo, OrganisationLoginRequest, OrganisationLoginResponse, RegionCountResponse, SupporterAndTopEvent, TopCategory, TopRegion } from '../interfaces';
 import { Organisation } from './schema';
 import { Event } from '../events/schema';
