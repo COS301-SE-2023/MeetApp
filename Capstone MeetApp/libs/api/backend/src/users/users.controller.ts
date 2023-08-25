@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, UnfriendBody, UnfriendResponse, UserAccountInfo, UserAttendEventResponse, UserFriends, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, UnfriendBody, UnfriendResponse, UserAccountInfo, UserAttendEventBody, UserAttendEventResponse, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 import { Event } from '../events/schema';
@@ -202,8 +202,9 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Post('attend')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'Attend an event'})
   @ApiResponse({description: 'An attendance object with an additional isAttending field', type: UserAttendEventResponse})
-  @ApiBody({description: 'The id of the event to attend', type: ''})
+  @ApiBody({description: 'The id of the event to attend', type: UserAttendEventBody})
   async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}, ) {
     
     return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
