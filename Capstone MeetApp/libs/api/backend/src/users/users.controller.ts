@@ -4,22 +4,32 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
+import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
+import { AcceptFriendResponse, AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, RequesteeBody, RequesterBody, UnfriendBody, UnfriendResponse, UserAccountInfo, UserAttendEventBody, UserAttendEventResponse, UserFriends, UserLoginRequest} from '../interfaces';
+import { CreateEventDto } from '../events/dto/create-event.dto';
+import { User } from './schema';
+import { Event } from '../events/schema';
+import { Friendship } from '../friendships/schema';
 
-interface AuthenticatedRequest extends Request {
-  user: {id : string, username : string, password: string};
-}
 
 @Controller('users')
+@ApiSecurity('Api-Key')
+@ApiTags('Users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('signup')
+  @ApiOperation({summary: 'Create a new user'})
+  @ApiBody({description: 'Fill in your information', type: CreateUserDto})
+  @ApiResponse({ status: 201, description: 'User created successfully' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
   @Post('login')
-  signup(@Body() LoginInfo : UpdateUserDto){
+  @ApiOperation({summary: 'Log into an existing account'})
+  @ApiBody({description: 'Fill in the account\'s credentials', type: UserLoginRequest})
+  signup(@Body() LoginInfo : UserLoginRequest){
     if (LoginInfo != null){
       if (LoginInfo.password != null && LoginInfo.username != null)
         return this.usersService.login(LoginInfo.username,LoginInfo.password)
@@ -33,33 +43,50 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('account')
+  @ApiOperation({summary: 'View logged-in user\'s credentials'})
+  @ApiBearerAuth()
+  @ApiResponse({type: UserAccountInfo, description: "The user's credentials"})
   getAccount(@Request() req : AuthenticatedRequest) {
+    //
       return req.user;
   }
 
   @UseGuards(AuthGuard)
   @Get('attendances')
-  getUserAttendancesJWT(@Request() req : AuthenticatedRequest) {
-    //console.log(req.user)
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events a logged-in user is attending'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events attended by the user"})
+  getUserAttendancesJWT(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getUserAttendances(req.user.id);
   }
 
   @UseGuards(AuthGuard)
   @Get('attendances/count')
-  getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: "View the total number of events attended by the logged-in user"})
+  @ApiResponse({type: Number, description: "The total number of events attended by the user"})
+  getUserAttendancesCountJWT(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getUserAttendancesCount(req.user.id);
   }
 
   @UseGuards(AuthGuard)
   @Patch('update')
-  updateJWT(@Request() req : AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto) {
+  @ApiOperation({summary: "Update the logged-in user's information"})
+  @ApiBearerAuth()
+  updateJWT(@Request() req : AuthenticatedRequest, @Body() updateUserDto: UpdateUserDto, ) {
+    
     return this.usersService.update(req.user.id, updateUserDto);
   }
 
 
   
   @Get()
-  findAll(@Req() request: RequestExpress) {
+  @ApiOperation({summary: "View a list of all existing users"})
+  @ApiResponse({type: [User], description: "A list of all existing users"})
+  findAll(@Req() request: RequestExpress, ) {
+    
     if (request.query == null)
       return this.usersService.findAll();
     else
@@ -68,136 +95,214 @@ export class UsersController {
 
   @UseGuards(AuthGuard)
   @Get('friends')
-  async getUserFriends(@Request() req : AuthenticatedRequest) {
+  @ApiOperation({summary: "View a list of the logged-in user's friends"})
+  @ApiBearerAuth()
+  @ApiResponse({type: [UserFriends], description: "A list of the user's friends"})
+  async getUserFriends(@Request() req : AuthenticatedRequest, ) {
+    
     const friends = await this.usersService.getUserFriends(req.user.id);
     return friends;
   }
 
   @Get(':userId/attendances')
-  getUserAttendances(@Param('userId') userId: string) {
+  @ApiOperation({summary: 'View events attended by the specified user'})
+  @ApiResponse({status: 200, description: 'List of events attended', type: [Event]})
+  @ApiParam({name: 'userId', description: 'the id of the user'})
+  getUserAttendances(@Param('userId') userId: string, ) {
+    
     return this.usersService.getUserAttendances(userId);
   }
 
   @UseGuards(AuthGuard)
   @Get('friends/count')
-  getUserFriendsCount(@Request() req : AuthenticatedRequest) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: "View the total number of friends of the logged-in user"})
+  @ApiResponse({type: Number, description: "The total number of friends the user has"})
+  getUserFriendsCount(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getUserFriendsCount(req.user.id);
   }
 
   
   @Get(':userId/attendances/count')
-  getUserAttendancesCount(@Param('userId') userId: string) {
+  @ApiOperation({summary: 'The total number of events attended by the user'})
+  @ApiResponse({status: 200, description: 'The total number of events attended', type: 'number'})
+  getUserAttendancesCount(@Param('userId') userId: string, ) {
+    
     return this.usersService.getUserAttendancesCount(userId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  @ApiOperation({summary: 'Update the specified user'})
+  @ApiResponse({status: 200, description: 'updated user', type: User})
+  @ApiParam({name: 'id', description: 'the id of the user'})
+  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, ) {
+    
     return this.usersService.update(id, updateUserDto);
   }
 
   @UseGuards(AuthGuard)
   @Get('friend-requests')
-  async getUserFriendRequests(@Request() req : AuthenticatedRequest) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: "View a list of the logged-in user's friend requests"})
+  @ApiResponse({type: [UserFriends], description: "A list of the user's friend requests"})
+  async getUserFriendRequests(@Request() req : AuthenticatedRequest, ) {
+    
     const friends = await this.usersService.getUserFriendRequests(req.user.id);
     return friends;
   }
 
   @UseGuards(AuthGuard)
   @Delete('friend/unfriend')
-  unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}) {
+  @ApiBearerAuth()
+  @ApiBody({type: UnfriendBody})
+  @ApiOperation({summary: "Remove a logged-in user's friend"})
+  @ApiResponse({type: UnfriendResponse, description: "Details of success or failure of unfriend process"})
+  unfriend(@Request() req : AuthenticatedRequest, @Body() friendID : {friend: string}, ) {
+    
     return this.usersService.unfriend(req.user.id,friendID.friend);
   }
 
   @UseGuards(AuthGuard)
   @Post('friend/send-request')
-  sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Send a friend request to another user"})
+  @ApiBody({description: 'An object with the requestee\'s id', type: RequesteeBody})
+  @ApiResponse({description: 'The newly created friendship', type: Friendship})
+  sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}, ) {
+    
     return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
   }
 
   @UseGuards(AuthGuard)
   @Patch('friend/accept-request')
-  acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Accept a friend request received from another user"})
+  @ApiBody({description: 'An object with the requester\'s id', type: RequesterBody})
+  @ApiResponse({description: 'An object containing a message, friendship object and changes field', type: AcceptFriendResponse})
+  acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}, ) {
+    
     return this.usersService.acceptRequest(req.user.id, requesterID.requester);
   }
 
   @UseGuards(AuthGuard)
   @Get('friend-requests/pending')
-  async getUsersentRequests(@Request() req : AuthenticatedRequest) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: "View a list of the logged-in user's pending friend requests"})
+  @ApiResponse({type: [UserFriends], description: "A list of the user's pending friend requests"})
+  async getUsersentRequests(@Request() req : AuthenticatedRequest, ) {
+    
     const friends = await this.usersService.getUserSentRequests(req.user.id);
     return friends;
   }
 
   @UseGuards(AuthGuard)
   @Get('friends/events')
-  async getFriendEvents(@Request() req : AuthenticatedRequest) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events a logged-in user\'s friends are attending'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events attended by the user's friends"})
+  async getFriendEvents(@Request() req : AuthenticatedRequest, ) {
+    
     return this.usersService.getFriendEvents(req.user.id);
   }
 
-
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.usersService.remove(+id);
-  // }
-
   @UseGuards(AuthGuard)
   @Post('attend')
-  async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}) {
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'Attend an event'})
+  @ApiResponse({description: 'An attendance object with an additional isAttending field', type: UserAttendEventResponse})
+  @ApiBody({description: 'The id of the event to attend', type: UserAttendEventBody})
+  async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}, ) {
+    
     return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
-
   }
 
   @UseGuards(AuthGuard)
   @Get('all-events')
-  async getAllEvents(@Request() req : AuthenticatedRequest){
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events a logged-in user\'s friends are attending'})
+  @ApiResponse({type: [Event], description: "A list of events attended by the user's friends"})
+  async getAllEvents(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.getUserEvents(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('event/:eventID')
-  async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string){
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View a specif event'})
+  @ApiResponse({type: Event, description: "An event"})
+  @ApiParam({name: 'eventID', description: 'The id of the event'})
+  async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string, ){
+    
     return await this.usersService.getUserEvent(req.user.id, eventID)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/region')
-  async getRecRegion(@Request() req : AuthenticatedRequest){
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on region'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on region"})
+  async getRecRegion(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.recommendByRegion(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/category')
-  async getRecCategory(@Request() req : AuthenticatedRequest){
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on category'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on category"})
+  async getRecCategory(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.recommendationCategory(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/timeofday')
-  async getRecTOD(@Request() req : AuthenticatedRequest){
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on time of day'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on time of day"})
+  async getRecTOD(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.getUserTimeOfDayRecommendation(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('interests/category')
-  async getIntCategory(@Request() req : AuthenticatedRequest){
+  @ApiBearerAuth()
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View the top 3 categories the user may be interested in based on attendances'})
+  @ApiResponse({type: InterestCategoryResponse, description: "The top 3 categories the user may be interested in based on attendances along with their frequencies"})
+  async getIntCategory(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.InterestCategory(req.user.id)
   }
 
   @UseGuards(AuthGuard)
   @Get('recommendations/duration')
-  async getRecDuration(@Request() req : AuthenticatedRequest){
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events recommended to a logged-in user based on duration'})
+  @ApiResponse({type: [CreateEventDto], description: "A list of events recommended to a logged-in user based on duration"})
+  async getRecDuration(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.getUserInterestAverageDuration(req.user.id)
   }
   
   // @UseGuards(AuthGuard)
   // @Get('interests/duration')
+  // @ApiBearerAuth()
   // async getIntDuration(@Request() req : AuthenticatedRequest){
   //   return await this.usersService.getUserInterestDuration(req.user.id)
   // }
 
   @UseGuards(AuthGuard)
   @Get('interests/region')
-  async getIntRegion(@Request() req : AuthenticatedRequest){
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'View the top 3 regions the user may be interested in based on attendances'})
+  @ApiResponse({type: InterestRegionResponse, description: "The top 3 regions the user may be interested in based on attendances along with their frequencies"})
+  async getIntRegion(@Request() req : AuthenticatedRequest, ){
+    
     return await this.usersService.InterestRegion(req.user.id)
   }
 }

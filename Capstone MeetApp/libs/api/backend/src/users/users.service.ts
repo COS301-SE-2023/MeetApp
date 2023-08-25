@@ -75,7 +75,7 @@ export class UsersService {
 
     const friends = await this.userModel
       .find({ _id: { $in: fndsArr } })
-      .select('username ID')
+      .select('username ID profilePicture')
       .exec();
 
     return friends;
@@ -117,7 +117,7 @@ export class UsersService {
 
     const friends = await this.userModel
       .find({ _id: { $in: fndsArr } })
-      .select('username ID')
+      .select('username ID profilePicture')
       .exec();
 
     return friends;
@@ -137,7 +137,7 @@ export class UsersService {
 
     const friends = await this.userModel
       .find({ _id: { $in: fndsArr } })
-      .select('username ID')
+      .select('username ID profilePicture')
       .exec();
 
     return friends;
