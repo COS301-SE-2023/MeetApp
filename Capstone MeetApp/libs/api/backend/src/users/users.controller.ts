@@ -9,6 +9,7 @@ import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse,
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 import { Event } from '../events/schema';
+import { Friendship } from '../friendships/schema';
 
 
 @Controller('users')
@@ -167,6 +168,7 @@ export class UsersController {
   @ApiBearerAuth()
   @ApiOperation({summary: "Send a friend request to another user"})
   @ApiBody({description: 'An object with the requestee\'s id', type: RequesteeBody})
+  @ApiResponse({description: 'The newly created friendship', type: Friendship})
   sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}, ) {
     
     return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
