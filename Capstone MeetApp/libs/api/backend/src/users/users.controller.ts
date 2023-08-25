@@ -120,6 +120,8 @@ export class UsersController {
 
   
   @Get(':userId/attendances/count')
+  @ApiOperation({summary: 'The total number of events attended by the user'})
+  @ApiResponse({status: 200, description: 'The total number of events attended'})
   getUserAttendancesCount(@Param('userId') userId: string, ) {
     
     return this.usersService.getUserAttendancesCount(userId);
