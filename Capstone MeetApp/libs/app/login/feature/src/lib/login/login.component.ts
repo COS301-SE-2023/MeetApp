@@ -11,6 +11,7 @@ import { HttpClient} from '@angular/common/http';
 import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -28,9 +29,9 @@ export class LoginComponent {
   username='';
 
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
-    private toastController: ToastController, private authservice: service,private activatedRoute: ActivatedRoute) { 
+    private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute) { 
   }
-
+  
   
   //storing the users data
   data_user= [{
@@ -184,8 +185,15 @@ export class LoginComponent {
     this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
-  login(username: string,password: string) {
-    if(this.userType=='user')
+  async login(username: string,password: string) {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+    await loading.present();
+
+    setTimeout(() => {
+      loading.dismiss();
+      if(this.userType=='user')
     {
       this.LogInUser(username,password);
       
@@ -195,6 +203,8 @@ export class LoginComponent {
     {
       this.LogInOrg(username,password);
     }
+    }, 3000);
+    
    
   }
  

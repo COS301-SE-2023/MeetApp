@@ -120,5 +120,8 @@ export class HomepageComponent {
   gotoorganiser() {
     this.router.navigateByUrl('/organisers');
   }
+  gotonotifications() {
+    this.router.navigateByUrl('/notifications');
+  }
   
 }
