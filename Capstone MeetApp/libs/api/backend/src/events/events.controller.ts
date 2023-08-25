@@ -23,10 +23,10 @@ export class EventsController {
    async createEvent(@Res() response : Response, @Body() createEventdto: CreateEventDto, ) {
   try {
     
-    const newStudent = await this.eventsService.create(createEventdto);
+    const newEvent = await this.eventsService.create(createEventdto);
     return response.status(HttpStatus.CREATED).json({
     message: 'Event has been created successfully',
-    newStudent,});
+    newEvent,});
  } catch (err) {
     return response.status(HttpStatus.BAD_REQUEST).json({
     statusCode: 400,
