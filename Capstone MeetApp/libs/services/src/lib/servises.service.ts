@@ -496,7 +496,18 @@ export class service{
         return this.http.get(`${url}`,{ headers });
     }
 
-    
+    getPendingFriendRequest(token:string|null)
+    {
+        const url = `${this.baseURl}users/friend-requests/pending`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+      
+        return this.http.get(`${url}`,{ headers });
+    }
+
     //SERVICES FOR ATTENDANCE
 
     attendEvent(organisationID: string,eventID: string,userID: string)
