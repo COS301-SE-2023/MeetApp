@@ -38,7 +38,7 @@ export class EventsController {
 
   @Get()
   @ApiOperation({ summary: 'Find all events' })
-  @ApiResponse({ status: 200, description: 'List of events' , type : [CreateEventDto]})
+  @ApiResponse({ status: 200, description: 'List of events' , type : [Event]})
   findAll(@Req() request: Request, ) {
     
     if (request.query == null)
