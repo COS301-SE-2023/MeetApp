@@ -5,7 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
 import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
-import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, UnfriendBody, UnfriendResponse, UserAccountInfo, UserFriends, UserLoginRequest} from '../interfaces';
+import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, UnfriendBody, UnfriendResponse, UserAccountInfo, UserAttendEventResponse, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
 import { Event } from '../events/schema';
@@ -202,6 +202,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Post('attend')
   @ApiBearerAuth()
+  @ApiResponse({description: 'An attendance object with an additional isAttending field', type: UserAttendEventResponse})
+  @ApiBody({description: 'The id of the event to attend', type: ''})
   async attendEvent(@Request() req : AuthenticatedRequest, @Body() eventToAttend : {eventID : string}, ) {
     
     return await this.usersService.attendEvent(req.user.id, eventToAttend.eventID);
@@ -210,6 +212,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('all-events')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View list of events a logged-in user\'s friends are attending'})
+  @ApiResponse({type: [Event], description: "A list of events attended by the user's friends"})
   async getAllEvents(@Request() req : AuthenticatedRequest, ){
     
     return await this.usersService.getUserEvents(req.user.id)
@@ -218,6 +222,9 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Get('event/:eventID')
   @ApiBearerAuth()
+  @ApiOperation({summary: 'View a specif event'})
+  @ApiResponse({type: Event, description: "An event"})
+  @ApiParam({name: 'eventID', description: 'The id of the event'})
   async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string, ){
     
     return await this.usersService.getUserEvent(req.user.id, eventID)
