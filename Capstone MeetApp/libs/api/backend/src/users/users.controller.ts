@@ -4,10 +4,11 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Request as RequestExpress } from 'express';
 import { AuthGuard } from './users.guard';
-import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiBearerAuth, ApiSecurity, ApiBody } from '@nestjs/swagger';
 import { AuthenticatedRequest, InterestCategoryResponse, InterestRegionResponse, UnfriendBody, UnfriendResponse, UserAccountInfo, UserFriends, UserLoginRequest} from '../interfaces';
 import { CreateEventDto } from '../events/dto/create-event.dto';
 import { User } from './schema';
+import { Event } from '../events/schema';
 
 
 @Controller('users')
@@ -103,6 +104,9 @@ export class UsersController {
   }
 
   @Get(':userId/attendances')
+  @ApiOperation({summary: 'View events attended by the specified user'})
+  @ApiResponse({status: 200, description: 'List of events attended', type: [Event]})
+  @ApiParam({name: 'userId', description: 'the id of the user'})
   getUserAttendances(@Param('userId') userId: string, ) {
     
     return this.usersService.getUserAttendances(userId);
@@ -121,13 +125,16 @@ export class UsersController {
   
   @Get(':userId/attendances/count')
   @ApiOperation({summary: 'The total number of events attended by the user'})
-  @ApiResponse({status: 200, description: 'The total number of events attended'})
+  @ApiResponse({status: 200, description: 'The total number of events attended', type: 'number'})
   getUserAttendancesCount(@Param('userId') userId: string, ) {
     
     return this.usersService.getUserAttendancesCount(userId);
   }
 
   @Patch(':id')
+  @ApiOperation({summary: 'Update the specified user'})
+  @ApiResponse({status: 200, description: 'updated user', type: User})
+  @ApiParam({name: 'id', description: 'the id of the user'})
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto, ) {
     
     return this.usersService.update(id, updateUserDto);
