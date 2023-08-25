@@ -7,7 +7,7 @@ import { FilterQuery } from 'mongoose';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiSecurity, ApiBody } from '@nestjs/swagger';
 import { User } from '../users/schema';
-import { UpdateEventResponse } from '../interfaces';
+import { NewEventResponse, UpdateEventResponse } from '../interfaces';
 import { Event } from './schema';
 
 @Controller('events')
@@ -19,7 +19,7 @@ export class EventsController {
   @Post()
   @ApiOperation({ summary: 'Create a new event'})
   @ApiBody({description: 'Fill in information about the event', type: CreateEventDto})
-  @ApiResponse({ status: 201, description: 'Event created successfully' })
+  @ApiResponse({ status: 201, description: 'Event created successfully', type: NewEventResponse})
    async createEvent(@Res() response : Response, @Body() createEventdto: CreateEventDto, ) {
   try {
     
