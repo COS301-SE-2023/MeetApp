@@ -165,6 +165,7 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Post('friend/send-request')
   @ApiBearerAuth()
+  @ApiOperation({summary: "Send a friend request to another user"})
   sendFriendRequest(@Request() req : AuthenticatedRequest, @Body() requesteeID : {requestee: string}, ) {
     
     return this.usersService.sendFriendRequest(req.user.id,requesteeID.requestee)
@@ -173,6 +174,8 @@ export class UsersController {
   @UseGuards(AuthGuard)
   @Patch('friend/accept-request')
   @ApiBearerAuth()
+  @ApiOperation({summary: "Accept a friend request received from another user"})
+  
   acceptFriendship(@Request() req : AuthenticatedRequest, @Body() requesterID: {requester: string}, ) {
     
     return this.usersService.acceptRequest(req.user.id, requesterID.requester);
