@@ -184,3 +184,13 @@ export class UserLoginRequest {
     readonly requestee! : string
   }
 
+export class AcceptFriendResponse{
+  @ApiProperty({description: 'The existing friendship object'})
+  readonly friendship!: Friendship
+
+  @ApiProperty({description: 'A message indicating success or failure', example: 'Friend added successfully!'})
+  readonly message! : string
+
+  @ApiProperty({description: 'If changes were made to the friendship object', example: 'true'})
+  readonly changes! : boolean
+}
