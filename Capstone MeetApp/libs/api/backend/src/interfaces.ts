@@ -142,4 +142,8 @@ export class UserLoginRequest {
     readonly category!: string
   }
 
-  
+  export class UpdateEventResponse {
+    @ApiProperty({description: 'A message and the updated event', type: 'OrderedMap', example: {message : 'Event has been successfully updated', existingEvent: '{event object}'}})
+    readonly message! : string;
+    readonly event! : Event;
+  }
