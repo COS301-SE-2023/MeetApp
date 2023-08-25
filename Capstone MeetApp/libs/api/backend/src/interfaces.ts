@@ -143,13 +143,19 @@ export class UserLoginRequest {
   }
 
   export class UpdateEventResponse {
-    @ApiProperty({description: 'A message and the updated event', type: 'OrderedMap', example: {message : 'Event has been successfully updated', existingEvent: '{event object}'}})
+    @ApiProperty({description: 'A message indicating if it was a success or not', type: 'string', example: 'Event has been successfully updated'})
     readonly message! : string;
+
+    @ApiProperty({description: 'The id of the user', type: 'string', example: '74723154801ba2f73db88fe0'})
     readonly event! : Event;
   }
 
   export class NewEventResponse {
-    @ApiProperty({description: 'A message and the new event', type: 'OrderedMap', example: {message : 'Wvent has been created successfully', newEvent: '{event object}'}})
+    @ApiProperty({description: 'A message indicating if it was a success or not', type: 'string', example: 'Event has been created successfully'})
     readonly message! : string;
+
+    @ApiProperty({description: 'The id of the user', type: 'string', example: '74723154801ba2f73db88fe0'})
     readonly event! : Event;
   }
+
+  
