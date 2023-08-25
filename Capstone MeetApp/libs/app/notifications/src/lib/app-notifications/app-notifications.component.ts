@@ -26,6 +26,7 @@ export class AppNotificationsComponent {
   requesters=[{
       id:'',
       username:''
+      ,requestSent:''
   }];
 
   constructor(private apiService: service) { 
@@ -44,12 +45,14 @@ export class AppNotificationsComponent {
   }
 
   
-  async acceptRequest(requester: string){
+  async acceptRequest(requester: string,request:any){
      const token=this.apiService.getToken();
      await this.apiService.acceptFriendRequest(token,requester).subscribe((response:any) =>{
       console.log('Payload :',response);
       this.getRequest();
     });
+
+    request.requestSent = true;
   }
   
 

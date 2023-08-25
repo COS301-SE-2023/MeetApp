@@ -12,6 +12,8 @@ import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { LoadingController } from '@ionic/angular';
+
 
 
 @Component({
@@ -28,7 +30,7 @@ export class SignupComponent {
   loginForm!: FormGroup;
  
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
-    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location) {}
+    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, private loadingController: LoadingController) {}
    
   events:any =[];
   firstname="";
@@ -94,34 +96,43 @@ export class SignupComponent {
 
   valid=true;
 
-  signup(){
+  async signup(){
     const password = this.loginForm.value.password;
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
     
-    if ( this.loginForm.invalid) {  
-      const errorMessage = 'choose a stronger password';
-      this.showErrorToast(errorMessage); 
-      this.valid=false;
-    }
-    else
-    {
-      this.valid=true;
-
-    }
+   
     
-    if(this.userType=='user' )
+    
+
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+    await loading.present();
+
+    // Simulate some asynchronous operation
+    setTimeout(() => {
+      loading.dismiss();
+      if ( this.loginForm.invalid) {  
+        const errorMessage = 'choose a stronger password';
+        this.showErrorToast(errorMessage); 
+        this.valid=false;
+      }
+      else if(this.valid==true)
+      {
+        this.valid=true;
+        if(this.userType=='user' )
     {
         this.SignUpUser(username,password,'',region);
     }
     else  if(this.userType=='organiser'){
       this.SignUpOrg(username,name,password, this.events)
     }
-
-    console.log(name);
-    console.log(password);
-    console.log(region);
+  
+      }
+      
+    }, 3000);
     
   }
 
@@ -157,7 +168,7 @@ export class SignupComponent {
     {
       const errorMessage = 'Account Created Successfully';
       this.showErrorAlert(errorMessage); 
-      this.router.navigate(['/home']);
+      
     }
 
   }
