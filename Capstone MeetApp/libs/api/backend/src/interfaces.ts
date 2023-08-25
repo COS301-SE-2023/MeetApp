@@ -173,3 +173,9 @@ export class UserLoginRequest {
     @ApiProperty({description: 'The id of the event', type: 'string', example: '64723154d01ba2f73db88fe0'})
     readonly eventID! : string
   }
+
+  export class RequesterBody {
+    @ApiProperty({description: 'The id of the requester', type: 'string', example: '64723154d01ba2f73db88fe0'})
+    readonly requester! : string
+  }
+
