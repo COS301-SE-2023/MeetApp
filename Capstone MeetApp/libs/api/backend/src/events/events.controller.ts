@@ -6,6 +6,9 @@ import { Request, Response } from 'express';
 import { FilterQuery } from 'mongoose';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { ApiOperation, ApiResponse, ApiParam, ApiQuery, ApiTags, ApiSecurity, ApiBody } from '@nestjs/swagger';
+import { User } from '../users/schema';
+import { UpdateEventResponse } from '../interfaces';
+import { Event } from './schema';
 
 @Controller('events')
 @ApiSecurity('Api-Key')
@@ -48,6 +51,7 @@ export class EventsController {
   @ApiOperation({ summary: 'Find an event by ID' })
   @ApiParam({ name: 'id', description: 'Event ID or special keyword (today, thisweek, thismonth, thisyear, fetch-by-ids)' })
   @ApiQuery({ name: 'eventIds', description: 'Comma-separated list of event IDs (for fetch-by-ids endpoint)', required: false })
+  @ApiResponse({ status: 200, description: 'an event', type: Event})
   findOne(@Param('id') id: string, @Query('eventIds') eventIds: string, ) {
     
     let eventIdArray : string[];
@@ -80,6 +84,7 @@ export class EventsController {
 
   @Get('today')
   @ApiOperation({ summary: 'Find events for today' })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsForToday(){
     
     const todaysDate = new Date();
@@ -90,6 +95,7 @@ export class EventsController {
 
   @Get('thisweek')
   @ApiOperation({ summary: 'Find events for this week' })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsForThisWeek() {
     
     const today = new Date();
@@ -106,6 +112,7 @@ export class EventsController {
 
   @Get('thismonth')
   @ApiOperation({ summary: 'Find events for this month' })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsForThisMonth(){
     
     const today = new Date();
@@ -122,6 +129,7 @@ export class EventsController {
 
   @Get('thisyear')
   @ApiOperation({ summary: 'Find events for this year' })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsForThisYear() {
     
     const today = new Date();
@@ -138,6 +146,7 @@ export class EventsController {
   @Get('region/:region')
   @ApiOperation({ summary: 'Find events for a specific region' })
   @ApiParam({ name: 'region', description: 'The region you want to find events for', required: true })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsByRegion(@Param('region') region: string, ) {
     
     const query: FilterQuery<Event> = { region: region };
@@ -147,6 +156,7 @@ export class EventsController {
   @Get('month/:month')
   @ApiOperation({ summary: 'Find events for a specific month' })
   @ApiParam({ name: 'month', description: 'The month (MM format) you want to find events for', required: true })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsByMonth(@Param('month') month: string, ){
     
     const query: FilterQuery<Event> = { date: { $regex: `.*-${month}-.*` } };
@@ -156,6 +166,7 @@ export class EventsController {
   @Get('year/:year')
   @ApiOperation({ summary: 'Find events for a specific year' })
   @ApiParam({ name: 'year', description: 'The year you want to find events for', required: true })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsByYear(@Param('year') year: string, ){
     
     const query: FilterQuery<Event> = { date: { $regex: `^${year}-.*` } };
@@ -165,6 +176,7 @@ export class EventsController {
   @Get('category/:category')
   @ApiOperation({ summary: 'Find events for a specific region' })
   @ApiParam({ name: 'region', description: 'The region you want to find events for', required: true })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsByCategory(@Param('category') category: string, ) {
     
     const query: FilterQuery<Event> = { category: category };
@@ -175,6 +187,7 @@ export class EventsController {
   @ApiOperation({ summary: 'Find events for a specific date range (inclusive ranges)' })
   @ApiParam({ name: 'startDate', description: 'The lower boundary date you want to find events for', required: true })
   @ApiParam({ name: 'endDate', description: 'The upper boundary date you want to find events for', required: true })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   getEventsByDateRange(
     @Param('startDate') startDate: string,
     @Param('endDate') endDate: string,
@@ -187,6 +200,7 @@ export class EventsController {
   @Get('org/:organisation')
   @ApiOperation({ summary: 'Find events for a specific organisation' })
   @ApiParam({ name: 'organisation', description: 'The organisation (name) you want to find events for', required: true })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
   findbyOrganisation(@Param('organisation') organisation: string, ) {
     
     return this.eventsService.findbyOrganisation(organisation);
@@ -195,6 +209,7 @@ export class EventsController {
   @Get(':eventID/attendance-count')
   @ApiOperation({ summary: 'Find total number of people attending an event' })
   @ApiParam({ name: 'eventID', description: 'The event ID', required: true })
+  @ApiResponse({ type: [User], description: 'A list of users'})
   getEventAttendanceCount(@Param('eventID') eventID: string, ) {
     
     return this.eventsService.getEventAttendanceCount(eventID);
@@ -204,7 +219,7 @@ export class EventsController {
   @Put('/:id')
   @ApiOperation({ summary: 'Update an event' })
   @ApiParam({ name: 'id', description: 'The id of the event', required: true })
-  @ApiResponse({ status: 201, description: 'Event has been successfully updated' })
+  @ApiResponse({ status: 201, description: 'Event has been successfully updated', type: UpdateEventResponse})
   async updateEvent(@Res() response : Response,@Param('id') eventId: string,
   @Body() updateEventdto: UpdateEventDto, ) {
     
@@ -244,6 +259,7 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string, )
  @Get(':eventId/attendance-count')
  @ApiOperation({ summary: 'Find total number of people attending an event' })
  @ApiParam({ name: 'eventID', description: 'The event ID', required: true })
+ @ApiResponse({type: 'number', description: 'the number of people attending the event'})
   async getEventAttendance(@Param('eventId') eventId: string, ): Promise<number> {
     
     return this.eventsService.getEventAttendance(eventId);
@@ -253,6 +269,7 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string, )
   @Get(':eventId/attendance')
   @ApiOperation({ summary: 'Find the people attending an event' })
   @ApiParam({ name: 'eventID', description: 'The event ID', required: true })
+  @ApiResponse({ type: [User], description: 'A list of users'})
   async getAttendingUsers(@Param('eventId') eventId: string, ) {
     
     return this.eventsService.getAttendingUsers(eventId);
