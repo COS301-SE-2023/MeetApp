@@ -147,3 +147,9 @@ export class UserLoginRequest {
     readonly message! : string;
     readonly event! : Event;
   }
+
+  export class NewEventResponse {
+    @ApiProperty({description: 'A message and the new event', type: 'OrderedMap', example: {message : 'Wvent has been created successfully', newEvent: '{event object}'}})
+    readonly message! : string;
+    readonly event! : Event;
+  }
