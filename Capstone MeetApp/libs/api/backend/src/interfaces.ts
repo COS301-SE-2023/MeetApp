@@ -165,7 +165,7 @@ export class UserLoginRequest {
     @ApiProperty({description: 'The id of the user', type: 'string', example: '74723154d01ba2f73db88fe0'})
     readonly userID! : string
 
-    @ApiProperty({description: 'Indicating whether the user is attending an event or not', type: 'bollean', example: 'false'})
+    @ApiProperty({description: 'Indicating whether the user is attending an event or not', type: 'boolean', example: 'false'})
     readonly isAttending! : boolean
   }
 
