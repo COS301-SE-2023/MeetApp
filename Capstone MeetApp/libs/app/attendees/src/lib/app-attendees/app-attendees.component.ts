@@ -69,24 +69,32 @@ export class AppAttendeesComponent {
     });
   
     this.getListAttendances(this.eventID);
+    this.getRequest();
   }
 
   async getListAttendances(id:string)
   {
     await this.apiService.getEventAttendance(id).subscribe((response:any) =>{
       this.attandance_list=response;
-      console.log('Attendace List :',this.attandance_list);
+      console.log('Attendace List :',this.attandance_list[0].id);
     });
   }
 
-  async sendRequest(requestee:string, friend: any)
+  sendRequest(requestee:string, friend: any)
   {
     const token=this.apiService.getToken();
-    await this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
+    this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
       console.log('Send Request :',response);
     });
     friend.requestSent = true;
   }
   
+  async getRequest(){
+    const token=this.apiService.getToken();
+    await this.apiService.getFriendRequest(token).subscribe((response:any) =>{
+      //this.requesters=response;
+      console.log('FriendRequest List :',response);
+    });
+  }
 
 }
