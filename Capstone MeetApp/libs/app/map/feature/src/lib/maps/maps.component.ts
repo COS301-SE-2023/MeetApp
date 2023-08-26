@@ -94,9 +94,7 @@ async ngOnInit() {
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
   apikey = environment.API_KEY;
   map: any;
-  zoom = 8;
- // image="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi";
-  //selectedRegion: string ;
+  zoom = 10;
 
   options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
@@ -104,7 +102,7 @@ async ngOnInit() {
     scrollwheel: false,
     disableDoubleClickZoom: true,
     maxZoom: 25,
-    minZoom: 8,
+    minZoom: 12,
   } as google.maps.MapOptions;
     filterEvents:Event[]=[{
     name:'',
@@ -151,8 +149,8 @@ async ngOnInit() {
     }, 0);
     
   }
-   
-   async getEventsByDate(startDate?:string, endDate?:string){
+
+  async getEventsByDate(startDate?:string, endDate?:string){
 
     console.log(startDate+" "+endDate)
     await this.service.getEventsByRange(startDate,endDate).subscribe((response:any)=>{
@@ -179,33 +177,14 @@ async ngOnInit() {
   
   // Marker icons
   svgIcon = {
-    url: 'https://www.clipartmax.com/png/small/5-51701_marker-icon-google-maps.png',
-    scaledSize: new google.maps.Size(50, 50)
+    url: 'https://www.clipartmax.com/png/small/1-19420_ruidoso-river-resort-ruidosos-condo-location-marker-png-transparent.png',
+    scaledSize: new google.maps.Size(25, 25)
   };
 
-  // Markers
-  customIcon = {
-    url: 'https://lh3.googleusercontent.com/nVURMfU_P9tbGD4_tkSBZE4g2akKMtOcPXGwtkDGKLNgtwA-INpPtFKBFi6u4XZIwHKgUF237oLHrT2xKSWBm-o7nrwSLUzZ6Pw=s640',
-    size: new google.maps.Size(100, 100),
-    anchor: new google.maps.Point(15, 34),
-    labelOrigin: new google.maps.Point(15, 10),
-    scaledSize: new google.maps.Size(130, 134),
-    origin: new google.maps.Point(0, 0),
-    label: {
-      text: 'Custom Marker',
-      color: '#ffffff'
-    }
-  };
+  
 
   async fillEvents(region: string, events?: Event[]) {
-    // Clear existing markers if needed
-    // ...
-    /*if (range) {
-          // Filter events based on the specified date range
-          events = events.filter(events =>
-            isWithinRange(events.date, range.startDate, range.endDate)
-          );
-        }*/
+    
     this.getEventsByRegion(region)
       .then((events) => {
         console.log(events);
@@ -249,16 +228,13 @@ async ngOnInit() {
         // Handle error
       });
   }
-
-  
   
   onSubmit() {
     if (this.selectedRegion) {
       const regionCenter = this.getRegionCenter(this.selectedRegion);
       if (regionCenter) {
         this.center = regionCenter;
-        this.initializeMap(this.selectedRegion);
-        
+        this.initializeMap(this.selectedRegion);  
       }
   
       const startDate = this.selectedRange?.startDate||null ;
@@ -318,35 +294,6 @@ async ngOnInit() {
   }
   
 }
-/*function isWithinRange(eventDate: string,rangeStartDate: Date | null, rangeEndDate: Date | null): boolean {
-  console.log('Event 0');
-  const eventTime = new Date(eventDate);
-  console.log(eventDate);
-  console.log(eventTime);
-  console.log(rangeStartDate,rangeEndDate);
-  const startDate = rangeStartDate ? rangeStartDate : null;
-  const endDate = rangeEndDate ? rangeEndDate: null;
-
-  console.log('Event 1');
-  console.log(eventDate);
-  console.log(startDate,endDate);
-  if (!startDate && !endDate) {
-    return true; // If no date range specified, include all events
-  }
-  console.log('Event 2');
-  console.log(eventTime);
-  console.log(startDate,endDate);
-  //const eventTime = new Date(eventDate).getDate();
-  console.log('Event 3');
-  console.log(eventTime);
-  console.log(startDate,endDate);
-  // Check if event start or end time falls within the specified date range
-  if (( eventTime >= startDate && eventTime <= endDate)) {
-    return true; // Event falls within the range
-  }
-  return false; // Event does not fall within the range
-}*/
-
 
 
 
