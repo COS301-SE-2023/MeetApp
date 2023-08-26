@@ -130,152 +130,7 @@ async ngOnInit() {
     region:'',
     eventPoster:''
 }];
-events: Event[] = [
-    {
-      name:'Event 1',
-      organisation:'Organiser 1',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-15',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -25.74237 , longitude:28.240068},
-      category:'Technology',
-      region:'Pretoria',
-      eventPoster:''
-    },
-    {
-      name:'Event 2',
-      organisation:'Organiser 2',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-16',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -25.791375 , longitude:28.220088},
-      category:'food',
-      region:'Pretoria',
-      eventPoster:''
-    },
-    {
-      name:'Event 3',
-      organisation:'Organiser 3',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-17',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -25.71348 , longitude:28.270119},
-      category:'science',
-      region:'Pretoria',
-      eventPoster:''
-    },
-    {
-      name:'Event 4',
-      organisation:'Organiser 4',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-18',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -25.72118 , longitude:28.290789},
-      category:'picnic',
-      region:'Pretoria',
-      eventPoster:''
-    },
-    {
-      name:'Event 5',
-      organisation:'Organiser 5',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-19',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -25.73438 , longitude:28.201289},
-      category:'music',
-      region:'Pretoria',
-      eventPoster:''
-    },
-    {
-      name:'Event 6',
-      organisation:'Organiser 6',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-20',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -26.223444 , longitude:28.200099},
-      category:'Technology',
-      region:'johannesburg',
-      eventPoster:''
-    },
-    {
-      name:'Event 7',
-      organisation:'Organiser 7',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-21',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -26.288744 , longitude:28.270779},
-      category:'Technology',
-      region:'johannesburg',
-      eventPoster:''
-    },
-    {
-      name:'Event 8',
-      organisation:'Organiser 8',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-22',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -26.20144 , longitude:28.230879},
-      category:'Technology',
-      region:'johannesburg',
-      eventPoster:''
-    },
-    {
-      name:'Event 9',
-      organisation:'Organiser 9',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-23',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -25.727738 , longitude:28.210249},
-      category:'Technology',
-      region:'Pretoria',
-      eventPoster:''
-    },
-    {
-      name:'Event 10',
-      organisation:'Organiser 10',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-24',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -25.791138 , longitude:28.220329},
-      category:'Technology',
-      region:'Pretoria',
-      eventPoster:''
-    },
-    {
-      name:'Event 11',
-      organisation:'Organiser 11',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-25',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -26.211344 , longitude:28.210739},
-      category:'Technology',
-      region:'johannesburg',
-      eventPoster:''
-    },
-    {
-      name:'Event 12',
-      organisation:'Organiser 12',
-      description:'dbjvbhodjhcdhc',
-      date: '2023-06-26',
-      startTime: '12:30',
-      endTime: "12:30",
-      location: {latitude: -26.256744 , longitude:28.201289},
-      category:'Technology',
-      region:'johannesburg',
-      eventPoster:''
-    }
-  ];
+
 
   private initializeMap(region: string) {
     this.map = new google.maps.Map(document.getElementById("map"), {
@@ -285,7 +140,7 @@ events: Event[] = [
       options: this.options,
       mapId: 'MeetApp',
     });
-    this.fillEvents(region, this.selectedRange);
+    this.fillEvents(region,this.data);
     
   }
 
@@ -298,8 +153,12 @@ events: Event[] = [
   }
    
    async getEventsByDate(startDate?:string, endDate?:string){
+
+    console.log(startDate+" "+endDate)
     await this.service.getEventsByRange(startDate,endDate).subscribe((response:any)=>{
-          this.data=response;
+       
+      //console.log(response)
+      this.data=response;
     });
   }
 
@@ -339,7 +198,7 @@ events: Event[] = [
     }
   };
 
-  async fillEvents(region: string, range?: DateRange) {
+  async fillEvents(region: string, events?: Event[]) {
     // Clear existing markers if needed
     // ...
     /*if (range) {
@@ -349,11 +208,11 @@ events: Event[] = [
           );
         }*/
     this.getEventsByRegion(region)
-      .then((events:Event[]) => {
-        console.log(this.data);
-        for (let i = 0; i < this.events.length; i++) {
+      .then((events) => {
+        console.log(events);
+        for (let i = 0; i < events.length; i++) {
           //const event = this.events[i];
-          const event: Event = this.data[i];
+          const event: Event = events[i];
           const region = event.region;
           const date=event.date;
           const createContent =
@@ -408,11 +267,11 @@ events: Event[] = [
       const endDate = this.selectedRange?.endDate ||null;
       
       if(startDate===null&&endDate===null){
-        this.fillEvents(this.selectedRegion);
+        this.fillEvents(this.selectedRegion,this.data);
       }else{
         console.log(startDate?.slice(0,10),endDate?.slice(0,10));
         this.getEventsByDate(`${startDate?.slice(0,10)}`,`${endDate?.slice(0,10)}`);
-        this.fillEvents(this.selectedRegion);
+        this.fillEvents(this.selectedRegion,this.data);  
         //location.reload();
 
 
