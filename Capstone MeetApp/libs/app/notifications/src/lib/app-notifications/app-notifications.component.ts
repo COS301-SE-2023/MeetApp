@@ -24,7 +24,7 @@ export class AppNotificationsComponent {
   ];
 
   requesters=[{
-      id:'',
+      _id:'',
       username:''
       ,requestSent:''
   }];

@@ -19,6 +19,8 @@ import { Location } from '@angular/common';
 export class CalendarComponent {
 
   selectedDate!: string;
+  formattedDates: string[] = [];
+  datesWithEvents: Set<string> = new Set();
   constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
 
   }
@@ -84,13 +86,25 @@ filterEvents() {
 
   }
 
-  async getUserEvents(token :string|null)
+   async getUserEvents(token :string|null)
   {
     await this.service.getUserAttendances(token).subscribe((response:any)=>{
       console.log(response);
       this.events = response;
       console.log(this.events);
+      this.populateDatesWithEvents();
     });
   }
-
+  populateDatesWithEvents() {
+    this.datesWithEvents.clear();
+    for (const event of this.events) {
+      const eventDate = event.date; // Adjust this according to your event date structure
+      this.datesWithEvents.add(eventDate);
+    }
+    this.formattedDates = Array.from(this.datesWithEvents); // Populate the array
+  }
+  
+  
+  
+  
 }
