@@ -157,7 +157,6 @@ async ngOnInit() {
     console.log(startDate+" "+endDate)
     await this.service.getEventsByRange(startDate,endDate).subscribe((response:any)=>{
        
-      //console.log(response)
       this.data=response;
     });
   }
@@ -222,7 +221,6 @@ async ngOnInit() {
             '<p><b>' + event.name + ' event</b> ' + event.description + '</p>' +
             '<p>Date: ' + event.date + '</p>' +
             '<p>Organiser: ' + event.organisation + '</p>' +
-            '<p> <img src="' + event.eventPoster + '" alt="Image" style="height: 60px; width: 60px;"></p>' +
             '</div>' +
             '</div>';
   
