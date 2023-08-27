@@ -375,6 +375,6 @@ export class OrganisationsService {
   }
   
   async getByUsername(user_name: string){
-    return await this.organisationModel.find({username: user_name}).exec()
+    return await this.organisationModel.findOne({username: user_name}).exec()
   }
 }
