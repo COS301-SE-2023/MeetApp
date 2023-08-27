@@ -509,4 +509,39 @@ export class UsersService {
   async getByUsername(user_name: string){
     return await this.userModel.find({username: user_name}).exec()
   }
+
+  async getMutualFriendSuggestions(loggedInUserId: string) {
+    // const userFriendships = await this.friendshipModel
+    //   .find({ $or: [{ requesterID: loggedInUserId }, { requesteeID: loggedInUserId }], status: true })
+    //   .exec(); // Convert to plain JS objects
+
+    // const loggedInUserFriendIds = userFriendships.map(friendship =>
+    //   friendship.requester.toString() ==  loggedInUserId ? friendship.requestee : friendship.requester
+    // );
+    const userFriends = await this.getUserFriends(loggedInUserId)
+    const loggedInUserFriendIds = userFriends.map(friendship => {
+      return friendship._id.toString()
+    })
+    const mutualFriends = []
+    for (let i = 0; i < loggedInUserFriendIds.length; i++)
+    {
+      mutualFriends.push(...await this.getUserFriends(loggedInUserFriendIds[i]));
+    }
+
+    const FilteredMutualFriends = mutualFriends.filter(friendships => {
+      return friendships._id.toString() != loggedInUserId 
+    })
+
+    const uniqueIds = Array.from(new Set(FilteredMutualFriends.map(obj => obj._id.toString())));
+
+    const uniqueSuggestions = uniqueIds.map(id => {
+      return FilteredMutualFriends.find(obj => obj._id.toString() == id);
+    })
+
+    const finalSuggestions = uniqueSuggestions.filter(suggestion => {
+        return suggestion != undefined && !loggedInUserFriendIds.includes(suggestion._id.toString())
+    })
+
+    return finalSuggestions;
+  }
 }
