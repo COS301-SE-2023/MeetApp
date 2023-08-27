@@ -511,13 +511,6 @@ export class UsersService {
   }
 
   async getMutualFriendSuggestions(loggedInUserId: string) {
-    // const userFriendships = await this.friendshipModel
-    //   .find({ $or: [{ requesterID: loggedInUserId }, { requesteeID: loggedInUserId }], status: true })
-    //   .exec(); // Convert to plain JS objects
-
-    // const loggedInUserFriendIds = userFriendships.map(friendship =>
-    //   friendship.requester.toString() ==  loggedInUserId ? friendship.requestee : friendship.requester
-    // );
     const userFriends = await this.getUserFriends(loggedInUserId)
     const loggedInUserFriendIds = userFriends.map(friendship => {
       return friendship._id.toString()
@@ -543,5 +536,30 @@ export class UsersService {
     })
 
     return finalSuggestions;
+  }
+
+  async getMutualFriends(loggedInUserId: string, otherUsername: string) {
+    const userFriends = await this.getUserFriends(loggedInUserId)
+    const userFriendsIds = userFriends.map(userFriendId => userFriendId._id.toString())
+    
+
+    const otherUser = await this.userModel.findOne({ username: otherUsername });
+
+    if (!otherUser) {
+      return { total: 0, friends: [] };
+    }
+
+    if (otherUser._id.toString() === loggedInUserId) {
+      return { total: 0, friends: [] };
+    }
+
+    const otherFriends = await this.getUserFriends(otherUser._id.toString())
+
+    const mutualFriends = otherFriends.filter(friendship => {
+      return userFriendsIds.includes(friendship._id.toString()) && friendship._id.toString() != loggedInUserId
+    })
+    
+
+    return { total: mutualFriends.length, friends: mutualFriends };
   }
 }
