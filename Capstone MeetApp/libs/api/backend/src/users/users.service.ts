@@ -505,4 +505,8 @@ export class UsersService {
 
   //   return formattedDurationFrequencies;
   // }
+
+  async getByUsername(user_name: string){
+    return await this.userModel.find({username: user_name}).exec()
+  }
 }
