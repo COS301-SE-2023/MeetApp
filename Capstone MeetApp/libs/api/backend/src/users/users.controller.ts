@@ -211,4 +211,10 @@ export class UsersController {
   async getSuggestions(@Request() req : AuthenticatedRequest){
     return await this.usersService.getMutualFriendSuggestions(req.user.id)
   }
+
+  @UseGuards(AuthGuard)
+  @Get('friends/mutuals/:username')
+  async getMutuals(@Request() req : AuthenticatedRequest, @Param('username') username : string){
+    return await this.usersService.getMutualFriends(req.user.id, username)
+  }
 }
