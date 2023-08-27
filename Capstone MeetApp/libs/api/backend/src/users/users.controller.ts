@@ -205,4 +205,10 @@ export class UsersController {
   async getByUsername(@Param('username') username : string){
     return await this.usersService.getByUsername(username)
   }
+
+  @UseGuards(AuthGuard)
+  @Get('friends/suggestions')
+  async getSuggestions(@Request() req : AuthenticatedRequest){
+    return await this.usersService.getMutualFriendSuggestions(req.user.id)
+  }
 }
