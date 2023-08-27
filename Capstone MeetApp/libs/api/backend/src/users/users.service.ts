@@ -507,7 +507,7 @@ export class UsersService {
   // }
 
   async getByUsername(user_name: string){
-    return await this.userModel.find({username: user_name}).exec()
+    return await this.userModel.findOne({username: user_name}).exec()
   }
 
   async getMutualFriendSuggestions(loggedInUserId: string) {
