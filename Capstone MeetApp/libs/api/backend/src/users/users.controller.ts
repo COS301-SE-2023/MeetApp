@@ -200,4 +200,9 @@ export class UsersController {
   async getIntRegion(@Request() req : AuthenticatedRequest){
     return await this.usersService.InterestRegion(req.user.id)
   }
+
+  @Get('username/:username')
+  async getByUsername(@Param('username') username : string){
+    return await this.usersService.getByUsername(username)
+  }
 }
