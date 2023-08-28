@@ -39,8 +39,8 @@ export class AppNotificationsComponent {
   async getRequest(){
     const token=this.apiService.getToken();
     await this.apiService.getFriendRequest(token).subscribe((response:any) =>{
-      this.requesters=response
-      console.log('FriendRequest List :',this.requesters);
+      this.requesters=response;
+      console.log('FriendRequest List :',response);
     });
   }
 
@@ -49,6 +49,7 @@ export class AppNotificationsComponent {
      const token=this.apiService.getToken();
      await this.apiService.acceptFriendRequest(token,requester).subscribe((response:any) =>{
       console.log('Payload :',response);
+      this.getRequest();
     });
 
     request.requestSent = true;
