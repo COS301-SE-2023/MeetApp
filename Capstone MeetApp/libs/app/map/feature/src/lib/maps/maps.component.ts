@@ -59,24 +59,7 @@ export class MapsComponent implements AfterViewInit {
     endDate: undefined
   };
 
-  image="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi";
-  //selectedRegion: string ;
-
-
-  //services
- /* data= [{
-    name:'',
-    organisation: '',
-    description:'',
-    date: '',
-    startTime: '',
-    endTime: '',
-    location: {latitude:0, longitude:0},
-    category:'',
-    region:'',
-    eventPoster:''
-}];*/
-
+ 
 
 async ngOnInit() {
   await this.service.getAllEvents().subscribe((response: any) => { 
@@ -93,8 +76,9 @@ async ngOnInit() {
   selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
   apikey = environment.API_KEY;
+  
   map: any;
-  zoom = 10;
+  zoom = 12;
 
   options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
@@ -143,7 +127,9 @@ async ngOnInit() {
   }
 
   
+  
   ngAfterViewInit() {
+    console.log(this.apikey);
     setTimeout(() => {
       this.initializeMap(this.selectedRegion);
     }, 0);
@@ -177,6 +163,7 @@ async ngOnInit() {
   
   // Marker icons
   svgIcon = {
+    //url: 'assets/marker-2.jpg'
     url: 'https://www.clipartmax.com/png/small/1-19420_ruidoso-river-resort-ruidosos-condo-location-marker-png-transparent.png',
     scaledSize: new google.maps.Size(25, 25)
   };
