@@ -505,4 +505,61 @@ export class UsersService {
 
   //   return formattedDurationFrequencies;
   // }
+
+  async getByUsername(user_name: string){
+    return await this.userModel.findOne({username: user_name}).exec()
+  }
+
+  async getMutualFriendSuggestions(loggedInUserId: string) {
+    const userFriends = await this.getUserFriends(loggedInUserId)
+    const loggedInUserFriendIds = userFriends.map(friendship => {
+      return friendship._id.toString()
+    })
+    const mutualFriends = []
+    for (let i = 0; i < loggedInUserFriendIds.length; i++)
+    {
+      mutualFriends.push(...await this.getUserFriends(loggedInUserFriendIds[i]));
+    }
+
+    const FilteredMutualFriends = mutualFriends.filter(friendships => {
+      return friendships._id.toString() != loggedInUserId 
+    })
+
+    const uniqueIds = Array.from(new Set(FilteredMutualFriends.map(obj => obj._id.toString())));
+
+    const uniqueSuggestions = uniqueIds.map(id => {
+      return FilteredMutualFriends.find(obj => obj._id.toString() == id);
+    })
+
+    const finalSuggestions = uniqueSuggestions.filter(suggestion => {
+        return suggestion != undefined && !loggedInUserFriendIds.includes(suggestion._id.toString())
+    })
+
+    return finalSuggestions;
+  }
+
+  async getMutualFriends(loggedInUserId: string, otherUsername: string) {
+    const userFriends = await this.getUserFriends(loggedInUserId)
+    const userFriendsIds = userFriends.map(userFriendId => userFriendId._id.toString())
+    
+
+    const otherUser = await this.userModel.findOne({ username: otherUsername });
+
+    if (!otherUser) {
+      return { total: 0, friends: [] };
+    }
+
+    if (otherUser._id.toString() === loggedInUserId) {
+      return { total: 0, friends: [] };
+    }
+
+    const otherFriends = await this.getUserFriends(otherUser._id.toString())
+
+    const mutualFriends = otherFriends.filter(friendship => {
+      return userFriendsIds.includes(friendship._id.toString()) && friendship._id.toString() != loggedInUserId
+    })
+    
+
+    return { total: mutualFriends.length, friends: mutualFriends };
+  }
 }

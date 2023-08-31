@@ -373,4 +373,8 @@ export class OrganisationsService {
   
       return topSupportersAndTheirTopEvents;
   }
+  
+  async getByUsername(user_name: string){
+    return await this.organisationModel.findOne({username: user_name}).exec()
+  }
 }
