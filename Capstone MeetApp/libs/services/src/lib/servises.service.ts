@@ -276,20 +276,9 @@ export class service{
         return this.http.get(`${url}`, { headers });
     }
 
-    getUser(id:string)
+    getUserByUsername(username:string)
     {
-        const url=`${this.baseURl}users/${id}`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
-
-        
-        return this.http.get(`${url}`,{headers});
-    }
-    
-    getUserByID(id:string)
-    {
-        const url=`${this.baseURl}users/${id}`;
+        const url=`${this.baseURl}users/username/${username}`;
 
         const headers = new HttpHeaders()
           .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
