@@ -64,7 +64,10 @@
         <ion-label position="floating">Region</ion-label>
         <ion-input [(ngModel)]="selectedRegion" type="text" name="region" required></ion-input>
       </ion-item>
-
+      <ion-item lines="full">
+        <ion-label position="floating">Address</ion-label>
+        <ion-input [(ngModel)]="address" type="text" placeholder="street address, city, country" name="address" required></ion-input>
+      </ion-item >
       <ion-item lines="full">
         <ion-label position="floating">Latitude</ion-label>
         <ion-input [(ngModel)]="location.latitude" type="text"  name="location.latitude" required></ion-input>
