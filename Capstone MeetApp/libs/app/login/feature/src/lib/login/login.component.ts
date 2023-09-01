@@ -111,11 +111,12 @@ export class LoginComponent {
 
     await this.apiService.getAllUsers().subscribe((response: any) => { 
       this.data_user = response;
-      console.log(response);  
+      
     });
   
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       this.data_organiser = response;
+      console.log(response);  
     });
 
     this.activatedRoute.paramMap.subscribe(params => {
@@ -160,6 +161,8 @@ export class LoginComponent {
   {
     await this.apiService.authOrganiser(username,password ).subscribe((response:any) => {
       this.orgLogin_payload=response;
+      
+      this.authservice.setToken(this.orgLogin_payload.access_token)
     });
 
     for (let i = 0; i < this.data_organiser.length; i++) {
@@ -203,6 +206,7 @@ export class LoginComponent {
     {
       this.LogInOrg(username,password);
     }
+
     }, 3000);
     
    
