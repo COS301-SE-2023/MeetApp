@@ -82,6 +82,7 @@ export class ProfileComponent {
     this.getEventCount(access_token);
     this.getUserEvents(access_token);
     this.getFriendCount();
+    this.getCurrentUser();
   }
 
   goBack() {
@@ -110,6 +111,23 @@ export class ProfileComponent {
     });
   }
 
+  async getCurrentUser()
+  {
+    const access_token=this.serviceProvider.getToken();
+    await this.serviceProvider.getLogedInUser(access_token).subscribe((response:any) => {
+      this.current_user=response;
+      console.log('username:',this.current_user.username);
+      this.getProfile(this.current_user.username);
+    });
+
+  }
+
+  async getProfile(username :string|null){
+    await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{ 
+      this.profile = response;
+      console.log(this.profile);
+    });
+  }
 
   async getFriendCount()
   {
@@ -142,21 +160,22 @@ export class ProfileComponent {
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
+      this.convertImageToBase64(this.profilePictureUrl);
       this.updateProfile(access_token,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
       console.log(this. profilePictureUrl);
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
-      this.updateProfile(access_token,this.newProfileName);
+      this.updateProfile(access_token,this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region);
     }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;
-      this.convertImageToBase64(this. profilePictureUrl);
+      this.convertImageToBase64(this.profilePictureUrl);
       this.updateProfile(access_token,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
       console.log(this. profilePictureUrl);
     }
 
     
     this.isEditMode = false;
-    this.refreshPageWithDelay(2000); 
+    this.refreshPageWithDelay(4000); 
 
     
   }
