@@ -276,7 +276,7 @@ export class service{
         return this.http.get(`${url}`, { headers });
     }
 
-    getUserByUsername(username:string)
+    getUserByUsername(username:string|null)
     {
         const url=`${this.baseURl}users/username/${username}`;
 

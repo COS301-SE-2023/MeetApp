@@ -4,6 +4,8 @@ import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { user,service} from '@capstone-meet-app/services';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'capstone-meet-app-app-profile2',
@@ -26,11 +28,14 @@ export class AppProfile2Component {
     'https://img.traveltriangle.com/blog/wp-content/uploads/2018/12/bungee-jumping-in-south-africa-cover.jpg',
     // Add more image URLs as needed
   ];
-  constructor(private router: Router)
+
+  constructor(private router: Router,private serviceProvider: service,private activatedRoute: ActivatedRoute)
   {}
-  profile:user={username:'',password:'',profilePicture:'',region:''};
+
+  profile={_id:'',username:'',password:'',profilePicture:'',region:''};
   eventCount='';
   friendCount=0;
+
   userEvents = [
     {
       eventID:'',
@@ -38,8 +43,30 @@ export class AppProfile2Component {
       userID:''
     }
   ];
-  gotofriends() {
-    this.router.navigate(['/friends']);
-    
+
+  username:string|null='';
+
+  async ngOnInit(){
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.username = params.get('username');
+      console.log(this.username);
+    });
+
+    this.getFriendAccount(this.username);
   }
+
+
+  async getFriendAccount(username:string|null){
+    await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{
+      this.profile = response;
+      console.log(this.profile);
+    });
+  }
+
+  
+  gotofriends() {
+    this.router.navigate(['/friends']); 
+  }
+
+
 }

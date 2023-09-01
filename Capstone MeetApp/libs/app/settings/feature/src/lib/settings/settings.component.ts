@@ -59,7 +59,7 @@ export class SettingsComponent {
       this.user_payload=response;
       this.current_user=this.user_payload;
       console.log('user ID',this.current_user.id);
-      this.getProfile(this.current_user.id);
+      //this.getProfile(this.current_user.id);
     });
 
   }
@@ -71,12 +71,14 @@ export class SettingsComponent {
     });
   }
 
+  /*
   async getProfile(id :string){
     await this.service.getUserByID(id).subscribe((response:any)=>{ 
       this.profile = response;
       console.log(this.profile);
     });
   }
+  */
 
   savePassword() {
     if (this.newPassword !== this.confirmPassword) {
