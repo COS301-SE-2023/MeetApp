@@ -457,6 +457,17 @@ export class UsersService {
     return eventIntervals;
   }
 
+  getAsciiSum(str : string) {
+    let sum = 0;
+  
+    for (let i = 0; i < str.length; i++) {
+      const charCode = str.charCodeAt(i);
+      sum += charCode;
+    }
+  
+    return sum;
+  }
+
   // async getUserInterestDuration(userId: string) {
   //   // Check if the user exists in the database
   //   const user = await this.userModel.findById(userId);
