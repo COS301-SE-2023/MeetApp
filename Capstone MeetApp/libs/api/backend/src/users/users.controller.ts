@@ -305,4 +305,15 @@ export class UsersController {
     
     return await this.usersService.InterestRegion(req.user.id)
   }
+
+  // @Post('updateAllPasswords')
+  // async updatePasswords(){
+  //   return await this.usersService.updateAllPasswords()
+  // }
+
+    
+  
+  
+
+ 
 }
