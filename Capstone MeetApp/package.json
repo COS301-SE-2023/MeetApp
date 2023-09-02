@@ -47,6 +47,7 @@
     "@nestjs/swagger": "^7.1.6",
     "@nx/angular": "16.0.3",
     "@nxext/ionic-angular": "^15.6.0",
+    "@types/bcrypt": "^5.0.0",
     "@types/google-maps": "^3.2.3",
     "axios": "^1.0.0",
     "bcrypt": "^5.1.1",
