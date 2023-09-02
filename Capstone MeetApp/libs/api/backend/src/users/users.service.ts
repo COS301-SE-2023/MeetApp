@@ -44,7 +44,7 @@ export class UsersService {
     if (userToLoginInto.length == 0){
       return {user: null, message: 'User not found'}
     }
-    
+
     return await compare(password, userToLoginInto[0].password).then(async result => {
       if (result){
         const payload = {id : userToLoginInto[0].id, username : userToLoginInto[0].username, password: userToLoginInto[0].password}
@@ -529,5 +529,17 @@ export class UsersService {
   //   }));
 
   //   return formattedDurationFrequencies;
+  // }
+
+  // async updateAllPasswords(){
+  //   const allUsers = await this.userModel.find().exec()
+  //   const usersUpdatedPasswords = allUsers.map(async (user) => {
+  //     const userSalt = this.getUserSalt(user.username, user.password)
+  //     const hashedPass = await hash(user.password, userSalt)
+  //     const PassDto = {password : hashedPass}
+  //     const updatedUser = await this.userModel.findByIdAndUpdate(user._id, PassDto, {new : true})
+  //     return {username: updatedUser?.username, password : updatedUser?.password}
+  //   })
+  //   return usersUpdatedPasswords
   // }
 }
