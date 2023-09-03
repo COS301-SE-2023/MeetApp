@@ -60,9 +60,23 @@ export class AppProfile2Component {
     await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{
       this.profile = response;
       console.log(this.profile);
+      this.getFriendAttandance(this.profile._id);
+      this.getFriendAttandanceCount(this.profile._id);
     });
   }
 
+  async getFriendAttandanceCount(id:string){
+    await this.serviceProvider.getAttandanceCountByID(id).subscribe((response:any)=>{
+      console.log(response);
+    });
+  }
+
+  async getFriendAttandance(id:string){
+    await this.serviceProvider.getAttandanceByID(id).subscribe((response:any)=>{
+      console.log(response);
+    });
+  }
+  
   
   gotofriends() {
     this.router.navigate(['/friends']); 

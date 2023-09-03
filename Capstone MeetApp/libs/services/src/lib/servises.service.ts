@@ -528,5 +528,23 @@ export class service{
         return this.http.post(`${url}`, body,{ headers });
     }
 
-     
+    getAttandanceByID(id:string)
+    {
+      const url = `${this.baseURl}users/${id}/attendances`;
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+      
+      return this.http.get(`${url}`,{ headers });
+    }
+
+    getAttandanceCountByID(id:string)
+    {
+      const url = `${this.baseURl}users/${id}/attendances/count`;
+
+        const headers = new HttpHeaders()
+          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+      
+      return this.http.get(`${url}`,{ headers });
+    }
 }
