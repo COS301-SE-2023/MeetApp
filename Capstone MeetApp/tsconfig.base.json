@@ -137,7 +137,7 @@
         "libs/app/settings/feature/src/index.ts"
       ],
       "@captone-meet-app/organiser": ["libs/app/organiser/feature/src/index.ts"],
-      "@capstone-meet-app/environment":["environment.ts"],
+      
     }
   },
   "exclude": ["node_modules", "tmp"]

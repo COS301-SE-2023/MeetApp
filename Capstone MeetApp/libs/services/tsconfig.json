@@ -7,7 +7,10 @@
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@env/*": ["Capstone MeetApp/environment/*"] // Add this line
+    }
   },
   "files": [],
   "include": [],

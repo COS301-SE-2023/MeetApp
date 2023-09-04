@@ -11,7 +11,7 @@ import { AgmCoreModule, MapsAPILoader,GoogleMapsAPIWrapper } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment} from '@capstone-meet-app/environment'
+
 
 @Component({
   standalone: true,
@@ -55,9 +55,7 @@ export class OrganiserComponent {
     this.eventName='';
     this.OrganisationName='';
     this.address = '1600 Amphitheatre Parkway, Mountain View, CA';
-    AgmCoreModule.forRoot({
-      apiKey:environment.API_KEY
-      });
+   
 
       
   }
@@ -78,22 +76,9 @@ export class OrganiserComponent {
 //get lat and long
 
 
-geocodeAddress() {
-  this.mapsAPILoader.load().then(() => {
-    this.getGeocode(this.address).subscribe((result: any) => {
-      if (result.status === 'OK' && result.results.length > 0) {
-        const location = result.results[0].geometry.location;
-        this.location= { latitude: location.lat, longitude: location.lng };
-      }
-    });
-  });
-}
 
-private getGeocode(address: string): Observable<any> {
-  const geocodingUrl = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${environment.API_KEY}`;
-  console.log(geocodingUrl)
-  return this.http.get(geocodingUrl);
-}
+
+
 
 //services
 
@@ -116,7 +101,7 @@ private getGeocode(address: string): Observable<any> {
   
 submitForm() {
  
-  this.geocodeAddress();
+  
   if (this.eventName !== null && this.OrganisationName !== null && this.description !== null &&
      this.profilePictureUrl !== null && this.selectedRange.startDate !== null
       && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&

@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@agm/core@^3.0.0-beta.0":
+  version "3.0.0-beta.0"
+  resolved "https://registry.npmjs.org/@agm/core/-/core-3.0.0-beta.0.tgz"
+  integrity sha512-KNmKbe89Nen7s7+mX63RgX88jBfajUZCFqkHIQ8Fd+Lf/ko/IY6yw4kPh0iYGxgPVPjpsHJ06GZ5m3ZxpEVX9A==
+  dependencies:
+    tslib "^2.0.0"
+
 "@ampproject/remapping@^2.1.0", "@ampproject/remapping@2.2.0":
   version "2.2.0"
   resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz"
@@ -244,7 +251,7 @@
     symbol-observable "4.0.0"
     yargs "17.6.2"
 
-"@angular/common@^16.0.0 || ^17.0.0", "@angular/common@~15.2.0", "@angular/common@15.2.9":
+"@angular/common@^16.0.0 || ^17.0.0", "@angular/common@^9.1.0 || ^10.0.0", "@angular/common@~15.2.0", "@angular/common@15.2.9":
   version "15.2.9"
   resolved "https://registry.npmjs.org/@angular/common/-/common-15.2.9.tgz"
   integrity sha512-LM9/UHG2dRrOzlu2KovrFwWIziFMjRxHzSP3Igw6Symw/wIl0kXGq8Fn6RpFP78zmLqnv+IQOoRiby9MCXsI4g==
@@ -274,7 +281,7 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@>=13.0.0 <16.0.0", "@angular/core@>=14", "@angular/core@>=14.0.0", "@angular/core@~15.2.0", "@angular/core@15.2.9":
+"@angular/core@^16.0.0 || ^17.0.0", "@angular/core@^9.1.0 || ^10.0.0", "@angular/core@>=13.0.0 <16.0.0", "@angular/core@>=14", "@angular/core@>=14.0.0", "@angular/core@~15.2.0", "@angular/core@15.2.9":
   version "15.2.9"
   resolved "https://registry.npmjs.org/@angular/core/-/core-15.2.9.tgz"
   integrity sha512-w46Z1yUXCQfKV7XfnamOoLA2VD0MVUUYVrUjO73mHSskDXSXxfZAEHO9kfUS71Cj35PvhP3mbkqWscpea2WeYg==
@@ -1614,10 +1621,10 @@
   resolved "https://registry.npmjs.org/@discoveryjs/json-ext/-/json-ext-0.5.7.tgz"
   integrity sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==
 
-"@esbuild/win32-ia32@0.17.8":
+"@esbuild/linux-x64@0.17.8":
   version "0.17.8"
-  resolved "https://registry.npmjs.org/@esbuild/win32-ia32/-/win32-ia32-0.17.8.tgz"
-  integrity sha512-Fqy63515xl20OHGFykjJsMnoIWS+38fqfg88ClvPXyDbLtgXal2DTlhb1TfTX34qWi3u4I7Cq563QcHpqgLx8w==
+  resolved "https://registry.npmjs.org/@esbuild/linux-x64/-/linux-x64-0.17.8.tgz"
+  integrity sha512-mM/9S0SbAFDBc4OPoyP6SEOo5324LpUxdpeIUUSrSTOfhHU9hEfqRngmKgqILqwx/0DVJBzeNW7HmLEWp9vcOA==
 
 "@esbuild/win32-x64@0.17.8":
   version "0.17.8"
@@ -2509,6 +2516,26 @@
   dependencies:
     nx-cloud "16.0.5"
 
+"@nrwl/nx-linux-x64-gnu@15.9.4":
+  version "15.9.4"
+  resolved "https://registry.npmjs.org/@nrwl/nx-linux-x64-gnu/-/nx-linux-x64-gnu-15.9.4.tgz"
+  integrity sha512-q4OyH72mdrE4KellBWtwpr5EwfxHKNoFP9//7FAILO68ROh0rpMd7YQMlTB7T04UEUHjKEEsFGTlVXIee3Viwg==
+
+"@nrwl/nx-linux-x64-gnu@15.9.5":
+  version "15.9.5"
+  resolved "https://registry.npmjs.org/@nrwl/nx-linux-x64-gnu/-/nx-linux-x64-gnu-15.9.5.tgz"
+  integrity sha512-Y+Zvh8KtSJ9h1EjzxYMPTx9C+OcHK3UReIwv2xOFjnKW8ksj/RFtk26TAxfiSL4DRu6bKqTza1+i5kwM69ReKQ==
+
+"@nrwl/nx-linux-x64-musl@15.9.4":
+  version "15.9.4"
+  resolved "https://registry.npmjs.org/@nrwl/nx-linux-x64-musl/-/nx-linux-x64-musl-15.9.4.tgz"
+  integrity sha512-67+/XNMR1CgLPyeGX8jqSG6l8yYD0iiwUgcu1Vaxq6N05WwnqVisIW8XzLSRUtKt4WyVQgOWk3aspImpMVOG3Q==
+
+"@nrwl/nx-linux-x64-musl@15.9.5":
+  version "15.9.5"
+  resolved "https://registry.npmjs.org/@nrwl/nx-linux-x64-musl/-/nx-linux-x64-musl-15.9.5.tgz"
+  integrity sha512-3w6TrJU1Oa6aT6DTDJfFQLO29C9PM0RTPtRVmj5vRQgzBSWd9zn22x73GvLCalmBopQ+kpkFxloUfkNAbd33qQ==
+
 "@nrwl/nx-win32-x64-msvc@15.9.4":
   version "15.9.4"
   resolved "https://registry.npmjs.org/@nrwl/nx-win32-x64-msvc/-/nx-win32-x64-msvc-15.9.4.tgz"
@@ -2941,6 +2968,26 @@
     "@nx/linter" "16.2.2"
     "@nx/workspace" "16.2.2"
     tslib "^2.3.0"
+
+"@nx/nx-linux-x64-gnu@16.0.3":
+  version "16.0.3"
+  resolved "https://registry.npmjs.org/@nx/nx-linux-x64-gnu/-/nx-linux-x64-gnu-16.0.3.tgz"
+  integrity sha512-sKYP9RXAK+wZRXUIlOhqwvSOW6FJblJZPKKHXCWWq9dvAr3CXaWKr+Tt+7846fAX3Q+3hyckuAi6eEiT3XHMTA==
+
+"@nx/nx-linux-x64-gnu@16.2.2":
+  version "16.2.2"
+  resolved "https://registry.npmjs.org/@nx/nx-linux-x64-gnu/-/nx-linux-x64-gnu-16.2.2.tgz"
+  integrity sha512-0G8kYpEmGHD+tT7RvUEvVXvPbvQD9GfEjeWEzZAdNAAMJu7JFjIo/oZDJYV7cMvXnC+tbpI9Gba5xfv8Al95eA==
+
+"@nx/nx-linux-x64-musl@16.0.3":
+  version "16.0.3"
+  resolved "https://registry.npmjs.org/@nx/nx-linux-x64-musl/-/nx-linux-x64-musl-16.0.3.tgz"
+  integrity sha512-AcDWUAs+Tgy4M0bguehUmZTPKE97pYP9GCM8QPzeNJLWyjCfkwHSUImOa0C8+Vx33uRO7I6uPa6QGEoEv/TiFg==
+
+"@nx/nx-linux-x64-musl@16.2.2":
+  version "16.2.2"
+  resolved "https://registry.npmjs.org/@nx/nx-linux-x64-musl/-/nx-linux-x64-musl-16.2.2.tgz"
+  integrity sha512-Incv7DbKLfh6kakzMBuy6GYRgI+jEdZBRiFw0GoN9EsknmrPT/URn+w6uuicGGEXOLYpO3HUO3E374+b5Wz2zg==
 
 "@nx/nx-win32-x64-msvc@16.0.3":
   version "16.0.3"
@@ -3398,7 +3445,7 @@
   resolved "https://registry.npmjs.org/@types/google.maps/-/google.maps-3.53.2.tgz"
   integrity sha512-rgTa3R5DyFTcjX4hmuGs0XR+kD4M5tZ14lcyYzDDJGr5h0JYj7DbbNZRZNJKDzZOGH3fOXWpIbZGj3BxZbpmjw==
 
-"@types/googlemaps@^3.43.3":
+"@types/googlemaps@^3.39.8", "@types/googlemaps@^3.43.3":
   version "3.43.3"
   resolved "https://registry.npmjs.org/@types/googlemaps/-/googlemaps-3.43.3.tgz"
   integrity sha512-ZWNoz/O8MPEpiajvj7QiqCY8tTLFNqNZ/a+s+zTV58wFVNAvvqV4bdGfnsjTb5Cs4V6wEsLrX8XRhmnyYJ2Tdg==
@@ -9111,12 +9158,20 @@ ngx-pipes@^3.2.2:
     tslib "^2.3.0"
     webpack "^5.75.0"
 
+nice-napi@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmjs.org/nice-napi/-/nice-napi-1.0.2.tgz"
+  integrity sha512-px/KnJAJZf5RuBGcfD+Sp2pAKq0ytz8j+1NehvgIGFkvtvFrDM3T8E4x/JJODXK9WZow8RRGrbA9QQ3hs+pDhA==
+  dependencies:
+    node-addon-api "^3.0.0"
+    node-gyp-build "^4.2.2"
+
 node-abort-controller@^3.0.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/node-abort-controller/-/node-abort-controller-3.1.1.tgz"
   integrity sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==
 
-node-addon-api@^3.2.1:
+node-addon-api@^3.0.0, node-addon-api@^3.2.1:
   version "3.2.1"
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz"
   integrity sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==
@@ -9140,7 +9195,7 @@ node-forge@^1:
   resolved "https://registry.npmjs.org/node-forge/-/node-forge-1.3.1.tgz"
   integrity sha512-dPEtOeMvF9VMcYV/1Wb8CPoVAXtp6MKMlcbAt4ddqmGqUJ6fQZFXkNZNkNlfevtNkGtaSoXf/vNNNSvgrdXwtA==
 
-node-gyp-build@^4.3.0:
+node-gyp-build@^4.2.2, node-gyp-build@^4.3.0:
   version "4.6.0"
   resolved "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.6.0.tgz"
   integrity sha512-NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==
