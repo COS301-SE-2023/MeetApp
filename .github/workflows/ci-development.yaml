@@ -15,7 +15,7 @@ on:
       - 'organiser**'
       - 'settings**'
       - 'events**'
-      
+      - 'friends*' 
   pull_request:
     branches:
       - 'development**'
@@ -27,6 +27,7 @@ on:
       - 'organiser**'
       - 'settings**'
       - 'events**'
+      - 'friends*'
       
 
 jobs:
