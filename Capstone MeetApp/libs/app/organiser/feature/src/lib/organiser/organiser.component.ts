@@ -7,7 +7,6 @@ import { Location } from '@angular/common';
 import { AlertController } from '@ionic/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import {service,ServicesModule} from '@capstone-meet-app/services';
-import { AgmCoreModule, MapsAPILoader,GoogleMapsAPIWrapper } from '@agm/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -18,10 +17,10 @@ import { map } from 'rxjs/operators';
   selector: 'capstone-meet-app-organiser',
   templateUrl: './organiser.component.html',
   styleUrls: ['./organiser.component.css'],
-  providers: [service,HttpClient,AgmCoreModule,GoogleMapsAPIWrapper],
+  providers: [service,HttpClient],
  
   imports:[IonicModule , CommonModule,
-    FormsModule,ServicesModule,AgmCoreModule,]
+    FormsModule,ServicesModule]
 })
 
 @Injectable()
@@ -48,7 +47,7 @@ export class OrganiserComponent {
   showCalendar=false;
 
   //FORM FUNCTIONALITY
-  constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient,private mapsAPILoader:MapsAPILoader,private mapApi:GoogleMapsAPIWrapper) {
+  constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
     this.selectedRegion='';
