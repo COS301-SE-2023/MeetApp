@@ -37,6 +37,7 @@
     "@ionic/angular": "^7.1.0",
     "@nestjs/cli": "^9.5.0",
     "@nestjs/common": "^9.4.2",
+    "@nestjs/config": "^3.0.1",
     "@nestjs/core": "^9.4.2",
     "@nestjs/cqrs": "^9.0.4",
     "@nestjs/jwt": "^10.1.0",

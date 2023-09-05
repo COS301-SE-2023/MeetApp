@@ -2036,6 +2036,16 @@
     "tslib" "2.5.2"
     "uid" "2.0.2"
 
+"@nestjs/config@^3.0.1":
+  "integrity" "sha512-a98MMkDlgUlXTv9qtDbimYfXsuafn/YZOh/S35afutr0Qc5T6KzjyWP5VjxRkv26yI2JM0RhFruByFTM6ezwHA=="
+  "resolved" "https://registry.npmjs.org/@nestjs/config/-/config-3.0.1.tgz"
+  "version" "3.0.1"
+  dependencies:
+    "dotenv" "16.3.1"
+    "dotenv-expand" "10.0.0"
+    "lodash" "4.17.21"
+    "uuid" "9.0.0"
+
 "@nestjs/core@^9.4.2":
   "integrity" "sha512-S5K9GTpjBqEJtu5VxRsVaaGEBZ1bkY+Ht4+2hqZSKsI+rzcEB5hcvR+5KiMsMY1VGYvlZ99lxYz72p4h8B0mKw=="
   "resolved" "https://registry.npmjs.org/@nestjs/core/-/core-9.4.2.tgz"
@@ -5655,7 +5665,12 @@
     "domelementtype" "^2.2.0"
     "domhandler" "^4.2.0"
 
-"dotenv@^16.3.1":
+"dotenv-expand@10.0.0":
+  "integrity" "sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A=="
+  "resolved" "https://registry.npmjs.org/dotenv-expand/-/dotenv-expand-10.0.0.tgz"
+  "version" "10.0.0"
+
+"dotenv@^16.3.1", "dotenv@16.3.1":
   "integrity" "sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ=="
   "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-16.3.1.tgz"
   "version" "16.3.1"
