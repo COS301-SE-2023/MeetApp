@@ -10,10 +10,10 @@
 }
 .scroll-container {
   height: 300px; 
+  overflow: hidden;
 }
 
  .left-image {
-      
       margin-left: 40px;
       margin-top:20px;
     }
