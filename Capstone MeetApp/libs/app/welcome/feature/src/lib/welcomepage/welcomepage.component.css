@@ -1,3 +1,10 @@
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  ion-img{
+    height: 500px;
+  }
+}
 html{
     overflow: hidden ! important;
 }
@@ -30,13 +37,13 @@ html{
     /* Add specific styles for index.html here */
   }
   #index {
-background-color: white ;
-background-size: cover;
-background-position: center center;
-min-height: 100vh;
-margin: 0;
-padding: 0;
-}
+    background-color: white ;
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
   
 
 .button-user{
@@ -52,15 +59,13 @@ padding: 0;
     color: white;
     margin: 0 auto;
     margin-top: 280px;
-     
     width: 55%;   
     margin-left: 25%;
     margin-right: 50%;
-    
     border-radius: 10px;  
     font-family: 'Roboto  ', sans-serif;
-        
 }
+
 .button-container {
     display: flex;
     flex-direction: column;
@@ -97,6 +102,6 @@ padding: 0;
     font-family: 'Roboto', sans-serif;
 }
 ion-img{
-  height: 500px;
+  height: 300px;
 }
 

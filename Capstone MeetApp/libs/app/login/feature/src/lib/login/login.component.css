@@ -10,7 +10,6 @@
 }
 .scroll-container {
   height: 300px; 
-  overflow-y: scroll; 
 }
 
  .left-image {
@@ -18,25 +17,8 @@
       margin-left: 40px;
       margin-top:20px;
     }
-body {
-background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
-background-size: cover;
-background-position: center center;
-min-height: 100vh;
-margin: 0;
-padding: 0;
-}
 
 
-.body.index-page {
-  height: 100vh; 
-  background-color: black;
-  margin: 0;
-  padding: 0;
-  overflow: hidden ! important;
-
-
-}
 #index {
 background-color: white ;
 background-size: cover;
@@ -81,9 +63,18 @@ input {
   color :white;
 }
 
+
 ion-img{
   height: 300px;
 }
+
+.image{
+  margin-top: 10px;
+  
+}
+
+
+
 .error-message {
   color: red;
   font-size: 14px;

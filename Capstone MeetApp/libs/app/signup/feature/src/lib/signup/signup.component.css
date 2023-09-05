@@ -15,10 +15,11 @@
 }
 
 
-       
+.image{
+  margin-top: 10px;
+}    
 .scroll-container {
-  height: 700px; 
-  overflow-y: auto; 
+  height: 640px; 
 }
 .holder {
   display: flex;
@@ -80,7 +81,7 @@ padding: 0;
   margin-top:20px;
 }
 
-    body {
+body {
   background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
   background-size: cover;
   background-position: center center;
@@ -90,5 +91,5 @@ padding: 0;
 }
 
 ion-img{
-  height: 300px;
+  height: 250px;
 }

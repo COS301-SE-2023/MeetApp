@@ -116,7 +116,6 @@ export class LoginComponent {
   
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
       this.data_organiser = response;
-      console.log(response);  
     });
 
     this.activatedRoute.paramMap.subscribe(params => {
