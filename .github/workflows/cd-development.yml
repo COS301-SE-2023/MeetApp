@@ -32,6 +32,10 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install --legacy-peer-deps
+      - name: maps api environment
+        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API_KEY}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
+      - name: backend setup
+        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.tsS
       - run: npm run build:app:development
       - run: aws s3 sync ./dist/apps/meet-app s3://dev-meetapp
       
