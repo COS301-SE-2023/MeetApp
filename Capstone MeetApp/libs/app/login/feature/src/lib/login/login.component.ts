@@ -78,7 +78,7 @@ export class LoginComponent {
   loginData_organiser:any;
 
   userType:string|null = '';
-
+  loader=true;
 
   async showErrorAlert(message: string) {
     const alert = await this.alertController.create({
@@ -121,6 +121,10 @@ export class LoginComponent {
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
     });
+
+    setTimeout(()=>{                           
+      this.loader = false;
+  }, 400);
     
   }
    

@@ -1,9 +1,63 @@
+@media screen and (max-width: 450px) and (max-height: 700) {
+  .spin::before {
+    animation: 1.5s linear infinite spinner;
+    animation-play-state: inherit;
+    border: solid 5px #cfd0d1;
+    border-bottom-color: #1c87c9;
+    border-radius: 50%;
+    content: "";
+    height: 40px;
+    position:absolute;
+    top: 10%;
+    left: 10%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 40px;
+    will-change: transform;
+    margin-top:50%;
+    margin-left: 40%;
+  }
 
-@media only screen and (max-width: 768px) {
+  ion-img{
+    height: 300px;
+  }
+}
+
+
+@media screen and (min-width: 500px) {
+  
+.spin::before {
+  animation: 1.5s linear infinite spinner;
+  animation-play-state: inherit;
+  border: solid 5px #cfd0d1;
+  border-bottom-color: #1c87c9;
+  border-radius: 50%;
+  content: "";
+  height: 40px;
+  position:absolute;
+  top: 10%;
+  left: 10%;
+  transform: translate3d(-50%, -50%, 0);
+  width: 40px;
+  will-change: transform;
+  margin-top:400px;
+  margin-left: 500px;
+}
+
+
+}
+
+
+@media only screen and (max-width: 750px) and (min-width: 500px){
   /* For mobile phones: */
   ion-img{
     height: 500px;
-  }
+  } 
+}
+@media only screen and (min-width: 760px) {
+    /* For mobile phones: */
+    ion-img{
+      height: 300px;
+    } 
 }
 html{
     overflow: hidden ! important;
@@ -101,7 +155,14 @@ html{
     border-radius: 10px;
     font-family: 'Roboto', sans-serif;
 }
-ion-img{
-  height: 300px;
+
+
+@keyframes spinner {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
 }
 

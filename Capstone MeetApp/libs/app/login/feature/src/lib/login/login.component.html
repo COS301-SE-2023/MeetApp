@@ -8,6 +8,11 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
    
   </head>
+
+  <div class="spin" *ngIf="loader">
+      
+  </div>
+<div class="body" *ngIf="!loader">
 <div id="index" class="index-page" class="scroll-container"> 
 <ion-header>
   <ion-toolbar>
@@ -21,6 +26,8 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
+
 
 <ion-content>
 
@@ -55,4 +62,7 @@
 </div>
 
 </ion-content>
+</div>
+
+  
 </div>

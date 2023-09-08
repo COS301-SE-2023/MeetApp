@@ -21,7 +21,7 @@ import { Platform } from '@ionic/angular'
   
 })
 export class HomepageComponent {
-
+  loader=true;
   data= [{
     _id:'',
     name:'',
@@ -68,8 +68,12 @@ export class HomepageComponent {
       for (let i = 0; i < this.data.length; i++) {
         this.getAttendance(this.data[i]._id);
       }
-      
-    });
+      setTimeout(()=>{                           
+        this.loader = false;
+    }, 400);
+    }
+    
+    );
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
