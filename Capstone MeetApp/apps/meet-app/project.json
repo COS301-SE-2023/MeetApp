@@ -55,13 +55,13 @@
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true,
-          "fileReplacements": [
+          "namedChunks": true
+          /*"fileReplacements": [
             {
               "replace": "apps/meet-app/src/environments/environment.ts",
               "with": "apps/meet-app/src/environments/environment.development.ts"
             }
-          ]
+          ]*/
         }
       },
       "defaultConfiguration": "production"
