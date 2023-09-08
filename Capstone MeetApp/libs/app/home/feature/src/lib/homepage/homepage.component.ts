@@ -8,6 +8,7 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule} from '@angular/router';
 import { service,ServicesModule} from '@capstone-meet-app/services';
+import { Platform } from '@ionic/angular'
 
 
 @Component({
@@ -20,7 +21,7 @@ import { service,ServicesModule} from '@capstone-meet-app/services';
   
 })
 export class HomepageComponent {
-
+  loader=true;
   data= [{
     _id:'',
     name:'',
@@ -53,17 +54,26 @@ export class HomepageComponent {
   }
   
   attendanceData: { [_id: string]: number } = {};
-  constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute) {
+  constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute,private platform: Platform) {
   }
-  
+  refreshPage() {
+    
+    this.platform.ready().then(() => {
+      window.location.reload();
+    });
+  }
   async ngOnInit() {
     this.service.getAllEvents().subscribe((response: any) => { 
       this.data = response;
       for (let i = 0; i < this.data.length; i++) {
         this.getAttendance(this.data[i]._id);
       }
-      
-    });
+      setTimeout(()=>{                           
+        this.loader = false;
+    }, 400);
+    }
+    
+    );
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');

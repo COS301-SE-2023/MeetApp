@@ -8,31 +8,25 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
    
   </head>
-  <div id="index" class="index-page" class="scroll-container">
-    <h1 class="heading" >
-        WELCOME
-    </h1>
-    <ion-content>
-    <!--div class="image-container" style="display: flex; justify-content: center;  margin-bottom: 3%;">
-      <img src="https://4kwallpapers.com/images/walls/thumbs_3t/6671.jpg" alt="Image 1" style="width: 68%; height: 68%;">
-    </div
-    
+
+  <div class="spin" *ngIf="loader">
+      
+  </div>
+
+  <div class="body" *ngIf="!loader">
+    <div id="index" class="index-page" class="scroll-container">
+      <h1 class="heading" >
+          WELCOME
+      </h1>
+    <!--<ion-content>-->
     <div>
-        <button class="button-user" (click)="onSignUp()">User</button>
-    </div>-->
-    
-       <!--<button class="button-organiser"(click)="onSignUp()" >Organiser</button>
- </div>-->
- <div>
- <ion-img src="assets/wave.jpg" alt="myimage">
- </ion-img>
-</div>
-
+  <ion-img src="assets/wave.jpg" alt="myimage">
+  </ion-img>
+  </div>
     <div class="button-container">   
-
       <ion-button  class="same-size-button" (click)="onSignUp()" (click)="setUserType('user')">USER</ion-button>
        <ion-button  class="same-size-button" (click)="onSignUp()"  (click)="setUserType('organiser')">ORGANISER</ion-button>
-    
     </div>
-  </ion-content>
   </div>
+</div>
+<!--</ion-content>-->
