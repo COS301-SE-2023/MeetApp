@@ -14,7 +14,7 @@
     "build:api:production": "nx run meet-app-api:build:production",
     "ci:start": "npm run lint && npm run build && npm run test",
     "lint": "nx run-many --target=lint",
-    "build": "nx run-many --target=build --all --parallel",
+    "build": "nx run-many --target=build --all --parallel --exclude=meet-app && npm run build:app:development",
     "test": "npx nx run-many --target=test --all --codeCoverage=true --coverageReporters=lcov --parallel=true && node ./tools/coverageMerger.js",
     "e2e": "nx run meet-app-e2e:e2e",
     "affected:build": "nx affected:build ",
