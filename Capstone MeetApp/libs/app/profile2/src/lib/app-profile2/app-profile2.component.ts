@@ -36,6 +36,14 @@ export class AppProfile2Component {
   eventCount='';
   friendCount=0;
 
+  friends = [
+    {
+      _id:'',
+      username:'',
+      profilePicture:'' 
+    }
+  ];
+
   userEvents = [
     {
       eventID:'',
@@ -53,6 +61,7 @@ export class AppProfile2Component {
     });
 
     this.getFriendAccount(this.username);
+    
   }
 
 
@@ -62,6 +71,7 @@ export class AppProfile2Component {
       console.log(this.profile);
       this.getFriendAttandance(this.profile._id);
       this.getFriendAttandanceCount(this.profile._id);
+      this.getFriendAccountFriends(this.profile.username);
     });
   }
 
@@ -76,6 +86,15 @@ export class AppProfile2Component {
       console.log(response);
     });
   }
+  
+  async getFriendAccountFriends(username:string|null){
+    await this.serviceProvider.getFriendsbyUsername(username).subscribe((response:any)=>{
+      console.log(response);
+      this.friends=response;
+      this.friendCount=this.friends.length;
+    });
+  }
+
   
   
   gotofriends() {

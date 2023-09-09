@@ -255,7 +255,7 @@ export class service{
     {
 
       const url=`${this.baseURl}users/username/${username}`;
-      return this.http.get(`${url}`,{headers : this.getAuthHeaders()});
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
     updateUser(username?:string ,password?:string,profilePicture?:string,region?:string){
@@ -297,6 +297,12 @@ export class service{
         return this.http.get(`${url}`,{ headers  : this.getAuthHeaders()});
     }
 
+
+    getFriendsbyUsername(username:string|null)
+    {
+      const url=`${this.baseURl}users/${username}/friends`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+    }
 
     //SERVICES FOR ORGANISER
 
