@@ -414,7 +414,7 @@ export class service{
     getMutualFriends(username:string|null)
     {
       const url=`${this.baseURl}users/friends/mutuals/${username}`;
-      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+      return this.http.get(`${url}`,{headers : this.getAuthHeaders()});
     }
 
 

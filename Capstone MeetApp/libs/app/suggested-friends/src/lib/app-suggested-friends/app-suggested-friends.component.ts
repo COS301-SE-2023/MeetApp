@@ -40,6 +40,14 @@ export class AppSuggestedFriendsComponent {
   ];
 
 
+  suggested_friends = [
+    {
+      _id:'',
+      username:'',
+      profilePicture:'' 
+    }
+  ];
+
 
   current_user={
     id:'',
@@ -70,6 +78,7 @@ export class AppSuggestedFriendsComponent {
 
   async ngOnInit() {
     this.getSuggestedFriends();
+    this.getCurrentUser();
   }
 
   async getCurrentUser()
@@ -85,6 +94,7 @@ export class AppSuggestedFriendsComponent {
   async getSuggestedFriends(){
 
     await this.apiService.getSuggestedFriends().subscribe((response:any) =>{
+      this.suggested_friends=response;
       console.log('Friend Suggestion List :',response);
     });
   }
@@ -92,7 +102,7 @@ export class AppSuggestedFriendsComponent {
   async getMutualFriends(username:string|null){
 
     await this.apiService.getMutualFriends(username).subscribe((response:any) =>{
-      console.log('Friend Suggestion List :',response);
+      console.log('Friend Mutual List :',response);
     });
   }
 
