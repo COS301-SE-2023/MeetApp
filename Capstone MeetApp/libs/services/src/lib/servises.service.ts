@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {environment } from "./environment";
 
 
 // EVENT INTERFACES //
@@ -30,7 +31,6 @@ export interface createEvents{
     region: string;
     
 }
-
 
 // USER INTERFACES //
 export interface user{
@@ -101,7 +101,7 @@ export interface createAttendance{
 export class service{
     constructor(private http:HttpClient){}
 
-    private baseURl='http://localhost:3000/api/';
+    private baseURl=environment.BASE_URL;
 
     private readonly TOKEN_KEY = 'access_token';
 
@@ -130,7 +130,7 @@ export class service{
         const url=this.baseURl+'events';
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         return this.http.get(`${url}`,{headers});
     }
@@ -140,7 +140,7 @@ export class service{
         const url=`${this.baseURl}events/${id}`;
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         return this.http.get(`${url}`,{headers});
     }
@@ -161,7 +161,7 @@ export class service{
         const url=this.baseURl+'events';
         
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body=
         {
@@ -181,20 +181,20 @@ export class service{
     }
 
     getEventsByRange(startDate?:string,endDate?:string){
-        const url=`http://localhost:3000/api/events/daterange/${startDate}/${endDate}`;
+        const url=`${this.baseURl}events/daterange/${startDate}/${endDate}`;
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         return this.http.get(`${url}`,{headers});
     }
 
     getEventsByRegion(region:string)
     {
-        const url=`http://localhost:3000/api/events/daterange/api/events/region/${region}`;
+        const url=`${this.baseURl}/events/daterange/api/events/region/${region}`;
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
 
         return this.http.get(`${url}`,{headers});
@@ -205,7 +205,7 @@ export class service{
         const url=`${this.baseURl}events/${id}/attendance-count`;
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         return this.http.get(`${url}`,{headers});
     }
@@ -214,7 +214,7 @@ export class service{
         const url=`${this.baseURl}events/${id}/attendance`;
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         return this.http.get(`${url}`,{headers});
     }
@@ -227,7 +227,7 @@ export class service{
         const url=this.baseURl+'users/signup';
         
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body=
         {
@@ -244,7 +244,7 @@ export class service{
         const url=this.baseURl+'users/login';
         
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body=
         {
@@ -259,7 +259,7 @@ export class service{
         const url=this.baseURl+'users';
         
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         return this.http.get(`${url}`,{headers});
     }
@@ -271,7 +271,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
       
         return this.http.get(`${url}`, { headers });
     }
@@ -281,7 +281,7 @@ export class service{
         const url=`${this.baseURl}users/${id}`;
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         
         return this.http.get(`${url}`,{headers});
@@ -292,7 +292,7 @@ export class service{
         const url=`${this.baseURl}users/${id}`;
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
         
         return this.http.get(`${url}`,{headers});
     }
@@ -304,7 +304,7 @@ export class service{
         const headers = new HttpHeaders()
         .set('Content-Type', 'application/json')
         .set('Authorization', `Bearer ${token}`)
-        .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+        .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body={
             username:username,
@@ -335,7 +335,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
       
         return this.http.get(`${url}`,{ headers });
     }
@@ -347,7 +347,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
       
         return this.http.get(`${url}`,{ headers });
     }
@@ -360,7 +360,7 @@ export class service{
         const url=this.baseURl+'organisations/signup';
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body=
         {
@@ -378,7 +378,7 @@ export class service{
         const url=this.baseURl+'organisations/login';
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body=
         {
@@ -393,7 +393,7 @@ export class service{
         const url=this.baseURl+'organisations';
 
         const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         return this.http.get(`${url}`,{headers});
     }
@@ -405,7 +405,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         
         return this.http.get(url, { headers });
@@ -422,7 +422,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body ={
             requestee:requestee
@@ -437,7 +437,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body = {
           requester: requester
@@ -451,7 +451,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body = {
           friendID: friendID
@@ -467,7 +467,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
       
         return this.http.get(`${url}`,{ headers });
     }
@@ -479,7 +479,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
       
         return this.http.get(`${url}`,{ headers });
     }
@@ -491,12 +491,23 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
       
         return this.http.get(`${url}`,{ headers });
     }
 
-    
+    getPendingFriendRequest(token:string|null)
+    {
+        const url = `${this.baseURl}users/friend-requests/pending`;
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`)
+          .set('x-api-key', environment.BACKEND_API_KEY);
+      
+        return this.http.get(`${url}`,{ headers });
+    }
+
     //SERVICES FOR ATTENDANCE
 
     attendEvent(organisationID: string,eventID: string,userID: string)
@@ -520,7 +531,7 @@ export class service{
         const headers = new HttpHeaders()
           .set('Content-Type', 'application/json')
           .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
+          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body = {
           eventID

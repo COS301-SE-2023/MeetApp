@@ -8,10 +8,12 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
    
   </head>
-<div id="index" class="index-page" class="scroll-container">
-  
 
-  
+  <div class="spin" *ngIf="loader">
+      
+  </div>
+<div class="body" *ngIf="!loader">
+<div id="index" class="index-page" class="scroll-container"> 
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -25,9 +27,11 @@
   </ion-toolbar>
 </ion-header>
 
+
+
 <ion-content>
 
-<div >
+<div class="image">
   <ion-img src="assets/profile.png"  width="300" height="300" alt="myimage">
   </ion-img>
  </div>
@@ -56,5 +60,9 @@
     </ion-row>
   </form>
 </div>
+
 </ion-content>
+</div>
+
+  
 </div>

@@ -6,6 +6,7 @@ import {
   Body,
   Request,
   UseGuards,
+  Param
 } from '@nestjs/common';
 import { OrganisationsService } from './organisations.service';
 import { CreateOrganisationDto } from './dto/create-organisation.dto';
@@ -206,6 +207,11 @@ export class OrganisationsController {
   async getCategoryCount(@Request() req : AuthenticatedRequest, ) {
     
     return this.organisationsService.getCategoryCount(req.organisation.id);
+  }
+
+  @Get('username/:username')
+  async getByUsername(@Param('username') username : string){
+    return await this.organisationsService.getByUsername(username)
   }
   
   

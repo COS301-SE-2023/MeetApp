@@ -46,13 +46,31 @@
     color: black;
     
   }
-
+  ion-datetime.picker-calendar-day.with-events {
+    background-color: red;
+  }
+  ion-datetime.datetime-with-events .datetime-text {
+    color: #007bff; /* Color for highlighted date */
+  }
+  ion-datetime.picker-calendar .picker-calendar-day.with-events {
+    background-color: purple;
+   --color: purple;
+  }
+  ion-datetime.with-events .picker-calendar-day-cell {
+    --color: #007bff; /* Color for highlighted date */
+  }
+  ::ng-deep ion-datetime.picker-calendar .picker-calendar-day.with-events {
+    background-color: your-chosen-color;
+    color: white;
+  }
   ion-datetime{
     margin-top:2%;
     height: 500px;
     width: 100%;
     margin-left: 7%;
-    --padding-end:50px
+    --padding-end:50px;
+    --color-primary: #007bff;
+    
   }
   ion-card-title{
     text-align: center;

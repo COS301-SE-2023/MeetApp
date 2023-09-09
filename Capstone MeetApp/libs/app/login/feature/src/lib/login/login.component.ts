@@ -11,6 +11,7 @@ import { HttpClient} from '@angular/common/http';
 import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
+import { LoadingController } from '@ionic/angular';
 
 
 @Component({
@@ -23,14 +24,14 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
- email = ''; 
+  email = ''; 
   password= ''; 
-username='';
+  username='';
 
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
-    private toastController: ToastController, private authservice: service,private activatedRoute: ActivatedRoute) { 
+    private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute) { 
   }
-
+  
   
   //storing the users data
   data_user= [{
@@ -59,7 +60,7 @@ username='';
   //stores the login response for user
   loginData_user:any;
 
-    
+   
   //storing the organisers data  
   data_organiser= [{
     _id:'',
@@ -77,8 +78,7 @@ username='';
   loginData_organiser:any;
 
   userType:string|null = '';
-
- 
+  loader=true;
 
   async showErrorAlert(message: string) {
     const alert = await this.alertController.create({
@@ -103,48 +103,40 @@ username='';
   
 
   async ngOnInit() {
-    
-
+  
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
 
     await this.apiService.getAllUsers().subscribe((response: any) => { 
-      console.log(response);
-      this.data_user = response;  
+      this.data_user = response;
+    
     });
   
     await this.apiService.getAllOrganisers().subscribe((response: any) => { 
-      console.log(response);
       this.data_organiser = response;
     });
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
-      console.log('User Type:', this.userType);
     });
+
+    setTimeout(()=>{                           
+      this.loader = false;
+  }, 400);
     
   }
    
   
   valid=true;
 
-  
   async LogInUser(username:string,password:string)
   {
-    await this.apiService.authUser(username,password ).subscribe((response) => {
-      console.log('API response:', response);
-      this.loginData_user=response;
-      this.userLogin_payload=this.loginData_user;
-      console.log('username:',this.userLogin_payload.user)
-      console.log('access token:',this.userLogin_payload.access_token)
+    await this.apiService.authUser(username,password ).subscribe((response:any) => {
+      this.userLogin_payload=response;
       this.authservice.setToken(this.userLogin_payload.access_token)
-      console.log('message:',this.userLogin_payload.message);
     });
-
-   
-   
 
     for (let i = 0; i < this.data_user.length; i++) {
 
@@ -157,26 +149,23 @@ username='';
       }
       
     }
+
     if(this.valid)
     {
       const errorMessage = 'wrong username or password';
-        this.showErrorToast(errorMessage);
+      this.showErrorToast(errorMessage);
     }
                     
-    
-
+  
   }
 
   
   async LogInOrg(username:string,password:string)
   {
-    await this.apiService.authOrganiser(username,password ).subscribe((response) => {
-      console.log('API response:', response);
-      this.loginData_organiser=response;
-      this.orgLogin_payload=this.loginData_organiser;
-      console.log('username:',this.orgLogin_payload.organisation)
-      console.log('access token:',this.orgLogin_payload.access_token)
-      console.log('message:',this.orgLogin_payload.message);
+    await this.apiService.authOrganiser(username,password ).subscribe((response:any) => {
+      this.orgLogin_payload=response;
+      
+      this.authservice.setToken(this.orgLogin_payload.access_token)
     });
 
     for (let i = 0; i < this.data_organiser.length; i++) {
@@ -202,11 +191,15 @@ username='';
     this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
-  login(username: string,password: string) {
-    console.log('username:', username);
-    console.log('password',password);
+  async login(username: string,password: string) {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+    await loading.present();
 
-    if(this.userType=='user')
+    setTimeout(() => {
+      loading.dismiss();
+      if(this.userType=='user')
     {
       this.LogInUser(username,password);
       
@@ -216,6 +209,9 @@ username='';
     {
       this.LogInOrg(username,password);
     }
+
+    }, 3000);
+    
    
   }
  

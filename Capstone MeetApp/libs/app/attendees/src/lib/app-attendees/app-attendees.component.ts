@@ -1,21 +1,29 @@
-
 import { Component } from '@angular/core';
 import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
-//import {service,events} from '@capstone-meet-app/app/services'
-import { Router } from '@angular/router';
+import {service,events} from '@capstone-meet-app/app/services'
+import { Router ,ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'capstone-meet-app-app-attendees',
   standalone: true,
-  imports: [CommonModule,Ng2SearchPipeModule,FormsModule,IonicModule],
+  imports: [CommonModule,Ng2SearchPipeModule,FormsModule,IonicModule,RouterModule ],
   templateUrl: './app-attendees.component.html',
   styleUrls: ['./app-attendees.component.css'],
 })
 export class AppAttendeesComponent {
    
+  attandance_list=[{
+    id:'',
+    username:''
+  }]
+
+  eventID='';
+  
+
   followers= [{
     name:'shiluvelo',
     profilepicture:'assets/profile.png'
@@ -39,12 +47,8 @@ export class AppAttendeesComponent {
     }
   ];
 
-
-  //goBack() {
-  // this.location.back();
-  //}
   filteredData: any[] = [];
-      searchQuery = '';
+  searchQuery = '';
   search(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredData = this.followers;
@@ -54,4 +58,43 @@ export class AppAttendeesComponent {
       );
     }
   }
+
+  constructor(private apiService: service,private route: ActivatedRoute) { 
+  }
+
+  async ngOnInit() {
+    this.route.params.subscribe(params => {
+      const eventId = params['eventId'];
+      this.eventID=eventId
+    });
+  
+    this.getListAttendances(this.eventID);
+    this.getRequest();
+  }
+
+  async getListAttendances(id:string)
+  {
+    await this.apiService.getEventAttendance(id).subscribe((response:any) =>{
+      this.attandance_list=response;
+      console.log('Attendace List :',this.attandance_list[0].id);
+    });
+  }
+
+  sendRequest(requestee:string, friend: any)
+  {
+    const token=this.apiService.getToken();
+    this.apiService.sendfriendrequest(token,requestee).subscribe((response:any) =>{
+      console.log('Send Request :',response);
+    });
+    friend.requestSent = true;
+  }
+  
+  async getRequest(){
+    const token=this.apiService.getToken();
+    await this.apiService.getFriendRequest(token).subscribe((response:any) =>{
+      //this.requesters=response;
+      console.log('FriendRequest List :',response);
+    });
+  }
+
 }

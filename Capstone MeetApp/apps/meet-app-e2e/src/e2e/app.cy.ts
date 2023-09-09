@@ -1,7 +1,7 @@
 import { getGreeting } from '../support/app.po';
 
 describe('meet-app', () => {
-  beforeEach(() => cy.visit('/'));
+  beforeEach(() => cy.visit('http://dev-meetapp.s3-website.af-south-1.amazonaws.com/'));
 
   it('should display welcome message', () => {
     // Custom command example, see `../support/commands.ts` file

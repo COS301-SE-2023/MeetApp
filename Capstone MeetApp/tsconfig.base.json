@@ -64,6 +64,7 @@
       "@capstone-meet-app/api/welcome/util": [
         "libs/api/welcome/util/src/index.ts"
       ],
+      "@capstone-meet-app/app/analytics": ["libs/app/analytics/src/index.ts"],
       "@capstone-meet-app/app/attendees": ["libs/app/attendees/src/index.ts"],
       "@capstone-meet-app/app/event/data-access": [
         "libs/app/event/data-access/src/index.ts"
@@ -86,6 +87,9 @@
         "libs/app/login/feature/src/index.ts"
       ],
       "@capstone-meet-app/app/login/util": ["libs/app/login/util/src/index.ts"],
+      "@capstone-meet-app/app/notifications": [
+        "libs/app/notifications/src/index.ts"
+      ],
       "@capstone-meet-app/app/profile/data-access": [
         "libs/app/profile/data-access/src/index.ts"
       ],

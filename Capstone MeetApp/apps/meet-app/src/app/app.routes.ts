@@ -22,6 +22,7 @@ import {FriendsComponent} from '@capstone-meet-app/friends';
 import {AppAttendeesComponent} from '@capstone-meet-app/app/attendees';
 import {AppProfile2Component} from '@capstone-meet-app/app/profile2';
 import {AppSuggestedFriendsComponent} from '@capstone-meet-app/app/suggested-friends';
+import {AppNotificationsComponent} from '@capstone-meet-app/app/notifications';
 export const appRoutes: Route[] = [
    { path: "", component: WelcomepageComponent },
    { path: "home", component: HomepageComponent },
@@ -34,7 +35,8 @@ export const appRoutes: Route[] = [
    ,{path: "friends", component: FriendsComponent},
    {path: "organisers", component: OrganiserComponent},
    {path: "calendar",component:CalendarComponent},
-   {path: "attendees",component:AppAttendeesComponent},
-   {path: "profileusers",component:AppProfile2Component},
-   {path:"suggestedfriends",component:AppSuggestedFriendsComponent}
+   {path: "profileusers/:username",component:AppProfile2Component},
+   {path: "attendees/:eventId",component:AppAttendeesComponent},
+   {path:"suggestedfriends",component:AppSuggestedFriendsComponent},
+   {path:"notifications",component:AppNotificationsComponent}
 ];
