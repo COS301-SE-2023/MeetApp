@@ -135,12 +135,9 @@ export class LoginComponent {
   {
     await this.apiService.authUser(username,password ).subscribe((response:any) => {
       this.userLogin_payload=response;
-      this.authservice.setToken(this.userLogin_payload.access_token)
-    });
+      this.authservice.setToken(this.userLogin_payload.access_token);
 
-    for (let i = 0; i < this.data_user.length; i++) {
-
-      if((this.data_user[i].username==username ||this.data_user[i].email==this.email) && this.data_user[i].password==password)
+      if(this.userLogin_payload.message=='Login successful')
       {
         const errorMessage = 'you have succesfully logged in';
         this.showErrorAlert(errorMessage); 
@@ -148,15 +145,18 @@ export class LoginComponent {
         this.valid=false;
       }
       
-    }
 
-    if(this.valid)
-    {
-      const errorMessage = 'wrong username or password';
-      this.showErrorToast(errorMessage);
-    }
+      if(this.valid)
+      {
+        const errorMessage = 'wrong username or password';
+        this.showErrorToast(errorMessage);
+      }
                     
   
+    });
+
+  
+      
   }
 
   
@@ -166,24 +166,27 @@ export class LoginComponent {
       this.orgLogin_payload=response;
       
       this.authservice.setToken(this.orgLogin_payload.access_token)
+
+      
+      if(this.orgLogin_payload.message=='Login successful')
+      {
+          const errorMessage = 'you have succesfully logged in';
+          this.showErrorAlert(errorMessage); 
+          this.router.navigate(['/home',{ userType: this.userType }]);
+          this.valid=false;
+      }
+        
+      
+      if(this.valid)
+      {
+        const errorMessage = 'wrong username or password';
+          this.showErrorToast(errorMessage);
+      }
+
+
     });
 
-    for (let i = 0; i < this.data_organiser.length; i++) {
-
-      if((this.data_organiser[i].username==username || this.data_organiser[i].email==this.email) && this.data_organiser[i].password==password)
-      {
-        const errorMessage = 'you have succesfully logged in';
-        this.showErrorAlert(errorMessage); 
-        this.router.navigate(['/home',{ userType: this.userType }]);
-        this.valid=false;
-      }
-      
-    }
-    if(this.valid)
-    {
-      const errorMessage = 'wrong username or password';
-        this.showErrorToast(errorMessage);
-    }
+    
   }
 
 
