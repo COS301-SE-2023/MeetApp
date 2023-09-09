@@ -57,7 +57,7 @@ export class SignupComponent {
   access:string|null='';
   
   submitClicked = false;
-
+  loader=true;
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
     username: ['', Validators.required],
@@ -71,6 +71,10 @@ export class SignupComponent {
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
     });
+
+    setTimeout(()=>{                           
+      this.loader = false;
+  }, 400);
 
   }
 

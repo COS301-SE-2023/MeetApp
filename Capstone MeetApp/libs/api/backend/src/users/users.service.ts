@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Organisation } from '../organisations/schema';
 import { Event } from '../events/schema';
 import { Friendship } from '../friendships/schema';
+import {hash, compare} from 'bcrypt'
 
 interface TimeOfDay {
   [key: string]: number;
@@ -28,7 +29,12 @@ export class UsersService {
   
   
   async create(createUserDto: CreateUserDto) {
+    createUserDto.password
     const newUser = await new this.userModel(createUserDto);
+    const userSalt = this.getUserSalt(newUser.username, newUser.password)
+    const hashedPass = await hash(newUser.password, userSalt)
+    newUser.password = hashedPass
+
     const newUserSaved = newUser.save()
     const payload = {id : (await newUserSaved).id, username : (await newUserSaved).username, password: (await newUserSaved).password}
     return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
@@ -38,15 +44,19 @@ export class UsersService {
     if (userToLoginInto.length == 0){
       return {user: null, message: 'User not found'}
     }
-    else {
-      if (userToLoginInto[0].password == password){
+
+    return await compare(password, userToLoginInto[0].password).then(async result => {
+      if (result){
         const payload = {id : userToLoginInto[0].id, username : userToLoginInto[0].username, password: userToLoginInto[0].password}
         return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
       }
       else{
         return {user: username, message : 'Incorrect password'}
       }
-    }
+        
+    })
+      
+      
   }
 
   findAll() {
@@ -75,10 +85,37 @@ export class UsersService {
 
     const friends = await this.userModel
       .find({ _id: { $in: fndsArr } })
-      .select('username ID')
+      .select('username ID profilePicture')
       .exec();
 
     return friends;
+  }
+
+  async getUserFriendsByUsername(username: string) {
+    const userInfo = await this.userModel.findOne({ username: username }).exec();
+    if (userInfo == null)
+      return {message: "user not found", status: '404'}
+    else
+    {
+      const userID = userInfo._id.toString()
+      const friendDocs = await this.friendshipModel.find({ $and: [{ $or: [{ requester: userID }, { requestee: userID }] }, { status: true }] }).exec();
+      const friendsIDs : string[] = [];
+      friendDocs.forEach(friendDoc => {
+    
+          friendsIDs.push(friendDoc.requestee.toString())
+          friendsIDs.push(friendDoc.requester.toString())
+      })
+      const friendsIDsUnique = new Set(friendsIDs)
+      friendsIDsUnique.delete(userID)
+      const fndsArr = Array.from(friendsIDsUnique);
+
+      const friends = await this.userModel
+        .find({ _id: { $in: fndsArr } })
+        .select('username ID profilePicture')
+        .exec();
+
+      return friends;
+    }
   }
 
   async getUserAttendances(userId: string) {
@@ -117,7 +154,7 @@ export class UsersService {
 
     const friends = await this.userModel
       .find({ _id: { $in: fndsArr } })
-      .select('username ID')
+      .select('username ID profilePicture')
       .exec();
 
     return friends;
@@ -137,7 +174,7 @@ export class UsersService {
 
     const friends = await this.userModel
       .find({ _id: { $in: fndsArr } })
-      .select('username ID')
+      .select('username ID profilePicture')
       .exec();
 
     return friends;
@@ -457,6 +494,21 @@ export class UsersService {
     return eventIntervals;
   }
 
+  getAsciiSum(str : string) {
+    let sum = 0;
+  
+    for (let i = 0; i < str.length; i++) {
+      const charCode = str.charCodeAt(i);
+      sum += charCode;
+    }
+  
+    return sum;
+  }
+
+  getUserSalt(username : string, plainPass : string){
+    return (this.getAsciiSum(username) * plainPass.length) % 8
+  }
+
   // async getUserInterestDuration(userId: string) {
   //   // Check if the user exists in the database
   //   const user = await this.userModel.findById(userId);
@@ -504,6 +556,18 @@ export class UsersService {
   //   }));
 
   //   return formattedDurationFrequencies;
+  // }
+
+  // async updateAllPasswords(){
+  //   const allUsers = await this.userModel.find().exec()
+  //   const usersUpdatedPasswords = allUsers.map(async (user) => {
+  //     const userSalt = this.getUserSalt(user.username, user.password)
+  //     const hashedPass = await hash(user.password, userSalt)
+  //     const PassDto = {password : hashedPass}
+  //     const updatedUser = await this.userModel.findByIdAndUpdate(user._id, PassDto, {new : true})
+  //     return {username: updatedUser?.username, password : updatedUser?.password}
+  //   })
+  //   return usersUpdatedPasswords
   // }
 
   async getByUsername(user_name: string){
@@ -562,4 +626,5 @@ export class UsersService {
 
     return { total: mutualFriends.length, friends: mutualFriends };
   }
+
 }

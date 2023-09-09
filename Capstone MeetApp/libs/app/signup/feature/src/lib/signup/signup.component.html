@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
     
-    <div id="index" class="index-page" class="scroll-container" >
 
+<div class="spin" *ngIf="loader">
+      
+</div>
+
+<div class="body" *ngIf="!loader">
+    <div id="index" class="index-page" class="scroll-container" >
     <ion-header>
       <ion-toolbar>
         <ion-buttons slot="start">
@@ -20,44 +25,19 @@
       <ion-content>
        
     <div>
-      <div>
+      <div  class="image">
         <ion-img src="assets/profile.png" width="300" height="300" alt="myimage">
         </ion-img>
        </div>
       <form [formGroup]="loginForm" (ngSubmit)="signup()">
         <div *ngIf=" userType === 'user'">
-        <!--<ion-item lines="full">
-          <ion-label position="floating">First Name</ion-label>
-          <ion-input class="rounded-input" type="text" name="firstname" formControlName="firstname"required></ion-input>
-          <div class="error-message" *ngIf="loginForm.controls['firstname'].touched && loginForm.controls['firstname'].hasError('required')">
-            First Name is required.
-          </div>
-        </ion-item>
-        
-        <ion-item lines="full">
-          <ion-label position="floating" >Last Name</ion-label>
-          <ion-input type="text" name="lastname" formControlName="lastname"required></ion-input>
-          <div class="error-message" *ngIf="loginForm.controls['lastname'].touched && loginForm.controls['lastname'].hasError('required')">
-            Last Name is required.
-          </div>
-        </ion-item>-->
-        <ion-item lines="full">
+       <ion-item lines="full">
           <ion-label position="floating">Username</ion-label>
           <ion-input class="rounded-input" type="text" name="username" formControlName="username"required></ion-input>
           <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
             Username is required.
           </div>
         </ion-item>
-       <!-- <ion-item lines="full">
-          <ion-label position="floating">Email</ion-label>
-          <ion-input type="email" name="email" formControlName="email"></ion-input>
-          <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
-            Email is required.
-          </div>
-          <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('email')">
-            Invalid email format.
-          </div>
-        </ion-item>-->
 
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
@@ -129,7 +109,8 @@
    
   </div>
 </ion-content>
-    </div>
+  </div>
+</div>
     
  
   

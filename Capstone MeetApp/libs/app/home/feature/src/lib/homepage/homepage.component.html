@@ -5,7 +5,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
+<div class="spin" *ngIf="loader">
+      
+</div>
 
+<div class="body" *ngIf="!loader">
 <ion-searchbar show-clear-button="focus"  class="custom"  [(ngModel)]="searchQuery" (ionChange)="search()"></ion-searchbar>
 
 <div id="index" class="index-page" class="scroll-container">
@@ -81,7 +85,7 @@
 
 </div>
 <div class="navigation-bar">
-  <div  (click)="gotohome()" routerLinkActive="active" class="navigation-item">
+  <div  (click)="refreshPage()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-home"></i>
    
   </div>
@@ -105,92 +109,4 @@
   
   </div>
 </div>
-
-<!--<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
-  </head>
-  <div class="container">
-    
-    <div class="heading-container">
-      <i class="fas fa-heart pink"></i>
-      <h1 class="heading">MeetApp&nbsp;&nbsp;&nbsp;&nbsp;</h1>
-      <a href="/settings" routerLink="/settings" routerLinkActive="active-link">
-      <i class="fas fa-cog pink"></i></a>
-    </div>
-
-    <div class="search-bar">
-      <input type="text" placeholder="Search" class="rounded-input" [(ngModel)]="searchQuery" (input)="search()">
-      <button type="button" class="search-button" (click)="search()">
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
-     
-
-      
-      <div  div class="box" *ngFor="let item of filteredData" >
-  
-        <div class="container1" class="content-container"  >
-          <h2>{{ item.name}}</h2>
-            <div class="image-container">
-              <img src="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi" alt="item.title + ' Image'" height="80" width="80">
-            </div>
-          <p><strong>Where?</strong> {{ item.region }}</p>
-          <p><strong>When?</strong> {{ item.date }}</p>
-          <p>{{ item.description }} <a href="/event" routerLink="/event" routerLinkActive="active-link">&nbsp;&nbsp;more...</a></p>
-        </div>
-      </div>
-<div  *ngFor="let item of data" class="box" class="box" >
-  <div class="container1" class="content-container"  >
-    <h2>{{ item.name}}</h2>
-      <div class="image-container">
-        <img src="https://www.specialevents.com/sites/specialevents.com/files/styles/article_featured_standard/public/gallery_promo_image/InVision_Shaklee_Global_Live.jpg?itok=9X3-HJLi" alt="item.title + ' Image'" height="80" width="80">
-      </div>
-    <p><strong>Where?</strong> {{ item.region }}</p>
-    <p><strong>When?</strong> {{ item.date }}</p>
-    <p>{{ item.description }} <a href="/event" routerLink="/event" routerLinkActive="active-link">&nbsp;&nbsp;more...</a></p>
-  </div>
 </div>
-<nav class="bottom-navbar">
-  <ul>
-    <li>
-      <a href="/home" routerLinkActive="active">
-        <i class="fas fa-home"></i>
-        Home
-      </a>
-    </li>
-    <li>
-      <a href="/profile">
-        <i class="fas fa-bell"></i>
-        Notification
-      </a>
-    </li>
-    <li>
-      <a href="/home">
-        <i class="fas fa-calendar"></i>
-       Calender
-      </a>
-    </li>
-    <li>
-      <a href="/organisers">
-        <i class="fas fa-plus-circle"></i>
-     Post Event
-      </a>
-    </li>
-    <li>
-      <a href="/profile" >
-        <i class="fas fa-user"></i>
-        Profile
-      </a>
-    </li>
-  </ul>
-</nav>
-
-</div>
-</html>
--->
-      

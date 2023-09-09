@@ -15,7 +15,7 @@ on:
       - 'organiser**'
       - 'settings**'
       - 'events**'
-      
+      - 'friends**' 
   pull_request:
     branches:
       - 'development**'
@@ -27,6 +27,7 @@ on:
       - 'organiser**'
       - 'settings**'
       - 'events**'
+      - 'friends**'
       
 
 jobs:
@@ -42,6 +43,10 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
+      - name: maps api environment
+        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API_KEY}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
+      - name: backend setup
+        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
       - run: npm run build
 
   test:
@@ -55,6 +60,10 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
+      - name: maps api environment
+        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${MAPS_API}'};" > libs/app/map/feature/src/lib/maps/environment.ts
+      - name: backend setup
+        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${API_BASE_URI}',BACKEND_API_KEY:'${API_KEY}'};" > libs/services/src/lib/environment.ts
       - run: npm run test
       - name: print out codeCov secret
         run: printf "${{secrets.CODECOV_TOKEN}}"
@@ -89,6 +98,10 @@ jobs:
         with: 
           node-version: 18
       - run: npm install --legacy-peer-deps
+      - name: maps api environment
+        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${MAPS_API}'};" > libs/app/map/feature/src/lib/maps/environment.ts
+      - name: backend setup
+        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${API_BASE_URI}',BACKEND_API_KEY:'${API_KEY}'};" > libs/services/src/lib/environment.ts
       - run: npm run e2e
  
 

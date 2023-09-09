@@ -46,7 +46,7 @@ export class SettingsComponent {
   }
 
   nagivateToHome(): void {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
   
   async getCurrentUser()

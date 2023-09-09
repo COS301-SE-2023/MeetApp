@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
@@ -7,7 +7,10 @@ import { Location } from '@angular/common';
 import { AlertController } from '@ionic/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import {service,ServicesModule} from '@capstone-meet-app/services';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 @Component({
   standalone: true,
@@ -19,10 +22,13 @@ import { HttpClient} from '@angular/common/http';
   imports:[IonicModule , CommonModule,
     FormsModule,ServicesModule]
 })
+
+@Injectable()
 export class OrganiserComponent {
+  
+  //FORM DATA TYPE DECLARATION
   EventForm!: FormGroup;
   profilePictureUrl: string | null = null;
-
   description: string | null = null;
   selectedRegion:string | null = null;
   eventName :string | null = null;
@@ -33,14 +39,25 @@ export class OrganiserComponent {
     endTime: '',
   };
   showForm: |boolean = false;
-
-
-  address: string | null=null;
+  address: string ;
   showDateTimeFields = false;
   SelectedRangeControl = new FormControl();
   formGroup: FormGroup<{ startDate: FormControl<string | null>; startTime: FormControl<string | null>; endTime: FormControl<string | null>; }> | undefined;
   myForm: any;
- 
+  showCalendar=false;
+
+  //FORM FUNCTIONALITY
+  constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient) {
+    this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
+    this.description='';
+    this.selectedRegion='';
+    this.eventName='';
+    this.OrganisationName='';
+    this.address = '1600 Amphitheatre Parkway, Mountain View, CA';
+   
+
+      
+  }
   
   ngOnInit() {
     this.formGroup = new FormGroup({
@@ -48,27 +65,23 @@ export class OrganiserComponent {
       startTime: new FormControl(this.selectedRange.startTime),
       endTime: new FormControl(this.selectedRange.endTime)
     });
-   
-   
-    
   }
  
-
-  constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location) {
-    this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
-    this.description='';
-    this.selectedRegion='';
-    this.eventName='';
-    this.OrganisationName='';
-  }
-  showCalendar=false;
-
-  
   goBack() {
     this.llocation.back();
   }
+
+  errorMessage='';
+//get lat and long
+
+
+
+
+
+
 //services
-  location: {latitude :number , longitude:number }=
+
+  location: {latitude :number , longitude:number  }=
   {
     latitude:0,
     longitude:0
@@ -86,6 +99,8 @@ export class OrganiserComponent {
 
   
 submitForm() {
+ 
+  
   if (this.eventName !== null && this.OrganisationName !== null && this.description !== null &&
      this.profilePictureUrl !== null && this.selectedRange.startDate !== null
       && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&
