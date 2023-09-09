@@ -8,12 +8,13 @@
     "default": {
       "runner": "nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "cacheableOperations": ["build","lint", "test", "e2e"],
         "accessToken": "NzdjY2ZjYWMtZTBlYS00Y2I2LWE3OWYtY2ZlM2E1NmIwNGI2fHJlYWQtd3JpdGU=",
         "url": "http://staging.nx.app"
       }
     }
   },
+  "neverConnectToCloud": true,
   "targetDefaults": {
     "build": {
       "dependsOn": ["^test", "^build"],
