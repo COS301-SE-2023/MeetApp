@@ -405,6 +405,13 @@ export class service{
         return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
     }
 
+    getSuggestedFriends()
+    {
+      const url = `${this.baseURl}users/friends/suggestions`;
+      return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
+    }
+
+
     //SERVICES FOR ATTENDANCE
 
     attendEvent(organisationID: string,eventID: string,userID: string)

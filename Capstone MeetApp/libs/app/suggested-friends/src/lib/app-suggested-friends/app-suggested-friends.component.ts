@@ -4,9 +4,10 @@ import { Component } from '@angular/core';
 import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
-//import {service,events} from '@capstone-meet-app/app/services'
+import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'capstone-meet-app-app-suggested-friends',
   standalone: true,
@@ -39,6 +40,9 @@ export class AppSuggestedFriendsComponent {
   ];
 
 
+
+
+
   //goBack() {
   // this.location.back();
   //}
@@ -53,4 +57,21 @@ export class AppSuggestedFriendsComponent {
       );
     }
   }
+
+  
+  constructor(private apiService: service) { 
+  }
+
+  async ngOnInit() {
+    this.getSuggestedFriends();
+  }
+  
+  async getSuggestedFriends(){
+
+    await this.apiService.getSuggestedFriends().subscribe((response:any) =>{
+      console.log('Friend Suggestion List :',response);
+    });
+  }
+
+  
 }
