@@ -113,6 +113,15 @@ export class UsersController {
     return this.usersService.getUserAttendances(userId);
   }
 
+  @Get(':username/friends')
+  @ApiOperation({summary: 'View friends of the specified user'})
+  @ApiResponse({status: 200, description: 'List of friends', type: [UserFriends]})
+  @ApiParam({name: 'username', description: 'the username of the user'})
+  async getFriendsByUsername(@Param('username') username: string, ) {
+    
+    return await this.usersService.getUserFriendsByUsername(username);
+  }
+
   @UseGuards(AuthGuard)
   @Get('friends/count')
   @ApiBearerAuth()
