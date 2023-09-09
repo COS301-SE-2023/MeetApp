@@ -41,7 +41,13 @@ export class AppSuggestedFriendsComponent {
 
 
 
-
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
 
   //goBack() {
   // this.location.back();
@@ -65,6 +71,16 @@ export class AppSuggestedFriendsComponent {
   async ngOnInit() {
     this.getSuggestedFriends();
   }
+
+  async getCurrentUser()
+  {
+    await this.apiService.getLogedInUser().subscribe((response:any) => {
+      this.current_user=response;
+      console.log('username:',this.current_user.username);
+      this.getMutualFriends(this.current_user.username);
+    });
+
+  }
   
   async getSuggestedFriends(){
 
@@ -73,5 +89,12 @@ export class AppSuggestedFriendsComponent {
     });
   }
 
-  
+  async getMutualFriends(username:string|null){
+
+    await this.apiService.getMutualFriends(username).subscribe((response:any) =>{
+      console.log('Friend Suggestion List :',response);
+    });
+  }
+
+
 }

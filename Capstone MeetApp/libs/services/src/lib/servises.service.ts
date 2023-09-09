@@ -411,6 +411,12 @@ export class service{
       return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
     }
 
+    getMutualFriends(username:string|null)
+    {
+      const url=`${this.baseURl}users/friends/mutuals/${username}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+    }
+
 
     //SERVICES FOR ATTENDANCE
 
