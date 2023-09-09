@@ -5,7 +5,6 @@ import { Organisation } from './schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { Event } from '../events/schema';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './constant';
 import { Attendance } from '../attendances/schema';
 import { User } from '../users/schema';
 
@@ -18,7 +17,7 @@ describe('OrganisationsService', () => {
      imports: [
       JwtModule.register({
         global: true,
-        secret: jwtConstants.secret,
+        secret: process.env['JWT_PRIVATE_KEY'],
         signOptions: { expiresIn: '1 day' },
       }),
     ]
