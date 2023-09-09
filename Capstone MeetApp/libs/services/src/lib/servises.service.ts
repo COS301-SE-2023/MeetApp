@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders ,HttpParams} from "@angular/common/http";
 import {environment } from "./environment";
 
 
@@ -105,6 +105,20 @@ export class service{
 
     private readonly TOKEN_KEY = 'access_token';
 
+    //FUNCTIONS  TO HANDLE HEADERS
+
+    private getCommonHeaders() {
+      return new HttpHeaders()
+        .set('x-api-key', environment.BACKEND_API_KEY);
+    }
+
+    private getAuthHeaders() {
+      const token = this.getToken();
+        return this.getCommonHeaders()
+          .set('Content-Type', 'application/json')
+          .set('Authorization', `Bearer ${token}`);
+    }
+
     //FUNCTIONS TO ACCESS THE TOKEN
       
     setToken(token: string) 
@@ -127,96 +141,71 @@ export class service{
 
     getAllEvents()
     {
-        const url=this.baseURl+'events';
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        return this.http.get(`${url}`,{headers});
+      const url=this.baseURl+'events';
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
 
     getEventByID(id:string)
     {
-        const url=`${this.baseURl}events/${id}`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        return this.http.get(`${url}`,{headers});
+      const url=`${this.baseURl}events/${id}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
     getEventByIDs(id:string,eventIds:string)
     {
-        const url=`${this.baseURl}events/${id}`;
-        const params = {
-            eventIds: eventIds
-        };
-        return this.http.get(`${url}`,{params:params});
+      const url=`${this.baseURl}events/${id}`;
+      const params = {
+        eventIds: eventIds
+      };
+
+      return this.http.get(`${url}`,{params:params});
     }
 
     createEvents(name: string,organisation: string,description: string,eventPoster:string, date: string,
          startTime: string,endTime: string,location: {latitude:number , longitude:number},
          category: string,region: string)
     {
-        const url=this.baseURl+'events';
+      const url=this.baseURl+'events';
         
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
         const body=
         {
-            name: name,
-            organisation: organisation,
-            description: description,
-            eventPoster: eventPoster,
-            date: date,
-            startTime: startTime,
-            endTime: endTime,
-            location: location,
-            category: category,
-            region: region
+          name: name,
+          organisation: organisation,
+          description: description,
+          eventPoster: eventPoster,
+          date: date,
+          startTime: startTime,
+          endTime: endTime,
+          location: location,
+          category: category,
+          region: region
         }
-        return this.http.post(`${url}`,body,{headers});
+
+      return this.http.post(`${url}`,body,{headers : this.getCommonHeaders()});
 
     }
 
     getEventsByRange(startDate?:string,endDate?:string){
         const url=`${this.baseURl}events/daterange/${startDate}/${endDate}`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        return this.http.get(`${url}`,{headers});
+        return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
 
     getEventsByRegion(region:string)
     {
-        const url=`${this.baseURl}/events/daterange/api/events/region/${region}`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-
-        return this.http.get(`${url}`,{headers});
+      const url=`${this.baseURl}/events/daterange/api/events/region/${region}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
     getEventAttendanceCount(id:string)
     {
-        const url=`${this.baseURl}events/${id}/attendance-count`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        return this.http.get(`${url}`,{headers});
+      const url=`${this.baseURl}events/${id}/attendance-count`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
-    getEventAttendance(id:string){
-        const url=`${this.baseURl}events/${id}/attendance`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        return this.http.get(`${url}`,{headers});
+    getEventAttendance(id:string)
+    {
+      const url=`${this.baseURl}events/${id}/attendance`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
 
 
@@ -224,86 +213,64 @@ export class service{
 
     createUser(username:string,password:string,profilePicture:string,region:string)
     {
-        const url=this.baseURl+'users/signup';
+      const url=this.baseURl+'users/signup';
         
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
+      const body=
+      {
+        username: username,
+        password:password,
+        profilePicture:profilePicture,
+        region:region
+      }
 
-        const body=
-        {
-            username: username,
-            password:password,
-            profilePicture:profilePicture,
-            region:region
-        }
-        return this.http.post(`${url}`,body,{headers});
+      return this.http.post(`${url}`,body,{headers : this.getCommonHeaders()});
     }
 
     authUser(username:string, password:string)
     {
-        const url=this.baseURl+'users/login';
-        
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
+      const url=this.baseURl+'users/login';
+      
+      const body=
+      {
+        username:username,
+        password:password
+      }
 
-        const body=
-        {
-            username:username,
-            password:password
-        }
-        return this.http.post(`${url}`,body,{headers});
+      return this.http.post(`${url}`,body,{headers : this.getCommonHeaders()});
     }
 
     getAllUsers()
     {
-        const url=this.baseURl+'users';
-        
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        return this.http.get(`${url}`,{headers});
+      const url=this.baseURl+'users';
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
 
-    getLogedInUser(token:string|null) {
-        const url = this.baseURl + 'users/account';
-      
-    
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-      
-        return this.http.get(`${url}`, { headers });
+    getLogedInUser()
+    {
+      const url = this.baseURl + 'users/account';
+      return this.http.get(`${url}`, { headers : this.getAuthHeaders() });
     }
 
     getUserByUsername(username:string|null)
     {
 
-        const url=`${this.baseURl}users/username/${username}`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-        
-        return this.http.get(`${url}`,{headers});
+      const url=`${this.baseURl}users/username/${username}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
-    updateUser(token:string|null, username?:string ,password?:string,profilePicture?:string,region?:string){
+    updateUser(username?:string ,password?:string,profilePicture?:string,region?:string){
         
-        const url=`${this.baseURl}users/update`;
+      const url=`${this.baseURl}users/update`;
 
-        const headers = new HttpHeaders()
-        .set('Content-Type', 'application/json')
-        .set('Authorization', `Bearer ${token}`)
-        .set('x-api-key', environment.BACKEND_API_KEY);
+      const body={
+        username:username,
+        password:password,
+        profilePicture:profilePicture,
+        region:region
+      }
 
-        const body={
-            username:username,
-            password:password,
-            profilePicture:profilePicture,
-            region:region
-        }
+      return this.http.patch(`${url}`,body,{headers : this.getAuthHeaders()});
 
-        return this.http.patch(`${url}`,body,{headers});
     }
        
     deleteAccount(userId: string, reason: string) 
@@ -318,39 +285,30 @@ export class service{
         return this.http.delete(url, { body: body },);
     }
   
-    getUserAttendances(token:string|null)
+    getUserAttendances()
     {
         const url=`${this.baseURl}users/attendances`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-      
-        return this.http.get(`${url}`,{ headers });
+        return this.http.get(`${url}`,{ headers  : this.getAuthHeaders()});
     }
 
-    getUserAttendancesCount(token:string|null)
+    getUserAttendancesCount()
     {
         const url=`${this.baseURl}users/attendances/count`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-      
-        return this.http.get(`${url}`,{ headers });
+        return this.http.get(`${url}`,{ headers  : this.getAuthHeaders()});
     }
 
+
+    getFriendsbyUsername(username:string|null)
+    {
+      const url=`${this.baseURl}users/${username}/friends`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+    }
 
     //SERVICES FOR ORGANISER
 
     createOrginiser(username:string,password:string,name:string,events:string[])
     {
         const url=this.baseURl+'organisations/signup';
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body=
         {
@@ -360,143 +318,105 @@ export class service{
             events:events
 
         }
-        return this.http.post(`${url}`,body,{headers});
+
+        return this.http.post(`${url}`,body,{headers : this.getCommonHeaders()});
     }
 
     authOrganiser(username:string, password:string)
     {
         const url=this.baseURl+'organisations/login';
 
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
         const body=
         {
             username:username,
             password:password
         }
-        return this.http.post(`${url}`,body,{headers});
+        return this.http.post(`${url}`,body,{headers: this.getCommonHeaders()});
     }
 
     getAllOrganisers()
     {
         const url=this.baseURl+'organisations';
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        return this.http.get(`${url}`,{headers});
+        return this.http.get(`${url}`,{headers: this.getCommonHeaders()});
     }
 
-    getLogedInOrg(token: string) {
+    getLogedInOrg() {
         const url = this.baseURl + 'organisations/account';
-      
-        
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-
-        
-        return this.http.get(url, { headers });
+        return this.http.get(url, { headers : this.getAuthHeaders()});
     }
 
 
     //SERVICES FOR FRIENDS
 
     
-    sendfriendrequest(token:string|null,requestee:string)
+    sendfriendrequest(requestee:string)
     {
         const url=`${this.baseURl}users/friend/send-request`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body ={
             requestee:requestee
         }
-        return this.http.post(`${url}`,body,{ headers });
+        return this.http.post(`${url}`,body,{ headers  : this.getAuthHeaders() });
     }
 
     
-    acceptFriendRequest(token:string|null,requester: string) {
+    acceptFriendRequest(requester: string) {
         const url = `${this.baseURl}users/friend/accept-request`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body = {
           requester: requester
         };
-        return this.http.patch(`${url}`, body,{ headers });
+        return this.http.patch(`${url}`, body,{ headers  : this.getAuthHeaders() });
     }
       
-    deleteFriendRequest(token:string|null,friendID: string) {
+    deleteFriendRequest(friendID: string) {
         const url = `${this.baseURl}users/friend/unfriend`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body = {
           friendID: friendID
         };
     
-        return this.http.delete(`${url}`, {headers,body});
+        return this.http.delete(`${url}`, {headers  : this.getAuthHeaders(),body});
     }
 
-    getFriendCount(token:string|null)
+    getFriendCount()
     {
         const url = `${this.baseURl}users/friends/count`;
 
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-      
-        return this.http.get(`${url}`,{ headers });
+        return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
     }
 
-     getFriends(token:string|null)
+     getFriends()
     {
         const url = `${this.baseURl}users/friends`;
 
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-      
-        return this.http.get(`${url}`,{ headers });
+        return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
     }
 
-    getFriendRequest(token:string|null)
+    getFriendRequest()
     {
         const url = `${this.baseURl}users/friend-requests`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-      
-        return this.http.get(`${url}`,{ headers });
+        return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
     }
 
-    getPendingFriendRequest(token:string|null)
+    getPendingFriendRequest()
     {
         const url = `${this.baseURl}users/friend-requests/pending`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
-      
-        return this.http.get(`${url}`,{ headers });
+        return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
     }
+
+    getSuggestedFriends()
+    {
+      const url = `${this.baseURl}users/friends/suggestions`;
+      return this.http.get(`${url}`,{ headers  : this.getAuthHeaders() });
+    }
+
+    getMutualFriends(username:string|null)
+    {
+      const url=`${this.baseURl}users/friends/mutuals/${username}`;
+      return this.http.get(`${url}`,{headers : this.getAuthHeaders()});
+    }
+
 
     //SERVICES FOR ATTENDANCE
 
@@ -514,38 +434,26 @@ export class service{
     }
     
     
-    attendEventUser(token:string|null,eventID:string)
+    attendEventUser(eventID:string)
     {
         const url = `${this.baseURl}users/attend`;
-
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json')
-          .set('Authorization', `Bearer ${token}`)
-          .set('x-api-key', environment.BACKEND_API_KEY);
 
         const body = {
           eventID
         };
-        return this.http.post(`${url}`, body,{ headers });
+
+        return this.http.post(`${url}`, body,{ headers  : this.getAuthHeaders() });
     }
 
     getAttandanceByID(id:string)
     {
       const url = `${this.baseURl}users/${id}/attendances`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
-      
-      return this.http.get(`${url}`,{ headers });
+      return this.http.get(`${url}`,{ headers: this.getCommonHeaders() });
     }
 
     getAttandanceCountByID(id:string)
     {
       const url = `${this.baseURl}users/${id}/attendances/count`;
-
-        const headers = new HttpHeaders()
-          .set('x-api-key', '4V3gGCOUdOv+Nq9oNRDdBCozbwIekiD4fh5UofWHTf8=');
-      
-      return this.http.get(`${url}`,{ headers });
+      return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
 }

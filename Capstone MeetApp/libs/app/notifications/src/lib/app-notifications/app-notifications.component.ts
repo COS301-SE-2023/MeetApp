@@ -37,8 +37,8 @@ export class AppNotificationsComponent {
   }
 
   async getRequest(){
-    const token=this.apiService.getToken();
-    await this.apiService.getFriendRequest(token).subscribe((response:any) =>{
+
+    await this.apiService.getFriendRequest().subscribe((response:any) =>{
       this.requesters=response;
       console.log('FriendRequest List :',response);
     });
@@ -46,8 +46,7 @@ export class AppNotificationsComponent {
 
   
   async acceptRequest(requester: string,request:any){
-     const token=this.apiService.getToken();
-     await this.apiService.acceptFriendRequest(token,requester).subscribe((response:any) =>{
+     await this.apiService.acceptFriendRequest(requester).subscribe((response:any) =>{
       console.log('Payload :',response);
       this.getRequest();
     });

@@ -51,8 +51,7 @@ export class SettingsComponent {
   
   async getCurrentUser()
   {
-    const access_token=this.service.getToken();
-    await this.service.getLogedInUser(access_token).subscribe((response:any) => {
+    await this.service.getLogedInUser().subscribe((response:any) => {
       this.current_user=response;
       console.log('username:',this.current_user.username);
       this.getProfile(this.current_user.username);
@@ -60,8 +59,8 @@ export class SettingsComponent {
 
   }
   
-  async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.service.updateUser(token,username,password,profilePicture,region).subscribe((response) => {
+  async updateProfile(username?:string ,password?:string,profilePicture?:string,region?:string){
+    await this.service.updateUser(username,password,profilePicture,region).subscribe((response) => {
       console.log('API response:', response);
    
     });
@@ -83,14 +82,13 @@ export class SettingsComponent {
       return;
     }
 
-    const access_token = this.service.getToken();
-    this.updateProfile(access_token, this.profile.username, this.newPassword, this.profile.profilePicture, this.profile.region);
+   
+    this.updateProfile(this.profile.username, this.newPassword, this.profile.profilePicture, this.profile.region);
   }
 
   saveRegion()
   {
-    const access_token=this.service.getToken();
-    this.updateProfile(access_token,this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation);
+    this.updateProfile(this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation);
   }
  
 }

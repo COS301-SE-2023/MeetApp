@@ -78,9 +78,9 @@ export class ProfileComponent {
   
 
   async ngOnInit(){
-    const access_token=this.serviceProvider.getToken();
-    this.getEventCount(access_token);
-    this.getUserEvents(access_token);
+    
+    this.getEventCount();
+    this.getUserEvents();
     this.getFriendCount();
     this.getCurrentUser();
   }
@@ -94,27 +94,26 @@ export class ProfileComponent {
     
   }
 
-  async getEventCount(token :string|null){
-    await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
+  async getEventCount(){
+    await this.serviceProvider.getUserAttendancesCount().subscribe((response:any)=>{
       this.eventCount = response;
     });
   }
   
-  async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(token,username,password,profilePicture,region).subscribe();
+  async updateProfile(username?:string ,password?:string,profilePicture?:string,region?:string){
+    await this.serviceProvider.updateUser(username,password,profilePicture,region).subscribe();
   }
 
-  async getUserEvents(token :string|null)
+  async getUserEvents()
   {
-    await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
+    await this.serviceProvider.getUserAttendances().subscribe((response:any)=>{
       this.events = response;
     });
   }
 
   async getCurrentUser()
   {
-    const access_token=this.serviceProvider.getToken();
-    await this.serviceProvider.getLogedInUser(access_token).subscribe((response:any) => {
+    await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
       this.current_user=response;
       console.log('username:',this.current_user.username);
       this.getProfile(this.current_user.username);
@@ -131,8 +130,7 @@ export class ProfileComponent {
 
   async getFriendCount()
   {
-    const access_token=this.serviceProvider.getToken();
-    await this.serviceProvider.getFriendCount(access_token).subscribe((response:any) => {
+    await this.serviceProvider.getFriendCount().subscribe((response:any) => {
       this.friendCount=response;
     });
   }
@@ -155,21 +153,20 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-      console.log('THE FUNCTION IS RUNNING');
-      const access_token=this.serviceProvider.getToken();
+    console.log('THE FUNCTION IS RUNNING');
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this.profilePictureUrl);
-      this.updateProfile(access_token,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
+      this.updateProfile(this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
       console.log(this. profilePictureUrl);
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
-      this.updateProfile(access_token,this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region);
+      this.updateProfile(this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region);
     }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this.profilePictureUrl);
-      this.updateProfile(access_token,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
+      this.updateProfile(this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
       console.log(this. profilePictureUrl);
     }
 

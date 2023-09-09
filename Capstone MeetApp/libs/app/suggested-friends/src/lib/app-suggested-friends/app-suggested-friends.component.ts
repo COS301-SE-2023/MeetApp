@@ -4,9 +4,10 @@ import { Component } from '@angular/core';
 import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { CommonModule,Location } from '@angular/common';
 import {IonicModule } from '@ionic/angular';
-//import {service,events} from '@capstone-meet-app/app/services'
+import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'capstone-meet-app-app-suggested-friends',
   standalone: true,
@@ -39,6 +40,23 @@ export class AppSuggestedFriendsComponent {
   ];
 
 
+  suggested_friends = [
+    {
+      _id:'',
+      username:'',
+      profilePicture:'' 
+    }
+  ];
+
+
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
+
   //goBack() {
   // this.location.back();
   //}
@@ -53,4 +71,40 @@ export class AppSuggestedFriendsComponent {
       );
     }
   }
+
+  
+  constructor(private apiService: service) { 
+  }
+
+  async ngOnInit() {
+    this.getSuggestedFriends();
+    this.getCurrentUser();
+  }
+
+  async getCurrentUser()
+  {
+    await this.apiService.getLogedInUser().subscribe((response:any) => {
+      this.current_user=response;
+      console.log('username:',this.current_user.username);
+      this.getMutualFriends(this.current_user.username);
+    });
+
+  }
+  
+  async getSuggestedFriends(){
+
+    await this.apiService.getSuggestedFriends().subscribe((response:any) =>{
+      this.suggested_friends=response;
+      console.log('Friend Suggestion List :',response);
+    });
+  }
+
+  async getMutualFriends(username:string|null){
+
+    await this.apiService.getMutualFriends(username).subscribe((response:any) =>{
+      console.log('Friend Mutual List :',response);
+    });
+  }
+
+
 }
