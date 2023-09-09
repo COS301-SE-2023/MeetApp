@@ -59,8 +59,7 @@ export class EventComponent {
 
   async attendEvent(eventID: string)
   {
-    const access_token=this.apiService.getToken()
-    await this.apiService.attendEventUser(access_token,eventID).subscribe();
+    await this.apiService.attendEventUser(eventID).subscribe();
   }
 
 

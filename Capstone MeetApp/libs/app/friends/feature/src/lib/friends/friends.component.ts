@@ -59,14 +59,13 @@ export class FriendsComponent {
   constructor(private servicesService: service) {}
    ngOnInit()
   {
-    const access_token=this.servicesService.getToken();
-    this.getFriends( access_token);
+    this.getFriends();
   }
 
-  async getFriends(token:string|null)
+  async getFriends()
   {
       
-    this.servicesService.getFriends(token).subscribe((response:any)=>{
+    this.servicesService.getFriends().subscribe((response:any)=>{
      
       this.friends=response;
       console.log(response);
