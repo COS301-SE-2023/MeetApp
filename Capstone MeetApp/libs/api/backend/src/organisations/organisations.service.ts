@@ -388,4 +388,8 @@ export class OrganisationsService {
   
     return sum;
   }
+
+  getOrgSalt(username : string, plainPass : string){
+    return (this.getAsciiSum(username) * plainPass.length) % 8
+  }
 }
