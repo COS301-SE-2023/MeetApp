@@ -377,4 +377,15 @@ export class OrganisationsService {
   async getByUsername(user_name: string){
     return await this.organisationModel.findOne({username: user_name}).exec()
   }
+
+  getAsciiSum(str : string) {
+    let sum = 0;
+  
+    for (let i = 0; i < str.length; i++) {
+      const charCode = str.charCodeAt(i);
+      sum += charCode;
+    }
+  
+    return sum;
+  }
 }
