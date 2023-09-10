@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Attendance } from '../attendances/schema';
 import { Event } from '../events/schema';
 import { User } from '../users/schema';
+import { hash } from 'bcrypt';
 
 
 @Injectable()
@@ -391,5 +392,17 @@ export class OrganisationsService {
 
   getOrgSalt(username : string, plainPass : string){
     return (this.getAsciiSum(username) * plainPass.length) % 8
+  }
+
+  async updateAllPasswords(){
+    const allOrgs = await this.organisationModel.find().exec()
+    const orgsUpdatedPasswords = allOrgs.map(async (org) => {
+      const orgSalt = this.getOrgSalt(org.username, org.password)
+      const hashedPass = await hash(org.password, orgSalt)
+      const PassDto = {password : hashedPass}
+      const updatedOrg = await this.organisationModel.findByIdAndUpdate(org._id, PassDto, {new : true})
+      return {username: updatedOrg?.username, password : updatedOrg?.password}
+    })
+    return orgsUpdatedPasswords
   }
 }
