@@ -81,14 +81,14 @@ filterEvents() {
       }
       this.data
     });
-    const access_token=this.service.getToken();
-    this.getUserEvents(access_token);
+    
+    this.getUserEvents();
 
   }
 
-   async getUserEvents(token :string|null)
+   async getUserEvents()
   {
-    await this.service.getUserAttendances(token).subscribe((response:any)=>{
+    await this.service.getUserAttendances().subscribe((response:any)=>{
       console.log(response);
       this.events = response;
       console.log(this.events);

@@ -91,6 +91,33 @@ export class UsersService {
     return friends;
   }
 
+  async getUserFriendsByUsername(username: string) {
+    const userInfo = await this.userModel.findOne({ username: username }).exec();
+    if (userInfo == null)
+      return {message: "user not found", status: '404'}
+    else
+    {
+      const userID = userInfo._id.toString()
+      const friendDocs = await this.friendshipModel.find({ $and: [{ $or: [{ requester: userID }, { requestee: userID }] }, { status: true }] }).exec();
+      const friendsIDs : string[] = [];
+      friendDocs.forEach(friendDoc => {
+    
+          friendsIDs.push(friendDoc.requestee.toString())
+          friendsIDs.push(friendDoc.requester.toString())
+      })
+      const friendsIDsUnique = new Set(friendsIDs)
+      friendsIDsUnique.delete(userID)
+      const fndsArr = Array.from(friendsIDsUnique);
+
+      const friends = await this.userModel
+        .find({ _id: { $in: fndsArr } })
+        .select('username ID profilePicture')
+        .exec();
+
+      return friends;
+    }
+  }
+
   async getUserAttendances(userId: string) {
     const attendanceslist = await this.attendanceModel.find({ userID: userId }).select('eventID -_id').exec();
     const Parsedattendanceslist = attendanceslist.map( (attendance) => {return attendance.eventID})

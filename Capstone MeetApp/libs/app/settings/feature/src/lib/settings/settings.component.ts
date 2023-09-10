@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class SettingsComponent {
   newEmail='';
-  newPassword='aka08';
+  newPassword='';
   confirmPassword='';
   NewLocation='';
 
@@ -38,9 +38,7 @@ export class SettingsComponent {
   }
 
   async ngOnInit(){
-   
     this.getCurrentUser();
-    
   }
   
   navigateToProfile(){
@@ -53,30 +51,29 @@ export class SettingsComponent {
   
   async getCurrentUser()
   {
-    const access_token=this.service.getToken();
-    await this.service.getLogedInUser(access_token).subscribe((response) => {
-      console.log('API response:', response);
-      this.user_payload=response;
-      this.current_user=this.user_payload;
-      console.log('user ID',this.current_user.id);
-      this.getProfile(this.current_user.id);
+    await this.service.getLogedInUser().subscribe((response:any) => {
+      this.current_user=response;
+      console.log('username:',this.current_user.username);
+      this.getProfile(this.current_user.username);
     });
 
   }
   
-  async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.service.updateUser(token,username,password,profilePicture,region).subscribe((response) => {
+  async updateProfile(username?:string ,password?:string,profilePicture?:string,region?:string){
+    await this.service.updateUser(username,password,profilePicture,region).subscribe((response) => {
       console.log('API response:', response);
    
     });
   }
 
-  async getProfile(id :string){
-    await this.service.getUserByID(id).subscribe((response:any)=>{ 
+  
+  async getProfile(username :string|null){
+    await this.service.getUserByUsername(username).subscribe((response:any)=>{ 
       this.profile = response;
       console.log(this.profile);
     });
   }
+  
 
   savePassword() {
     if (this.newPassword !== this.confirmPassword) {
@@ -85,14 +82,13 @@ export class SettingsComponent {
       return;
     }
 
-    const access_token = this.service.getToken();
-    this.updateProfile(access_token, this.profile.username, this.newPassword, this.profile.profilePicture, this.profile.region);
+   
+    this.updateProfile(this.profile.username, this.newPassword, this.profile.profilePicture, this.profile.region);
   }
 
   saveRegion()
   {
-    const access_token=this.service.getToken();
-    this.updateProfile(access_token,this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation);
+    this.updateProfile(this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation);
   }
  
 }
