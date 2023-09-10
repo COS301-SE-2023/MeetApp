@@ -19,12 +19,12 @@ export class OrganisationsService {
   }
   async create(createOrgDto: CreateOrganisationDto) {
     createOrgDto.password
-    const newOrg = await new this.userModel(createOrgDto);
+    const newOrg = await new this.organisationModel(createOrgDto);
     const orgSalt = this.getOrgSalt(newOrg.username, newOrg.password)
     const hashedPass = await hash(newOrg.password, orgSalt)
     newOrg.password = hashedPass
 
-    const newOrgSaved = newOrg.save()
+    const newOrgSaved = await newOrg.save()
     const payload = {id : (await newOrgSaved).id, username : (await newOrgSaved).username, password: (await newOrgSaved).password}
     return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
   }
@@ -81,8 +81,16 @@ export class OrganisationsService {
   // }
 
   async remove(id: string) {
-    const Org = await this.organisationModel.find({_id: id}).exec()
-    return Org
+    const Org = await this.organisationModel.findOne({_id: id}).exec()
+    const OrgEventsIDs = Org?.events.map( evt => evt.toString() )
+    const OrgEvents = await this.eventModel.find({_id  : {$in: OrgEventsIDs}}).exec()
+    const OrgEventsAtt = await this.attendanceModel.find({eventID  : {$in: OrgEventsIDs}}).exec()
+    const payload =  {deleted_resources: {account : Org, events : OrgEvents, Attendances: OrgEventsAtt}}
+    this.organisationModel.deleteOne({_id: id}).exec()
+    this.eventModel.deleteMany({_id: {$in: OrgEventsIDs}}).exec()
+    this.attendanceModel.deleteMany({eventID  : {$in: OrgEventsIDs}}).exec()
+    return payload
+    
   }
 
   async getTop3AttendedEvents(organizationId: string) {
