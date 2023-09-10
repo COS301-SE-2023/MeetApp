@@ -47,6 +47,8 @@ jobs:
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API_KEY}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
         run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
+      - name: env file
+        run: touch .env | printf "DB_CONNECTION_STRING_SEDI='${{secrets.DB_CONNECTION_STRING_SEDI}}'\nDB_NAME_SEDI='${{secrets.DB_NAME_SEDI}}'\nJWT_PRIVATE_KEY='${{secrets.JWT_PRIVATE_KEY}}'\nMEETAPP_API_KEY='${{secrets.MEETAPP_API_KEY}}'"> .env
       - run: npm run build
 
   test:

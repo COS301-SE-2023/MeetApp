@@ -59,6 +59,8 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install --legacy-peer-deps
+      - name: env file
+        run: touch .env | printf "DB_CONNECTION_STRING_SEDI='${{secrets.DB_CONNECTION_STRING_SEDI}}'\nDB_NAME_SEDI='${{secrets.DB_NAME_SEDI}}'\nJWT_PRIVATE_KEY='${{secrets.JWT_PRIVATE_KEY}}'\nMEETAPP_API_KEY='${{secrets.MEETAPP_API_KEY}}'"> .env
       - run: npm run build:api:development
       - run: cat ./tools/package.txt > package.json
       - name: Compress required files to deploy 
