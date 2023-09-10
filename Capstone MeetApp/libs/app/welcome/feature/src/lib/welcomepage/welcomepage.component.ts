@@ -26,7 +26,7 @@ export class WelcomepageComponent implements OnInit{
      //Loader variable set false after page load
     setTimeout(()=>{                           
       this.loader = false;
-  }, 200);
+  }, 800);
   }
   onSignUp() {
     this.router.navigate(['/login']);
