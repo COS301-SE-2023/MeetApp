@@ -9,7 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Attendance } from '../attendances/schema';
 import { Event } from '../events/schema';
 import { User } from '../users/schema';
-import { hash } from 'bcrypt';
+import { compare, hash } from 'bcrypt';
 
 
 @Injectable()
@@ -18,7 +18,12 @@ export class OrganisationsService {
     
   }
   async create(createOrgDto: CreateOrganisationDto) {
-    const newOrg = await new this.organisationModel(createOrgDto);
+    createOrgDto.password
+    const newOrg = await new this.userModel(createOrgDto);
+    const orgSalt = this.getOrgSalt(newOrg.username, newOrg.password)
+    const hashedPass = await hash(newOrg.password, orgSalt)
+    newOrg.password = hashedPass
+
     const newOrgSaved = newOrg.save()
     const payload = {id : (await newOrgSaved).id, username : (await newOrgSaved).username, password: (await newOrgSaved).password}
     return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
@@ -26,17 +31,21 @@ export class OrganisationsService {
   async login(username: string, password: string) {
     const orgToLoginInto = await this.organisationModel.find({username : username}).exec()
     if (orgToLoginInto.length == 0){
-      return {organisation: null, message: 'Organisation not found'}
+      return {organisation: null, message: 'User not found'}
     }
-    else {
-      if (orgToLoginInto[0].password == password){
+
+    return await compare(password, orgToLoginInto[0].password).then(async result => {
+      if (result){
         const payload = {id : orgToLoginInto[0].id, username : orgToLoginInto[0].username, password: orgToLoginInto[0].password}
         return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
       }
       else{
         return {organisation: username, message : 'Incorrect password'}
       }
-    }
+        
+    })
+      
+      
   }
 
   findAll() {
@@ -71,8 +80,9 @@ export class OrganisationsService {
   //   return `This action updates a #${id} organisation`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} organisation`;
+  async remove(id: string) {
+    const Org = await this.organisationModel.find({_id: id}).exec()
+    return Org
   }
 
   async getTop3AttendedEvents(organizationId: string) {
