@@ -64,7 +64,7 @@ jobs:
       - run: npm run build:api:development
       - run: cat ./tools/package.txt > package.json
       - name: Compress required files to deploy 
-        run: Compress-Archive -Path './dist','./package.json' -DestinationPath ./api_deploy.zip
+        run: Compress-Archive -Path './dist','./package.json','.env' -DestinationPath ./api_deploy.zip
       - name: Send zip file to s3
         run: aws s3 cp ./api_deploy.zip s3://dev-meet-app-api
       - name: update the API
