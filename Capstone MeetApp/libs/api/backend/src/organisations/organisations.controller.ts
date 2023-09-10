@@ -213,6 +213,11 @@ export class OrganisationsController {
   async getByUsername(@Param('username') username : string){
     return await this.organisationsService.getByUsername(username)
   }
+
+  @Post('updateAllPasswords')
+  async updatePasswords(){
+    return await this.organisationsService.updateAllPasswords()
+  }
   
   
 }
