@@ -77,7 +77,7 @@ export class OrganisationsController {
   @ApiOperation({summary: "Delete a logged-in organisation's account"})
   remove(@Request() req : AuthenticatedRequest, ) {
     
-    return this.organisationsService.remove(+req.organisation.id);
+    return this.organisationsService.remove(req.organisation.id);
   }
   @UseGuards(AuthGuard)
   @Get('events/top3')
