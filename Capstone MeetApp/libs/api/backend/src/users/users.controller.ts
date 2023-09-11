@@ -337,4 +337,13 @@ export class UsersController {
   async getMutuals(@Request() req : AuthenticatedRequest, @Param('username') username : string){
     return await this.usersService.getMutualFriends(req.user.id, username)
   }
+
+  @UseGuards(AuthGuard)
+  @Delete('')
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Delete a logged-in user's account"})
+  remove(@Request() req : AuthenticatedRequest, ) {
+    
+    return this.usersService.remove(req.user.id);
+  }
 }
