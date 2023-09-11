@@ -59,9 +59,25 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install --legacy-peer-deps
-      - name: env file
-        run: touch .env | printf "DB_CONNECTION_STRING_SEDI='${{secrets.DB_CONNECTION_STRING_SEDI}}'\nDB_NAME_SEDI='${{secrets.DB_NAME_SEDI}}'\nJWT_PRIVATE_KEY='${{secrets.JWT_PRIVATE_KEY}}'\nMEETAPP_API_KEY='${{secrets.MEETAPP_API_KEY}}'"> .env
-      - run: npm run build:api:development
+
+      - name: set environment
+        run: >
+          aws elasticbeanstalk update-environment 
+          --environment-name Meetapp-env-1 
+          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_CONNECTION_STRING_SEDI,Value='${{secrets.DB_CONNECTION_STRING_SEDI}}' 
+          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_NAME_SEDI,Value='${{secrets.DB_NAME_SEDI}}' 
+          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=JWT_PRIVATE_KEY,Value='${{secrets.JWT_PRIVATE_KEY}}' 
+          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=MEETAPP_API_KEY,Value='${{secrets.MEETAPP_API_KEY}}'
+      
+      - name: wait environment update
+        run: aws elasticbeanstalk describe-environments --environment-names Meetapp-env-1
+      
+      - name: verify environment variables
+        run: aws elasticbeanstalk describe-configuration-settings --environment-name MyElasticBeanstalkEnv      
+      
+      - name: build api
+        run: npm run build:api:development
+  
       - run: cat ./tools/package.txt > package.json
       - name: Compress required files to deploy 
         run: Compress-Archive -Path './dist','./package.json' -DestinationPath ./api_deploy.zip
