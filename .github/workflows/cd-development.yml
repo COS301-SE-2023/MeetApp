@@ -60,17 +60,17 @@ jobs:
           cache: 'npm'
       - run: npm install --legacy-peer-deps
 
-      - name: set environment
-        run: >
-          aws elasticbeanstalk update-environment 
-          --environment-name Meetapp-env-1 
-          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_CONNECTION_STRING_SEDI,Value='${{secrets.DB_CONNECTION_STRING_SEDI}}' 
-          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_NAME_SEDI,Value='${{secrets.DB_NAME_SEDI}}' 
-          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=JWT_PRIVATE_KEY,Value='${{secrets.JWT_PRIVATE_KEY}}' 
-          --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=MEETAPP_API_KEY,Value='${{secrets.MEETAPP_API_KEY}}'
+      #- name: set environment
+      #  run: >
+      #    aws elasticbeanstalk update-environment 
+      #    --environment-name Meetapp-env-1 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_CONNECTION_STRING_SEDI,Value='${{secrets.DB_CONNECTION_STRING_SEDI}}' 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_NAME_SEDI,Value='${{secrets.DB_NAME_SEDI}}' 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=JWT_PRIVATE_KEY,Value='${{secrets.JWT_PRIVATE_KEY}}' 
+      ##    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=MEETAPP_API_KEY,Value='${{secrets.MEETAPP_API_KEY}}'
       
-      - name: wait environment update
-        run: aws elasticbeanstalk describe-environments --environment-names Meetapp-env-1
+      #- name: wait environment update
+      #  run: aws elasticbeanstalk describe-environments --environment-names Meetapp-env-1
       
       - name: build api
         run: npm run build:api:development
