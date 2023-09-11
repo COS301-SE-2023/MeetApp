@@ -72,9 +72,6 @@ jobs:
       - name: wait environment update
         run: aws elasticbeanstalk describe-environments --environment-names Meetapp-env-1
       
-      - name: verify environment variables
-        run: aws elasticbeanstalk describe-configuration-settings --environment-name Meetapp-env-1     
-      
       - name: build api
         run: npm run build:api:development
   
