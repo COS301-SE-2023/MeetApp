@@ -37,6 +37,7 @@ jobs:
       - name: backend setup
         run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
       - run: npm run build:app:development
+      - run: cp ./tools/error.html ./dist/apps/meet-app
       - run: aws s3 sync ./dist/apps/meet-app s3://dev-meetapp
       
       
@@ -59,16 +60,30 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install --legacy-peer-deps
-      - name: env file
-        run: touch .env | printf "DB_CONNECTION_STRING_SEDI='${{secrets.DB_CONNECTION_STRING_SEDI}}'\nDB_NAME_SEDI='${{secrets.DB_NAME_SEDI}}'\nJWT_PRIVATE_KEY='${{secrets.JWT_PRIVATE_KEY}}'\nMEETAPP_API_KEY='${{secrets.MEETAPP_API_KEY}}'"> .env
-      - run: npm run build:api:development
+
+      #- name: set environment
+      #  run: >
+      #    aws elasticbeanstalk update-environment 
+      #    --environment-name Meetapp-env-1 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_CONNECTION_STRING_SEDI,Value='${{secrets.DB_CONNECTION_STRING_SEDI}}' 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_NAME_SEDI,Value='${{secrets.DB_NAME_SEDI}}' 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=JWT_PRIVATE_KEY,Value='${{secrets.JWT_PRIVATE_KEY}}' 
+      ##    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=MEETAPP_API_KEY,Value='${{secrets.MEETAPP_API_KEY}}'
+      
+      #- name: wait environment update
+      #  run: aws elasticbeanstalk describe-environments --environment-names Meetapp-env-1
+      
+      - name: build api
+        run: npm run build:api:development
+  
       - run: cat ./tools/package.txt > package.json
       - name: Compress required files to deploy 
-        run: Compress-Archive -Path './dist','./package.json','.env' -DestinationPath ./api_deploy.zip
+        run: Compress-Archive -Path './dist','./package.json' -DestinationPath ./api_deploy.zip
       - name: Send zip file to s3
         run: aws s3 cp ./api_deploy.zip s3://dev-meet-app-api
       - name: update the API
         run: aws elasticbeanstalk create-application-version --application-name meetapp --source-bundle S3Bucket="dev-meet-app-api",S3Key="api_deploy.zip" --version-label "meetapp-version-${{ github.sha }}" 
       - name: deploy api to ebs
         run: aws elasticbeanstalk update-environment --environment-name Meetapp-env-1 --version-label "meetapp-version-${{github.sha}}"
-    
+      
+      
