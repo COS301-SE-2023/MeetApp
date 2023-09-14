@@ -118,7 +118,7 @@ export class SignupComponent {
     // Simulate some asynchronous operation
     setTimeout(() => {
       loading.dismiss();
-      if ( this.loginForm.invalid) {  
+      if (this.valid==false ) {  
         const errorMessage = 'choose a stronger password';
         this.showErrorToast(errorMessage); 
         this.valid=false;
