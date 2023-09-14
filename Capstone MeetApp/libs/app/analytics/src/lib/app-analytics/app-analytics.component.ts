@@ -5,6 +5,8 @@ import {  ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import Chart from 'chart.js/auto';
+import { NgZone } from '@angular/core';
+
 
 @Component({
   selector: 'capstone-meet-app-app-analytics',
@@ -15,16 +17,54 @@ import Chart from 'chart.js/auto';
 })
 export class AppAnalyticsComponent  implements AfterViewInit {
   @ViewChild('pieChartCanvas') private pieChartCanvas!: ElementRef;
+  @ViewChild('histogramCanvas') private histogramCanvas!: ElementRef
+  
   private pieChart: Chart<'pie', number[], string> | undefined;
-  histogramData: any[] = [];
+  private histogramChart: Chart<'bar', number[], string> | undefined;
+  histogramData: any[] = [10, 20, 30, 40, 50];
 
 
- //constructor() { }
+ constructor(private zone: NgZone) { }
 
   ngAfterViewInit() {
-    this.createPieChart();
+    this.zone.run(() => {
+      this.createPieChart();
+      this.createHistogram();
+    });
   }
+  private createHistogram() {
+    if (this.histogramCanvas) {
+      const ctx = this.histogramCanvas.nativeElement.getContext('2d');
 
+      if (ctx) {
+        this.histogramChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: this.histogramData.map((_, index) => index.toString()),
+            datasets: [
+              {
+                label: 'Histogram',
+                data: this.histogramData,
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              x: {
+                beginAtZero: true,
+              },
+              y: {
+                beginAtZero: true,
+              },
+            },
+          },
+        });
+      }
+    }
+  }
   private createPieChart() {
     if (this.pieChartCanvas) {
       const ctx = this.pieChartCanvas.nativeElement.getContext('2d');

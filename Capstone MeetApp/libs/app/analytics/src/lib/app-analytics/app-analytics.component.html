@@ -4,17 +4,10 @@
       <canvas #pieChartCanvas></canvas>
     </div>
 
-    <div class="histogram">
-      <ngx-charts-bar-vertical
-        [results]="histogramData"
-        [xAxis]="true"
-        [yAxis]="true"
-        [legend]="true"
-        [showXAxisLabel]="true"
-        [showYAxisLabel]="true"
-        [xAxisLabel]="'Categories'"
-        [yAxisLabel]="'Values'"
-      ></ngx-charts-bar-vertical>
-    </div>
+    <ion-content>
+      <canvas #pieChartCanvas></canvas>
+      <canvas #histogramCanvas width="400" height="200"></canvas>
+    </ion-content>
+    
   </div>
 </ion-content>
