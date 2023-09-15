@@ -1,139 +1,139 @@
 #body{
-  padding: 0;
-  margin-top: 0;
-  background-color: #ffffff;
-  height:100vh;
-  overflow: scroll;
-
-  padding-bottom: 8%;
-  
-}
-.scroll-container {
-  height: 300px; 
-  overflow-y: scroll; 
-}
-.center-heading {
-    text-align: center;
-    color: rgb(0, 0, 0);
-    font-family: sans-serif;
-}
-
-/* Center the image */
-.center-image {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 40px;
-}
-
-/* Center the div */
-.center-div {
-        margin-top: 200px;
-        text-align: center;
-        background-color: #D4ADFC;
-        padding: 20px; /* Adjust the spacing as needed */
-        height: 270px; /* Adjust the height as needed */
-        width: 70%; /* Adjust the width as needed */
-        margin: 0 auto; /* Center the div horizontally */
-        border-radius: 10px; /* Adjust the radius as needed */
-       font-family: sans-serif;
-}
-
-
-.bottom-navbar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #ffffff;
-   
-    border-top: 1px solid #3b3939;
-  border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
-
-  }
-  
-  .bottom-navbar ul {
-    list-style-type: none;
-    display: flex;
-    justify-content: space-around;
     padding: 0;
-    margin: 0;
+    margin-top: 0;
+    background-color: #ffffff;
+    height:100vh;
+    overflow: scroll;
+  
+    padding-bottom: 8%;
+    
+  }
+  .scroll-container {
+    height: 300px; 
+    overflow-y: scroll; 
+  }
+  .center-heading {
+      text-align: center;
+      color: rgb(0, 0, 0);
+      font-family: sans-serif;
   }
   
-  .bottom-navbar li {
-    padding: 10px;
-    text-align: center;
+  /* Center the image */
+  .center-image {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
   }
   
-  .bottom-navbar li a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-decoration: none;
-    color: #6d6666;
-    font-size: 20px;
-    font-family: sans-serif;
-
+  /* Center the div */
+  .center-div {
+          margin-top: 200px;
+          text-align: center;
+          background-color: #D4ADFC;
+          padding: 20px; /* Adjust the spacing as needed */
+          height: 270px; /* Adjust the height as needed */
+          width: 70%; /* Adjust the width as needed */
+          margin: 0 auto; /* Center the div horizontally */
+          border-radius: 10px; /* Adjust the radius as needed */
+         font-family: sans-serif;
   }
   
-  .bottom-navbar li .emoji {
-    font-size: 24px;
-    color: #000; /* Color for the icons (black) */
-    margin-bottom: 5px;
+  
+  .bottom-navbar {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: #ffffff;
+     
+      border-top: 1px solid #3b3939;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+  
+    }
+    
+    .bottom-navbar ul {
+      list-style-type: none;
+      display: flex;
+      justify-content: space-around;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .bottom-navbar li {
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .bottom-navbar li a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      color: #6d6666;
+      font-size: 20px;
+      font-family: sans-serif;
+  
+    }
+    
+    .bottom-navbar li .emoji {
+      font-size: 24px;
+      color: #000; /* Color for the icons (black) */
+      margin-bottom: 5px;
+    }
+    
+    .bottom-navbar li span {
+      color: #fff; /* Color for the text (white) */
+    }
+    .heart-icon {
+      text-align: center;
+      margin-top: 20px; /* Adjust the spacing as needed */
   }
   
-  .bottom-navbar li span {
-    color: #fff; /* Color for the text (white) */
-  }
-  .heart-icon {
-    text-align: center;
-    margin-top: 20px; /* Adjust the spacing as needed */
-}
-
-/* Style the heart icon */
-.heart-icon i {
-    text-align: center;
-    font-size: 40px; /* Adjust the icon size */
-    color: #D4ADFC; /* Set the icon color */
-  }
-  .heartbeat {
-    animation-name: heartbeat;
-    animation-duration: 1s;
-    animation-iteration-count: 1;
-    animation-iteration-count: infinite;
-  }
+  /* Style the heart icon */
+  .heart-icon i {
+      text-align: center;
+      font-size: 40px; /* Adjust the icon size */
+      color: #D4ADFC; /* Set the icon color */
+    }
+    .heartbeat {
+      animation-name: heartbeat;
+      animation-duration: 1s;
+      animation-iteration-count: 1;
+      animation-iteration-count: infinite;
+    }
+    
+    .heart-icon {
+      cursor: pointer;
+    }
   
-  .heart-icon {
-    cursor: pointer;
-  }
-
-  #counter {
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  .attending-label {
-    color: white;
-    font-family: sans-serif;
-    left: 190px; /* Adjust the value as needed */
-  }
-
-
-
-  /*IONIC ELEMENTS*/
-
-  ion-header{
-    text-align: center;
-  }
-
-  ion-item{
-    display:block;
-  }
-
-  ion-label{
-    margin-top:8%;
-  }
-
-  ion-card{
-    padding:5px;
-    margin-top: 3%;
-  }
+    #counter {
+      font-size: 18px;
+      font-weight: bold;
+      margin-top: 10px;
+    }
+    .attending-label {
+      color: white;
+      font-family: sans-serif;
+      left: 190px; /* Adjust the value as needed */
+    }
+  
+  
+  
+    /*IONIC ELEMENTS*/
+  
+    ion-header{
+      text-align: center;
+    }
+  
+    ion-item{
+      display:block;
+    }
+  
+    ion-label{
+      margin-top:8%;
+    }
+  
+    ion-card{
+      padding:5px;
+      margin-top: 3%;
+    }
