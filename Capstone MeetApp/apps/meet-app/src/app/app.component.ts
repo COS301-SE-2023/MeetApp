@@ -11,7 +11,7 @@ import { service } from "@capstone-meet-app/app/services";
 import { ServicesModule } from "@capstone-meet-app/app/services";
 import { HttpClient, HttpClientModule} from '@angular/common/http';
 
-import {SettingsComponent} from '@capstone-meet-app/settings/feature'
+import {SettingsComponent} from '@capstone-meet-app/app/settings/feature'
 import { CalendarComponent} from '@capstone-meet-app/calendar/feature'
 import { EventComponent } from "@capstone-meet-app/app/event/feature";
 import {OrganiserComponent}from '@captone-meet-app/organiser';
