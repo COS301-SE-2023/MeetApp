@@ -38,9 +38,12 @@ export class HomepageComponent {
     
   }];
 
+  attendanceData: { [_id: string]: number } = {};
   userType:string|null = '';
   attendance=0;
   
+  filteredData: any[] = [];
+  searchQuery = '';
    updatedData = this.data.map(item => ({
     ...item, 
     attendance: this.attendance
@@ -53,7 +56,7 @@ export class HomepageComponent {
     this.isLiked = !this.isLiked;
   }
   
-  attendanceData: { [_id: string]: number } = {};
+ 
   constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute,private platform: Platform) {
   }
   refreshPage() {
@@ -93,8 +96,7 @@ export class HomepageComponent {
     this.router.navigate(['events', eventId]);
   }
 
-  filteredData: any[] = [];
-  searchQuery = '';
+  
     
   search(): void {
     if (this.searchQuery.trim() === '') {

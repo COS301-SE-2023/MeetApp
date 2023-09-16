@@ -73,7 +73,7 @@ export class LoginComponent {
     orgDescription:'',
     events:[]
   }];
-
+  valid=true;
   //stores the login response for user
   loginData_organiser:any;
 
@@ -129,7 +129,7 @@ export class LoginComponent {
   }
    
   
-  valid=true;
+ 
 
   async LogInUser(username:string,password:string)
   {

@@ -1,7 +1,7 @@
 {
-  "name": "event-feature",
-  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/event/feature/src",
+  "name": "app-event-feature",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/app/event/feature/src",
   "prefix": "capstone-meet-app",
   "tags": [],
   "projectType": "library",
@@ -10,7 +10,7 @@
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/event/feature/jest.config.ts",
+        "jestConfig": "libs/app/event/feature/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
@@ -25,8 +25,8 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": [
-          "libs/event/feature/**/*.ts",
-          "libs/event/feature/**/*.html"
+          "libs/app/event/feature/**/*.ts",
+          "libs/app/event/feature/**/*.html"
         ]
       }
     }

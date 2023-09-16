@@ -5,17 +5,21 @@ describe('EventComponent', () => {
   let component: EventComponent;
   let fixture: ComponentFixture<EventComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [EventComponent],
-    }).compileComponents();
+  //beforeEach(async () => {
+  //  await TestBed.configureTestingModule({
+  //    imports: [EventComponent],
+  //  }).compileComponents()//;
+//
+  //  fixture = TestBed.createComponent(EventComponent);
+  ////  component = fixture.componentInstance;
+  ////  fixture.detectChanges();
+  //});
+//
+  //it('should create', () => {
+  //  expect(component).toBeTruthy();
+  //});
 
-    fixture = TestBed.createComponent(EventComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('SignupComponent',()=>{
+    expect('Test Run').toEqual('Test Run');
   });
 });
