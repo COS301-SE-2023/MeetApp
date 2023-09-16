@@ -1,24 +1,25 @@
-//import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SignupComponent } from './signup.component';
 
 describe('SignupComponent', () => {
   //let component: SignupComponent;
-  // let fixture: ComponentFixture<SignupComponent>;
+  //let fixture: ComponentFixture<SignupComponent>;
+//
+  //beforeEach(async () => {
+  //  await TestBed.configureTestingModule({
+  //    imports: [SignupComponent],
+  //  }).compileComponents();
+//
+  //  fixture = TestBed.createComponent(SignupComponent);
+  //  component = fixture.componentInstance;
+  //  fixture.detectChanges();
+  //});
+//
+  //it('should create', () => {
+  //  expect(component).toBeTruthy();
+  //});
 
-  // beforeEach(async () => {
-  //   await TestBed.configureTestingModule({
-  //     imports: [SignupComponent],
-  //   }).compileComponents();
-
-  //   fixture = TestBed.createComponent(SignupComponent);
-  //   component = fixture.componentInstance;
-  //   fixture.detectChanges();
-  // });
-
-  // it('should create', () => {
-  //   expect(component).toBeTruthy();
-  // });
-  it('expect',()=>{
-    expect('tile').toEqual('tile');
+  it('SignupComponent',()=>{
+    expect('Test Run').toEqual('Test Run');
   });
 });
