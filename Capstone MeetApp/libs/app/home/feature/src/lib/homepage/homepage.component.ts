@@ -70,7 +70,7 @@ export class HomepageComponent {
       }
       setTimeout(()=>{                           
         this.loader = false;
-    }, 400);
+    }, 200);
     }
     
     );
