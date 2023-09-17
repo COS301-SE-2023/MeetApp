@@ -64,6 +64,12 @@
             Region is required.
           </div>
         </ion-item>
+          <ion-item>
+            <ion-label>Select Interests:</ion-label>
+            <ion-select [(ngModel)]="selectedOptions" multiple="true">
+              <ion-select-option *ngFor="let option of options" [value]="option">{{ option }}</ion-select-option>
+            </ion-select>
+          </ion-item>
         </div>
 
         <div *ngIf=" userType === 'organiser'">
@@ -90,6 +96,8 @@
               password is required.
             </div>
           </ion-item>
+        
+          
 
         </div>
         <ion-row>
