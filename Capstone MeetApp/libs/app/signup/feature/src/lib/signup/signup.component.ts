@@ -31,7 +31,9 @@ export class SignupComponent {
  
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, private loadingController: LoadingController) {}
-   
+    selectedOptions: string[] = [];
+  options: string[] = ['Concert', 'Sports', 'Conference', 'Charity','Expos','Trade Shows']; 
+
   events:any =[];
   firstname="";
   username='';
