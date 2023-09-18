@@ -31,7 +31,7 @@ export class SignupComponent {
   valid=true;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
-    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, private loadingController: LoadingController) {}
+    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, public loadingController: LoadingController) {}
     selectedOptions: string[] = [];
   options: string[] = ['Concert', 'Sports', 'Conference', 'Charity','Expos','Trade Shows']; 
 
@@ -108,9 +108,6 @@ export class SignupComponent {
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
     
-   
-    
-    
 
     const loading = await this.loadingController.create({
       message: 'Loading...',
@@ -138,7 +135,7 @@ export class SignupComponent {
   
       }
       
-    }, 3000);
+    }, 100);
     
   }
 
