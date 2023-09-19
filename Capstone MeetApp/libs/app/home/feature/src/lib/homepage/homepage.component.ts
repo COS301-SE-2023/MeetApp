@@ -9,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterModule} from '@angular/router';
 import { service,ServicesModule} from '@capstone-meet-app/services';
 import { Platform } from '@ionic/angular'
+import { Injectable } from '@angular/core';
+import { IonicSlides } from '@ionic/angular';
+import { Observable } from 'rxjs'
 
 
 @Component({
@@ -20,7 +23,14 @@ import { Platform } from '@ionic/angular'
   providers: [service,HttpClient],
   
 })
+
 export class HomepageComponent {
+  slideOpts = {
+    slidesPerView: 'auto',
+    centeredSlides: true,
+    spaceBetween: 16
+  };
+  
   loader=true;
   data= [{
     _id:'',
@@ -37,7 +47,7 @@ export class HomepageComponent {
     eventPoster:''
     
   }];
-
+  private apiKey='AIzaSyAYI91mElzQNFqYgv_GAisnQ0CRoK9Xpd0';
   userType:string|null = '';
   attendance=0;
   
@@ -54,7 +64,21 @@ export class HomepageComponent {
   }
   
   attendanceData: { [_id: string]: number } = {};
-  constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute,private platform: Platform) {
+  constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
+  
+  }
+  authenticateWithGoogle(): void {
+    const authUrl = 'https://accounts.google.com/o/oauth2/auth';
+    const clientId = '1012514703064-r2288knjfrhvh4qsg9smagbnilk7crs7.apps.googleusercontent.com';
+    const redirectUri = 'http://localhost:4200/home';
+    const scope = 'https://www.googleapis.com/auth/youtube.force-ssl';
+
+    const url = `${authUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`;
+
+    // Redirect the user to the Google authentication page
+    window.location.href = url;
+
+    // Handle the callback and extract the access token when the user returns
   }
   refreshPage() {
     

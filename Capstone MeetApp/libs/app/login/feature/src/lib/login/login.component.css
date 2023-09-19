@@ -13,6 +13,20 @@
   overflow: hidden;
 }
 
+ion-input {
+  border: 2px solid #8da2b1; /* Add a border with a pleasant color */
+  padding: 12px; /* Add padding for spacing */
+  width: 100%; /* Make the input element fill its container */
+  box-sizing: border-box; /* Include padding and border in the element's total width */
+  border-radius: 20px; /* Add rounded corners for a softer look */
+  font-size: 16px; /* Increase the font size for better readability */
+  color: #333; /* Set text color */
+}
+
+/* Style the focus state of ion-input elements (when selected) */
+ion-input:focus {
+  border-color: #e74c3c; /* Change border color when focused */
+}
  .left-image {
       margin-left: 40px;
       margin-top:20px;
