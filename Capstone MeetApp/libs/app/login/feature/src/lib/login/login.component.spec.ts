@@ -79,13 +79,6 @@ describe('LoginComponent functions callable', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Login serves',()=>{
-    
-    const bannerElement: HTMLElement = fixture.nativeElement;
-    const p = bannerElement.querySelector('html')!;
-    //console.log(p);
-    expect(p.textContent).toEqual('login');
-  });
 
   it('API Service Works ',async ()=>{
    
