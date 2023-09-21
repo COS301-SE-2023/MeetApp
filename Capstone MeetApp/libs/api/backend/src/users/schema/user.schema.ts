@@ -14,6 +14,9 @@ export class User {
   @Prop()
   ID!: mongoose.Schema.Types.ObjectId;
 
+  @ApiProperty({example: "user_man23@gmail.com", description : "The user's email address.", required: true})
+  emailAddress!: string;
+
   @ApiProperty({example: "user_man23", description : "The user's desired username.", required: true})
   @Prop()
   username!: string;
