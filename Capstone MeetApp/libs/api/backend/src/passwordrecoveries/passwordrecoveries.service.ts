@@ -75,6 +75,19 @@ export class PasswordRecoveriesService {
     });
   }
 
+  async verifyEmailToken(email: string, token : string){
+    const PR = await this.passwordRecoveryModel.findOne({emailAddress: email})
+    if (!PR)
+      return {message: 'unsuccessful', payload: 'Password recovery not requested'}
+    if (PR.token != token)
+      return {message: 'unsuccessful', payload: 'Invalid token'}
+    if (PR.expiration < Date.now())
+      return {message: 'unsuccessful', payload: 'Token expired'}
+    return {message: 'successful', payload: 'Request accepted'}
+
+  }
+  
+
   getAsciiSum(str : string) {
     let sum = 0;
   
