@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import {HttpClient, HttpHeaders ,HttpParams} from "@angular/common/http";
 import {environment } from "./environment";
-
+import { Observable } from 'rxjs';
 
 // EVENT INTERFACES //
 export interface events{
@@ -104,6 +104,17 @@ export class service{
     private baseURl=environment.BASE_URL;
 
     private readonly TOKEN_KEY = 'access_token';
+
+    getCoordinates(address: string): Observable<any> {
+      const googlebaseUrl = environment.GOOGLE_URL;
+  
+      const params = new HttpParams()
+        .set('address', address)
+        .set('key', environment.GOOGLE_APIKEY);
+  
+      return this.http.get(googlebaseUrl, { params });
+    }  
+
 
     //FUNCTIONS  TO HANDLE HEADERS
 
