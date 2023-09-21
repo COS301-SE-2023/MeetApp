@@ -46,6 +46,22 @@ export class OrganiserComponent  {
   myForm: any;
   showCalendar=false;
 
+  current_org={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
+
+ organiser={
+  _id:'',
+  username:'',
+  password:'',
+  name:'',
+  events:[]
+ }
+
   errorMessage='';
   //get lat and long
   
@@ -239,4 +255,21 @@ submitForm() {
   }
  
 }
+
+  getOrganiserName(){
+    this.service.getLogedInOrg().subscribe((response:any) => {
+      this.current_org=response;
+      this.getCurrentOrganiser(this.current_org.username)
+    });
+  }
+
+
+  getCurrentOrganiser(username:string|null){
+    this.service.getOrgbyUsername(username).subscribe((response:any) => {
+      this.organiser=response;
+      console.log('Name of the organisation',this.organiser.name);
+      this.OrganisationName=this.organiser.name;
+    });
+  }
+
 }
