@@ -256,6 +256,25 @@ submitForm() {
  
 }
 
+geocode() {
+ 
+  this.service
+    .getCoordinates(this.address)
+    .subscribe((data: any) => {
+      if (data.status === 'OK') {
+        const location = data.results[0].geometry.location;
+        this.location.latitude = location.lat;
+        this.location.longitude = location.lng;
+        console.log('latitude: ',this.location.latitude);
+        console.log('longitude',this.location.longitude);
+      } else {
+        console.error('Geocoding failed. Status:', data.status);
+      }
+    });
+
+}
+
+
   getOrganiserName(){
     this.service.getLogedInOrg().subscribe((response:any) => {
       this.current_org=response;
