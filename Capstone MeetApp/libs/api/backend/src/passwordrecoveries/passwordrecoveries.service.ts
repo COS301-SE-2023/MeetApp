@@ -37,9 +37,12 @@ export class PasswordRecoveriesService {
   }
 
   async sendEmail(userEmail : string){
+    const regexSlash = new RegExp('/', 'g');
+    const regexDollar = new RegExp('$', 'g');
     const userSalt = this.getUserSalt(userEmail)
-    const hashToken = (await hash(userEmail, userSalt)).replace('/','x').replace('$','d')
-    const recoveryLink = 'https://localhost:3000/api/' + hashToken
+    const hashToken = (await hash(userEmail, userSalt)).replace(regexSlash,'x')
+    const hashTokenParse = hashToken.replace(regexDollar, 'd')
+    const recoveryLink = 'https://localhost:3000/api/' + hashTokenParse
     const transporter = createTransport({
       host: process.env['SMTP_HOST'],
     port: 2525,
@@ -49,7 +52,7 @@ export class PasswordRecoveriesService {
       }
     });
     const expirationTime = Date.now() + 10 * 60 * 1000
-    const PRObject = {emailAddress: userEmail, token : hashToken, expiration : expirationTime}
+    const PRObject = {emailAddress: userEmail, token : hashTokenParse, expiration : expirationTime}
     console.log(PRObject)
 
 
@@ -60,12 +63,14 @@ export class PasswordRecoveriesService {
       text: 'Click the link below to recover your account.\n' + recoveryLink + '\n\n' +'Click the link below to unsubscribe',
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    transporter.sendMail(mailOptions, async (error, info) => {
       if (error) {
         console.error('Error:', error);
+        return {message: 'unsuccessful', payload: error}
       } else {
         console.log('Email sent:', info.response);
-        this.create
+        return {message: 'successful', payload : await this.create(PRObject)}
+        
       }
     });
   }
