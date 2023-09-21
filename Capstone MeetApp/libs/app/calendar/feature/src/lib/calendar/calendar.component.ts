@@ -103,8 +103,4 @@ filterEvents() {
     }
     this.formattedDates = Array.from(this.datesWithEvents); // Populate the array
   }
-  
-  
-  
-  
 }
