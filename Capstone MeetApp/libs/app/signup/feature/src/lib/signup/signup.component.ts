@@ -160,7 +160,7 @@ export class SignupComponent {
   }
 
   
-  async signup(){
+  signup(){
     const password = this.loginForm.value.password;
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
@@ -295,15 +295,62 @@ export class SignupComponent {
     this.router.navigate(['/login']);
   }
 
-  isvalid()
+  async isvalid()
   {
 
-    if (this.valid)
-    {
-      const errorMessage = 'Account Created Successfully';
-      this.showErrorAlert(errorMessage); 
-      
-    }
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      });
+      await loading.present();
+
+      // Simulate some asynchronous operation
+      setTimeout(() => {
+      loading.dismiss();
+      if(this.valid)
+      {
+
+        if(this.valid_pass && this.valid_user && this.valid_passregex)
+        {
+          
+          const errorMessage = 'Account Created Successfully';
+          this.showErrorAlert(errorMessage); 
+          this.onSignUp();
+        }
+
+        if(this.valid_user==false)
+        {
+          const errorMessage = 'User Already Taken';
+          this.showErrorAlert(errorMessage); 
+          
+        }
+
+        if(this.valid_pass==false)
+        {
+          const errorMessage = 'Invalid Password';
+          this.showErrorAlert(errorMessage); 
+         
+        }
+        
+
+        if(this.valid_passregex==false)
+        {
+          const errorMessage = 'Password must strength low';
+          this.showErrorAlert(errorMessage); 
+         
+        }
+
+
+        
+      }
+      else
+      {
+        const errorMessage = 'incomplete form';
+        this.showErrorToast(errorMessage); 
+      }
+      }, 3000);
+
+    
+
 
   }
   

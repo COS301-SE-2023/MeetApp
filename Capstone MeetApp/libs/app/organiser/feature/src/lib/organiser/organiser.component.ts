@@ -66,7 +66,12 @@ export class OrganiserComponent  {
   //get lat and long
   
   //services
-  
+    address_location=
+    {
+      latitude:0,
+      longitude:0
+    }
+    
     location: {latitude :number , longitude:number  }=
     {
       latitude:0,
@@ -83,13 +88,18 @@ export class OrganiserComponent  {
     category='';
   //FORM FUNCTIONALITY
   
+  // eslint-disable-next-line @angular-eslint/contextual-lifecycle
+  async ngOnInit() {
+    this.getOrganiserName();
+  }
+
   constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
     this.selectedRegion='';
     this.eventName='';
     this.OrganisationName='';
-    this.address = '1600 Amphitheatre Parkway, Mountain View, CA';
+    this.address = '';
   
     this.formGroup = new FormGroup({
       startDate: new FormControl(this.selectedRange.startDate),
@@ -102,7 +112,7 @@ export class OrganiserComponent  {
   }
   
   
- 
+  
   goBack() {
     this.llocation.back();
   }
@@ -117,6 +127,21 @@ submitForm() {
       && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&
        this.location !== null && this.category !== null && this.selectedRegion !== null) {
 
+        this.service
+    .getCoordinates(this.address)
+    .subscribe((data: any) => {
+      if (data.status === 'OK') {
+        const location = data.results[0].geometry.location;
+        this.address_location.latitude = location.lat;
+        this.address_location.longitude = location.lng;
+        console.log('latitude: ',this.address_location.latitude);
+        console.log('longitude',this.address_location.latitude);
+      } else {
+        console.error('Geocoding failed. Status:', data.status);
+      }
+    });
+        
+        
     this.service.createEvents(
       this.eventName,
       this.OrganisationName,
@@ -125,7 +150,7 @@ submitForm() {
       this.selectedRange.startDate,
       this.selectedRange.startTime,
       this.selectedRange.endTime,
-      this.location,
+      this.address_location,
       this.category,
       this.selectedRegion
       
@@ -141,9 +166,8 @@ submitForm() {
       console.log('startDate',this.selectedRange.startDate)
       console.log('endTime',this.selectedRange.endTime)
       console.log('startTime',this.selectedRange.startTime)
-
-      console.log('latitude',this.location.latitude)
-      console.log('longitude',this.location.longitude)
+      console.log('latitude: ',this.address_location.latitude);
+      console.log('longitude',this.address_location.latitude);
       console.log('category',this.category);
       console.log('profileurl',this.profilePictureUrl)
   
@@ -256,24 +280,13 @@ submitForm() {
  
 }
 
+/*
 geocode() {
  
-  this.service
-    .getCoordinates(this.address)
-    .subscribe((data: any) => {
-      if (data.status === 'OK') {
-        const location = data.results[0].geometry.location;
-        this.location.latitude = location.lat;
-        this.location.longitude = location.lng;
-        console.log('latitude: ',this.location.latitude);
-        console.log('longitude',this.location.longitude);
-      } else {
-        console.error('Geocoding failed. Status:', data.status);
-      }
-    });
+  
 
 }
-
+*/
 
   getOrganiserName(){
     this.service.getLogedInOrg().subscribe((response:any) => {
