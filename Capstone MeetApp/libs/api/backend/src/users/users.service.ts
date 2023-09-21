@@ -29,7 +29,9 @@ export class UsersService {
   
   
   async create(createUserDto: CreateUserDto) {
-    createUserDto.password
+    const existingUser = await this.userModel.findOne({username : createUserDto.username}).exec();
+    if (existingUser)
+      return {error: 409, message: "The username already exists"}
     const newUser = await new this.userModel(createUserDto);
     const userSalt = this.getUserSalt(newUser.username, newUser.password)
     const hashedPass = await hash(newUser.password, userSalt)
