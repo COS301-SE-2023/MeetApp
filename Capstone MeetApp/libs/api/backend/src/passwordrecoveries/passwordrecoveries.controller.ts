@@ -42,4 +42,9 @@ export class PasswordRecoveriesController {
     
     return this.passwordRecoveryService.remove(id);
   }
+
+  @Post('send')
+  async emailTest(@Body('emailAddress') email: string){
+    await this.passwordRecoveryService.sendEmail(email)
+  }
 }
