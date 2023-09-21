@@ -19,9 +19,9 @@ export class PasswordRecovery {
   @Prop()
   token!: string;
 
-  @ApiProperty({description: "The time at which the token expires", example: Date.now(), required: true, type: "date"})
+  @ApiProperty({description: "The time at which the token expires", example: Date.now(), required: true, type: "number"})
   @Prop()
-  expiration!: Date;
+  expiration!: number;
 
 }
 
