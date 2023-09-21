@@ -65,11 +65,9 @@ export class PasswordRecoveriesService {
 
     transporter.sendMail(mailOptions, async (error, info) => {
       if (error) {
-        console.error('Error:', error);
         return {message: 'unsuccessful', payload: error}
       } else {
-        console.log('Email sent:', info.response);
-        return {message: 'successful', payload : await this.create(PRObject)}
+        return {message: 'successful', payload : {id : info, object : await this.create(PRObject)}}
         
       }
     });
