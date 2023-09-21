@@ -6,6 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import Chart from 'chart.js/auto';
 import { NgZone } from '@angular/core';
+import { service} from '@capstone-meet-app/services';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   histogramData: any[] = [10, 20, 30, 40, 50];
 
 
- constructor(private zone: NgZone) { }
+ constructor(private zone: NgZone, private apiService: service) { }
 
   ngAfterViewInit() {
     this.zone.run(() => {
@@ -99,4 +100,100 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     }
   }
   
+
+  /* Analytics Services */
+
+  async getTop3Events()
+  {
+    await this.apiService.getTop3Events().subscribe((response:any) => {
+      console.log('Top_3 Events: ',response);
+    });  
+  }
+
+  async getTopEvent()
+  {
+    await this.apiService.getTopEvent().subscribe((response:any) => {
+      console.log('Top Event: ',response);
+    });  
+  }
+
+  async getTop3Categories()
+  {
+    await this.apiService.getTop3Categories().subscribe((response:any) => {
+      console.log('Top_3 Categories: ',response);
+    });  
+  }
+
+  async getTopCategory()
+  {
+    await this.apiService.getTopCategory().subscribe((response:any) => {
+      console.log('Top Categories: ',response);
+    });  
+  }
+
+  async getTop3Regions()
+  {
+    await this.apiService.getTop3Regions().subscribe((response:any) => {
+      console.log('Top_3 Events: ',response);
+    });  
+  }
+
+  async getTopRegion()
+  {
+    await this.apiService.getTopRegions().subscribe((response:any) => {
+      console.log('Top_3 Events: ',response);
+    });  
+  }
+
+  async getTop3SupportersEvents()
+  {
+    await this.apiService.getTop3SupportersEvents().subscribe((response:any) => {
+      console.log('Top_3 Supporters Events: ',response);
+    });   
+  }
+
+  async getTopSupportersEvent()
+  {
+    await this.apiService.getTopSupportersEvents().subscribe((response:any) => {
+      console.log('Top Supporters Event: ',response);
+    });  
+  }
+
+  async getTop3Supporters()
+  {
+    await this.apiService.getTop3Supporters().subscribe((response:any) => {
+      console.log('Top_3 Supporters: ',response);
+    });  
+  }
+
+  async getTopSupporters()
+  {
+    await this.apiService.getTopSupporters().subscribe((response:any) => {
+      console.log('Top Supporters',response);
+    });  
+  }
+
+  async getOrganisersEvents()
+  {
+    await this.apiService.getOrganisersEvents().subscribe((response:any) => {
+      console.log('Organisers Events: ',response);
+    });  
+  }
+  
+  async getEventRegionCount()
+  {
+    await this.apiService.getEventRegionCount().subscribe((response:any) => {
+      console.log('Event Region Count: ',response);
+    });  
+  }
+
+  async getEventCategoryCount()
+  {
+    await this.apiService.getEventCategoryCount().subscribe((response:any) => {
+      console.log('Event Category Count: ',response);
+    });  
+  }
+
+
+
 }
