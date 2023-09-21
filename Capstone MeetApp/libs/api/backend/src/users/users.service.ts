@@ -627,4 +627,20 @@ export class UsersService {
     return { total: mutualFriends.length, friends: mutualFriends };
   }
 
+  async updateEmails() {
+    try {
+      const usersToUpdate = await this.userModel.find({ emailAddress: { $exists: false } }).exec();
+
+      
+      for (const user of usersToUpdate) {
+        user.emailAddress = ""; 
+        await user.save();
+      }
+
+      return { success: true, message: 'Users updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update users.' };
+    }
+  }
+
 }
