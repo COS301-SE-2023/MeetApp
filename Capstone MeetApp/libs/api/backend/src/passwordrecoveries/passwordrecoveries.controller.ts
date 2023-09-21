@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Post, Body, Query } from '@nestjs/common';
 import { PasswordRecoveriesService } from './passwordrecoveries.service';
 import { CreatePasswordRecoveryDto } from './dto/create-passwordrecovery.dto';
 import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiSecurity } from '@nestjs/swagger';
@@ -25,14 +25,14 @@ export class PasswordRecoveriesController {
     return this.passwordRecoveryService.findAll();
   }
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Get a specific password recovery' }) 
-  @ApiResponse({ status: 201, description: 'Specified password recovery' })
-  @ApiParam({name : 'id', description: 'The password recovery id to find', required: true})
-  findOne(@Param('id') id: string, ) {
+  // @Get(':id')
+  // @ApiOperation({ summary: 'Get a specific password recovery' }) 
+  // @ApiResponse({ status: 201, description: 'Specified password recovery' })
+  // @ApiParam({name : 'id', description: 'The password recovery id to find', required: true})
+  // findOne(@Param('id') id: string, ) {
     
-    return this.passwordRecoveryService.findOne(id);
-  }
+  //   return this.passwordRecoveryService.findOne(id);
+  // }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete a specific password recovery' }) 
@@ -44,7 +44,12 @@ export class PasswordRecoveriesController {
   }
 
   @Post('send')
-  async emailTest(@Body('emailAddress') email: string){
-    await this.passwordRecoveryService.sendEmail(email)
+  async emailSend(@Body('emailAddress') email: string){
+    return await this.passwordRecoveryService.sendEmail(email)
+  }
+
+  @Get('verify')
+  async tokenVerify(@Query('token') token: string, @Query('email') email: string){
+    return await this.passwordRecoveryService.verifyEmailToken(email, token)
   }
 }
