@@ -635,4 +635,21 @@ export class UsersService {
     return { total: mutualFriends.length, friends: mutualFriends };
   }
 
+  /*async updateInterests() {
+    try {
+      // Find users without interests
+      const usersToUpdate = await this.userModel.find({ interests: { $exists: false } }).exec();
+
+      // Update each user document with the interests field
+      for (const user of usersToUpdate) {
+        user.interests = []; // Initialize with an empty array or add interests based on your logic
+        await user.save();
+      }
+
+      return { success: true, message: 'Users updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update users.' };
+    }
+  }*/
+
 }
