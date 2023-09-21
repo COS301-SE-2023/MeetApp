@@ -337,4 +337,9 @@ export class UsersController {
   async getMutuals(@Request() req : AuthenticatedRequest, @Param('username') username : string){
     return await this.usersService.getMutualFriends(req.user.id, username)
   }
+
+  @Post('addEmails')
+  async addEmails(){
+    return await this.usersService.updateEmails()
+  }
 }
