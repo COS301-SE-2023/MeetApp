@@ -356,7 +356,11 @@ export class service{
         return this.http.get(url, { headers : this.getAuthHeaders()});
     }
 
-
+    getOrgbyUsername(username:string|null){
+      const url=`${this.baseURl}organisations/username/${username}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+    }
+    
     //SERVICES FOR FRIENDS
 
     
