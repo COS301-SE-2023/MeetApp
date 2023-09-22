@@ -346,4 +346,9 @@ export class UsersController {
     
     return this.usersService.remove(req.user.id);
   }
+
+  /*@Post('addInterests')
+  async addInterests(){
+    return await this.usersService.updateInterests()
+  }*/
 }
