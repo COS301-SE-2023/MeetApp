@@ -5,10 +5,12 @@ import { PasswordRecovery } from './schema';
 import { CreatePasswordRecoveryDto } from './dto/create-passwordrecovery.dto';
 import { createTransport} from 'nodemailer';
 import {hash} from 'bcrypt'
+import { User } from '../users/schema';
+import { Organisation } from '../organisations/schema';
 
 @Injectable()
 export class PasswordRecoveriesService {
-  constructor(@InjectModel(PasswordRecovery.name) private passwordRecoveryModel: Model<PasswordRecovery>){
+  constructor(@InjectModel(PasswordRecovery.name) private passwordRecoveryModel: Model<PasswordRecovery>, @InjectModel(User.name) private userModel: Model<User>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>){
     
   }
   async create(createPRDto: CreatePasswordRecoveryDto) {
@@ -37,6 +39,11 @@ export class PasswordRecoveriesService {
   }
 
   async sendEmail(userEmail : string){
+    const userExists = await this.userModel.find({emailAddress : userEmail})
+    const orgExists = await this.orgModel.find({emailAddress : userEmail})
+    if (!userExists && !orgExists)
+      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+    
     const regexSlash = new RegExp('/', 'g');
     const regexDollar = new RegExp('$', 'g');
     const userSalt = this.getUserSalt(userEmail)
@@ -63,7 +70,7 @@ export class PasswordRecoveriesService {
       text: 'Click the link below to recover your account.\n' + recoveryLink + '\n\n' +'Click the link below to unsubscribe',
     };
 
-    transporter.sendMail(mailOptions, async (error, info) => {
+    return transporter.sendMail(mailOptions, async (error, info) => {
       if (error) {
         return {message: 'unsuccessful', payload: error}
       } else {

@@ -377,4 +377,20 @@ export class OrganisationsService {
   async getByUsername(user_name: string){
     return await this.organisationModel.findOne({username: user_name}).exec()
   }
+
+  /*async updateEmails() {
+    try {
+      const OrgToUpdate = await this.organisationModel.find({ emailAddress: { $exists: false } }).exec();
+
+      
+      for (const org of OrgToUpdate) {
+        org.emailAddress = ""; 
+        await org.save();
+      }
+
+      return { success: true, message: 'Organisations updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update organisations.' };
+    }
+  }*/
 }
