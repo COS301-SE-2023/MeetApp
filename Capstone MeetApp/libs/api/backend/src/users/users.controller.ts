@@ -338,8 +338,8 @@ export class UsersController {
     return await this.usersService.getMutualFriends(req.user.id, username)
   }
 
-  @Post('addEmails')
+  /*@Post('addEmails')
   async addEmails(){
     return await this.usersService.updateEmails()
-  }
+  }*/
 }
