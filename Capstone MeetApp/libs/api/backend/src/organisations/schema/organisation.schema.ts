@@ -14,6 +14,10 @@ export class Organisation {
   @Prop()
   ID!: mongoose.Schema.Types.ObjectId;
 
+  @ApiProperty({example: "org_man23@gmail.com", description : "The organisation's email address.", required: true})
+  @Prop()
+  emailAddress!: string;
+
   @ApiProperty({description: "The chosen username of the organisation", example: "techTuks", required: true})
   @Prop()
   username!: string;
