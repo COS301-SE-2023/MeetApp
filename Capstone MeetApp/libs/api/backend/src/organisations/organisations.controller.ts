@@ -214,5 +214,9 @@ export class OrganisationsController {
     return await this.organisationsService.getByUsername(username)
   }
   
+  /*@Post('addEmails')
+  async addEmails(){
+    return await this.organisationsService.updateEmails()
+  }*/
   
 }
