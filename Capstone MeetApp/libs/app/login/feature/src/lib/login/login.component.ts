@@ -12,7 +12,7 @@ import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
-
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -24,12 +24,15 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  forgotPasswordEmail!: string;
+
   email = ''; 
   password= ''; 
   username='';
-
+  isEditMode = false;
+  isForgotPasswordMode = false;
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
-    private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute) { 
+    private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute,private modalController: ModalController) { 
   }
   
   
@@ -217,6 +220,22 @@ export class LoginComponent {
     
    
   }
- 
+  
+  openEditProfilePopover() {
+    this.isEditMode = true;
+  }
 
+  openForgotPasswordPopover() {
+    this.isForgotPasswordMode = true;
+  }
+
+  closePopover() {
+    this.isEditMode = false;
+    this.isForgotPasswordMode = false;
+  }
+ 
+  sendResetLink() {
+      console.log("link is");
+      //check if email exists then send email
+    }
 }
