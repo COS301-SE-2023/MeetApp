@@ -16,6 +16,7 @@ on:
       - 'settings**'
       - 'events**'
       - 'friends**' 
+      - 'ForgotPassword**'
   pull_request:
     branches:
       - 'development**'
