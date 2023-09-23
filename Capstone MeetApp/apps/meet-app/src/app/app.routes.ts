@@ -40,5 +40,7 @@ export const appRoutes: Route[] = [
    {path: "attendees/:eventId",component:AppAttendeesComponent},
    {path:"suggestedfriends",component:AppSuggestedFriendsComponent},
    {path:"notifications",component:AppNotificationsComponent},
-   {path: "forgotpassword", component:AppForgotpasswordComponent}
+   { path: 'forgotpassword/:anything', component: AppForgotpasswordComponent },
+   { path: 'forgotpassword', redirectTo: 'forgotpassword/' }, 
+   { path: 'forgotpassword/**', component: AppForgotpasswordComponent }
 ];
