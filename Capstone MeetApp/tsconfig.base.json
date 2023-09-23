@@ -54,6 +54,9 @@
       "@capstone-meet-app/app/event/feature": [
         "libs/app/event/feature/src/index.ts"
       ],
+      "@capstone-meet-app/app/forgotpassword": [
+        "libs/app/forgotpassword/src/index.ts"
+      ],
       "@capstone-meet-app/app/friends/feature": [
         "libs/app/friends/feature/src/index.ts"
       ],
