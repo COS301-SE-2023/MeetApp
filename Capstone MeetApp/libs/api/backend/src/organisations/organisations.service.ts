@@ -18,7 +18,9 @@ export class OrganisationsService {
     
   }
   async create(createOrgDto: CreateOrganisationDto) {
-    createOrgDto.password
+    const existingUser = await this.organisationModel.findOne({username : createOrgDto.username}).exec();
+    if (existingUser)
+      return {error: 409, message: "The username already exists"}
     const newOrg = await new this.organisationModel(createOrgDto);
     const orgSalt = this.getOrgSalt(newOrg.username, newOrg.password)
     const hashedPass = await hash(newOrg.password, orgSalt)

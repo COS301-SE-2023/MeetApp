@@ -41,7 +41,7 @@ interface Event {
  
 @Component({
   standalone: true,
-  selector: 'app-map',
+  selector: 'capstone-meet-app-map',
   templateUrl: './maps.component.html',
   styleUrls: ['./maps.component.css'],
   imports: [CommonModule, FormsModule,IonicModule],
@@ -50,29 +50,21 @@ interface Event {
 })
 export class MapsComponent implements AfterViewInit {
 
-  constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
-    //this.getData();
-    
-  }
+ 
 
   selectedRange: DateRange = {
     startDate: undefined,
     endDate: undefined
   };
 
- 
+ // Marker icons
+ svgIcon = {
+  //url: 'assets/marker-2.jpg'
+  url: 'https://www.clipartmax.com/png/small/1-19420_ruidoso-river-resort-ruidosos-condo-location-marker-png-transparent.png',
+  scaledSize: new google.maps.Size(25, 25)
+};
 
-async ngOnInit() {
-  await this.service.getAllEvents().subscribe((response: any) => { 
-    this.data = response;
-    for (let i = 0; i < this.data.length; i++) {
-   const event: Event = this.data[i];
-      const region = event.region;
-      const date=event.date;
-    }
-  });
- 
-}
+
   selectedRegion="Pretoria";
   selectedTab = "maps"; 
   center = { lat: -25.750227, lng: 28.236448 }; // hatfield
@@ -127,7 +119,21 @@ async ngOnInit() {
     
   }
 
-  
+  constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
+    //this.getData();
+    
+  }
+  async ngOnInit() {
+    await this.service.getAllEvents().subscribe((response: any) => { 
+      this.data = response;
+      for (let i = 0; i < this.data.length; i++) {
+     const event: Event = this.data[i];
+        const region = event.region;
+        const date=event.date;
+      }
+    });
+   
+  }
   
   ngAfterViewInit() {
     console.log(this.apikey);
@@ -162,12 +168,7 @@ async ngOnInit() {
 
 
   
-  // Marker icons
-  svgIcon = {
-    //url: 'assets/marker-2.jpg'
-    url: 'https://www.clipartmax.com/png/small/1-19420_ruidoso-river-resort-ruidosos-condo-location-marker-png-transparent.png',
-    scaledSize: new google.maps.Size(25, 25)
-  };
+  
 
   
 
