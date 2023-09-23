@@ -172,9 +172,9 @@ export class service{
       return this.http.get(`${url}`,{params:params});
     }
 
-    createEvents(name: string,organisation: string,description: string,eventPoster:string, date: string,
+    createEvents(name: string | null,organisation: string | null,description: string | null,eventPoster:string | null, date: string,
          startTime: string,endTime: string,location: {latitude:number , longitude:number},
-         category: string,region: string)
+         category: string,region: string | null)
     {
       const url=this.baseURl+'events';
         

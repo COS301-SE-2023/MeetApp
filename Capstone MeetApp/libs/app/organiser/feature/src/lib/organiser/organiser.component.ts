@@ -66,11 +66,7 @@ export class OrganiserComponent  {
   //get lat and long
   
   //services
-    address_location=
-    {
-      latitude:0,
-      longitude:0
-    }
+    address_location = { latitude: 0, longitude: 0 } 
     
     location: {latitude :number , longitude:number  }=
     {
@@ -89,8 +85,11 @@ export class OrganiserComponent  {
   //FORM FUNCTIONALITY
   
   // eslint-disable-next-line @angular-eslint/contextual-lifecycle
-  async ngOnInit() {
+  ngOnInit() {
+    
     this.getOrganiserName();
+
+  
   }
 
   constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient) {
@@ -119,60 +118,62 @@ export class OrganiserComponent  {
 
 
   
-submitForm() {
- 
+  submitForm() {
+    if (
+      this.eventName !== null &&
+      this.OrganisationName !== null &&
+      this.description !== null &&
+      this.profilePictureUrl !== null &&
+      this.selectedRange.startDate !== null &&
+      this.selectedRange.startTime !== null &&
+      this.selectedRange.endTime !== null &&
+      //this.address_location !== null &&
+      this.category !== null &&
+      this.selectedRegion !== null
+    ) {
+      this.service.getCoordinates(this.address).subscribe((data: any) => {
+        if (data.status === 'OK') {
+          const location = data.results[0].geometry.location;
+          this.location.latitude = location.lat;
+          this.location.longitude = location.lng;
+          console.log('latitude: ', this.address_location.latitude);
+          console.log('longitude', this.address_location.longitude);
   
-  if (this.eventName !== null && this.OrganisationName !== null && this.description !== null &&
-     this.profilePictureUrl !== null && this.selectedRange.startDate !== null
-      && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&
-       this.location !== null && this.category !== null && this.selectedRegion !== null) {
-
-        this.service
-    .getCoordinates(this.address)
-    .subscribe((data: any) => {
-      if (data.status === 'OK') {
-        const location = data.results[0].geometry.location;
-        this.address_location.latitude = location.lat;
-        this.address_location.longitude = location.lng;
-        console.log('latitude: ',this.address_location.latitude);
-        console.log('longitude',this.address_location.latitude);
-      } else {
-        console.error('Geocoding failed. Status:', data.status);
-      }
-    });
-        
-        
-    this.service.createEvents(
-      this.eventName,
-      this.OrganisationName,
-      this.description,
-      this.profilePictureUrl,
-      this.selectedRange.startDate,
-      this.selectedRange.startTime,
-      this.selectedRange.endTime,
-      this.address_location,
-      this.category,
-      this.selectedRegion
-      
-    ).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
+          // After getting the coordinates, call createEvents
+          this.callCreateEvents();
+        } else {
+          console.error('Geocoding failed. Status:', data.status);
+        }
+      });
+    }
   }
-  console.log('Description:', this.description);
-      console.log('Selected Region:', this.selectedRegion);
-      console.log('EventName:', this.eventName);
-      console.log('Organiser:', this.OrganisationName);
-      console.log('startDate',this.selectedRange.startDate)
-      console.log('endTime',this.selectedRange.endTime)
-      console.log('startTime',this.selectedRange.startTime)
-      console.log('latitude: ',this.address_location.latitude);
-      console.log('longitude',this.address_location.latitude);
-      console.log('category',this.category);
-      console.log('profileurl',this.profilePictureUrl)
   
-}
-
+  callCreateEvents() {
+    // Make sure that the location object has both latitude and longitude values
+    if (
+      this.location.latitude !== undefined &&
+      this.location.longitude !== undefined
+    ) {
+      //const location = { latitude: this.location.latitude, longitude: this.location.longitude};
+      this.service
+        .createEvents(
+          this.eventName,
+          this.OrganisationName,
+          this.description,
+          this.profilePictureUrl,
+          this.selectedRange.startDate,
+          this.selectedRange.startTime,
+          this.selectedRange.endTime,
+          this.location,
+          this.category,
+          this.selectedRegion
+        )
+        .subscribe((response) => {
+          console.log('API response:', response);
+        });
+    }
+  }
+  
   changeProfilePicture() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -292,6 +293,7 @@ geocode() {
     this.service.getLogedInOrg().subscribe((response:any) => {
       this.current_org=response;
       this.getCurrentOrganiser(this.current_org.username)
+    
     });
   }
 
@@ -301,6 +303,7 @@ geocode() {
       this.organiser=response;
       console.log('Name of the organisation',this.organiser.name);
       this.OrganisationName=this.organiser.name;
+    
     });
   }
 
