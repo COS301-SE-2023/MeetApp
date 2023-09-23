@@ -61,6 +61,7 @@
     "ng-packagr": "^15.2.2",
     "ng2-search-filter": "^0.4.7",
     "ngx-pipes": "^3.2.2",
+    "ngx-socket-io": "^4.5.1",
     "passport-jwt": "^4.0.1",
     "postcss-preset-env": "^8.5.1",
     "reflect-metadata": "^0.1.13",
