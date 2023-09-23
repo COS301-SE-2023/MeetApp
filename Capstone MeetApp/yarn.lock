@@ -3502,10 +3502,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@^29.5.1":
-  version "29.5.1"
-  resolved "https://registry.npmjs.org/@types/jest/-/jest-29.5.1.tgz"
-  integrity sha512-tEuVcHrpaixS36w7hpsfLBLpjtMRJUE09/MHXn923LOVojDwyC14cWcfc0rDs0VEfUyYmt/+iX1kxxp+gZMcaQ==
+"@types/jest@^29.5.5":
+  version "29.5.5"
+  resolved "https://registry.npmjs.org/@types/jest/-/jest-29.5.5.tgz"
+  integrity sha512-ebylz2hnsWR9mYvmBFbXJXr+33UPc4+ZdxyDXh5w0FlPBTfCVN3wPL+kuOiQt3xvrK419v7XWeAs+AeOksafXg==
   dependencies:
     expect "^29.0.0"
     pretty-format "^29.0.0"
@@ -9356,10 +9356,10 @@ ng-packagr@^15.0.0, ng-packagr@^15.2.2:
   optionalDependencies:
     esbuild "^0.17.0"
 
-ng2-search-filter@^0.4.7:
-  version "0.4.7"
-  resolved "https://registry.npmjs.org/ng2-search-filter/-/ng2-search-filter-0.4.7.tgz"
-  integrity sha512-l49diVMfN3d6BTbFBtgpvywLTHYW63/XSPpmmrfSlGP+WbxoVbbqqbG6zK/ivLvwmWWdvDAqw+b+lyhqMAkSLw==
+ng2-search-filter@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.npmjs.org/ng2-search-filter/-/ng2-search-filter-0.5.1.tgz"
+  integrity sha512-noN8R+Gyxo5ZuboEOvq+u0zKio6pEf1IVYQTCZfAfXm6ONmzWu/M2xK0di9oVUprDbPBQXCGUuvD5i2GD+35HA==
 
 ngx-pipes@^3.2.2:
   version "3.2.2"

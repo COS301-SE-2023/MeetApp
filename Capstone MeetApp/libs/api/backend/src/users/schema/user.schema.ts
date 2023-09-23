@@ -30,6 +30,9 @@ export class User {
   @Prop()
   region!: string;
   
+  @ApiProperty({example: ["Technology, Music, Art"], description : "A list of event categories a user is interested in", required: false})
+  @Prop({default: []})
+  interests?: string[];
 
  
 }
