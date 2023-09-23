@@ -16,6 +16,7 @@ on:
       - 'settings**'
       - 'events**'
       - 'friends**' 
+      - 'analytics**'
   pull_request:
     branches:
       - 'development**'
@@ -28,6 +29,7 @@ on:
       - 'settings**'
       - 'events**'
       - 'friends**'
+      - 'analytics**'
       
 
 jobs:

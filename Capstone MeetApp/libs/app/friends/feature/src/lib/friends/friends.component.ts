@@ -41,6 +41,7 @@ export class FriendsComponent {
     }
   ];
   
+  status: string|undefined
   friends:any =[];
   filteredData: any[] = [];
       searchQuery = '';
@@ -55,7 +56,7 @@ export class FriendsComponent {
   }
 
 
-  status: string|undefined
+  
   constructor(private servicesService: service) {}
    ngOnInit()
   {

@@ -1,4 +1,4 @@
-import { Component, Injectable } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'; 
 import { CommonModule } from '@angular/common';
@@ -24,7 +24,7 @@ import { map } from 'rxjs/operators';
 })
 
 @Injectable()
-export class OrganiserComponent {
+export class OrganiserComponent  {
   
   //FORM DATA TYPE DECLARATION
   EventForm!: FormGroup;
@@ -46,7 +46,27 @@ export class OrganiserComponent {
   myForm: any;
   showCalendar=false;
 
+  errorMessage='';
+  //get lat and long
+  
+  //services
+  
+    location: {latitude :number , longitude:number  }=
+    {
+      latitude:0,
+      longitude:0
+    }
+    myLocation = {
+      latitude: 40.7128,
+      longitude: -74.0060,
+    };
+
+    startDate=this.selectedRange.startDate;
+    startTime= this.selectedRange.startTime;
+    endTime= this.selectedRange.endTime;
+    category='';
   //FORM FUNCTIONALITY
+  
   constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient) {
     this.profilePictureUrl = 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZXZlbnR8ZW58MHx8MHx8fDA%3D&w=1000&q=80';
     this.description='';
@@ -54,48 +74,23 @@ export class OrganiserComponent {
     this.eventName='';
     this.OrganisationName='';
     this.address = '1600 Amphitheatre Parkway, Mountain View, CA';
-   
-
-      
-  }
   
-  ngOnInit() {
     this.formGroup = new FormGroup({
       startDate: new FormControl(this.selectedRange.startDate),
       startTime: new FormControl(this.selectedRange.startTime),
       endTime: new FormControl(this.selectedRange.endTime)
     });
+
+      
+  
   }
+  
+  
  
   goBack() {
     this.llocation.back();
   }
 
-  errorMessage='';
-//get lat and long
-
-
-
-
-
-
-//services
-
-  location: {latitude :number , longitude:number  }=
-  {
-    latitude:0,
-    longitude:0
-  }
-  myLocation = {
-    latitude: 40.7128,
-    longitude: -74.0060,
-  };
-  //category:string | null = null;
- 
-  startDate=this.selectedRange.startDate;
-  startTime= this.selectedRange.startTime;
-  endTime= this.selectedRange.endTime;
-  category='';
 
   
 submitForm() {
