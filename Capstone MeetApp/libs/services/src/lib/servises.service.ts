@@ -105,6 +105,7 @@ export class service{
 
     private readonly TOKEN_KEY = 'access_token';
 
+    /*
     getCoordinates(address: string): Observable<any> {
       const googlebaseUrl = environment.GOOGLE_URL;
   
@@ -114,7 +115,7 @@ export class service{
   
       return this.http.get(googlebaseUrl, { params });
     }  
-
+    */
 
     //FUNCTIONS  TO HANDLE HEADERS
 

@@ -116,8 +116,46 @@ export class OrganiserComponent  {
     this.llocation.back();
   }
 
-
+  submitForm() {
+    if (this.eventName !== null && this.OrganisationName !== null && this.description !== null &&
+       this.profilePictureUrl !== null && this.selectedRange.startDate !== null
+        && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&
+         this.location !== null && this.category !== null && this.selectedRegion !== null) {
   
+      this.service.createEvents(
+        this.eventName,
+        this.OrganisationName,
+        this.description,
+        this.profilePictureUrl,
+        this.selectedRange.startDate,
+        this.selectedRange.startTime,
+        this.selectedRange.endTime,
+        this.location,
+        this.category,
+        this.selectedRegion
+        
+      ).subscribe((response) => {
+        console.log('API response:', response);
+     
+      });
+    }
+    console.log('Description:', this.description);
+        console.log('Selected Region:', this.selectedRegion);
+        console.log('EventName:', this.eventName);
+        console.log('Organiser:', this.OrganisationName);
+        console.log('startDate',this.selectedRange.startDate)
+        console.log('endTime',this.selectedRange.endTime)
+        console.log('startTime',this.selectedRange.startTime)
+  
+        console.log('latitude',this.location.latitude)
+        console.log('longitude',this.location.longitude)
+        console.log('category',this.category);
+        console.log('profileurl',this.profilePictureUrl)
+    
+  }
+  
+
+   /*
   submitForm() {
     if (
       this.eventName !== null &&
@@ -147,7 +185,7 @@ export class OrganiserComponent  {
       });
     }
   }
-  
+ 
   callCreateEvents() {
     // Make sure that the location object has both latitude and longitude values
     if (
@@ -173,7 +211,8 @@ export class OrganiserComponent  {
         });
     }
   }
-  
+  */
+
   changeProfilePicture() {
     const input = document.createElement('input');
     input.type = 'file';
