@@ -60,6 +60,7 @@ describe('SignupComponent', () => {
       password: '',
       confirmpassword: '',
       name: '',
+      email:''
     });
   });
 
@@ -88,7 +89,7 @@ describe('SignupComponent', () => {
     component.confirmpassword='password';
     component.region='limpopo';
     component.userType='user';
-    
+    component.email='email';
    
     const loading ={
       present: jest.fn().mockResolvedValue(undefined),
@@ -120,6 +121,7 @@ describe('SignupComponent', () => {
     component.events=[];
     const name='name of organiser';
     component.userType='organiser';
+    component.email='email';
     
    
     const loading ={

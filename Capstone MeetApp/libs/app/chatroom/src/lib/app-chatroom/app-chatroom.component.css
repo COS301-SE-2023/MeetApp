@@ -1,0 +1,82 @@
+.custom-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px; 
+  }
+  
+  .flex-grow {
+    flex-grow: 1;
+  }
+  .message {
+    display: flex;
+    margin: 8px 0;
+  }
+  
+  .profile-picture {
+    margin-right: 8px;
+    width: 40px;
+    height: 40px;margin-left: 4px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  
+  .message-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px; 
+   
+  }
+  
+  .user {
+    font-weight: bold;
+    font-size: 16px;
+   
+  }
+  
+  .timestamp {
+    font-size: 12px;
+    color: #888;
+    
+  }
+  
+  .message-text {
+    margin-top: 4px;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50% !important;
+    object-fit: cover;
+  }
+  .selected-image-small {
+    max-width: 100px; /* Adjust the maximum width as needed */
+    max-height: 100px; /* Adjust the maximum height as needed */
+  }
+  .message-image-medium {
+    max-width: 200px; /* Adjust the maximum width as needed */
+    max-height: 150px; /* Adjust the maximum height as needed */
+    display: block;
+    margin: 8px 0; /* Adjust the margin as needed to separate images from other elements */
+  }
+ 
+  
+  
+  .message-video {
+    max-width: 200px; /* Adjust the maximum width as needed */
+    max-height: 150px; /* Adjust the maximum height as needed */
+    display: block;
+    margin: 8px 0; /* Adjust the margin as needed to separate videos from other elements */
+  }
+  
