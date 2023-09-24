@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ChatGateway } from './chat.gateway';
 import { Chat } from './schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -7,7 +6,7 @@ import { CreateChatDto } from './dto/create-chat.dto';
 
 @Injectable()
 export class ChatService {
-constructor(private readonly chatGateway: ChatGateway, @InjectModel(Chat.name) private chatModel: Model<Chat>) {}
+constructor(@InjectModel(Chat.name) private chatModel: Model<Chat>) {}
   
   async getRoomMessages(roomId: string){
     
