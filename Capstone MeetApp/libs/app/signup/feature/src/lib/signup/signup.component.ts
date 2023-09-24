@@ -68,7 +68,7 @@ export class SignupComponent {
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required],
     name:['', Validators.required],
-    email:['',Validators.required,Validators.email]
+    email:['',Validators.required]
     });
      
     

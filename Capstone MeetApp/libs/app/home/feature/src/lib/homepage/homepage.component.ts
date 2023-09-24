@@ -49,7 +49,6 @@ export class HomepageComponent {
   }];
 
   private apiKey='AIzaSyAYI91mElzQNFqYgv_GAisnQ0CRoK9Xpd0';
-=======
 
   attendanceData: { [_id: string]: number } = {};
 
@@ -71,7 +70,7 @@ export class HomepageComponent {
   }
   
 
-  attendanceData: { [_id: string]: number } = {};
+  
   constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
   
   }
@@ -87,9 +86,9 @@ export class HomepageComponent {
     window.location.href = url;
 
     // Handle the callback and extract the access token when the user returns
-=======
- 
 
+ 
+  }
   refreshPage() {
     
     this.platform.ready().then(() => {
