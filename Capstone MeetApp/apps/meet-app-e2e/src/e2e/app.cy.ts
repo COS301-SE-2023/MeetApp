@@ -1,13 +1,25 @@
 import { getGreeting } from '../support/app.po';
 
 describe('meet-app', () => {
-  beforeEach(() => cy.visit('http://dev-meetapp.s3-website.af-south-1.amazonaws.com/'));
+  //beforeEach(() => cy.visit('http://dev-meetapp.s3-website.af-south-1.amazonaws.com/'));
 
-  it('should display welcome message', () => {
+  /*it('should display welcome message', () => {
     // Custom command example, see `../support/commands.ts` file
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
     getGreeting().contains('WELCOME');
-  });
+  });*/
+
+  describe('Bstackdemo', () => {
+    it('should run lighthouse performance audits using default thresholds', () => {
+    cy.visit('/');
+    cy.lighthouse({
+      performance: 60,
+      accessibility: 90,
+      'best-practices': 80,
+      seo: 80,
+    });
+    });
+    });
 });
