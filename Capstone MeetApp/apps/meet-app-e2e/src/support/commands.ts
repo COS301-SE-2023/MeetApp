@@ -8,7 +8,7 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 //import '@cypress-audit/lighthouse/commands'
-import { lighthouse, prepareAudit } from '@cypress-audit/lighthouse';
+
 // eslint-disable-next-line @typescript-eslint/no-namespace
 declare namespace Cypress {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -18,22 +18,13 @@ declare namespace Cypress {
 }
 //
 // -- This is a parent command --
-Cypress.Commands.add('login', (email, password) => {
+Cypress.Commands.add("login", (email, password) => {
   console.log('Custom command example: Login', email, password);
 });
 
 
 
 
-module.exports = (on, config) => {
-  on('before:browser:launch', (browser = {}, launchOptions) => {
-    prepareAudit(launchOptions)
-  })
-
-  on('task', {
-    lighthouse: lighthouse(), // calling the function is important
-  })
-}
 //
 // -- This is a child command --
 // Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
