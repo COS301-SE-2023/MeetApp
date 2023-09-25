@@ -5,9 +5,9 @@ import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
-import { Location } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule} from '@angular/router';
 import { FormGroup} from '@angular/forms';
 
 import { HttpClient, HttpClientModule} from '@angular/common/http'
@@ -20,7 +20,7 @@ import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'capstone-meet-app-app-forgotpassword',
   standalone: true,
-  imports: [CommonModule,IonicModule,FormsModule , ReactiveFormsModule,HttpClientModule],
+  imports: [CommonModule,IonicModule,FormsModule , RouterModule,ReactiveFormsModule,HttpClientModule],
   templateUrl: './app-forgotpassword.component.html',
   styleUrls: ['./app-forgotpassword.component.css'],
   providers: [service,HttpClient]
