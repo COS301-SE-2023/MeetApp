@@ -34,10 +34,12 @@ export interface createEvents{
 
 // USER INTERFACES //
 export interface user{
+    emailAddress:string,
     username:string;
     password:string;
     profilePicture:string;
     region:string;
+    interests: string[];
 }
 
 export interface createUser{
@@ -292,7 +294,7 @@ export class service{
       return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
-    updateUser(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string){
+    updateUser(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string,interests?: string[]){
         
       const url=`${this.baseURl}users/update`;
 
@@ -301,7 +303,8 @@ export class service{
         username:username,
         password:password,
         profilePicture:profilePicture,
-        region:region
+        region:region,
+        interests:interests
       }
 
       return this.http.patch(`${url}`,body,{headers : this.getAuthHeaders()});
