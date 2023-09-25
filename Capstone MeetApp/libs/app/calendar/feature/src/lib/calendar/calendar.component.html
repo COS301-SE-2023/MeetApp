@@ -35,21 +35,19 @@
           </ion-card> 
           
           </div>-->
-          <ion-datetime presentation="date" displayFormat="YYYY-MM-DD" [multiple]="true" [value]="formattedDates" [(ngModel)]="selectedDate" (ionChange)="filterEvents()" ></ion-datetime>
-
-
-          <!--ion-datetime color="rose" dayValues="5,10,15,20,25,30" presentation="date" displayFormat="YYYY-MM-DD" [(ngModel)]="selectedDate" (ionChange)="filterEvents()"
-          [class.with-events]="datesWithEvents.has(selectedDate)"
-
-          >
-        
-        </ion-datetime-->
+          <ion-datetime  style= "color:blue" presentation="date"
+           displayFormat="YYYY-MM-DD"
+            [(ngModel)]="selectedDate"
+            [value]="formattedDates" 
+            (ionChange)="filterEvents()">
+          
+          </ion-datetime>
           <ion-card>
 <ion-list>
   
   <ion-item *ngFor="let event of filteredEvents">
     <ion-label>{{ event.name }}</ion-label>
-    <ion-label >{{ event.date }}</ion-label>
+    <ion-label>{{ event.date }}</ion-label>
     <ion-text class="bold-text">{{ event.region }}</ion-text>
   
   </ion-item>

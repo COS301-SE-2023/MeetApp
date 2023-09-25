@@ -44,7 +44,7 @@ export class Event {
   @ApiProperty({example: {latitude : 51.5074, longitude : -0.1278}, description: 'The location of the event in longitude and latitude.', type : 'OrderedMap', required: true})
   @ApiProperty({description: "", example: "", required: true})
   @Prop(raw({
-  longatude: { type: Number },
+  longitude: { type: Number },
   latitude: { type: Number }
   }))
   location!: Record<number, unknown>;

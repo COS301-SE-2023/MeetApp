@@ -84,6 +84,7 @@ export class AppProfile2Component {
   async getFriendAttandance(id:string){
     await this.serviceProvider.getAttandanceByID(id).subscribe((response:any)=>{
       console.log(response);
+      this.eventCount=response;
     });
   }
   

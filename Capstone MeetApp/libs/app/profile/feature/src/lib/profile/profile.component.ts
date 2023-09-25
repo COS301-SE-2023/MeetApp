@@ -46,6 +46,7 @@ export class ProfileComponent {
   ];
 
   events=[{
+    _id:'',
     name:'',
     organisation:'',
     description:'',
