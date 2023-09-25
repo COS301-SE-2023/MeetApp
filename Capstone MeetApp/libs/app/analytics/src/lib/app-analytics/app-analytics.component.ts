@@ -158,11 +158,13 @@ export class AppAnalyticsComponent  implements AfterViewInit {
  }
  
 
- constructor(private zone: NgZone, private apiService: service) { }
+ constructor(private zone: NgZone, private apiService: service) { 
+  this.getTop3Events()
+ }
 
   ngAfterViewInit() {
     this.zone.run(() => {
-      this.createPieChart();
+      
       this.createHistogram();
     });
   }
@@ -201,17 +203,22 @@ export class AppAnalyticsComponent  implements AfterViewInit {
 
    
   }
+
   private createPieChart() {
     if (this.pieChartCanvas) {
       const ctx = this.pieChartCanvas.nativeElement.getContext('2d');
 
       if (ctx) {
+       
+        const eventNames = this.top3_events.slice(0, 3).map(event => event.name);
+       // const eventData = this.top3_events.slice(0, 3).map(event => event.data);
+  
         this.pieChart = new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ['Label 1', 'Label 2', 'Label 3'],
+            labels: eventNames,
             datasets: [{
-              data: [30, 45, 25],
+              data: [30, 45],
               backgroundColor: ['#FF5733', '#33FF57', '#5733FF'],
             }]
           },
@@ -223,7 +230,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'My Pie Chart',
+                text: 'TOP 3 events',
               },
               tooltip: {
                 enabled: true,
@@ -233,6 +240,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
         });
       }
     }
+    console.log('kman the dawg',this.top3_events);
     this.getTop3Events()
     //this.getTopEvent()
     this.getTop3Categories()
@@ -277,7 +285,9 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getTop3Events().subscribe((response:any) => {
       this.top3_events=response;
       console.log('Top_3 Events: ',this.top3_events);
+      this.createPieChart();
     });  
+    
   }
 
   /*
