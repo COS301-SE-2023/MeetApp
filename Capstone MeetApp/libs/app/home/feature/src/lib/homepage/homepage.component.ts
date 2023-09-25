@@ -48,7 +48,7 @@ export class HomepageComponent {
     
   }];
 
-  private apiKey='AIzaSyAYI91mElzQNFqYgv_GAisnQ0CRoK9Xpd0';
+ 
 
   attendanceData: { [_id: string]: number } = {};
 
@@ -74,21 +74,7 @@ export class HomepageComponent {
   constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
   
   }
-  authenticateWithGoogle(): void {
-    const authUrl = 'https://accounts.google.com/o/oauth2/auth';
-    const clientId = '1012514703064-r2288knjfrhvh4qsg9smagbnilk7crs7.apps.googleusercontent.com';
-    const redirectUri = 'http://localhost:4200/home';
-    const scope = 'https://www.googleapis.com/auth/youtube.force-ssl';
-
-    const url = `${authUrl}?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}&response_type=token`;
-
-    // Redirect the user to the Google authentication page
-    window.location.href = url;
-
-    // Handle the callback and extract the access token when the user returns
-
- 
-  }
+  
   refreshPage() {
     
     this.platform.ready().then(() => {
