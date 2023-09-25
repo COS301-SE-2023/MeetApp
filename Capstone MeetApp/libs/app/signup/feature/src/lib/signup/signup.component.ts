@@ -31,8 +31,10 @@ export class SignupComponent {
   valid=true;
 
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
-    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, private loadingController: LoadingController) {}
-   
+    private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, public loadingController: LoadingController) {}
+    selectedOptions: string[] = [];
+  options: string[] = ['Concert', 'Sports', 'Conference', 'Charity','Expos','Trade Shows']; 
+
   events:any =[];
   firstname="";
   username='';
@@ -65,7 +67,8 @@ export class SignupComponent {
     region:['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required],
-    name:['', Validators.required]
+    name:['', Validators.required],
+    email:['',Validators.required]
     });
      
     
@@ -105,9 +108,7 @@ export class SignupComponent {
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
-    
-   
-    
+    const email=this.loginForm.value.email;
     
 
     const loading = await this.loadingController.create({
@@ -118,7 +119,7 @@ export class SignupComponent {
     // Simulate some asynchronous operation
     setTimeout(() => {
       loading.dismiss();
-      if ( this.loginForm.invalid) {  
+      if (this.valid==false ) {  
         const errorMessage = 'choose a stronger password';
         this.showErrorToast(errorMessage); 
         this.valid=false;
@@ -136,7 +137,7 @@ export class SignupComponent {
   
       }
       
-    }, 3000);
+    }, 100);
     
   }
 
@@ -183,6 +184,13 @@ export class SignupComponent {
 
 
 }
+
+
+
+
+
+
+  
 
 
 
