@@ -52,6 +52,7 @@ export interface createUser{
 
 // ORGANISER INTERFACES //
 export interface organiser{
+    emailAddress:string;
     username:string
     password:string;
     name:string

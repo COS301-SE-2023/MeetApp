@@ -90,6 +90,11 @@ export class SettingsComponent {
   {
     this.updateProfile(this.profile.emailAddress,this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation,this.profile.interests);
   }
+
+  saveEmail()
+  {
+    this.updateProfile(this.newEmail,this.profile.username,this.profile.password,this.profile.profilePicture,this.profile.region,this.profile.interests);
+  }
  
 }
   

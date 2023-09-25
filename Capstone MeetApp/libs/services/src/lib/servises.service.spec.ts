@@ -1,7 +1,7 @@
 import { TestBed, inject } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { service, events } from './servises.service'; // Import your service and interfaces
+import { service, events,organiser, user } from './servises.service'; // Import your service and interfaces
 import {environment } from "./environment";
 
 
@@ -203,14 +203,14 @@ describe('Service', () => {
 
   //TEST FOR USER
   it('should create a user with the correct headers and data', () => {
-    const email= 'example@gmail.com'
+    const emailAddress= 'example@gmail.com'
     const username = 'new-user';
     const password = 'password123';
     const profilePicture = 'profile.jpg';
     const region = 'New York';
     const interests = ['interest1','interest2'];
     myService
-      .createUser(email,username, password, profilePicture, region,interests)
+      .createUser(emailAddress,username, password, profilePicture, region,interests)
       .subscribe((response) => {
         // You can add assertions here for the response if needed
       });
@@ -228,10 +228,12 @@ describe('Service', () => {
 
     // Verify that the request body matches the expected data
     expect(req.request.body).toEqual({
+      emailAddress,
       username,
       password,
       profilePicture,
       region,
+      interests
     });
 
     // Simulate a successful response
@@ -323,16 +325,379 @@ describe('Service', () => {
   });
 
   it('should update a user with the correct headers and data', () => {
+    const emailAddress= 'example@gmail.com'
     const username = 'test-user';
     const password = 'new-password';
     const profilePicture = 'new-profile.jpg';
     const region = 'New Region';
+    const interests = ['interest1','interest2'];
 
-    myService.updateUser(username, password, profilePicture, region).subscribe((response) => {
+    myService.updateUser(emailAddress,username, password, profilePicture, region,interests).subscribe((response) => {
       // You can add assertions here for the response if needed
     });
 
     const expectedUrl = environment.BASE_URL + 'users/update';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('PATCH');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+   // expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Verify that the request body matches the expected data
+    expect(req.request.body).toEqual({
+      emailAddress,
+      username,
+      password,
+      profilePicture,
+      region,
+      interests
+    });
+
+    // Simulate a successful response
+    req.flush({}); // You can provide a response object if needed
+  });
+
+  it('should get user attendances with the correct headers', () => {
+    myService.getUserAttendances().subscribe((attendances) => {
+      // You can add assertions here for the attendances if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/attendances';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual data if needed)
+    const fakeAttendances = [
+      // Define your expected attendances data here
+      {
+        id: '1',
+        name: 'Sample Event',
+        organisation: 'Sample Org',
+        description: 'This is a sample event',
+        eventPoster: 'sample-poster.jpg',
+        date: '2023-09-21',
+        startTime: '10:00 AM',
+        endTime: '2:00 PM',
+        location: { latitude: 40.7128, longitude: -74.0060 },
+        category: 'Sample Category',
+        region: 'Sample Region',
+    },
+    {
+        id: '2',
+        name: 'Sample Event 2',
+        organisation: 'Sample Org 2',
+        description: 'This is a sample event 2',
+        eventPoster: 'sample-poster.jpg2',
+        date: '2023-09-21',
+        startTime: '10:00 AM',
+        endTime: '2:00 PM',
+        location: { latitude: 40.7128, longitude: -74.0060 },
+        category: 'Sample Category',
+        region: 'Sample Region',
+    } 
+    ];
+    req.flush(fakeAttendances);
+  });
+
+  it('should get user attendance count with the correct headers', () => {
+    myService.getUserAttendancesCount().subscribe((count) => {
+      // You can add assertions here for the attendance count if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/attendances/count';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with the actual count if needed)
+    const fakeCount = 10; // Replace with your expected count
+    req.flush(fakeCount);
+  });
+
+
+  
+  it('should get user friends by username with the correct headers', () => {
+    const username = 'test-username';
+
+    myService.getFriendsbyUsername(username).subscribe((friends) => {
+      // You can add assertions here for the friends if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + `users/${username}/friends`;
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Simulate a successful response (replace with actual data if needed)
+    const fakeFriends = [
+      // Define your expected friends data here
+      {
+        id: '123',
+        username: 'FRIEND1',
+        // Add other user data as needed
+      },
+      {
+        id: '12023',
+        username: 'FRIEND2',
+        // Add other user data as needed
+      }
+      ,{
+        id: '12355',
+        username: 'FRIEND33',
+        // Add other user data as needed
+      }
+    ];
+    req.flush(fakeFriends);
+  });
+
+  //TEST FOR ORGANISER
+  it('should create an organiser with the correct headers and data', () => {
+    const emailAddress = 'organiser@example.com';
+    const username = 'organiser-user';
+    const password = 'organiser-password';
+    const name = 'Organiser Name';
+    const events = ['Event1', 'Event2']; // Replace with actual event names
+
+    myService.createOrginiser(emailAddress, username, password, name, events).subscribe((response) => {
+      // You can add assertions here for the response if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/signup';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('POST');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Verify that the request body matches the expected data
+    expect(req.request.body).toEqual({
+      emailAddress,
+      username,
+      password,
+      name,
+      events,
+    });
+
+    // Simulate a successful response
+    req.flush({}); // You can provide a response object if needed
+  });
+
+  it('should authenticate an organiser with the correct headers and data', () => {
+    const username = 'organiser-user';
+    const password = 'organiser-password';
+
+    myService.authOrganiser(username, password).subscribe((response) => {
+      // You can add assertions here for the response if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/login';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('POST');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Verify that the request body matches the expected data
+    expect(req.request.body).toEqual({
+      username,
+      password,
+    });
+
+    // Simulate a successful response
+    req.flush({}); // You can provide a response object if needed
+  });
+
+  
+  it('should get all organisers with the correct headers', () => {
+    myService.getAllOrganisers().subscribe((response) => {
+      // You can add assertions here for the organisers if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Simulate a successful response (replace with actual organiser data if needed)
+    const fakeOrganisers: organiser[] = [
+      // Define your expected organisers data here
+      {
+        emailAddress:'org1@gmail.com',
+        username:'Org1',
+        password:'pass1',
+        name:'orgName1',
+        events:['Event1','Event2'],
+      },
+      {
+        emailAddress:'org2@gmail.com',
+        username:'Org2',
+        password:'pass2',
+        name:'orgName2',
+        events:['Event1','Event2'],
+      },
+      {
+        emailAddress:'org3@gmail.com',
+        username:'Org3',
+        password:'pass3',
+        name:'orgName3',
+        events:['Event1','Event2'],
+      }
+    ];
+    req.flush(fakeOrganisers);
+  });
+
+ 
+
+  it('should get the logged-in organiser with the correct headers', () => {
+    myService.getLogedInOrg().subscribe((response) => {
+      // You can add assertions here for the logged-in organiser if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/account';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual organiser data if needed)
+    const fakeOrganiser: organiser = {
+      // Define your expected organiser data here
+        emailAddress:'org1@gmail.com',
+        username:'Org1',
+        password:'pass1',
+        name:'orgName1',
+        events:['Event1','Event2'],
+      
+    };
+    req.flush(fakeOrganiser);
+  });
+
+
+  it('should get an organiser by username with the correct headers', () => {
+    const username = 'Org1';
+
+    myService.getOrgbyUsername(username).subscribe((response) => {
+      // You can add assertions here for the organiser if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + `organisations/username/${username}`;
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Simulate a successful response (replace with actual organiser data if needed)
+    const fakeOrganiser: organiser = {
+      // Define your expected organiser data here
+      emailAddress:'org1@gmail.com',
+        username:'Org1',
+        password:'pass1',
+        name:'orgName1',
+        events:['Event1','Event2'],
+    };
+    req.flush(fakeOrganiser);
+  });
+
+
+  //TEST FOR FRIENDS
+
+  it('should send a friend request with the correct headers and data', () => {
+    const requestee = 'friend-username';
+
+    myService.sendfriendrequest(requestee).subscribe((response) => {
+      // You can add assertions here for the response if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/friend/send-request';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('POST');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Verify that the request body matches the expected data
+    expect(req.request.body).toEqual({
+      requestee,
+    });
+
+    // Simulate a successful response
+    req.flush({}); // You can provide a response object if needed
+  });
+
+  it('should accept a friend request with the correct headers and data', () => {
+    const requester = 'requester-username';
+
+    myService.acceptFriendRequest(requester).subscribe((response) => {
+      // You can add assertions here for the response if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/friend/accept-request';
     const req = httpTestingController.expectOne(expectedUrl);
 
     expect(req.request.method).toEqual('PATCH');
@@ -348,10 +713,37 @@ describe('Service', () => {
 
     // Verify that the request body matches the expected data
     expect(req.request.body).toEqual({
-      username,
-      password,
-      profilePicture,
-      region,
+      requester,
+    });
+
+    // Simulate a successful response
+    req.flush({}); // You can provide a response object if needed
+  });
+
+  it('should delete a friend request with the correct headers and data', () => {
+    const friendID = 'friend-id';
+
+    myService.deleteFriendRequest(friendID).subscribe((response) => {
+      // You can add assertions here for the response if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/friend/unfriend';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('DELETE');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Verify that the request body matches the expected data
+    expect(req.request.body).toEqual({
+      friendID,
     });
 
     // Simulate a successful response
@@ -359,9 +751,339 @@ describe('Service', () => {
   });
 
 
-  //TEST FOR FRIENDS
+  it('should get the friend count with the correct headers', () => {
+    myService.getFriendCount().subscribe((response) => {
+      // You can add assertions here for the friend count if needed
+    });
 
+    const expectedUrl = environment.BASE_URL + 'users/friends/count';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual friend count if needed)
+    const fakeFriendCount = 42; // Replace with your expected friend count
+    req.flush(fakeFriendCount);
+  });
+
+  it('should get the list of friends with the correct headers', () => {
+    myService.getFriends().subscribe((response) => {
+      // You can add assertions here for the list of friends if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/friends';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of friends if needed)
+    const fakeFriends: user[] = [
+      // Define your expected list of friends here
+        {
+          emailAddress: 'f1@gmail.com',
+          username: 'FRIEND1',
+          password:'pass1',
+          profilePicture:'p1.png',
+          region:'r1',
+          interests: ['interest1'],
+          // Add other user data as needed
+        },
+        {
+          emailAddress: 'f12@gmail.com',
+          username: 'FRIEND2',
+          password:'pass2',
+          profilePicture:'p2.png',
+          region:'r2',
+          interests: ['interest1','interest2'],
+        }
+    ];
+    req.flush(fakeFriends);
+  });
+
+  it('should get the friend requests with the correct headers', () => {
+    myService.getFriendRequest().subscribe((response) => {
+      // You can add assertions here for the list of friend requests if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/friend-requests';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of friend requests if needed)
+    const fakeFriendRequests: user[] = [
+      // Define your expected list of friend requests here
+      {
+        emailAddress: 'f1@gmail.com',
+        username: 'FRIEND1',
+        password:'pass1',
+        profilePicture:'p1.png',
+        region:'r1',
+        interests: ['interest1'],
+      }
+    ];
+    req.flush(fakeFriendRequests);
+  });
+
+  it('should get the pending friend requests with the correct headers', () => {
+    myService.getPendingFriendRequest().subscribe((response) => {
+      // You can add assertions here for the list of pending friend requests if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/friend-requests/pending';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of pending friend requests if needed)
+    const fakePendingFriendRequests: user[] = [
+      // Define your expected list of pending friend requests here
+    ];
+    req.flush(fakePendingFriendRequests);
+  });
+
+  it('should get suggested friends with the correct headers', () => {
+    myService.getSuggestedFriends().subscribe((response) => {
+      // You can add assertions here for the list of suggested friends if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/friends/suggestions';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of suggested friends if needed)
+    const fakeSuggestedFriends: user[] = [
+      // Define your expected list of suggested friends here
+      {
+        emailAddress: 'f1@gmail.com',
+        username: 'FRIEND1',
+        password:'pass1',
+        profilePicture:'p1.png',
+        region:'r1',
+        interests: ['interest1'],
+      }
+    ];
+    req.flush(fakeSuggestedFriends);
+  });
+
+  it('should get mutual friends with the correct headers', () => {
+    const username = 'target-username'; // Replace with an actual target username
+
+    myService.getMutualFriends(username).subscribe((response) => {
+      // You can add assertions here for the list of mutual friends if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + `users/friends/mutuals/${username}`;
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of mutual friends if needed)
+    const fakeMutualFriends: user[] = [
+      // Define your expected list of mutual friends here
+      {
+        emailAddress: 'f1@gmail.com',
+        username: 'FRIEND1',
+        password:'pass1',
+        profilePicture:'p1.png',
+        region:'r1',
+        interests: ['interest1'],
+        // Add other user data as needed
+      },
+      {
+        emailAddress: 'f12@gmail.com',
+        username: 'FRIEND2',
+        password:'pass2',
+        profilePicture:'p2.png',
+        region:'r2',
+        interests: ['interest1','interest2'],
+      }
+    ];
+    req.flush(fakeMutualFriends);
+  });
+
+  
   //TEST FOR ATTENDING
+
+  
+  it('should attend an event with the correct data', () => {
+    const organisationID = 'org-id'; // Replace with an actual organization ID
+    const eventID = 'event-id'; // Replace with an actual event ID
+    const userID = 'user-id'; // Replace with an actual user ID
+
+    myService.attendEvent(organisationID, eventID, userID).subscribe((response) => {
+      // You can add assertions here for the response if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'attendances';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('POST');
+
+    // Simulate a successful response (replace with an actual response object if needed)
+    const fakeResponse = {
+      // Define your expected response data here
+    };
+    req.flush(fakeResponse);
+  });
+
+  it('should attend an event for a user with the correct data', () => {
+    const eventID = 'event-id'; // Replace with an actual event ID
+
+    myService.attendEventUser(eventID).subscribe((response) => {
+      // You can add assertions here for the response if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users/attend';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('POST');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with an actual response object if needed)
+    const fakeResponse = {
+      // Define your expected response data here
+    };
+    req.flush(fakeResponse);
+  });
+
+  it('should get attendance by ID with the correct headers', () => {
+    const attendanceID = 'attendance-id'; // Replace with an actual attendance ID
+
+    myService.getAttandanceByID(attendanceID).subscribe((response) => {
+      // You can add assertions here for the attendance data if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + `users/${attendanceID}/attendances`;
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Simulate a successful response (replace with actual attendance data if needed)
+    const fakeAttendance: events[] = [
+      // Define your expected attendance data here
+      {
+        id: '1',
+        name: 'Sample Event',
+        organisation: 'Sample Org',
+        description: 'This is a sample event',
+        eventPoster: 'sample-poster.jpg',
+        date: '2023-09-21',
+        startTime: '10:00 AM',
+        endTime: '2:00 PM',
+        location: { latitude: 40.7128, longitude: -74.0060 },
+        category: 'Sample Category',
+        region: 'Sample Region',
+    },
+    {
+        id: '2',
+        name: 'Sample Event 2',
+        organisation: 'Sample Org 2',
+        description: 'This is a sample event 2',
+        eventPoster: 'sample-poster.jpg2',
+        date: '2023-09-21',
+        startTime: '10:00 AM',
+        endTime: '2:00 PM',
+        location: { latitude: 40.7128, longitude: -74.0060 },
+        category: 'Sample Category',
+        region: 'Sample Region',
+    } 
+    ];
+    req.flush(fakeAttendance);
+  });
+
+  it('should get attendance count by ID with the correct headers', () => {
+    const attendanceID = 'attendance-id'; // Replace with an actual attendance ID
+
+    myService.getAttandanceCountByID(attendanceID).subscribe((response) => {
+      // You can add assertions here for the attendance count if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + `users/${attendanceID}/attendances/count`;
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Simulate a successful response (replace with actual attendance count if needed)
+    const fakeAttendanceCount = 42; // Replace with your expected attendance count
+    req.flush(fakeAttendanceCount);
+  });
+
 
 });
 
