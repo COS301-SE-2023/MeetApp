@@ -105,6 +105,8 @@ export class service{
 
     private readonly TOKEN_KEY = 'access_token';
 
+    private readonly USERNAME = 'username';
+
     /*
     getCoordinates(address: string): Observable<any> {
       const googlebaseUrl = environment.GOOGLE_URL;
@@ -147,6 +149,24 @@ export class service{
     removeToken() 
     {
         localStorage.removeItem(this.TOKEN_KEY);
+    }
+
+    //FUNCTIONS TO ACCESS THE TOKEN
+      
+    setUsername(username: string) 
+    {
+        localStorage.setItem(this.USERNAME, username);
+      
+    }
+    
+    getUsername(): string | null 
+    {
+        return localStorage.getItem(this.USERNAME);
+    }
+    
+    removeUsername() 
+    {
+        localStorage.removeItem(this.USERNAME);
     }
 
     //SERVICES FOR EVENTS
