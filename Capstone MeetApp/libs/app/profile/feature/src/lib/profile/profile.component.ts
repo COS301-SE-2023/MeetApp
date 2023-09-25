@@ -84,6 +84,7 @@ export class ProfileComponent {
     this.getUserEvents();
     this.getFriendCount();
     this.getCurrentUser();
+    
   }
 
   goBack() {
@@ -115,9 +116,20 @@ export class ProfileComponent {
   async getCurrentUser()
   {
     await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
-      this.current_user=response;
-      console.log('username:',this.current_user.username);
-      this.getProfile(this.current_user.username);
+
+      const username=this.serviceProvider.getUsername();
+      console.log(username);
+      if(username==null)
+      {
+        this.current_user=response;
+        console.log('username:',this.current_user.username);
+        this.getProfile(this.current_user.username);
+      }
+      else
+      {
+        this.getProfile(username);
+      }
+      
     });
 
   }
@@ -158,11 +170,13 @@ export class ProfileComponent {
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
+      this.serviceProvider.setUsername(this.newProfileName);
       this.convertImageToBase64(this.profilePictureUrl);
       this.updateProfile(this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
       console.log(this. profilePictureUrl);
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
+      this.serviceProvider.setUsername(this.newProfileName);
       this.updateProfile(this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region);
     }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;

@@ -46,6 +46,8 @@ export class SettingsComponent {
   }
 
   nagivateToHome(): void {
+    this.service.removeToken();
+    this.service.removeUsername();
     this.router.navigate(['/']);
   }
   
