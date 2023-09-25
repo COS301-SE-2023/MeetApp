@@ -9,6 +9,7 @@ import { JwtService } from '@nestjs/jwt';
 import { Attendance } from '../attendances/schema';
 import { Event } from '../events/schema';
 import { User } from '../users/schema';
+import { compare, hash } from 'bcrypt';
 
 
 @Injectable()
@@ -17,25 +18,36 @@ export class OrganisationsService {
     
   }
   async create(createOrgDto: CreateOrganisationDto) {
+    const existingUser = await this.organisationModel.findOne({username : createOrgDto.username}).exec();
+    if (existingUser)
+      return {error: 409, message: "The username already exists"}
     const newOrg = await new this.organisationModel(createOrgDto);
-    const newOrgSaved = newOrg.save()
+    const orgSalt = this.getOrgSalt(newOrg.username, newOrg.password)
+    const hashedPass = await hash(newOrg.password, orgSalt)
+    newOrg.password = hashedPass
+
+    const newOrgSaved = await newOrg.save()
     const payload = {id : (await newOrgSaved).id, username : (await newOrgSaved).username, password: (await newOrgSaved).password}
     return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
   }
   async login(username: string, password: string) {
     const orgToLoginInto = await this.organisationModel.find({username : username}).exec()
     if (orgToLoginInto.length == 0){
-      return {organisation: null, message: 'Organisation not found'}
+      return {organisation: null, message: 'User not found'}
     }
-    else {
-      if (orgToLoginInto[0].password == password){
+
+    return await compare(password, orgToLoginInto[0].password).then(async result => {
+      if (result){
         const payload = {id : orgToLoginInto[0].id, username : orgToLoginInto[0].username, password: orgToLoginInto[0].password}
         return {access_token: await this.jwtService.signAsync(payload),message : 'Login successful'}
       }
       else{
         return {organisation: username, message : 'Incorrect password'}
       }
-    }
+        
+    })
+      
+      
   }
 
   findAll() {
@@ -70,8 +82,17 @@ export class OrganisationsService {
   //   return `This action updates a #${id} organisation`;
   // }
 
-  remove(id: number) {
-    return `This action removes a #${id} organisation`;
+  async remove(id: string) {
+    const Org = await this.organisationModel.findOne({_id: id}).exec()
+    const OrgEventsIDs = Org?.events.map( evt => evt.toString() )
+    const OrgEvents = await this.eventModel.find({_id  : {$in: OrgEventsIDs}}).exec()
+    const OrgEventsAtt = await this.attendanceModel.find({eventID  : {$in: OrgEventsIDs}}).exec()
+    const payload =  {deleted_resources: {account : Org, events : OrgEvents, Attendances: OrgEventsAtt}}
+    this.organisationModel.deleteOne({_id: id}).exec()
+    this.eventModel.deleteMany({_id: {$in: OrgEventsIDs}}).exec()
+    this.attendanceModel.deleteMany({eventID  : {$in: OrgEventsIDs}}).exec()
+    return payload
+    
   }
 
   async getTop3AttendedEvents(organizationId: string) {
@@ -376,5 +397,32 @@ export class OrganisationsService {
   
   async getByUsername(user_name: string){
     return await this.organisationModel.findOne({username: user_name}).exec()
+  }
+
+  getAsciiSum(str : string) {
+    let sum = 0;
+  
+    for (let i = 0; i < str.length; i++) {
+      const charCode = str.charCodeAt(i);
+      sum += charCode;
+    }
+  
+    return sum;
+  }
+
+  getOrgSalt(username : string, plainPass : string){
+    return (this.getAsciiSum(username) * plainPass.length) % 8
+  }
+
+  async updateAllPasswords(){
+    const allOrgs = await this.organisationModel.find().exec()
+    const orgsUpdatedPasswords = allOrgs.map(async (org) => {
+      const orgSalt = this.getOrgSalt(org.username, org.password)
+      const hashedPass = await hash(org.password, orgSalt)
+      const PassDto = {password : hashedPass}
+      const updatedOrg = await this.organisationModel.findByIdAndUpdate(org._id, PassDto, {new : true})
+      return {username: updatedOrg?.username, password : updatedOrg?.password}
+    })
+    return orgsUpdatedPasswords
   }
 }

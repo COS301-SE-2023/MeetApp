@@ -34,7 +34,7 @@ export class ProfileComponent {
     // Add more image URLs as needed
   ];
   
-  profile:user={username:'',password:'',profilePicture:'',region:''};
+  profile:user={username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region:''};
   eventCount='';
   friendCount=0;
   userEvents = [
@@ -46,6 +46,7 @@ export class ProfileComponent {
   ];
 
   events=[{
+    _id:'',
     name:'',
     organisation:'',
     description:'',

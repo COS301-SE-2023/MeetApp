@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { environment } from './environment';
+import {environment } from "./environment";
 
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";

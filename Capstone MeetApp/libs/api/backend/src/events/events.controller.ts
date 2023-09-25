@@ -242,18 +242,8 @@ export class EventsController {
 @ApiResponse({ status: 201, description: 'Event has been deleted successfully' })
 async deleteEvent(@Res() response: Response, @Param('id') eventId: string, )
 {
+    return await this.eventsService.remove(eventId);
   
-  try {
-    const deletedEvent = await this.eventsService.remove(eventId);
-    return response.status(HttpStatus.OK).json({
-    message: 'Event deleted successfully',
-    deletedEvent,});
-  }catch (err: unknown) {
-    if (err instanceof BadRequestException) {
-      return response.status(err.getStatus()).json(err.getResponse());}
-    else
-      return err;
-  }
  }
 
  @Get(':eventId/attendance-count')
