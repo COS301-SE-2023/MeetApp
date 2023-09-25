@@ -203,13 +203,14 @@ describe('Service', () => {
 
   //TEST FOR USER
   it('should create a user with the correct headers and data', () => {
+    const email= 'example@gmail.com'
     const username = 'new-user';
     const password = 'password123';
     const profilePicture = 'profile.jpg';
     const region = 'New York';
-
+    const interests = ['interest1','interest2'];
     myService
-      .createUser(username, password, profilePicture, region)
+      .createUser(email,username, password, profilePicture, region,interests)
       .subscribe((response) => {
         // You can add assertions here for the response if needed
       });
