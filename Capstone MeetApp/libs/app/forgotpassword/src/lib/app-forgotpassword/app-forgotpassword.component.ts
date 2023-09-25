@@ -53,4 +53,12 @@ export class AppForgotpasswordComponent {
     this.router.navigate(['/login',{ userType: this.userType }]);
 
   }
+  
+  async sendLink(email:string)
+    {
+      await this.apiService.verifyPasswordRequest(email).subscribe((response: any) => { 
+        console.log(response);
+      });
+    }
+
 }

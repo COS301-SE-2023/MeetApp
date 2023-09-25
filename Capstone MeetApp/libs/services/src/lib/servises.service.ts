@@ -211,12 +211,13 @@ export class service{
 
     //SERVICES FOR USERS
 
-    createUser(username:string,password:string,profilePicture:string,region:string)
+    createUser(emailAddress: string,username:string,password:string,profilePicture:string,region:string)
     {
       const url=this.baseURl+'users/signup';
         
       const body=
       {
+        emailAddress:emailAddress,
         username: username,
         password:password,
         profilePicture:profilePicture,
@@ -258,11 +259,12 @@ export class service{
       return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
-    updateUser(username?:string ,password?:string,profilePicture?:string,region?:string){
+    updateUser(emailAddress?: string,username?:string ,password?:string,profilePicture?:string,region?:string){
         
       const url=`${this.baseURl}users/update`;
 
       const body={
+        emailAddress:emailAddress,
         username:username,
         password:password,
         profilePicture:profilePicture,
@@ -306,12 +308,13 @@ export class service{
 
     //SERVICES FOR ORGANISER
 
-    createOrginiser(username:string,password:string,name:string,events:string[])
+    createOrginiser(emailAddress: string,username:string,password:string,name:string,events:string[])
     {
         const url=this.baseURl+'organisations/signup';
 
         const body=
         {
+          emailAddress:emailAddress,
             username: username,
             password:password,
             name:name,
@@ -455,5 +458,29 @@ export class service{
     {
       const url = `${this.baseURl}users/${id}/attendances/count`;
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
+    }
+
+    //SERVICES FOR PASSWORD RECOVERY
+
+    sendPasswordRequest(email:string)
+    {
+      const url=`${this.baseURl}passwordrecoveries/send`;
+
+        const body ={
+          email:email
+        }
+
+        return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+
+    verifyPasswordRequest(email:string)
+    {
+      const url=`${this.baseURl}passwordrecoveries/verify`;
+
+      const params = {
+        email: email
+      };
+
+      return this.http.post(`${url}`,{params:params},{ headers  : this.getCommonHeaders() });
     }
 }
