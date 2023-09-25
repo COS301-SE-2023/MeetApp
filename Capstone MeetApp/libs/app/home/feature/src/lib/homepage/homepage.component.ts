@@ -9,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterModule} from '@angular/router';
 import { service,ServicesModule} from '@capstone-meet-app/services';
 import { Platform } from '@ionic/angular'
+import { Injectable } from '@angular/core';
+import { IonicSlides } from '@ionic/angular';
+import { Observable } from 'rxjs'
 
 
 @Component({
@@ -20,7 +23,14 @@ import { Platform } from '@ionic/angular'
   providers: [service,HttpClient],
   
 })
+
 export class HomepageComponent {
+  slideOpts = {
+    slidesPerView: 'auto',
+    centeredSlides: true,
+    spaceBetween: 16
+  };
+  
   loader=true;
   data= [{
     _id:'',
@@ -38,7 +48,10 @@ export class HomepageComponent {
     
   }];
 
+ 
+
   attendanceData: { [_id: string]: number } = {};
+
   userType:string|null = '';
   attendance=0;
   
@@ -56,9 +69,12 @@ export class HomepageComponent {
     this.isLiked = !this.isLiked;
   }
   
- 
-  constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute,private platform: Platform) {
+
+  
+  constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
+  
   }
+  
   refreshPage() {
     
     this.platform.ready().then(() => {
@@ -73,7 +89,7 @@ export class HomepageComponent {
       }
       setTimeout(()=>{                           
         this.loader = false;
-    }, 400);
+    }, 200);
     }
     
     );

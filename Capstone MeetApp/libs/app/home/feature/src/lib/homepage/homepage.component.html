@@ -19,8 +19,10 @@
   
 
 <ion-content class="font">
+  
   <div>
 
+    
   <div class="heading1">
     <h1>Recommended Events</h1>
   </div>
@@ -37,6 +39,22 @@
     </ion-card>
   </div>
 </div>
+<div class="heading1">
+  <h1>Happening Now!</h1>
+</div>
+<div class="scroll-container1" >
+  <ion-card  class="card-first">
+    <ion-card-header>
+      <ion-card-title class="heading">{{ data[3].name }}</ion-card-title>
+    </ion-card-header>
+    <ion-img alt="Silhouette of mountains" src="assets/eventTest.jpg" ></ion-img>
+    <ion-card-content>
+      {{ data[3].description }}
+    </ion-card-content>
+    <div class="live-tag">Live</div>
+  </ion-card>
+</div>
+
 
 <div>
 <ion-card *ngFor="let item of data | filter:searchQuery "  class="custom-card"   (click)="viewEvent(item._id)">
@@ -111,3 +129,15 @@
   </div>
 </div>
 </div>
+
+<!--
+  <div class="video-container">
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/LIVE_STREAM_VIDEO_ID"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+-->

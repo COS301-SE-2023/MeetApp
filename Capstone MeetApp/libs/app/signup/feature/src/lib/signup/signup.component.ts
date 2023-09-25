@@ -67,7 +67,8 @@ export class SignupComponent {
     region:['', Validators.required],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmpassword: ['', Validators.required],
-    name:['', Validators.required]
+    name:['', Validators.required],
+    email:['',Validators.required]
     });
      
     
@@ -107,6 +108,7 @@ export class SignupComponent {
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
+    const email=this.loginForm.value.email;
     
 
     const loading = await this.loadingController.create({
