@@ -32,7 +32,7 @@ export class AppProfile2Component {
   constructor(private router: Router,private serviceProvider: service,private activatedRoute: ActivatedRoute)
   {}
 
-  profile={_id:'',username:'',password:'',profilePicture:'',region:''};
+  profile={_id:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg', region:''};
   eventCount='';
   friendCount=0;
 
