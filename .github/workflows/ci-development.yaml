@@ -91,7 +91,7 @@ jobs:
           node-version: 18
       - run: npm install --legacy-peer-deps
       - name: Start API Server
-        run: npm run serve:api:dev
+        run: nohup npm run serve:api:dev
 
   e2e:
     defaults:
