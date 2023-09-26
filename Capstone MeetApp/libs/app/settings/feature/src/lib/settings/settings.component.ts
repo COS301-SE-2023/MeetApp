@@ -90,7 +90,10 @@ export class SettingsComponent {
   {
     this.updateProfile(this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation);
   }
- 
+  gotoorganiser() {
+    this.router.navigateByUrl('/analytics;userType=organiser');
+  }
+
 }
   
 
