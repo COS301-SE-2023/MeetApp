@@ -160,28 +160,34 @@ export class AppAnalyticsComponent  implements AfterViewInit {
  
 
  constructor(private zone: NgZone, private apiService: service) { 
-  this.getTop3Events()
+  this.getTop3Events();
+  this.getEventRegionCount();
  }
 
   ngAfterViewInit() {
     this.zone.run(() => {
       
-      this.createHistogram();
+     // this.createHistogram();
     });
   }
   private createHistogram() {
     if (this.histogramCanvas) {
       const ctx = this.histogramCanvas.nativeElement.getContext('2d');
-
+  
       if (ctx) {
+        const labels = Object.keys(this.eventRegionCount);
+        const data = Object.values(this.eventRegionCount);
+        console.log(this.eventRegionCount);
+
+
         this.histogramChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: this.histogramData.map((_, index) => index.toString()),
+            labels: labels,
             datasets: [
               {
-                label: 'Histogram',
-                data: this.histogramData,
+                label: 'Event Region Count',
+                data: data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
@@ -201,9 +207,8 @@ export class AppAnalyticsComponent  implements AfterViewInit {
         });
       }
     }
-
-   
   }
+  
 
   private createPieChart() {
     if (this.pieChartCanvas) {
@@ -242,7 +247,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
         });
       }
     }
-    console.log('kman the dawg',this.top3_events);
+    //console.log('kman the dawg',this.top3_events);
     //this.getTop3Events()
     //this.getTopEvent()
     this.getTop3Categories()
@@ -270,7 +275,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     this.getOrganisersEvents()
     
     
-    this.getEventRegionCount()
+    //this.getEventRegionCount()
     this.getEventCategoryCount()
   
     this.getOrganiserName()
@@ -388,7 +393,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getEventRegionCount().subscribe((response:any) => {
       this.eventRegionCount=response;
       console.log('Event Region Count: ',this.eventRegionCount);
-      
+      this.createHistogram();
     });  
   }
 
