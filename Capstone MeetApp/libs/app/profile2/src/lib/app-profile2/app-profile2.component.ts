@@ -32,8 +32,10 @@ export class AppProfile2Component {
   constructor(private router: Router,private serviceProvider: service,private activatedRoute: ActivatedRoute)
   {}
 
-  profile={_id:'',username:'',password:'',profilePicture:'',region:''};
+
+  profile={_id:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg', region:''};
   eventCount='';
+ 
   friendCount=0;
 
   friends = [
@@ -78,13 +80,14 @@ export class AppProfile2Component {
   async getFriendAttandanceCount(id:string){
     await this.serviceProvider.getAttandanceCountByID(id).subscribe((response:any)=>{
       console.log(response);
+      this.eventCount=response;
     });
   }
 
   async getFriendAttandance(id:string){
     await this.serviceProvider.getAttandanceByID(id).subscribe((response:any)=>{
       console.log(response);
-      this.eventCount=response;
+      
     });
   }
   

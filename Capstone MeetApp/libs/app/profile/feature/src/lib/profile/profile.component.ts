@@ -34,7 +34,7 @@ export class ProfileComponent {
     // Add more image URLs as needed
   ];
   
-  profile:user={username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region:''};
+  profile:user={emailAddress:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region:'',interests: []};
   eventCount='';
   friendCount=0;
   userEvents = [
@@ -84,6 +84,7 @@ export class ProfileComponent {
     this.getUserEvents();
     this.getFriendCount();
     this.getCurrentUser();
+    
   }
 
   goBack() {
@@ -101,8 +102,8 @@ export class ProfileComponent {
     });
   }
   
-  async updateProfile(username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(username,password,profilePicture,region).subscribe();
+  async updateProfile(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string,interests?: string[]){
+    await this.serviceProvider.updateUser(emailAddress,username,password,profilePicture,region,interests).subscribe();
   }
 
   async getUserEvents()
@@ -115,9 +116,20 @@ export class ProfileComponent {
   async getCurrentUser()
   {
     await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
-      this.current_user=response;
-      console.log('username:',this.current_user.username);
-      this.getProfile(this.current_user.username);
+
+      const username=this.serviceProvider.getUsername();
+      console.log(username);
+      if(username==null)
+      {
+        this.current_user=response;
+        console.log('username:',this.current_user.username);
+        this.getProfile(this.current_user.username);
+      }
+      else
+      {
+        this.getProfile(username);
+      }
+      
     });
 
   }
@@ -158,16 +170,18 @@ export class ProfileComponent {
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
+      this.serviceProvider.setUsername(this.newProfileName);
       this.convertImageToBase64(this.profilePictureUrl);
-      this.updateProfile(this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
+      this.updateProfile(this.profile.emailAddress,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region,this.profile.interests);
       console.log(this. profilePictureUrl);
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
-      this.updateProfile(this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region);
+      this.serviceProvider.setUsername(this.newProfileName);
+      this.updateProfile(this.profile.emailAddress,this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region,this.profile.interests);
     }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this.profilePictureUrl);
-      this.updateProfile(this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
+      this.updateProfile(this.profile.emailAddress,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region,this.profile.interests);
       console.log(this. profilePictureUrl);
     }
 

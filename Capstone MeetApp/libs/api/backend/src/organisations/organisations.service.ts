@@ -104,13 +104,13 @@ export class OrganisationsService {
 
     const sortedEvents = await Promise.all(
       events.map(async (event) => {
-        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?.ID }).exec();
+        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?._id }).exec();
         return { event, attendanceCount };
       }),
     );
     sortedEvents.sort((a, b) => b.attendanceCount - a.attendanceCount);
 
-    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => item.event);
+    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => new Object({event : item.event, count : item.attendanceCount}));
 
     return topAttendedEvents;
   }
@@ -124,18 +124,18 @@ export class OrganisationsService {
 
     const sortedEvents = await Promise.all(
       events.map(async (event) => {
-        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?.ID }).exec();
+        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?._id }).exec();
         return { event, attendanceCount };
       }),
     );
     sortedEvents.sort((a, b) => b.attendanceCount - a.attendanceCount);
 
-    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => item.event);
+    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => new Object({event : item.event, count : item.attendanceCount}));
 
     return topAttendedEvents[0];
   }
 
-  async getTop3EventCategories(organizationId: string): Promise<string[]> {
+  async getTop3EventCategories(organizationId: string){
     const events = await this.findEvents(organizationId );
 
     if (!events) {
@@ -154,10 +154,15 @@ export class OrganisationsService {
 
     const topEventCategories = sortedCategories.slice(0, 3);
 
-    return topEventCategories;
+    const result: { category: string; count: number }[] = topEventCategories.map((category) => ({
+      category,
+      count: categoryCounts[category],
+    }));
+
+    return result;
   }
 
-  async getTopEventCategory(organizationId: string): Promise<string> {
+  async getTopEventCategory(organizationId: string){
     const events = await this.findEvents(organizationId );
 
     if (!events) {
@@ -176,10 +181,15 @@ export class OrganisationsService {
 
     const topEventCategories = sortedCategories.slice(0, 3);
 
-    return topEventCategories[0];
+    const result: { category: string; count: number }[] = topEventCategories.map((category) => ({
+      category,
+      count: categoryCounts[category],
+    }));
+
+    return result[0];
   }
 
-  async getTopEventRegion(organizationId: string): Promise<string> {
+  async getTopEventRegion(organizationId: string) {
     const events = await this.findEvents(organizationId );
 
     if (!events) {
@@ -197,11 +207,15 @@ export class OrganisationsService {
     );
 
     const topEventRegions = sortedRegions.slice(0, 3);
+    const result: { region: string; count: number }[] = topEventRegions.map((region) => ({
+      region,
+      count: regionCounts[region],
+    }));
 
-    return topEventRegions[0];
+    return result[0];
   }
 
-  async getTop3EventRegion(organizationId: string): Promise<string[]> {
+  async getTop3EventRegion(organizationId: string) {
     const events = await this.findEvents(organizationId );
 
     if (!events) {
@@ -214,13 +228,22 @@ export class OrganisationsService {
       regionCounts[region] = (regionCounts[region] || 0) + 1;}
     });
 
+    console.log(regionCounts)
+
     const sortedRegions = Object.keys(regionCounts).sort(
       (a, b) => regionCounts[b] - regionCounts[a]
     );
 
+    console.log(sortedRegions)
+
     const topEventRegions = sortedRegions.slice(0, 3);
 
-    return topEventRegions;
+    const result: { region: string; count: number }[] = topEventRegions.map((region) => ({
+      region,
+      count: regionCounts[region],
+    }));
+
+    return result;
   }
 
   async getTop3Supporters(organizationId: string): Promise<{ username: string, region: string }[]> {

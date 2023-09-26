@@ -34,10 +34,12 @@ export interface createEvents{
 
 // USER INTERFACES //
 export interface user{
+    emailAddress:string,
     username:string;
     password:string;
     profilePicture:string;
     region:string;
+    interests: string[];
 }
 
 export interface createUser{
@@ -50,6 +52,7 @@ export interface createUser{
 
 // ORGANISER INTERFACES //
 export interface organiser{
+    emailAddress:string;
     username:string
     password:string;
     name:string
@@ -105,6 +108,8 @@ export class service{
 
     private readonly TOKEN_KEY = 'access_token';
 
+    private readonly USERNAME = 'username';
+
     /*
     getCoordinates(address: string): Observable<any> {
       const googlebaseUrl = environment.GOOGLE_URL;
@@ -147,6 +152,24 @@ export class service{
     removeToken() 
     {
         localStorage.removeItem(this.TOKEN_KEY);
+    }
+
+    //FUNCTIONS TO ACCESS THE TOKEN
+      
+    setUsername(username: string) 
+    {
+        localStorage.setItem(this.USERNAME, username);
+      
+    }
+    
+    getUsername(): string | null 
+    {
+        return localStorage.getItem(this.USERNAME);
+    }
+    
+    removeUsername() 
+    {
+        localStorage.removeItem(this.USERNAME);
     }
 
     //SERVICES FOR EVENTS
@@ -223,16 +246,18 @@ export class service{
 
     //SERVICES FOR USERS
 
-    createUser(username:string,password:string,profilePicture:string,region:string)
+    createUser(emailAddress:string,username:string,password:string,profilePicture:string,region:string,interests: string[])
     {
       const url=this.baseURl+'users/signup';
         
       const body=
       {
+        emailAddress:emailAddress,
         username: username,
         password:password,
         profilePicture:profilePicture,
-        region:region
+        region:region,
+        interests:interests
       }
 
       return this.http.post(`${url}`,body,{headers : this.getCommonHeaders()});
@@ -270,15 +295,17 @@ export class service{
       return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
-    updateUser(username?:string ,password?:string,profilePicture?:string,region?:string){
+    updateUser(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string,interests?: string[]){
         
       const url=`${this.baseURl}users/update`;
 
       const body={
+        emailAddress:emailAddress,
         username:username,
         password:password,
         profilePicture:profilePicture,
-        region:region
+        region:region,
+        interests:interests
       }
 
       return this.http.patch(`${url}`,body,{headers : this.getAuthHeaders()});
@@ -318,12 +345,13 @@ export class service{
 
     //SERVICES FOR ORGANISER
 
-    createOrginiser(username:string,password:string,name:string,events:string[])
+    createOrginiser(emailAddress:string,username:string,password:string,name:string,events:string[])
     {
         const url=this.baseURl+'organisations/signup';
 
         const body=
         {
+            emailAddress:emailAddress,
             username: username,
             password:password,
             name:name,

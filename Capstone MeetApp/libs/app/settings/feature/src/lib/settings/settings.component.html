@@ -31,7 +31,7 @@
           </ion-item>
           <ion-item class="ion-padding" slot="content">
             <ion-input class="padding1"  [(ngModel)]="newEmail" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
-            <ion-button size="medium" >Save</ion-button>
+            <ion-button size="medium" (click)="saveEmail()" >Save</ion-button>
           </ion-item>
           
         </ion-accordion>
@@ -130,7 +130,25 @@
             </ion-item> 
           </ion-accordion>
       </ion-accordion-group>
-  </ion-card>
+  </ion-card  >
+<ion-card class="card">
+  <ion-card-header>
+  
+    <ion-card-title>
+
+        Insights
+        
+    </ion-card-title>
+  </ion-card-header>
+    <ion-card-content> 
+      
+          <ion-button (click)="gotoorganiser()" >
+              Analytics
+         </ion-button>
+    
+    </ion-card-content>
+  
+</ion-card>
   <ion-card class="card" >
     <ion-card-header>
     <ion-card-title>About</ion-card-title>
