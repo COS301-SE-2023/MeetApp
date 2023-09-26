@@ -82,7 +82,7 @@ jobs:
   e2e:
     defaults:
       run:
-        working-directory: Capstone MeetApp\
+        working-directory: Capstone MeetApp
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
