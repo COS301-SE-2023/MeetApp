@@ -95,7 +95,10 @@ export class SettingsComponent {
   {
     this.updateProfile(this.newEmail,this.profile.username,this.profile.password,this.profile.profilePicture,this.profile.region,this.profile.interests);
   }
- 
+  gotoorganiser() {
+    this.router.navigateByUrl('/analytics;userType=organiser');
+  }
+
 }
   
 
