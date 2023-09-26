@@ -40,7 +40,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     region: ''
   }];
 
-  top3_events=[{
+  top3_events=[{event:{
     _id:'',
     name:'',
     organisation:'',
@@ -52,7 +52,8 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     location: {latitude: 0 , longitude:0},
     category: '',
     region: ''
-  }];
+  },
+  count:0}];
 
   top_event={
     _id:'',
@@ -210,15 +211,16 @@ export class AppAnalyticsComponent  implements AfterViewInit {
 
       if (ctx) {
        
-        const eventNames = this.top3_events.slice(0, 3).map(event => event.name);
-       // const eventData = this.top3_events.slice(0, 3).map(event => event.data);
+        const eventNames = this.top3_events.slice(0, 4).map(event => event.event.name);
+
+        const eventData = this.top3_events.slice(0, 4).map(event => event.count);
   
         this.pieChart = new Chart(ctx, {
           type: 'pie',
           data: {
             labels: eventNames,
             datasets: [{
-              data: [30, 45],
+              data: eventData,
               backgroundColor: ['#FF5733', '#33FF57', '#5733FF'],
             }]
           },
@@ -241,7 +243,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
       }
     }
     console.log('kman the dawg',this.top3_events);
-    this.getTop3Events()
+    //this.getTop3Events()
     //this.getTopEvent()
     this.getTop3Categories()
     
@@ -274,7 +276,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     this.getOrganiserName()
     this.getOrganisersEvents();
     //this.getTopEvent();
-    this.getTop3Events();
+   // this.getTop3Events();
   }
   
 
