@@ -86,17 +86,17 @@ export class SignupComponent {
     this.location.back();
   }
 
-  async SignUpUser(username:string,password:string,profilePicture:string,region:string)
+  async SignUpUser(emailAddress:string,username:string,password:string,profilePicture:string,region:string,interests: string[])
   {
-    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response:any) => {
+    await this.apiService.createUser(emailAddress,username,password,profilePicture,region,interests).subscribe((response:any) => {
       this.userSignup_payload=response;
       this.apiService.setToken(this.userSignup_payload.access_token);
     });
   }
 
-  async SignUpOrg(username:string,name:string,password:string,events:string[])
+  async SignUpOrg(emailAddress:string,username:string,name:string,password:string,events:string[])
   {
-    await this.apiService.createOrginiser(username,password,name,events).subscribe((response:any) => {
+    await this.apiService.createOrginiser(emailAddress,username,password,name,events).subscribe((response:any) => {
       this.orgSignup_payload=response;
       this.apiService.setToken(this.orgSignup_payload.access_token);
     });
@@ -129,10 +129,10 @@ export class SignupComponent {
         this.valid=true;
         if(this.userType=='user' )
     {
-        this.SignUpUser(username,password,'',region);
+        this.SignUpUser(email,username,password,'',region,this.selectedOptions);
     }
     else  if(this.userType=='organiser'){
-      this.SignUpOrg(username,name,password, this.events)
+      this.SignUpOrg(email,username,name,password, this.events)
     }
   
       }
