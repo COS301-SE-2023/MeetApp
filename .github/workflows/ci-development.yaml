@@ -1,5 +1,5 @@
 
-name: Continuous integration Development
+name: Continuous integration e2e Development
 
 on:
   workflow_dispatch:
