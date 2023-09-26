@@ -53,7 +53,7 @@ export class SettingsComponent {
   {
     await this.service.getLogedInUser().subscribe((response:any) => {
       this.current_user=response;
-      console.log('username:',this.current_user.username);
+    
       this.getProfile(this.current_user.username);
     });
 
@@ -70,7 +70,7 @@ export class SettingsComponent {
   async getProfile(username :string|null){
     await this.service.getUserByUsername(username).subscribe((response:any)=>{ 
       this.profile = response;
-      console.log(this.profile);
+    
     });
   }
   
@@ -78,7 +78,7 @@ export class SettingsComponent {
   savePassword() {
     if (this.newPassword !== this.confirmPassword) {
       // Handle password mismatch
-      console.log('Passwords do not match.');
+     
       return;
     }
 

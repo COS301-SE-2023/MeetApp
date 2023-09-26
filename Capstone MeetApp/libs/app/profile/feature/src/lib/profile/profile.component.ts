@@ -116,7 +116,7 @@ export class ProfileComponent {
   {
     await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
       this.current_user=response;
-      console.log('username:',this.current_user.username);
+     
       this.getProfile(this.current_user.username);
     });
 
@@ -125,7 +125,7 @@ export class ProfileComponent {
   async getProfile(username :string|null){
     await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{ 
       this.profile = response;
-      console.log(this.profile);
+     
     });
   }
 
@@ -154,13 +154,13 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-    console.log('THE FUNCTION IS RUNNING');
+   
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this.profilePictureUrl);
       this.updateProfile(this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
-      console.log(this. profilePictureUrl);
+    
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
       this.updateProfile(this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region);
@@ -168,7 +168,7 @@ export class ProfileComponent {
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this.profilePictureUrl);
       this.updateProfile(this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
-      console.log(this. profilePictureUrl);
+    
     }
 
     

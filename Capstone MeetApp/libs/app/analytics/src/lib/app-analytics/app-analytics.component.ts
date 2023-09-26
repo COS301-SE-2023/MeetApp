@@ -40,7 +40,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     region: ''
   }];
 
-  top3_events=[{
+  top3_events=[{event:{
     _id:'',
     name:'',
     organisation:'',
@@ -52,7 +52,8 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     location: {latitude: 0 , longitude:0},
     category: '',
     region: ''
-  }];
+  },
+  count:0}];
 
   top_event={
     _id:'',
@@ -158,27 +159,35 @@ export class AppAnalyticsComponent  implements AfterViewInit {
  }
  
 
- constructor(private zone: NgZone, private apiService: service) { }
+ constructor(private zone: NgZone, private apiService: service) { 
+  this.getTop3Events();
+  this.getEventRegionCount();
+ }
 
   ngAfterViewInit() {
     this.zone.run(() => {
-      this.createPieChart();
-      this.createHistogram();
+      
+     // this.createHistogram();
     });
   }
   private createHistogram() {
     if (this.histogramCanvas) {
       const ctx = this.histogramCanvas.nativeElement.getContext('2d');
-
+  
       if (ctx) {
+        const labels = Object.keys(this.eventRegionCount);
+        const data = Object.values(this.eventRegionCount);
+       
+
+
         this.histogramChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: this.histogramData.map((_, index) => index.toString()),
+            labels: labels,
             datasets: [
               {
-                label: 'Histogram',
-                data: this.histogramData,
+                label: 'Event Region Count',
+                data: data,
                 backgroundColor: 'rgba(75, 192, 192, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
@@ -198,20 +207,25 @@ export class AppAnalyticsComponent  implements AfterViewInit {
         });
       }
     }
-
-   
   }
+  
+
   private createPieChart() {
     if (this.pieChartCanvas) {
       const ctx = this.pieChartCanvas.nativeElement.getContext('2d');
 
       if (ctx) {
+       
+        const eventNames = this.top3_events.slice(0, 4).map(event => event.event.name);
+
+        const eventData = this.top3_events.slice(0, 4).map(event => event.count);
+  
         this.pieChart = new Chart(ctx, {
           type: 'pie',
           data: {
-            labels: ['Label 1', 'Label 2', 'Label 3'],
+            labels: eventNames,
             datasets: [{
-              data: [30, 45, 25],
+              data: eventData,
               backgroundColor: ['#FF5733', '#33FF57', '#5733FF'],
             }]
           },
@@ -223,7 +237,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
               },
               title: {
                 display: true,
-                text: 'My Pie Chart',
+                text: 'TOP 3 events',
               },
               tooltip: {
                 enabled: true,
@@ -233,7 +247,8 @@ export class AppAnalyticsComponent  implements AfterViewInit {
         });
       }
     }
-    this.getTop3Events()
+    //console.log('kman the dawg',this.top3_events);
+    //this.getTop3Events()
     //this.getTopEvent()
     this.getTop3Categories()
     
@@ -260,13 +275,13 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     this.getOrganisersEvents()
     
     
-    this.getEventRegionCount()
+    //this.getEventRegionCount()
     this.getEventCategoryCount()
   
     this.getOrganiserName()
     this.getOrganisersEvents();
     //this.getTopEvent();
-    this.getTop3Events();
+   // this.getTop3Events();
   }
   
 
@@ -276,8 +291,10 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Events().subscribe((response:any) => {
       this.top3_events=response;
-      console.log('Top_3 Events: ',this.top3_events);
+     
+      this.createPieChart();
     });  
+    
   }
 
   /*
@@ -294,7 +311,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Categories().subscribe((response:any) => {
       this.top3_categories=response;
-      console.log('Top_3 Categories: ',this.top3_categories);
+    
     });  
   }
 
@@ -312,7 +329,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Regions().subscribe((response:any) => {
       this.top3_regions=response;
-      console.log('Top_3 region: ',this.top3_regions);
+    
     });  
   }
 
@@ -331,7 +348,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3SupportersEvents().subscribe((response:any) => {
       this.top3_supportersevents=response;
-      console.log('Top_3 Supporters Events: ',this.top3_supportersevents);
+    
      
     });   
   }
@@ -341,7 +358,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTopSupportersEvents().subscribe((response:any) => {
       this.top_supportersevents=response;
-      console.log('Top Supporters Event: ',this.top_supportersevents);
+     
     });  
   }
 
@@ -350,7 +367,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getTop3Supporters().subscribe((response:any) => {
       
       this.top3_supporters=response;
-      console.log('Top_3 Supporters: ',this.top3_supporters);
+    
     });  
   }
 
@@ -359,7 +376,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getTopSupporters().subscribe((response:any) => {
       
       this.top_supporters=response;
-      console.log('Top Supporters',this.top_supporters);
+     
     });  
   }
 
@@ -367,7 +384,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getOrganisersEvents().subscribe((response:any) => {
       this.org_events=response;
-      console.log('Organisers Events: ',this.org_events);
+    
     });  
   }
   
@@ -375,8 +392,8 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getEventRegionCount().subscribe((response:any) => {
       this.eventRegionCount=response;
-      console.log('Event Region Count: ',this.eventRegionCount);
-      
+    
+      this.createHistogram();
     });  
   }
 
@@ -384,7 +401,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getEventCategoryCount().subscribe((response:any) => {
       this.eventCategoryCount=response;
-      console.log('Event Category Count: ',this.eventCategoryCount);
+     
     });  
   }
 
@@ -400,7 +417,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   getCurrentOrganiser(username:string|null){
     this.apiService.getOrgbyUsername(username).subscribe((response:any) => {
       this.organiser=response;
-      console.log('Name of the organisation',this.organiser.name);
+     
       this.OrganisationName=this.organiser.name;
     
     });

@@ -69,7 +69,7 @@ export class FriendsComponent {
     this.servicesService.getFriends().subscribe((response:any)=>{
      
       this.friends=response;
-      console.log(response);
+    
      
     });
           
