@@ -241,9 +241,9 @@ export class LoginComponent {
       //check if email exists then send email
     }
 
-    sendLink(email:string)
+    sendLink(emailAddress:string)
     {
-      this.apiService.sendPasswordRequest(email).subscribe((response: any) => { 
+      this.apiService.sendPasswordRequest(emailAddress).subscribe((response: any) => { 
         console.log(response);
       });
     }

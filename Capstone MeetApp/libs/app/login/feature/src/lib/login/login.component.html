@@ -63,7 +63,7 @@
           <label for="email" style="color:black;">Email:</label>
           <input id="email" [(ngModel)]="forgotPasswordEmail"  style="color:black" Enter your email>
         </div>
-        <button (click)="sendLink(email)">Send Reset Link</button>
+        <button (click)="sendLink(forgotPasswordEmail)">Send Reset Link</button>
       </div>
       <a class="small-text" (click)="onCreate()">create an account</a>
     </ion-col>

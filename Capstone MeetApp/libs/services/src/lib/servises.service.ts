@@ -462,23 +462,24 @@ export class service{
 
     //SERVICES FOR PASSWORD RECOVERY
 
-    sendPasswordRequest(email:string)
+    sendPasswordRequest(emailAddress:string)
     {
-      const url=`${this.baseURl}passwordrecoveries/send`;
+      const url=this.baseURl+'passwordrecoveries/send';
 
         const body ={
-          email:email
+          emailAddress:emailAddress
         }
 
         return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
     }
 
-    verifyPasswordRequest(email:string)
+    verifyPasswordRequest(emailAddress:string,token:string )
     {
       const url=`${this.baseURl}passwordrecoveries/verify`;
 
       const params = {
-        email: email
+        emailAddress: emailAddress,
+        token:token
       };
 
       return this.http.post(`${url}`,{params:params},{ headers  : this.getCommonHeaders() });
