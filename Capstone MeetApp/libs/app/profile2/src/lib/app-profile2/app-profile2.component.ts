@@ -35,7 +35,7 @@ export class AppProfile2Component {
 
   profile={_id:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg', region:''};
   eventCount='';
- analytics-ui
+ 
   friendCount=0;
 
   friends = [
