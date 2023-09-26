@@ -33,7 +33,7 @@ export class AppProfile2Component {
   {}
 
   profile={_id:'',username:'',password:'',profilePicture:'',region:''};
-  eventCount='';
+  eventCount=0;
   friendCount=0;
 
   friends = [
@@ -78,13 +78,14 @@ export class AppProfile2Component {
   async getFriendAttandanceCount(id:string){
     await this.serviceProvider.getAttandanceCountByID(id).subscribe((response:any)=>{
       console.log(response);
+      this.eventCount=response;
     });
   }
 
   async getFriendAttandance(id:string){
     await this.serviceProvider.getAttandanceByID(id).subscribe((response:any)=>{
       console.log(response);
-      this.eventCount=response;
+      
     });
   }
   
