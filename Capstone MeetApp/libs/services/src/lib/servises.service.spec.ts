@@ -29,6 +29,8 @@ describe('Service', () => {
     expect(myService).toBeTruthy();
   });
 
+
+  
   //TEST FOR EVENTS
   it('should get all events and call a callback when data is available', (done) => {
     const dummyEvents: events[] = [
@@ -267,6 +269,47 @@ describe('Service', () => {
 
     // Simulate a successful response
     req.flush({}); // You can provide a response object if needed
+  });
+
+  
+  it('should get all users with the correct headers', () => {
+    myService.getAllUsers().subscribe((response) => {
+      // You can add assertions here for the list of users if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'users';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    //expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Simulate a successful response (replace with actual list of users if needed)
+    const fakeUsers: user[] = [
+      // Define your expected list of users here
+      {
+        emailAddress: 'f1@gmail.com',
+        username: 'FRIEND1',
+        password:'pass1',
+        profilePicture:'p1.png',
+        region:'r1',
+        interests: ['interest1'],
+        // Add other user data as needed
+      },
+      {
+        emailAddress: 'f12@gmail.com',
+        username: 'FRIEND2',
+        password:'pass2',
+        profilePicture:'p2.png',
+        region:'r2',
+        interests: ['interest1','interest2'],
+      }
+    ];
+    req.flush(fakeUsers);
   });
 
   it('should get the logged-in user with the correct headers', () => {
@@ -655,6 +698,369 @@ describe('Service', () => {
         events:['Event1','Event2'],
     };
     req.flush(fakeOrganiser);
+  });
+
+
+  it('should get top 3 events with the correct headers', () => {
+    myService.getTop3Events().subscribe((response) => {
+      // You can add assertions here for the list of top events if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top3';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of top events if needed)
+    const fakeTopEvents: events[] = [
+      // Define your expected list of top events here
+    ];
+    req.flush(fakeTopEvents);
+  });
+
+  
+  it('should get the top event with the correct headers', () => {
+    myService.getTopEvent().subscribe((response) => {
+      // You can add assertions here for the top event if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual top event data if needed)
+    const fakeTopEvent: events = {
+      // Define your expected top event data here
+
+        id: '1',
+        name: 'Sample Event',
+        organisation: 'Sample Org',
+        description: 'This is a sample event',
+        eventPoster: 'sample-poster.jpg',
+        date: '2023-09-21',
+        startTime: '10:00 AM',
+        endTime: '2:00 PM',
+        location: { latitude: 40.7128, longitude: -74.0060 },
+        category: 'Sample Category',
+        region: 'Sample Region',
+    
+    };
+    req.flush(fakeTopEvent);
+  });
+
+  it('should get top 3 categories with the correct headers', () => {
+    myService.getTop3Categories().subscribe((response) => {
+      // You can add assertions here for the list of top categories if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top3-categories';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of top categories if needed)
+    const fakeTopCategories: any = [
+      // Define your expected list of top categories here
+     
+    ];
+    req.flush(fakeTopCategories);
+  });
+
+  it('should get the top category with the correct headers', () => {
+    myService.getTopCategory().subscribe((response) => {
+      // You can add assertions here for the top category if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top-category';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual top category data if needed)
+    const fakeTopCategory: any = {
+      // Define your expected top category data here
+    };
+    req.flush(fakeTopCategory);
+  });
+
+  it('should get top 3 regions with the correct headers', () => {
+    myService.getTop3Regions().subscribe((response) => {
+      // You can add assertions here for the list of top regions if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top3-regions';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of top regions if needed)
+    const fakeTopRegions: any = [
+      // Define your expected list of top regions here
+    ];
+    req.flush(fakeTopRegions);
+  });
+
+  
+  it('should get top 3 supporters events with the correct headers', () => {
+    myService.getTop3SupportersEvents().subscribe((response) => {
+      // You can add assertions here for the list of top supporters events if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top3-supporters-events';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of top supporters events if needed)
+    const fakeTopSupportersEvents: Event[] = [
+      // Define your expected list of top supporters events here
+    ];
+    req.flush(fakeTopSupportersEvents);
+  });
+
+  it('should get top supporters events with the correct headers', () => {
+    myService.getTopSupportersEvents().subscribe((responsee) => {
+      // You can add assertions here for the list of top supporters events if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top-supporters-events';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of top supporters events if needed)
+    const fakeTopSupportersEvents: any = [
+      // Define your expected list of top supporters events here
+    ];
+    req.flush(fakeTopSupportersEvents);
+  })
+
+  it('should get top 3 supporters with the correct headers', () => {
+    myService.getTop3Supporters().subscribe((response) => {
+      // You can add assertions here for the list of top supporters if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top3-supporters';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of top supporters if needed)
+    const fakeTopSupporters: user[] = [
+      // Define your expected list of top supporters here
+    ];
+    req.flush(fakeTopSupporters);
+  });
+
+  it('should get the top supporter with the correct headers', () => {
+    myService.getTopSupporters().subscribe((response) => {
+      // You can add assertions here for the top supporter if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top-supporter';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual top supporter data if needed)
+    const fakeTopSupporter: user = {
+      // Define your expected top supporter data here
+        emailAddress: 's1@gmail.com',
+        username: 'sup1',
+        password:'pass1',
+        profilePicture:'p1.png',
+        region:'r1',
+        interests: ['interest1'],
+        // Add other user data as needed
+      
+    };
+    req.flush(fakeTopSupporter);
+  });
+
+  it('should get organisers events with the correct headers', () => {
+    myService.getOrganisersEvents().subscribe((response) => {
+      // You can add assertions here for the list of organisers events if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual list of organisers events if needed)
+    const fakeOrganisersEvents: events[] = [
+      // Define your expected list of organisers events here
+      {
+        id: '1',
+        name: 'Sample Event',
+        organisation: 'Sample Org',
+        description: 'This is a sample event',
+        eventPoster: 'sample-poster.jpg',
+        date: '2023-09-21',
+        startTime: '10:00 AM',
+        endTime: '2:00 PM',
+        location: { latitude: 40.7128, longitude: -74.0060 },
+        category: 'Sample Category',
+        region: 'Sample Region',
+    },
+    {
+        id: '2',
+        name: 'Sample Event 2',
+        organisation: 'Sample Org 2',
+        description: 'This is a sample event 2',
+        eventPoster: 'sample-poster.jpg2',
+        date: '2023-09-21',
+        startTime: '10:00 AM',
+        endTime: '2:00 PM',
+        location: { latitude: 40.7128, longitude: -74.0060 },
+        category: 'Sample Category',
+        region: 'Sample Region',
+    } 
+    ];
+    req.flush(fakeOrganisersEvents);
+  });
+
+  it('should get event region count with the correct headers', () => {
+    myService.getEventRegionCount().subscribe((response) => {
+      // You can add assertions here for the list of event region counts if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/region-count';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual event region count data if needed)
+    const fakeEventRegionCounts: any[] = [
+      // Define your expected event region count data here
+    ];
+    req.flush(fakeEventRegionCounts);
+  });
+
+  it('should get event category count with the correct headers', () => {
+    myService.getEventCategoryCount().subscribe((response) => {
+      // You can add assertions here for the list of event category counts if needed
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/category-count';
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+
+    // Check the 'x-api-key' header
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+
+    // Check the 'Content-Type' header
+    expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+    // Check the 'Authorization' header
+    expect(req.request.headers.get('Authorization')).toContain('Bearer ');
+
+    // Simulate a successful response (replace with actual event category count data if needed)
+    const fakeEventCategoryCounts: any[] = [
+      // Define your expected event category count data here
+    ];
+    req.flush(fakeEventCategoryCounts);
   });
 
 
