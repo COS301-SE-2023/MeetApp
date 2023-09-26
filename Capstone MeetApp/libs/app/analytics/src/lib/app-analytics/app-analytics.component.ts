@@ -294,7 +294,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Categories().subscribe((response:any) => {
       this.top3_categories=response;
-      console.log('Top_3 Categories: ',this.top3_categories);
+      console.log('Top_3 Categories: ',response);
     });  
   }
 
@@ -312,7 +312,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Regions().subscribe((response:any) => {
       this.top3_regions=response;
-      console.log('Top_3 region: ',this.top3_regions);
+      console.log('Top_3 region: ',response);
     });  
   }
 
@@ -331,7 +331,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3SupportersEvents().subscribe((response:any) => {
       this.top3_supportersevents=response;
-      console.log('Top_3 Supporters Events: ',this.top3_supportersevents);
+      console.log('Top_3 Supporters Events: ',response);
      
     });   
   }
@@ -341,7 +341,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTopSupportersEvents().subscribe((response:any) => {
       this.top_supportersevents=response;
-      console.log('Top Supporters Event: ',this.top_supportersevents);
+      console.log('Top Supporters Event: ',response);
     });  
   }
 
@@ -350,7 +350,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getTop3Supporters().subscribe((response:any) => {
       
       this.top3_supporters=response;
-      console.log('Top_3 Supporters: ',this.top3_supporters);
+      console.log('Top_3 Supporters: ',response);
     });  
   }
 
@@ -359,7 +359,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getTopSupporters().subscribe((response:any) => {
       
       this.top_supporters=response;
-      console.log('Top Supporters',this.top_supporters);
+      console.log('Top Supporters',response);
     });  
   }
 
@@ -384,7 +384,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getEventCategoryCount().subscribe((response:any) => {
       this.eventCategoryCount=response;
-      console.log('Event Category Count: ',this.eventCategoryCount);
+      console.log('Event Category Count: ',response);
     });  
   }
 

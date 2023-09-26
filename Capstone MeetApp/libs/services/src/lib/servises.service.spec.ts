@@ -30,6 +30,90 @@ describe('Service', () => {
   });
 
 
+  it('should set and retrieve the token from local storage', () => {
+    const testToken = 'testToken'; // Replace with your test token value
+
+    myService.setToken(testToken);
+
+    const retrievedToken = myService.getToken();
+
+    expect(retrievedToken).toEqual(testToken);
+  });
+
+  it('should remove the token from local storage', () => {
+    const testToken = 'testToken'; // Replace with your test token value
+
+    myService.setToken(testToken);
+    myService.removeToken();
+
+    const retrievedToken = myService.getToken();
+
+    expect(retrievedToken).toBeNull();
+  });
+
+  it('should set and retrieve the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toEqual(testUsername);
+  });
+
+  it('should set and retrieve the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toEqual(testUsername);
+  });
+
+  it('should remove the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+    myService.removeUsername();
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toBeNull();
+  });
+
+  it('should remove the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+    myService.removeUsername();
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toBeNull();
+  });
+
+  it('should create common headers with x-api-key', () => {
+    const commonHeaders = myService.getCommonHeaders();
+
+    expect(commonHeaders.has('x-api-key')).toBeTruthy();
+    expect(commonHeaders.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+  });
+
+  it('should create auth headers with x-api-key, Content-Type, and Authorization', () => {
+    // Create a simple mock for getToken
+    myService.getToken = () => 'testToken';
+
+    const authHeaders = myService.getAuthHeaders();
+
+    expect(authHeaders.has('x-api-key')).toBeTruthy();
+    expect(authHeaders.has('Content-Type')).toBeTruthy();
+    expect(authHeaders.has('Authorization')).toBeTruthy();
+
+    expect(authHeaders.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+    expect(authHeaders.get('Content-Type')).toEqual('application/json');
+    expect(authHeaders.get('Authorization')).toContain('Bearer testToken');
+  });
   
   //TEST FOR EVENTS
   it('should get all events and call a callback when data is available', (done) => {
