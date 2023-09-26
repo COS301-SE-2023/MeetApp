@@ -473,15 +473,14 @@ export class service{
         return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
     }
 
-    verifyPasswordRequest(emailAddress:string,token:string )
+    verifyPasswordRequest(token:string|null,email:string)
     {
       const url=`${this.baseURl}passwordrecoveries/verify`;
 
-      const params = {
-        emailAddress: emailAddress,
-        token:token
-      };
+      const params = new HttpParams()
+      .set('token', token || '') 
+      .set('email', email);
 
-      return this.http.post(`${url}`,{params:params},{ headers  : this.getCommonHeaders() });
+      return this.http.get(`${url}`,{ headers: this.getCommonHeaders(), params });
     }
 }
