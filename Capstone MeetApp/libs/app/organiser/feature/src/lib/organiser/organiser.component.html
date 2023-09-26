@@ -31,38 +31,38 @@
       </ion-item>
       <ion-item lines="full">
         <ion-label position="floating">Event Name</ion-label>
-        <ion-input  [(ngModel)]="eventName" type="text" name="eventName" required></ion-input>
+        <ion-input class="Ename" [(ngModel)]="eventName" type="text" name="eventName" required></ion-input>
       </ion-item>
        
       <ion-item lines="full">
         <ion-label position="floating">Organisation Name</ion-label>
-        <ion-input [(ngModel)]="OrganisationName" type="text" name="organisationName"required></ion-input>
+        <ion-input class="Oname" [(ngModel)]="OrganisationName" type="text" name="organisationName"required></ion-input>
       </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">Event Date</ion-label>
-        <ion-input [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" required></ion-input>
+        <ion-input class="Edate" [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" required></ion-input>
       </ion-item>
     
       <ion-item lines="full">
         <ion-label position="floating">start Time</ion-label>
-        <ion-input [(ngModel)]="this.selectedRange.startTime"  type="time" name="this.selectedRange.startTime" required></ion-input>
+        <ion-input class="Stime" [(ngModel)]="this.selectedRange.startTime"  type="time" name="this.selectedRange.startTime" required></ion-input>
       </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">End Time</ion-label>
-        <ion-input [(ngModel)]="selectedRange.endTime" type="time" name="selectedRange.endTime" required></ion-input>
+        <ion-input class="Etime" [(ngModel)]="selectedRange.endTime" type="time" name="selectedRange.endTime" required></ion-input>
       </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">Description</ion-label>
-        <ion-input [(ngModel)]="description" type="text" name="description" required></ion-input>
+        <ion-input class="descr" [(ngModel)]="description" type="text" name="description" required></ion-input>
       </ion-item>
       
       
       <ion-item lines="full">
         <ion-label position="floating">Region</ion-label>
-        <ion-input [(ngModel)]="selectedRegion" type="text" name="region" required></ion-input>
+        <ion-input class="region" [(ngModel)]="selectedRegion" type="text" name="region" required></ion-input>
       </ion-item>
       <ion-item lines="full">
         <ion-label position="floating">Address</ion-label>
@@ -70,21 +70,21 @@
       </ion-item >
       <ion-item lines="full">
         <ion-label position="floating">Latitude</ion-label>
-        <ion-input [(ngModel)]="location.latitude" type="text"  name="location.latitude" required></ion-input>
+        <ion-input class="lat" [(ngModel)]="location.latitude" type="text"  name="location.latitude" required></ion-input>
       </ion-item>
       <ion-item lines="full">
         <ion-label position="floating">Longitude</ion-label>
-        <ion-input [(ngModel)]="location.longitude" type="text" name="location.longitude" required></ion-input>
+        <ion-input class="long" [(ngModel)]="location.longitude" type="text" name="location.longitude" required></ion-input>
       </ion-item>
 
       <ion-item lines="full">
         <ion-label position="floating">category</ion-label>
-        <ion-input [(ngModel)]="category" type="text" name="category" required></ion-input>
+        <ion-input class="category" [(ngModel)]="category" type="text" name="category" required></ion-input>
       </ion-item>
 
       <ion-row>
     <ion-col>
-      <ion-button type="submit"  expand="block" (click)="gotohome()">Create Event</ion-button>
+      <ion-button class="submit" type="submit"  expand="block" (click)="gotohome()">Create Event</ion-button>
     </ion-col>
   </ion-row>
 </form>

@@ -84,7 +84,9 @@ export class LoginComponent {
     const alert = await this.alertController.create({
       header: 'login Successful',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
+      cssClass:'.custom-ok-button',
+      
     });
   
     await alert.present();
