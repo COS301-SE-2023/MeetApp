@@ -27,10 +27,11 @@ jobs:
           - name: lighthouse 
             run: npm run lighthouse-audit
           - name: change directory
-            run: cd tools 
+            run:
+                | 
+                cd tools 
             shell: bash
-          - name: script for extracting indicators from report
-            run: node lighthouse.config
+                node lighthouse.config
           - name: maps api environment
             run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${MAPS_API}'};" > libs/app/map/feature/src/lib/maps/environment.ts
             shell: bash
