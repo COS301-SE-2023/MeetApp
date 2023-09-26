@@ -7,29 +7,17 @@ on:
   push:
     branches:
       - 'development**'
-      - 'ui**'
-      - 'auth**'
-      - 'map**'
-      - 'profile**'
-      - 'home**'
-      - 'organiser**'
-      - 'settings**'
-      - 'events**'
+      - 'chat**'
       - 'friends**' 
       - 'analytics**'
+      - 'testing**'
   pull_request:
     branches:
       - 'development**'
-      - 'ui**'
-      - 'auth**'
-      - 'map**'
-      - 'profile**'
-      - 'home**'
-      - 'organiser**'
-      - 'settings**'
-      - 'events**'
+      - 'chat**'
       - 'friends**'
       - 'analytics**'
+      - 'testing'
       
 
 jobs:
@@ -106,7 +94,17 @@ jobs:
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${MAPS_API}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
         run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${API_BASE_URI}',BACKEND_API_KEY:'${API_KEY}'};" > libs/services/src/lib/environment.ts
-      - run: npm run e2e
+      - name: run api to prepare e2e
+        run: npm run serve:api:dev
+      - name: run end-to-end tests
+        run: npm run e2e
+      - name: Non-Functional indicatorss
+        run: npm run lighthouse-audit
+      - name: change directory
+        run: cd tools 
+      - name: script for extracting indicators from report
+        run: node ./tools/lighthouse.config
+      
  
 
     
