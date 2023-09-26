@@ -169,8 +169,8 @@ export class SignupComponent {
 
     if (this.valid)
     {
-      const errorMessage = 'Account Created Successfully';
-      this.showErrorAlert(errorMessage); 
+      //const errorMessage = 'Account Created Successfully';
+      //this.showErrorAlert(errorMessage); 
       
     }
 
