@@ -100,5 +100,51 @@ ion-input,
 
 
 ion-icon {
-  font-size: 24px;
+  font-size: 14px;
+}
+.custom-footer ion-button {
+  min-width: 30px; /* Set a minimum width for the buttons */
+  flex: 1; /* Distribute available space evenly among buttons */
+  margin: 0.2rem; /* Add some margin between buttons */
+}
+
+.custom-footer ion-icon {
+  font-size: 1.2rem; /* Adjust the icon size */
+}
+
+.flex-grow{
+
+  margin-bottom: 60px;
+  width: 60%;
+}
+
+/* Optionally, adjust the input field size */
+.custom-footer ion-input {
+  flex-grow: 1; /* Allow the input field to grow and take available space */
+}
+.media-buttons ion-button {
+  margin-right: 5px; /* Reduce the margin between buttons */
+  font-size: 12px; /* Adjust the font size as needed */
+  padding: 5px 10px; /* Adjust the padding as needed */
+}
+.popup-container {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1;
+}
+
+.popup-container.hidden {
+  display: none;
+}
+
+.popup-container button {
+  margin: 5px;
+}
+
+.selected-image-small,
+.selected-video {
+  width: 100px;
+  height: auto;
 }
