@@ -29,7 +29,7 @@ export class SettingsComponent {
     iat: 0
   }
 
-  profile:user={username:'',password:'',profilePicture:'',region:''};
+  profile:user={emailAddress:'',username:'',password:'',profilePicture:'',region:'',interests: []};
 
   user_payload:any;
 
@@ -46,6 +46,8 @@ export class SettingsComponent {
   }
 
   nagivateToHome(): void {
+    this.service.removeToken();
+    this.service.removeUsername();
     this.router.navigate(['/']);
   }
   
@@ -59,12 +61,10 @@ export class SettingsComponent {
 
   }
   
-  async updateProfile(username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.service.updateUser(username,password,profilePicture,region).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
+  async updateProfile(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string,interests?: string[]){
+    await this.service.updateUser(emailAddress,username,password,profilePicture,region,interests).subscribe();
   }
+
 
   
   async getProfile(username :string|null){
@@ -83,12 +83,17 @@ export class SettingsComponent {
     }
 
    
-    this.updateProfile(this.profile.username, this.newPassword, this.profile.profilePicture, this.profile.region);
+    this.updateProfile(this.profile.emailAddress,this.profile.username, this.newPassword, this.profile.profilePicture, this.profile.region,this.profile.interests);
   }
 
   saveRegion()
   {
-    this.updateProfile(this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation);
+    this.updateProfile(this.profile.emailAddress,this.profile.username,this.profile.password,this.profile.profilePicture,this.NewLocation,this.profile.interests);
+  }
+
+  saveEmail()
+  {
+    this.updateProfile(this.newEmail,this.profile.username,this.profile.password,this.profile.profilePicture,this.profile.region,this.profile.interests);
   }
   gotoorganiser() {
     this.router.navigateByUrl('/analytics;userType=organiser');
