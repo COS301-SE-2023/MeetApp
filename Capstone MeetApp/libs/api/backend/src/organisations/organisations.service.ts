@@ -104,13 +104,13 @@ export class OrganisationsService {
 
     const sortedEvents = await Promise.all(
       events.map(async (event) => {
-        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?.ID }).exec();
+        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?._id }).exec();
         return { event, attendanceCount };
       }),
     );
     sortedEvents.sort((a, b) => b.attendanceCount - a.attendanceCount);
 
-    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => item.event);
+    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => new Object({event : item.event, count : item.attendanceCount}));
 
     return topAttendedEvents;
   }
@@ -124,13 +124,13 @@ export class OrganisationsService {
 
     const sortedEvents = await Promise.all(
       events.map(async (event) => {
-        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?.ID }).exec();
+        const attendanceCount = await this.attendanceModel.countDocuments({ eventID: event?._id }).exec();
         return { event, attendanceCount };
       }),
     );
     sortedEvents.sort((a, b) => b.attendanceCount - a.attendanceCount);
 
-    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => item.event);
+    const topAttendedEvents = sortedEvents.slice(0, 3).map((item) => new Object({event : item.event, count : item.attendanceCount}));
 
     return topAttendedEvents[0];
   }
