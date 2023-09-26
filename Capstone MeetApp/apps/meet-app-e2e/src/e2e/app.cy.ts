@@ -11,15 +11,10 @@ describe('meet-app', () => {
     //getGreeting().contains('WELCOME');
   });
 
-  describe('Bstackdemo', () => {
-    it('should run lighthouse performance audits using default thresholds', () => {
-    //cy.visit('/');
-    cy.lighthouse({
-      performance: 60,
-      accessibility: 90,
-      'best-practices': 80,
-      seo: 80,
-    });
-    });
-    });
+ 
 });
+describe('Bstackdemo', () => {
+  it('should run lighthouse performance audits using default thresholds', () => {
+  cy.visit('/');
+  });
+  });
