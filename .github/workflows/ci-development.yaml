@@ -79,25 +79,10 @@ jobs:
       - run: npm install --legacy-peer-deps
       - run: npm run lint
 
-  api: 
-    defaults:
-      run:
-        working-directory: Capstone MeetApp
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: 
-          node-version: 18
-      - run: npm install --legacy-peer-deps
-      - name: Start API Server
-        run: nohup npm run serve:api:dev
-
   e2e:
     defaults:
       run:
         working-directory: Capstone MeetApp\
-    needs: api
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -109,10 +94,6 @@ jobs:
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${MAPS_API}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
         run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${API_BASE_URI}',BACKEND_API_KEY:'${API_KEY}'};" > libs/services/src/lib/environment.ts 
-      - name: Wait for API to Start
-        run: |
-          # Wait for the API to start (adjust the sleep duration as needed)
-          sleep 10
       - name: run end-to-end tests
         run: npm run e2e
       - name: Non-Functional indicatorss
