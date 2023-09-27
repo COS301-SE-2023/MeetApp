@@ -231,7 +231,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
             labels: eventNames,
             datasets: [{
               data: eventData,
-              backgroundColor: ['#FF5733', '#33FF57', '#5733FF'],
+              backgroundColor: ['#050A30', '#7EC8E3', '#7EC8E3'],
             }]
           },
           options: {

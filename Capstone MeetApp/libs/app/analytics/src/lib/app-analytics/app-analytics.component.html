@@ -35,6 +35,15 @@
             </div>
             
           </ion-card>
+          <ion-card >
+            <div *ngIf="top3_categories.length > 0">
+              <h2>Top 3 Events</h2>
+              <ul>
+                <li *ngFor="let event of top3_events">{{ event.event.name }}</li>
+              </ul>
+            </div>
+            
+          </ion-card>
           
         </ion-col>
       </ion-row>
