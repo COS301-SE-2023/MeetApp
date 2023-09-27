@@ -26,7 +26,7 @@
        
     <div>
       <div  class="image">
-        <ion-img src="assets/profile.png" width="300" height="300" alt="myimage">
+        <ion-img src="assets/logo.png" width="300" height="300" alt="myimage">
         </ion-img>
        </div>
       <form [formGroup]="loginForm" (ngSubmit)="signup()">
@@ -38,7 +38,13 @@
             Username is required.
           </div>
         </ion-item>
-
+        <ion-item lines="full">
+          <ion-label position="floating">Email</ion-label>
+          <ion-input class="rounded-input" type="text" name="email" formControlName="email"required></ion-input>
+          <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
+            email is required.
+          </div>
+        </ion-item>
         <ion-item lines="full">
           <ion-label position="floating">Password</ion-label>
           <ion-input type="password" name="password" formControlName="password" required></ion-input>
@@ -58,12 +64,26 @@
        
 
         <ion-item lines="full">
-          <ion-label position="floating">Region</ion-label>
-          <ion-input type="password"  name="region" formControlName="region" required></ion-input>
-          <div class="error-message" *ngIf="loginForm.controls['region'].touched && loginForm.controls['region'].hasError('required')">
-            Region is required.
-          </div>
+          <ion-label>Select Region:</ion-label>
+          <ion-select [(ngModel)]="region" class="select-region" name="region">
+            <ion-select-option value="">-- Select Region --</ion-select-option>
+            <ion-select-option value="Pretoria">Pretoria</ion-select-option>
+            <ion-select-option value="Joburg">Johannesburg</ion-select-option>
+            <ion-select-option value="UCT">Cape Town</ion-select-option>
+            <ion-select-option value="Durban">Durban</ion-select-option>
+            <ion-select-option value="ELondon">East London</ion-select-option>
+            <ion-select-option value="Polokwane">Polokwane</ion-select-option>
+            <ion-select-option value="Mbombela">Mbombela</ion-select-option>
+            <ion-select-option value="Bloemfontein">Bloemfontein</ion-select-option>
+          </ion-select>
         </ion-item>
+        
+          <ion-item>
+            <ion-label>Select Interests:</ion-label>
+            <ion-select [(ngModel)]="selectedOptions" multiple="true">
+              <ion-select-option *ngFor="let option of options" [value]="option">{{ option }}</ion-select-option>
+            </ion-select>
+          </ion-item>
         </div>
 
         <div *ngIf=" userType === 'organiser'">
@@ -90,6 +110,8 @@
               password is required.
             </div>
           </ion-item>
+        
+          
 
         </div>
         <ion-row>

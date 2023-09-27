@@ -29,7 +29,9 @@ export class UsersService {
   
   
   async create(createUserDto: CreateUserDto) {
-    createUserDto.password
+    const existingUser = await this.userModel.findOne({username : createUserDto.username}).exec();
+    if (existingUser)
+      return {error: 409, message: "The username already exists"}
     const newUser = await new this.userModel(createUserDto);
     const userSalt = this.getUserSalt(newUser.username, newUser.password)
     const hashedPass = await hash(newUser.password, userSalt)
@@ -262,9 +264,17 @@ export class UsersService {
     return eventsDetails;
   }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
+  async remove(id: string) {
+    const user = await this.userModel.findOne({_id: id}).exec()
+    const friendships = await this.friendshipModel.find({ $or: [{ requester: id }, { requestee: id }] }).exec();
+    const UserEventsAtt = await this.attendanceModel.find({userID  : id}).exec()
+    const payload =  {deleted_resources: {account : user, friendships : friendships, Attendances: UserEventsAtt}}
+    this.userModel.deleteOne({_id: id}).exec()
+    this.friendshipModel.deleteMany({ $or: [{ requester: id }, { requestee: id }] }).exec()
+    this.attendanceModel.deleteMany({userID : id}).exec()
+    return payload
+    
+  }
 
   async attendEvent(userId: string, eventId: string) {
     const user = await this.userModel.findById(userId);
@@ -626,5 +636,22 @@ export class UsersService {
 
     return { total: mutualFriends.length, friends: mutualFriends };
   }
+
+  /*async updateInterests() {
+    try {
+      // Find users without interests
+      const usersToUpdate = await this.userModel.find({ interests: { $exists: false } }).exec();
+
+      // Update each user document with the interests field
+      for (const user of usersToUpdate) {
+        user.interests = []; // Initialize with an empty array or add interests based on your logic
+        await user.save();
+      }
+
+      return { success: true, message: 'Users updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update users.' };
+    }
+  }*/
 
 }

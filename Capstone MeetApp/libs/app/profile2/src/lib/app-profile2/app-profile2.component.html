@@ -19,24 +19,24 @@
 
 
 <div id="body">
-    <div class="background-image"></div>
+   
        
     <div class="profile">
       <div class="circle">
-        <ion-img src="assets/profile.png" alt="Circle Image">
+        <ion-img src="{{profile.profilePicture}}" alt="Circle Image">
         </ion-img>
       </div>
         <div class="profile-info">
-            <h3>shiluvelo Makhubele</h3>
+            <h3>{{ profile.username }}</h3>
         <ion-list class="list">
           <ion-item class="list">
             <ion-label>Events</ion-label>
-            <ion-badge color="primary">3</ion-badge>
+            <ion-badge color="primary">{{eventCount}}</ion-badge>
           </ion-item>
   
           <ion-item (click)="gotofriends()" class="list">
             <ion-label>Friendships</ion-label>
-            <ion-badge color="primary">200</ion-badge>
+            <ion-badge color="primary">{{friendCount}}</ion-badge>
           </ion-item>
           
         </ion-list>

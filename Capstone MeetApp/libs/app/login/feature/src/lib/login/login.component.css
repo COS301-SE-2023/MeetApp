@@ -1,4 +1,29 @@
 .heading {
+
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  color: black;
+  margin: 0 auto;
+  font-family: 'Roboto', serif;
+}
+.scroll-container {
+  height: 300px; 
+  overflow: hidden;
+}
+
+
+
+/* Style the focus state of ion-input elements (when selected) */
+ion-input:focus {
+  border-color: #e74c3c; /* Change border color when focused */
+}
+ .left-image {
+      margin-left: 40px;
+      margin-top:20px;
+
     margin-top: 0;
     display: flex;
     align-items: center;
@@ -100,6 +125,7 @@
       will-change: transform;
       margin-top:50%;
       margin-left: 40%;
+
     }
   }
   

@@ -1,1 +1,30 @@
-<p>app-analytics works!</p>
+<ion-content>
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        <h1 class="heading">
+          Analytics
+        </h1>
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="analytics">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6">
+          <ion-card class="chart-card">
+            <canvas #pieChartCanvas></canvas>
+          </ion-card>
+        </ion-col>
+        <ion-col size="12" size-md="6">
+          <ion-card class="chart-card">
+            <canvas #histogramCanvas width="400" height="200"></canvas>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

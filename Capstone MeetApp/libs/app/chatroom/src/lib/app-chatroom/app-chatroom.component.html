@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Chat Room
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="chat-content">
+    <div class="message-container">
+      <div class="message" *ngFor="let message of messages">
+        <!-- Left side: Profile picture -->
+        <div class="profile-picture">
+          <img src="assets/pp.jpg" alt="Profile Picture">
+        </div>
+  
+        
+        <div class="message-content">
+          <div class="message-header">
+            <span class="user">{{ message.user }}</span>
+            <span class="timestamp">{{ message.timestamp | date: 'shortTime' }}</span>
+          </div>
+          <div class="message-text" *ngIf="message.text">{{ message.text }}</div>
+
+          
+          <img *ngIf="message.imageUrl" [src]="message.imageUrl" alt="Image" class="message-image-medium" >
+
+          <video *ngIf="message.videoUrl" controls class="message-video">
+            <source [src]="message.videoUrl" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <ion-footer class="custom-footer">
+    <ion-input [(ngModel)]="newMessage"  style="color: black"     placeholder="Type your message..." class="flex-grow"></ion-input>
+  
+    <ion-button (click)="openImagePicker()">
+      <ion-icon name="image"></ion-icon> Upload Image
+    </ion-button>
+    <input type="file" (change)="handleImageUpload($event)" accept="image/*" style="display: none;" id="imageInput">
+  
+    <img *ngIf="selectedImage" [src]="selectedImageURL" alt="Selected Image" class="selected-image-small">
+    <input type="file" (change)="handleVideoUpload($event)" accept="video/*" style="display: none;" id="videoInput">
+  
+    <ion-button (click)="openVideoPicker()" style="font-size: 14px;">
+      <ion-icon name="videocam"></ion-icon> Upload Video
+    </ion-button>
+  
+    <video *ngIf="selectedVideoURL" controls class="selected-video" class="selected-image-small">
+      <source [src]="selectedVideoURL" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  
+    <ion-button (click)="sendMessage()" class="send-button">Send</ion-button>
+  </ion-footer>
+  
+  
+  
+  

@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import {HttpClient, HttpHeaders ,HttpParams} from "@angular/common/http";
 import {environment } from "./environment";
-
+import { Observable } from 'rxjs';
 
 // EVENT INTERFACES //
 export interface events{
@@ -34,10 +34,12 @@ export interface createEvents{
 
 // USER INTERFACES //
 export interface user{
+    emailAddress:string,
     username:string;
     password:string;
     profilePicture:string;
     region:string;
+    interests: string[];
 }
 
 export interface createUser{
@@ -50,6 +52,7 @@ export interface createUser{
 
 // ORGANISER INTERFACES //
 export interface organiser{
+    emailAddress:string;
     username:string
     password:string;
     name:string
@@ -105,6 +108,20 @@ export class service{
 
     private readonly TOKEN_KEY = 'access_token';
 
+    private readonly USERNAME = 'username';
+
+    /*
+    getCoordinates(address: string): Observable<any> {
+      const googlebaseUrl = environment.GOOGLE_URL;
+  
+      const params = new HttpParams()
+        .set('address', address)
+        .set('key', environment.GOOGLE_APIKEY);
+  
+      return this.http.get(googlebaseUrl, { params });
+    }  
+    */
+
     //FUNCTIONS  TO HANDLE HEADERS
 
     private getCommonHeaders() {
@@ -137,6 +154,24 @@ export class service{
         localStorage.removeItem(this.TOKEN_KEY);
     }
 
+    //FUNCTIONS TO ACCESS THE TOKEN
+      
+    setUsername(username: string) 
+    {
+        localStorage.setItem(this.USERNAME, username);
+      
+    }
+    
+    getUsername(): string | null 
+    {
+        return localStorage.getItem(this.USERNAME);
+    }
+    
+    removeUsername() 
+    {
+        localStorage.removeItem(this.USERNAME);
+    }
+
     //SERVICES FOR EVENTS
 
     getAllEvents()
@@ -161,9 +196,9 @@ export class service{
       return this.http.get(`${url}`,{params:params});
     }
 
-    createEvents(name: string,organisation: string,description: string,eventPoster:string, date: string,
+    createEvents(name: string | null,organisation: string | null,description: string | null,eventPoster:string | null, date: string,
          startTime: string,endTime: string,location: {latitude:number , longitude:number},
-         category: string,region: string)
+         category: string,region: string | null)
     {
       const url=this.baseURl+'events';
         
@@ -211,16 +246,18 @@ export class service{
 
     //SERVICES FOR USERS
 
-    createUser(username:string,password:string,profilePicture:string,region:string)
+    createUser(emailAddress:string,username:string,password:string,profilePicture:string,region:string,interests: string[])
     {
       const url=this.baseURl+'users/signup';
         
       const body=
       {
+        emailAddress:emailAddress,
         username: username,
         password:password,
         profilePicture:profilePicture,
-        region:region
+        region:region,
+        interests:interests
       }
 
       return this.http.post(`${url}`,body,{headers : this.getCommonHeaders()});
@@ -258,15 +295,17 @@ export class service{
       return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
-    updateUser(username?:string ,password?:string,profilePicture?:string,region?:string){
+    updateUser(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string,interests?: string[]){
         
       const url=`${this.baseURl}users/update`;
 
       const body={
+        emailAddress:emailAddress,
         username:username,
         password:password,
         profilePicture:profilePicture,
-        region:region
+        region:region,
+        interests:interests
       }
 
       return this.http.patch(`${url}`,body,{headers : this.getAuthHeaders()});
@@ -306,12 +345,13 @@ export class service{
 
     //SERVICES FOR ORGANISER
 
-    createOrginiser(username:string,password:string,name:string,events:string[])
+    createOrginiser(emailAddress:string,username:string,password:string,name:string,events:string[])
     {
         const url=this.baseURl+'organisations/signup';
 
         const body=
         {
+            emailAddress:emailAddress,
             username: username,
             password:password,
             name:name,
@@ -343,6 +383,91 @@ export class service{
     getLogedInOrg() {
         const url = this.baseURl + 'organisations/account';
         return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getOrgbyUsername(username:string|null){
+      const url=`${this.baseURl}organisations/username/${username}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+    }
+    
+    /* Analytics */
+
+    getTop3Events()
+    {
+      const url = this.baseURl + 'organisations/events/top3';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTopEvent()
+    {
+      const url = this.baseURl + 'organisations/events/top';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTop3Categories()
+    {
+      const url = this.baseURl + 'organisations/events/top3-categories';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTopCategory()
+    {
+      const url = this.baseURl + 'organisations/events/top-category';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTop3Regions()
+    {
+      const url = this.baseURl + 'organisations/events/top3-regions';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTopRegions()
+    {
+      const url = this.baseURl + 'organisations/events/top-region';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTop3SupportersEvents()
+    {
+      const url = this.baseURl + 'organisations/events/top3-supporters-events';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTopSupportersEvents()
+    {
+      const url = this.baseURl + 'organisations/events/top-supporters-events';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTop3Supporters()
+    {
+      const url = this.baseURl + 'organisations/events/top3-supporters';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getTopSupporters()
+    {
+      const url = this.baseURl + 'organisations/events/top-supporter';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getOrganisersEvents()
+    {
+      const url = this.baseURl + 'organisations/events';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+    
+    getEventRegionCount()
+    {
+      const url = this.baseURl + 'organisations/events/region-count';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
+    }
+
+    getEventCategoryCount()
+    {
+      const url = this.baseURl + 'organisations/events/category-count';
+      return this.http.get(url, { headers : this.getAuthHeaders()});
     }
 
 
