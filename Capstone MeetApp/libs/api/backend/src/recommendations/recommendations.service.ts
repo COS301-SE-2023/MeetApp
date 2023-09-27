@@ -3,11 +3,16 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Recommendation } from './schema';
 import { CreateRecommendationDto } from './dto/create-recommendation.dto';
+import { UsersService } from '../users/users.service';
+import { Event } from '../events/schema';
+import { RecommendationAlgorithm } from './recommendation.algorithm';
+import { Attendance } from '../attendances/schema';
+import { WeightGroups } from './recommendations.initial-weights';
 // import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 
 @Injectable()
 export class RecommendationsService {
-  constructor(@InjectModel(Recommendation.name) private recommendationModel: Model<Recommendation>){
+  constructor(@InjectModel(Recommendation.name) private recommendationModel: Model<Recommendation>, private readonly userService: UsersService, @InjectModel(Event.name) private eventModel : Model<Event>, @InjectModel(Attendance.name) private attendanceModel : Model<Attendance>){
     
   }
   async create(createRecommendationDto: CreateRecommendationDto) {
@@ -31,7 +36,91 @@ export class RecommendationsService {
     const deletedRecommend = await this.recommendationModel.findByIdAndDelete(id);
    if (!deletedRecommend) {
      throw new NotFoundException(`Recommendation #${id} not found`);
-   }
+    }
    return deletedRecommend;
-}
+  }
+
+  async updateDocs(){
+    const weightGroupsArray = Object.keys(WeightGroups).map((key) => ({
+      key: key,
+      value: WeightGroups[key],
+    }))
+    try {
+      // Find users without interests
+      const usersToUpdate = await this.userService.findAll()
+
+      // Update each user document with the interests field
+      for (const user of usersToUpdate) {
+        const randomIndex = Math.floor(Math.random() * weightGroupsArray.length);
+        const recommendationToSave = new this.recommendationModel({userID : user._id, weights : weightGroupsArray[randomIndex].value, rate : 0.001})
+        await recommendationToSave.save();
+      }
+
+      return { success: true, message: 'Populated updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update users.' };
+    }
+  }
+
+    async getRecommendations(username : string){
+      const user = await this.userService.getByUsername(username)
+      if (user == null)
+        return {message : 'User not found', payload : null}
+      const userID = user._id.toString()
+      const RecDoc = await this.recommendationModel.findOne({userID: userID}).exec()
+      if (RecDoc == null)
+        return {message : 'Weights not found', payload : null}
+      const recRate = RecDoc.rate
+      const recWeights = RecDoc.weights
+
+      const topSupportedOrgs = await this.userService.getTopSupportedOrgs(userID)
+      //this.userService.
+      const userAttendance = (await this.userService.getUserEvents(userID)).filter(obj => obj.attending)
+      const userTopRegion = this.userService.recommendByRegion(userID)
+      const userTopCategories = (await this.userService.recommendationCategory(userID))
+      const otherEventsPlusAttendance = (await this.getEventAttendanceAll(userID)).map(obj => obj)
+      
+      const userFriends = (await this.userService.getUserFriends(userID) )
+      if (userAttendance.length > 2 && userFriends.length > 2) {
+        const userFriendEvents = await this.userService.getFriendEvents(userID) as Event[]
+        const recSystem = new RecommendationAlgorithm(userID,userFriends,userFriendEvents,user,recRate,recWeights,userAttendance,otherEventsPlusAttendance,userTopCategories,await userTopRegion,topSupportedOrgs)
+        return recSystem.getRecommendations()
+      }
+      if (userAttendance.length <= 2 && userFriends.length > 2) {
+        const defaultUser = await this.userService.generateDefaultUser()
+        const userFriendEvents = await this.userService.getFriendEvents(userID) as Event[]
+        const recSystem = new RecommendationAlgorithm(userID,userFriends,userFriendEvents,defaultUser,recRate,recWeights,[],otherEventsPlusAttendance,userTopCategories,await userTopRegion,[])
+        return recSystem.getRecommendations()
+      }
+      if (userAttendance.length > 2 && userFriends.length <= 2) {
+        const recSystem = new RecommendationAlgorithm(userID,[],[],user,recRate,recWeights,userAttendance,otherEventsPlusAttendance,userTopCategories,await userTopRegion,topSupportedOrgs)
+        return recSystem.getRecommendations()
+      }
+      
+      const defaultUser = await this.userService.generateDefaultUser()
+      const recSystem = new RecommendationAlgorithm(userID,[],[],defaultUser,recRate,recWeights,[],otherEventsPlusAttendance,userTopCategories,await userTopRegion,[])
+      return recSystem.getRecommendations()
+      
+      
+      
+      
+
+    }
+
+    async getEventAttendanceAll(userID : string) {
+    const eventAll = await this.eventModel.find({}).exec()
+    const AttendancePlusCount = eventAll.map(async cevent => {
+      const eventAttendanceCount = await this.attendanceModel.countDocuments({ eventID: cevent._id, userID : {$ne : userID}}); 
+      return {event : cevent, attendees : eventAttendanceCount }
+    })
+    const resolvedEvents: {
+      event: Event;
+      attendees: number;
+  }[] = await Promise.all(AttendancePlusCount.map(async (promise) => {
+      const { event, attendees } = await promise;
+      return { event, attendees };
+  }));
+    return resolvedEvents;
+  }
+  
 }
