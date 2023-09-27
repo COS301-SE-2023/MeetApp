@@ -8,9 +8,10 @@ import { User, UserSchema } from '../users/schema';
 import { Organisation, OrganisationSchema } from '../organisations/schema';
 import { Attendance, AttendanceSchema } from '../attendances/schema';
 import { Event, EventSchema } from '../events/schema';
+import { Friendship, FriendshipSchema } from '../friendships/schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Recommendation.name, schema: RecommendationSchema }, { name: User.name, schema: UserSchema }, { name: Organisation.name, schema: OrganisationSchema }, { name: Attendance.name, schema: AttendanceSchema }, { name: Event.name, schema: EventSchema }])],
+  imports: [MongooseModule.forFeature([{ name: Recommendation.name, schema: RecommendationSchema }, { name: User.name, schema: UserSchema }, { name: Organisation.name, schema: OrganisationSchema }, { name: Attendance.name, schema: AttendanceSchema }, { name: Event.name, schema: EventSchema }, { name: Friendship.name, schema: FriendshipSchema }])],
   controllers: [RecommendationsController],
   providers: [RecommendationsService, UsersService]
 })
