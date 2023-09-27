@@ -1,6 +1,6 @@
-import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Post } from '@nestjs/common';
 import { RecommendationsService } from './recommendations.service';
-import { CreateRecommendationDto } from './dto/create-recommendation.dto';
+//import { CreateRecommendationDto } from './dto/create-recommendation.dto';
 import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiSecurity } from '@nestjs/swagger';
 
 @Controller('recommendations')
@@ -9,13 +9,13 @@ import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiSecurity } from '@nest
 export class RecommendationsController {
   constructor(private readonly recommendationsService: RecommendationsService) {}
 
-  @Post()
-  @ApiOperation({ summary: 'Create a new recommendation' }) 
-  @ApiResponse({ status: 201, description: 'Recommendation created successfully' })
-  create(@Body() createRecommendationDto: CreateRecommendationDto, ) {
+  // @Post()
+  // @ApiOperation({ summary: 'Create a new recommendation' }) 
+  // @ApiResponse({ status: 201, description: 'Recommendation created successfully' })
+  // create(@Body() createRecommendationDto: CreateRecommendationDto, ) {
     
-    return this.recommendationsService.create(createRecommendationDto);
-  }
+  //   return this.recommendationsService.create(createRecommendationDto);
+  // }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a specific recommendation' }) 
