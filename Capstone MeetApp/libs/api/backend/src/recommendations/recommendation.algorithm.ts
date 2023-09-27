@@ -121,19 +121,26 @@ export class RecommendationAlgorithm {
             const ParsedLocation = {lat : clocation['latitude'], lon : clocation['longitude']}
             if (totalEventsCount > 2 && totalEventsCount) {
             score += this.dayLayer(otherEvent.event.date)*this.DayWeight
+            console.log('day layer completed')
             score += this.rangeLayer(ParsedLocation)*this.LocationRangeWeight
+            console.log('range layer completed')
             score += this.durationLayer(otherEvent.event.startTime, otherEvent.event.endTime)*this.DurationWeight
+            console.log('duration layer completed')
             score += this.categoryLayer(otherEvent.event.category)*this.CategoryWeight
+            console.log('category layer completed')
             score += this.regionLayer(otherEvent.event.region)*this.RegionWeight
+            console.log('region layer completed')
             
             score += this.organisationLayer(otherEvent.event.organisation)*this.OrganisationWeight
             }
+            console.log('org layer completed')
+            console.log(otherEvent.event)
             score += this.interestLayer(otherEvent.event.category)*this.InterestWeight
             if (totalFriendsCount > 2 && totalFriendsCount)
-                score += this.influenceLayer(otherEvent.event.ID.toString())*this.FriendsInfluenceWeight
+                score += this.influenceLayer(otherEvent.event._id.toString())*this.FriendsInfluenceWeight
 
             score += this.chatRoomLayer()*this.ChatRoomWeight
-            score += this.popularityLayer(otherEvent.event.ID.toString())*this.PopularityWeight
+            score += this.popularityLayer(otherEvent.event._id.toString())*this.PopularityWeight
             score /= 10
             
             return {event : otherEvent.event, score : score}
@@ -211,7 +218,7 @@ export class RecommendationAlgorithm {
     private influenceLayer(EventID : string){
         let runningTotal = 0
         this.userFriendsEvents.forEach(event => {
-            if (event.ID.toString() == EventID)
+            if (event._id.toString() == EventID)
                 runningTotal += 0.20
             if (this.user.interests?.includes(event.category))
                 runningTotal += 0.15
@@ -278,17 +285,17 @@ export class RecommendationAlgorithm {
 
     //if event is popular throughout app (total event attendances)
     private popularityLayer(eventID : string){
-        if (this.MostPopularEvents[0].event.ID.toString() == eventID)
+        if (this.MostPopularEvents[0].event._id.toString() == eventID)
             return 1
-        if (this.MostPopularEvents[1].event.ID.toString() == eventID)
+        if (this.MostPopularEvents[1].event._id.toString() == eventID)
             return 0.5
-        if (this.MostPopularEvents[2].event.ID.toString() == eventID)
+        if (this.MostPopularEvents[2].event._id.toString() == eventID)
             return 0.25
-        if (this.MostPopularEvents[3].event.ID.toString() == eventID)
+        if (this.MostPopularEvents[3].event._id.toString() == eventID)
             return 0.125
-        if (this.MostPopularEvents[4].event.ID.toString() == eventID)
+        if (this.MostPopularEvents[4].event._id.toString() == eventID)
             return 0.0625
-        if (this.MostPopularEvents[5].event.ID.toString() == eventID)
+        if (this.MostPopularEvents[5].event._id.toString() == eventID)
             return 0.03125
         return 0
     }

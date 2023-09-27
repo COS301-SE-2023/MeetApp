@@ -17,13 +17,13 @@ export class RecommendationsController {
   //   return this.recommendationsService.create(createRecommendationDto);
   // }
 
-  @Get(':id')
+  @Get(':username')
   @ApiOperation({ summary: 'Get a specific recommendation' }) 
   @ApiResponse({ status: 201, description: 'Specified recommendation' })
-  @ApiParam({name : 'id', description: 'The user id to find recommendations for', required: true})
-  findOne(@Param('id') id: string, ) {
+  @ApiParam({name : 'username', description: 'The username to find recommendations for', required: true})
+  findOne(@Param('username') username: string, ) {
     
-    return this.recommendationsService.getRecommendations(id);
+    return this.recommendationsService.getRecommendations(username);
   }
 
   @Delete(':id')
@@ -35,8 +35,8 @@ export class RecommendationsController {
     return this.recommendationsService.remove(id);
   }
 
-  // @Post()
-  // async initialiseDocs(){
-  //   return this.recommendationsService.updateDocs()
-  // }
+  @Post()
+  async initialiseDocs(){
+    return this.recommendationsService.updateDocs()
+  }
 }

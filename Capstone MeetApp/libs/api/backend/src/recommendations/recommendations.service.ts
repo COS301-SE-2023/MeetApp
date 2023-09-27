@@ -73,7 +73,7 @@ export class RecommendationsService {
         //console.log('beforeDTO')
         
         const recommendationdto : CreateRecommendationDto= {
-          userID: user.ID,
+          userID: user.id,
           weights: weights.map(weight => ({ parameter: weight.parameter, value: weight.value, rank : weight.rank })),
           rate: 0.001,
         }
