@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 import { Event } from '../events/schema';
 import { RecommendationAlgorithm } from './recommendation.algorithm';
 import { Attendance } from '../attendances/schema';
-import { WeightGroups } from './recommendations.initial-weights';
+import {getWeightGroups } from './recommendations.initial-weights';
 // import { UpdateAttendanceDto } from './dto/update-attendance.dto';
 
 @Injectable()
@@ -41,23 +41,51 @@ export class RecommendationsService {
   }
 
   async updateDocs(){
-    const weightGroupsArray = Object.keys(WeightGroups).map((key) => ({
-      key: key,
-      value: WeightGroups[key],
-    }))
+    
     try {
       // Find users without interests
+      const WeightGroups = getWeightGroups()
+      const weightGroupsArray = await Object.keys(WeightGroups).map((key) => ({
+        key: key,
+        value: WeightGroups[key]//.map((value) => {
+        //   if (!value.value)
+        //     value.value = 
+        // }),
+      }))
+      //console.log(weightGroupsArray)
+    //  const ActualWeights = Object.values(WeightGroups).reduce(
+    //    (accumulator, currentValue) => accumulator.concat(currentValue),
+    //    []
+       
+    //   );
+
+      //const ActualWeights2 = ActualWeights.map
+      //console.log(ActualWeights)
       const usersToUpdate = await this.userService.findAll()
+      //console.log(`User count is ${usersToUpdate.length}`)
 
       // Update each user document with the interests field
       for (const user of usersToUpdate) {
-        const randomIndex = Math.floor(Math.random() * weightGroupsArray.length);
-        const recommendationToSave = new this.recommendationModel({userID : user._id, weights : weightGroupsArray[randomIndex].value, rate : 0.001})
-        await recommendationToSave.save();
+        const randomIndex = Math.floor(Math.random() * 10);
+        //console.log(`index is : ${randomIndex}`)
+        const weights = await weightGroupsArray[randomIndex].value; // Get a random weight object
+        console.log(`weights are : ${weights}`)
+        //console.log('beforeDTO')
+        
+        const recommendationdto : CreateRecommendationDto= {
+          userID: user.ID,
+          weights: weights.map(weight => ({ parameter: weight.parameter, value: weight.value, rank : weight.rank })),
+          rate: 0.001,
+        }
+        console.log('AfterDTO')
+        const recommendationToSave = new this.recommendationModel(recommendationdto);
+      console.log(recommendationToSave)
+      await recommendationToSave.save();
       }
 
       return { success: true, message: 'Populated updated successfully.' };
     } catch (error) {
+      console.error('Error in updateDocs:', error);
       return { success: false, message: 'Failed to update users.' };
     }
   }
