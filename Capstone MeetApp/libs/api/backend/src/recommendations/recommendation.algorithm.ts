@@ -113,6 +113,8 @@ export class RecommendationAlgorithm {
     private getScores(){
         const totalFriendsCount = this.userFriends.length
         const totalEventsCount = this.userAttendances.length
+        console.log(`Total events count: ${totalEventsCount}`)
+        console.log(`Total friends count: ${totalFriendsCount}`)
         
 
         const eventsAndScores = this.otherEvents.map((otherEvent) => {
@@ -120,22 +122,36 @@ export class RecommendationAlgorithm {
             const clocation = otherEvent.event.location  as Record<string,number>
             const ParsedLocation = {lat : clocation['latitude'], lon : clocation['longitude']}
             if (totalEventsCount > 2 && totalEventsCount) {
-            score += this.dayLayer(otherEvent.event.date)*this.DayWeight
-            console.log('day layer completed')
-            score += this.rangeLayer(ParsedLocation)*this.LocationRangeWeight
-            console.log('range layer completed')
-            score += this.durationLayer(otherEvent.event.startTime, otherEvent.event.endTime)*this.DurationWeight
-            console.log('duration layer completed')
-            score += this.categoryLayer(otherEvent.event.category)*this.CategoryWeight
-            console.log('category layer completed')
-            score += this.regionLayer(otherEvent.event.region)*this.RegionWeight
-            console.log('region layer completed')
-            
-            score += this.organisationLayer(otherEvent.event.organisation)*this.OrganisationWeight
+                if (otherEvent.event.date){
+                    score += this.dayLayer(otherEvent.event.date)*this.DayWeight
+                    //console.log('day layer completed' + score)
+                }
+                if (ParsedLocation){
+                    score += this.rangeLayer(ParsedLocation)*this.LocationRangeWeight
+                    //console.log('range layer completed ' + score)
+                }
+                if (otherEvent.event.startTime && otherEvent.event.endTime){
+                    score += this.durationLayer(otherEvent.event.startTime, otherEvent.event.endTime)*this.DurationWeight
+                    //console.log('duration layer completed: ' + score)
+                }
+                if (otherEvent.event.category){
+                    score += this.categoryLayer(otherEvent.event.category)*this.CategoryWeight
+                    //console.log('category layer completed: ' + score)
+                }
+                if (otherEvent.event.region){
+                    score += this.regionLayer(otherEvent.event.region)*this.RegionWeight
+                    //console.log('region layer completed: ' + score)
+                }
+                if (otherEvent.event.organisation){
+                    score += this.organisationLayer(otherEvent.event.organisation)*this.OrganisationWeight
+                    //console.log('org layer completed: ' + score)
+                }
             }
-            console.log('org layer completed')
-            console.log(otherEvent.event)
-            score += this.interestLayer(otherEvent.event.category)*this.InterestWeight
+            if (otherEvent.event.category){
+                score += this.interestLayer(otherEvent.event.category)*this.InterestWeight
+                //console.log('interest layer completed: ' + score)
+            }
+            
             if (totalFriendsCount > 2 && totalFriendsCount)
                 score += this.influenceLayer(otherEvent.event._id.toString())*this.FriendsInfluenceWeight
 
@@ -205,6 +221,7 @@ export class RecommendationAlgorithm {
     }
 
     private regionLayer(EventRegion : string){
+        //console.log(this.TopRegionEvents)
         if (this.TopRegionEvents[0].region == EventRegion)
             return 1
         if (this.TopRegionEvents[1].region == EventRegion)
@@ -222,7 +239,7 @@ export class RecommendationAlgorithm {
                 runningTotal += 0.20
             if (this.user.interests?.includes(event.category))
                 runningTotal += 0.15
-            if (this.user.region?.includes(event.region))
+            if (this.user.region == event.region)
                 runningTotal += 0.20
             
             if (this.TopCategoryEvents[0].category == event.category)

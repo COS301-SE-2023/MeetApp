@@ -319,20 +319,22 @@ export class UsersService {
 
     const events = await this.eventModel.find();
 
-    const eventsWithAttending = events.map(async (event) => {
+    const eventsWithAttending = await Promise.all(events.map(async (event) => {
       const isAttending = await this.attendanceModel.exists({
         userID: userId,
         eventID: event._id,
       });
       const isAttendBool = isAttending ? true : false;
+      const eventObject = event.toObject({ transform: true, versionKey: false });
 
       return {
-        ...event.toObject(),
+        ...eventObject,
         attending: isAttendBool,
-      };
-    });
+    };
+    }));
+    
 
-    return Promise.all(eventsWithAttending);
+    return eventsWithAttending;
   }
 
   async getUserEvent(userId: string, eventId: string){

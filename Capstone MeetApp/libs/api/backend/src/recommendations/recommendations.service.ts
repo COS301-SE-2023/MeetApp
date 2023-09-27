@@ -69,7 +69,7 @@ export class RecommendationsService {
         const randomIndex = Math.floor(Math.random() * 10);
         //console.log(`index is : ${randomIndex}`)
         const weights = await weightGroupsArray[randomIndex].value; // Get a random weight object
-        console.log(`weights are : ${weights}`)
+        //console.log(`weights are : ${weights}`)
         //console.log('beforeDTO')
         
         const recommendationdto : CreateRecommendationDto= {
@@ -77,9 +77,9 @@ export class RecommendationsService {
           weights: weights.map(weight => ({ parameter: weight.parameter, value: weight.value, rank : weight.rank })),
           rate: 0.001,
         }
-        console.log('AfterDTO')
+        //console.log('AfterDTO')
         const recommendationToSave = new this.recommendationModel(recommendationdto);
-      console.log(recommendationToSave)
+      //console.log(recommendationToSave)
       await recommendationToSave.save();
       }
 
@@ -103,28 +103,35 @@ export class RecommendationsService {
 
       const topSupportedOrgs = await this.userService.getTopSupportedOrgs(userID)
       //this.userService.
-      const userAttendance = (await this.userService.getUserEvents(userID)).filter(obj => obj.attending)
+      const userAttendancePre = await this.userService.getUserEvents(userID)
+      const userAttendance = userAttendancePre.filter(cevent => {
+         return cevent.attending
+       })
       const userTopRegion = this.userService.recommendByRegion(userID)
       const userTopCategories = (await this.userService.recommendationCategory(userID))
       const otherEventsPlusAttendance = (await this.getEventAttendanceAll(userID)).map(obj => obj)
-      
+      //console.log(`Events attending: ${userAttendance}`)
       const userFriends = (await this.userService.getUserFriends(userID) )
+      //console.log(`Friends: ${userFriends}`)
       if (userAttendance.length > 2 && userFriends.length > 2) {
+        //console.log("Case1")
         const userFriendEvents = await this.userService.getFriendEvents(userID) as Event[]
         const recSystem = new RecommendationAlgorithm(userID,userFriends,userFriendEvents,user,recRate,recWeights,userAttendance,otherEventsPlusAttendance,userTopCategories,await userTopRegion,topSupportedOrgs)
         return recSystem.getRecommendations()
       }
       if (userAttendance.length <= 2 && userFriends.length > 2) {
+        //console.log("Case2")
         const defaultUser = await this.userService.generateDefaultUser()
         const userFriendEvents = await this.userService.getFriendEvents(userID) as Event[]
         const recSystem = new RecommendationAlgorithm(userID,userFriends,userFriendEvents,defaultUser,recRate,recWeights,[],otherEventsPlusAttendance,userTopCategories,await userTopRegion,[])
         return recSystem.getRecommendations()
       }
       if (userAttendance.length > 2 && userFriends.length <= 2) {
+        //console.log("Case3")
         const recSystem = new RecommendationAlgorithm(userID,[],[],user,recRate,recWeights,userAttendance,otherEventsPlusAttendance,userTopCategories,await userTopRegion,topSupportedOrgs)
         return recSystem.getRecommendations()
       }
-      
+      //console.log("Case4")
       const defaultUser = await this.userService.generateDefaultUser()
       const recSystem = new RecommendationAlgorithm(userID,[],[],defaultUser,recRate,recWeights,[],otherEventsPlusAttendance,userTopCategories,await userTopRegion,[])
       return recSystem.getRecommendations()
