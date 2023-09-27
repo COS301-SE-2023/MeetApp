@@ -30,7 +30,91 @@ describe('Service', () => {
   });
 
 
-  
+  it('should set and retrieve the token from local storage', () => {
+    const testToken = 'testToken'; // Replace with your test token value
+
+    myService.setToken(testToken);
+
+    const retrievedToken = myService.getToken();
+
+    expect(retrievedToken).toEqual(testToken);
+  });
+
+  it('should remove the token from local storage', () => {
+    const testToken = 'testToken'; // Replace with your test token value
+
+    myService.setToken(testToken);
+    myService.removeToken();
+
+    const retrievedToken = myService.getToken();
+
+    expect(retrievedToken).toBeNull();
+  });
+
+  it('should set and retrieve the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toEqual(testUsername);
+  });
+
+  it('should set and retrieve the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toEqual(testUsername);
+  });
+
+  it('should remove the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+    myService.removeUsername();
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toBeNull();
+  });
+
+  it('should remove the username from local storage', () => {
+    const testUsername = 'testUsername'; // Replace with your test username value
+
+    myService.setUsername(testUsername);
+    myService.removeUsername();
+
+    const retrievedUsername = myService.getUsername();
+
+    expect(retrievedUsername).toBeNull();
+  });
+
+  it('should create common headers with x-api-key', () => {
+    const commonHeaders = myService.getCommonHeaders();
+
+    expect(commonHeaders.has('x-api-key')).toBeTruthy();
+    expect(commonHeaders.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+  });
+
+  it('should create auth headers with x-api-key, Content-Type, and Authorization', () => {
+    // Create a simple mock for getToken
+    myService.getToken = () => 'testToken';
+
+    const authHeaders = myService.getAuthHeaders();
+
+    expect(authHeaders.has('x-api-key')).toBeTruthy();
+    expect(authHeaders.has('Content-Type')).toBeTruthy();
+    expect(authHeaders.has('Authorization')).toBeTruthy();
+
+    expect(authHeaders.get('x-api-key')).toEqual(environment.BACKEND_API_KEY);
+    expect(authHeaders.get('Content-Type')).toEqual('application/json');
+    expect(authHeaders.get('Authorization')).toContain('Bearer testToken');
+  });
+
   //TEST FOR EVENTS
   it('should get all events and call a callback when data is available', (done) => {
     const dummyEvents: events[] = [
@@ -202,6 +286,84 @@ describe('Service', () => {
 
     req.flush(expectedEvents);
   });
+
+  it('should get events by region with correct headers', () => {
+    const region = 'SampleRegion'; // Replace with your desired region
+
+    const dummyEvents = [
+      {
+        id: '1',
+        name: 'Event 1',
+        // Add more properties as needed
+      },
+      {
+        id: '2',
+        name: 'Event 2',
+        // Add more properties as needed
+      },
+    ]; // Replace with your dummy data
+
+    myService.getEventsByRegion(region).subscribe((events) => {
+      expect(events).toEqual(dummyEvents);
+    });
+
+    const expectedUrl = `${environment.BASE_URL}/events/daterange/api/events/region/${region}`; // Replace with your actual API endpoint URL
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+    //expect(req.request.headers.get('Authorization')).toContain('Bearer '); // Adjust this as per your implementation
+
+    req.flush(dummyEvents);
+  });
+
+  it('should get event attendance count with correct headers', () => {
+    const eventId = '1'; // Replace with the event ID you want to test
+
+    const dummyCount = 42; // Replace with the expected attendance count
+
+    myService.getEventAttendanceCount(eventId).subscribe((count) => {
+      expect(count).toEqual(dummyCount);
+    });
+
+    const expectedUrl = `${environment.BASE_URL}events/${eventId}/attendance-count`; // Replace with your actual API endpoint URL
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+    //expect(req.request.headers.get('Authorization')).toContain('Bearer '); // Adjust this as per your implementation
+
+    req.flush(dummyCount);
+  });
+
+  
+  it('should get event attendance with correct headers', () => {
+    const eventId = '1'; // Replace with the event ID you want to test
+
+    const dummyAttendance = [
+      {
+        userId: 'user1',
+        userName: 'User 1',
+        // Add more properties as needed
+      },
+      {
+        userId: 'user2',
+        userName: 'User 2',
+        // Add more properties as needed
+      },
+    ]; // Replace with your dummy data
+
+    myService.getEventAttendance(eventId).subscribe((attendance) => {
+      expect(attendance).toEqual(dummyAttendance);
+    });
+
+    const expectedUrl = `${environment.BASE_URL}events/${eventId}/attendance`; // Replace with your actual API endpoint URL
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+    //expect(req.request.headers.get('Authorization')).toContain('Bearer '); // Adjust this as per your implementation
+
+    req.flush(dummyAttendance);
+  });
+
 
   //TEST FOR USER
   it('should create a user with the correct headers and data', () => {
@@ -846,6 +1008,21 @@ describe('Service', () => {
     req.flush(fakeTopRegions);
   });
 
+  it('should get top regions with correct headers', () => {
+    const dummyRegions = ['Region1', 'Region2', 'Region3']; // Replace with your dummy data
+
+    myService.getTopRegions().subscribe((regions) => {
+      expect(regions).toEqual(dummyRegions);
+    });
+
+    const expectedUrl = environment.BASE_URL + 'organisations/events/top-region'; // Replace with your actual API endpoint URL
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+    expect(req.request.headers.get('Authorization')).toContain('Bearer '); // Adjust this as per your implementation
+
+    req.flush(dummyRegions);
+  });
   
   it('should get top 3 supporters events with the correct headers', () => {
     myService.getTop3SupportersEvents().subscribe((response) => {
