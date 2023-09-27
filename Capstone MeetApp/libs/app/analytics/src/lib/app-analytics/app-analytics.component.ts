@@ -182,7 +182,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
       if (ctx) {
         const labels = Object.keys(this.eventRegionCount);
         const data = Object.values(this.eventRegionCount);
-        console.log(this.eventRegionCount);
+       
 
 
         this.histogramChart = new Chart(ctx, {
@@ -296,7 +296,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Events().subscribe((response:any) => {
       this.top3_events=response;
-      console.log('Top_3 Events: ',this.top3_events);
+     
       this.createPieChart();
     });  
     
@@ -316,7 +316,9 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Categories().subscribe((response:any) => {
       this.top3_categories=response;
+<
       console.log('Top_3 Categories: ',response);
+
     });  
   }
 
@@ -334,7 +336,10 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3Regions().subscribe((response:any) => {
       this.top3_regions=response;
+<
       console.log('Top_3 region: ',response);
+
+    
     });  
   }
 
@@ -353,7 +358,9 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTop3SupportersEvents().subscribe((response:any) => {
       this.top3_supportersevents=response;
+
       console.log('Top_3 Supporters Events: ',response);
+
      
     });   
   }
@@ -363,7 +370,9 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getTopSupportersEvents().subscribe((response:any) => {
       this.top_supportersevents=response;
+
       console.log('Top Supporters Event: ',response);
+
     });  
   }
 
@@ -372,7 +381,9 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getTop3Supporters().subscribe((response:any) => {
       
       this.top3_supporters=response;
+
       console.log('Top_3 Supporters: ',response);
+
     });  
   }
 
@@ -381,7 +392,9 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     await this.apiService.getTopSupporters().subscribe((response:any) => {
       
       this.top_supporters=response;
+
       console.log('Top Supporters',response);
+
     });  
   }
 
@@ -389,7 +402,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getOrganisersEvents().subscribe((response:any) => {
       this.org_events=response;
-      console.log('Organisers Events: ',this.org_events);
+    
     });  
   }
   
@@ -397,7 +410,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getEventRegionCount().subscribe((response:any) => {
       this.eventRegionCount=response;
-      console.log('Event Region Count: ',this.eventRegionCount);
+    
       this.createHistogram();
     });  
   }
@@ -406,7 +419,9 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   {
     await this.apiService.getEventCategoryCount().subscribe((response:any) => {
       this.eventCategoryCount=response;
+
       console.log('Event Category Count: ',response);
+
     });  
   }
 
@@ -422,7 +437,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   getCurrentOrganiser(username:string|null){
     this.apiService.getOrgbyUsername(username).subscribe((response:any) => {
       this.organiser=response;
-      console.log('Name of the organisation',this.organiser.name);
+     
       this.OrganisationName=this.organiser.name;
     
     });
