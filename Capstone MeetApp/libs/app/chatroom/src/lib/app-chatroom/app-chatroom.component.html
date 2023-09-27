@@ -1,4 +1,10 @@
-<ion-header>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+  <ion-header>
     <ion-toolbar>
       <ion-title>
         Chat Room
@@ -17,12 +23,10 @@
         
         <div class="message-content">
           <div class="message-header">
-            <span class="user">{{ message.user }}</span>
-            <span class="timestamp">{{ message.timestamp | date: 'shortTime' }}</span>
+            <span class="user">{{ message.userid }}</span>
+            <!--<span class="timestamp">{{ message.createdTime }}</span>-->
           </div>
-          <div class="message-text" *ngIf="message.text">{{ message.text }}</div>
-
-          
+          <div class="message-text" *ngIf="message.message">{{ message.message }}</div>
           <img *ngIf="message.imageUrl" [src]="message.imageUrl" alt="Image" class="message-image-medium" >
 
           <video *ngIf="message.videoUrl" controls class="message-video">
@@ -33,6 +37,10 @@
       </div>
     </div>
   </ion-content>
+  <div #hiddenDiv>
+    <!-- Content of the hidden div goes here -->
+  </div>
+  
   <ion-footer class="custom-footer">
     <ion-input [(ngModel)]="newMessage"  style="color: black"     placeholder="Type your message..." class="flex-grow"></ion-input>
   
@@ -56,6 +64,4 @@
     <ion-button (click)="sendMessage()" class="send-button">Send</ion-button>
   </ion-footer>
   
-  
-  
-  
+
