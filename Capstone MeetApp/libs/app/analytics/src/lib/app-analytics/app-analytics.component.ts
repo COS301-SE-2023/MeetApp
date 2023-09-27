@@ -39,6 +39,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     category: '',
     region: ''
   }];
+  
 
   top3_events=[{event:{
     _id:'',
@@ -69,7 +70,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
     region: ''
   }
   
-  top3_categories=[];
+  top3_categories=[{category:''}];
   top_category='';
 
   top3_regions=[];
@@ -163,6 +164,10 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   this.getTop3Events();
   this.getEventRegionCount();
  }
+
+ ngOnInit() {
+  this.getTop3Categories();
+}
 
   ngAfterViewInit() {
     this.zone.run(() => {
