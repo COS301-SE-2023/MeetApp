@@ -35,8 +35,8 @@ export class RecommendationsController {
     return this.recommendationsService.remove(id);
   }
 
-  @Post()
-  async initialiseDocs(){
-    return this.recommendationsService.updateDocs()
-  }
+  // @Post()
+  // async initialiseDocs(){
+  //   return this.recommendationsService.updateDocs()
+  // }
 }
