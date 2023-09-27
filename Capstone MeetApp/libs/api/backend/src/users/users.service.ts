@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
-import { FilterQuery, Model, ObjectId } from 'mongoose';
+import mongoose, { FilterQuery, Model, ObjectId } from 'mongoose';
 import { Attendance } from '../attendances/schema';
 import { JwtService } from '@nestjs/jwt';
 import { Organisation } from '../organisations/schema';
@@ -653,5 +653,100 @@ export class UsersService {
       return { success: false, message: 'Failed to update users.' };
     }
   }*/
+
+  async getTopSupportedOrgs(userId: string) {
+    const events = (await this.getUserEvents(userId)).filter(obj => obj.attending);
+
+    if (!events) {
+      throw new NotFoundException('User events not found.');
+    }
+
+    const sortedEvents = await Promise.all(
+      events.map(async (event) => {
+        const attendanceCount = await this.attendanceModel.countDocuments({ userID: userId }).exec();
+        return { event, attendanceCount };
+      }),
+    );
+    sortedEvents.sort((a, b) => b.attendanceCount - a.attendanceCount);
+
+    const topOrganisations = sortedEvents.slice(0, 3).map((item) => item.event.organisation);
+
+    return topOrganisations
+  }
+
+  async generateDefaultUser() {
+    const interests = await this.userModel.aggregate([
+      {
+        $unwind: "$interests" 
+      },
+      {
+        $group: {
+          _id: "$interests", 
+          count: { $sum: 1 } 
+        }
+      },
+      {
+        $sort: { count: -1 } 
+      },
+      {
+        $limit: 3
+      }
+    ])
+
+    const ID = new mongoose.Schema.Types.ObjectId("")
+  
+
+    const region = await this.userModel.aggregate([
+      {
+        $group: {
+          _id: "$region", // Group by region
+          count: { $sum: 1 } // Count occurrences of each region
+        }
+      },
+      {
+        $sort: { count: -1 } // Sort by count in descending order
+      },
+      {
+        $limit: 1 // Limit the result to the top region
+      }
+    ])
+  
+    return {ID : ID, username : "", password : "", region : region[0], interests : interests, profilePicture : ''}
+
+  }
+
+  async TopRegionsAllUsers(){
+    return await this.userModel.aggregate([
+      {
+        $group: {
+          _id: "$region", // Group by region
+          count: { $sum: 1 } // Count occurrences of each region
+        }
+      },
+      {
+        $sort: { count: -1 } // Sort by count in descending order
+      },
+      {
+        $limit: 3 // Limit the result to the top region
+      }
+    ])
+  }
+
+  async TopCategoriesAllUsers(){
+    return await this.eventModel.aggregate([
+      {
+        $group: {
+          _id: "$category", // Group by region
+          count: { $sum: 1 } // Count occurrences of each region
+        }
+      },
+      {
+        $sort: { count: -1 } // Sort by count in descending order
+      },
+      {
+        $limit: 3 // Limit the result to the top region
+      }
+    ])
+  }
 
 }
