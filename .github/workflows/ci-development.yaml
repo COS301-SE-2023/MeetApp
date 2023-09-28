@@ -51,7 +51,7 @@ jobs:
         run: touch libs/services/src/lib/environment.ts | printf  ${{secrets.SERVICE_FILE}} > libs/services/src/lib/environment.ts
       - name: initialising firebase variables
         run: touch apps/meet-app/src/environment.ts | printf "export const environment={firebase:'${{secrets.FIREBASE}}'}" > apps/meet-app/src/environment.ts
-      - name: env file
+      - name: env files
         run: touch .env | printf "DB_CONNECTION_STRING_SEDI='${{secrets.DB_CONNECTION_STRING_SEDI}}'\nDB_NAME_SEDI='${{secrets.DB_NAME_SEDI}}'\nJWT_PRIVATE_KEY='${{secrets.JWT_PRIVATE_KEY}}'\nMEETAPP_API_KEY='${{secrets.MEETAPP_API_KEY}}'"> .env
       - run: npm run build
 
