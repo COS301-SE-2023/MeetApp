@@ -31,7 +31,7 @@ describe('Service', () => {
 
 
   it('should set and retrieve the token from local storage', () => {
-    const testToken = 'testToken'; // Replace with your test token value
+    const testToken = 'testToken';
 
     myService.setToken(testToken);
 
@@ -41,7 +41,7 @@ describe('Service', () => {
   });
 
   it('should remove the token from local storage', () => {
-    const testToken = 'testToken'; // Replace with your test token value
+    const testToken = 'testToken'; 
 
     myService.setToken(testToken);
     myService.removeToken();
@@ -52,7 +52,7 @@ describe('Service', () => {
   });
 
   it('should set and retrieve the username from local storage', () => {
-    const testUsername = 'testUsername'; // Replace with your test username value
+    const testUsername = 'testUsername'; 
 
     myService.setUsername(testUsername);
 
@@ -62,7 +62,7 @@ describe('Service', () => {
   });
 
   it('should set and retrieve the username from local storage', () => {
-    const testUsername = 'testUsername'; // Replace with your test username value
+    const testUsername = 'testUsername'; 
 
     myService.setUsername(testUsername);
 
@@ -101,7 +101,7 @@ describe('Service', () => {
   });
 
   it('should create auth headers with x-api-key, Content-Type, and Authorization', () => {
-    // Create a simple mock for getToken
+    
     myService.getToken = () => 'testToken';
 
     const authHeaders = myService.getAuthHeaders();
@@ -317,19 +317,19 @@ describe('Service', () => {
   });
 
   it('should get event attendance count with correct headers', () => {
-    const eventId = '1'; // Replace with the event ID you want to test
+    const eventId = '1'; 
 
-    const dummyCount = 42; // Replace with the expected attendance count
+    const dummyCount = 42; 
 
     myService.getEventAttendanceCount(eventId).subscribe((count) => {
       expect(count).toEqual(dummyCount);
     });
 
-    const expectedUrl = `${environment.BASE_URL}events/${eventId}/attendance-count`; // Replace with your actual API endpoint URL
+    const expectedUrl = `${environment.BASE_URL}events/${eventId}/attendance-count`; 
     const req = httpTestingController.expectOne(expectedUrl);
 
     expect(req.request.method).toEqual('GET');
-    //expect(req.request.headers.get('Authorization')).toContain('Bearer '); // Adjust this as per your implementation
+    
 
     req.flush(dummyCount);
   });
