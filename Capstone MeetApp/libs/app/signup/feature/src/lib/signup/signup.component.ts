@@ -34,7 +34,7 @@ export class SignupComponent {
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, public loadingController: LoadingController) {}
     selectedOptions: string[] = [];
   options: string[] = ['Concert', 'Sports', 'Conference', 'Charity','Expos','Trade Shows']; 
-
+  user='Not set';
   events:any =[];
   firstname="";
   username='';
@@ -163,7 +163,7 @@ export class SignupComponent {
   }
 
   onCreate() {
-    this.router.navigate(['/login']);
+    this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
   isvalid()
@@ -182,7 +182,9 @@ export class SignupComponent {
     this.router.navigate(['/home']);
   }
 
-
+  setUserType(userType: string): void {
+    this.router.navigate(['/login', { userType }]);
+  }
 }
 
 

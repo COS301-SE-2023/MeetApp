@@ -5,7 +5,7 @@
 <div class="spin" *ngIf="loader">
       
 </div>
-
+<ion-content>
 <div class="body" *ngIf="!loader">
     <div id="index" class="index-page" class="scroll-container" >
     <ion-header>
@@ -116,7 +116,7 @@
         </div>
         <ion-row>
           <ion-col>
-            <ion-button type="submit"  expand="block"   (click)="isvalid()" >Sign Up</ion-button>
+            <ion-button type="submit"  expand="block" color="dark"   (click)="isvalid()" >Sign Up</ion-button>
             <!--[disabled]="loginForm.invalid"-->
           </ion-col>
         </ion-row>
@@ -133,7 +133,5 @@
 </ion-content>
   </div>
 </div>
-    
- 
-  
+</ion-content>
   
