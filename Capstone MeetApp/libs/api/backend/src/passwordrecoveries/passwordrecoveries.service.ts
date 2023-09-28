@@ -7,10 +7,11 @@ import { createTransport} from 'nodemailer';
 import {hash} from 'bcrypt'
 import { User } from '../users/schema';
 import { Organisation } from '../organisations/schema';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class PasswordRecoveriesService {
-  constructor(@InjectModel(PasswordRecovery.name) private passwordRecoveryModel: Model<PasswordRecovery>, @InjectModel(User.name) private userModel: Model<User>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>){
+  constructor(@InjectModel(PasswordRecovery.name) private passwordRecoveryModel: Model<PasswordRecovery>, @InjectModel(User.name) private userModel: Model<User>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>, private jwtService : JwtService){
     
   }
   async create(createPRDto: CreatePasswordRecoveryDto) {
@@ -107,5 +108,23 @@ export class PasswordRecoveriesService {
   getUserSalt(usermail : string){
     return (this.getAsciiSum(usermail) * usermail.length) % 5
   }
+  getUserSaltReset(username : string, plainPass : string){
+    return (this.getAsciiSum(username) * plainPass.length) % 8
+  }
 
+  async passwordrest(usermail : string)
+  {
+  //createUserDto.password
+  const user = await this.userModel.findOne({emailAddress: usermail}).exec();
+  if (!user)
+    return {message : 'user not found', payload : 'null'}
+  const userSalt = this.getUserSaltReset(user.username, user.password)
+  const hashedPass = await hash(user.password, userSalt)
+  const userUpdated = await this.userModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
+  if (!userUpdated)
+    return {message : 'Password recovery failed', payload : 'null'}
+  const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
+  return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
+  }
+  
 }
