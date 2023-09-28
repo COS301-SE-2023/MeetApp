@@ -10,7 +10,7 @@ tmp
 /out-tsc
 json.txt
 yarn.txt
-
+*report.json
 # dependencies
 node_modules
 
