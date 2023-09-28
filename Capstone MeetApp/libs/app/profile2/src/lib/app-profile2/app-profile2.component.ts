@@ -32,8 +32,10 @@ export class AppProfile2Component {
   constructor(private router: Router,private serviceProvider: service,private activatedRoute: ActivatedRoute)
   {}
 
-  profile={_id:'',username:'',password:'',profilePicture:'',region:''};
-  eventCount=0;
+
+  profile={_id:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg', region:''};
+  eventCount='';
+ 
   friendCount=0;
 
   friends = [
@@ -57,7 +59,7 @@ export class AppProfile2Component {
   async ngOnInit(){
     this.activatedRoute.paramMap.subscribe(params => {
       this.username = params.get('username');
-      console.log(this.username);
+    
     });
 
     this.getFriendAccount(this.username);
@@ -68,7 +70,7 @@ export class AppProfile2Component {
   async getFriendAccount(username:string|null){
     await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{
       this.profile = response;
-      console.log(this.profile);
+    
       this.getFriendAttandance(this.profile._id);
       this.getFriendAttandanceCount(this.profile._id);
       this.getFriendAccountFriends(this.profile.username);

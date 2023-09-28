@@ -124,12 +124,12 @@ export class service{
 
     //FUNCTIONS  TO HANDLE HEADERS
 
-    private getCommonHeaders() {
+    getCommonHeaders() {
       return new HttpHeaders()
         .set('x-api-key', environment.BACKEND_API_KEY);
     }
 
-    private getAuthHeaders() {
+    getAuthHeaders() {
       const token = this.getToken();
         return this.getCommonHeaders()
           .set('Content-Type', 'application/json')

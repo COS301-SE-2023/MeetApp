@@ -116,13 +116,16 @@ export class ProfileComponent {
   async getCurrentUser()
   {
     await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
+      this.current_user=response;
+     
+      this.getProfile(this.current_user.username);
 
       const username=this.serviceProvider.getUsername();
-      console.log(username);
+     
       if(username==null)
       {
         this.current_user=response;
-        console.log('username:',this.current_user.username);
+       
         this.getProfile(this.current_user.username);
       }
       else
@@ -137,7 +140,7 @@ export class ProfileComponent {
   async getProfile(username :string|null){
     await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{ 
       this.profile = response;
-      console.log(this.profile);
+     
     });
   }
 
@@ -166,14 +169,16 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-    console.log('THE FUNCTION IS RUNNING');
+   
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
       this.serviceProvider.setUsername(this.newProfileName);
       this.convertImageToBase64(this.profilePictureUrl);
+      this.updateProfile(this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
+    
       this.updateProfile(this.profile.emailAddress,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region,this.profile.interests);
-      console.log(this. profilePictureUrl);
+    
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
       this.serviceProvider.setUsername(this.newProfileName);
@@ -181,8 +186,10 @@ export class ProfileComponent {
     }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;
       this.convertImageToBase64(this.profilePictureUrl);
+      this.updateProfile(this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
+    
       this.updateProfile(this.profile.emailAddress,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region,this.profile.interests);
-      console.log(this. profilePictureUrl);
+    
     }
 
     
