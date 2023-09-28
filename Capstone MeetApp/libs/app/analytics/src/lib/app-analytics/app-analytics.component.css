@@ -1,0 +1,9 @@
+.chart-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.chart-card {
+  width: 300px; 
+}

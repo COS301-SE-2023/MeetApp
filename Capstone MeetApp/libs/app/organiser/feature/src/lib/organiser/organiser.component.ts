@@ -115,47 +115,9 @@ export class OrganiserComponent  {
   goBack() {
     this.llocation.back();
   }
-
-  submitForm() {
-    if (this.eventName !== null && this.OrganisationName !== null && this.description !== null &&
-       this.profilePictureUrl !== null && this.selectedRange.startDate !== null
-        && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&
-         this.location !== null && this.category !== null && this.selectedRegion !== null) {
-  
-      this.service.createEvents(
-        this.eventName,
-        this.OrganisationName,
-        this.description,
-        this.profilePictureUrl,
-        this.selectedRange.startDate,
-        this.selectedRange.startTime,
-        this.selectedRange.endTime,
-        this.location,
-        this.category,
-        this.selectedRegion
-        
-      ).subscribe((response) => {
-        console.log('API response:', response);
-     
-      });
-    }
-    console.log('Description:', this.description);
-        console.log('Selected Region:', this.selectedRegion);
-        console.log('EventName:', this.eventName);
-        console.log('Organiser:', this.OrganisationName);
-        console.log('startDate',this.selectedRange.startDate)
-        console.log('endTime',this.selectedRange.endTime)
-        console.log('startTime',this.selectedRange.startTime)
-  
-        console.log('latitude',this.location.latitude)
-        console.log('longitude',this.location.longitude)
-        console.log('category',this.category);
-        console.log('profileurl',this.profilePictureUrl)
-    
-  }
   
 
-   /*
+  
   submitForm() {
     if (
       this.eventName !== null &&
@@ -165,7 +127,7 @@ export class OrganiserComponent  {
       this.selectedRange.startDate !== null &&
       this.selectedRange.startTime !== null &&
       this.selectedRange.endTime !== null &&
-      //this.address_location !== null &&
+      this.address !== null &&
       this.category !== null &&
       this.selectedRegion !== null
     ) {
@@ -181,8 +143,15 @@ export class OrganiserComponent  {
           this.callCreateEvents();
         } else {
           console.error('Geocoding failed. Status:', data.status);
+          const errorMessage = 'Invalid Address';
+          this.showErrorAlert(errorMessage); 
+         
         }
       });
+    }
+    else
+    {
+      this.showErrorAlertF();
     }
   }
  
@@ -208,10 +177,13 @@ export class OrganiserComponent  {
         )
         .subscribe((response) => {
           console.log('API response:', response);
+          const errorMessage = 'Event created successfully';
+          this.showErrorAlertCreation(errorMessage);
         });
     }
+   
   }
-  */
+ 
 
   changeProfilePicture() {
     const input = document.createElement('input');
@@ -240,10 +212,9 @@ export class OrganiserComponent  {
   
     saveProfilePicture(profilePictureUrl: string) {
       this.profilePictureUrl=profilePictureUrl;
-      console.log('Profile picture URL:', profilePictureUrl);
-      console.log("before conversion"+this. profilePictureUrl)
+    
      this.convertImageToBase64(this. profilePictureUrl);
-      console.log(this. profilePictureUrl)
+     
     }
     async  convertImageToBase64(imageUrl: string): Promise<string> {
       try {
@@ -340,10 +311,40 @@ geocode() {
   getCurrentOrganiser(username:string|null){
     this.service.getOrgbyUsername(username).subscribe((response:any) => {
       this.organiser=response;
-      console.log('Name of the organisation',this.organiser.name);
+    
       this.OrganisationName=this.organiser.name;
     
     });
+  }
+
+  async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Event not created',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async showErrorAlertCreation(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Event Created',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async showErrorAlertF() {
+    const alert = await this.alertController.create({
+      header: 'Incomplete Fields',
+      message: 'Please fill in all fields.',
+      buttons: ['OK'],
+
+    });
+    await alert.present();
   }
 
 }
