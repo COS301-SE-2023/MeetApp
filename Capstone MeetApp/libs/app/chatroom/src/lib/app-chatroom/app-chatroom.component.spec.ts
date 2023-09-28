@@ -9,7 +9,6 @@ import {AngularFirestoreCollection,AngularFirestore, AngularFirestoreModule} fro
 import { message } from "./messages.model";
 import { Observable , map,of,catchError} from 'rxjs';
 import { DocumentSnapshot } from '@angular/fire/compat/firestore/interfaces';
-import { environment } from "./environment";
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 describe('AppChatroomComponent', () => {
   let component: AppChatroomComponent;

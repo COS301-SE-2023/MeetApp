@@ -7,9 +7,10 @@ import {AngularFirestoreCollection,AngularFirestore} from '@angular/fire/compat/
 import { message } from "./messages.model";
 import { Observable , map,of,catchError} from 'rxjs';
 import { DocumentSnapshot } from '@angular/fire/compat/firestore/interfaces';
-import { environment } from "./environment";
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-
+import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { user,service} from '@capstone-meet-app/services';
 
 @Component({
   selector: 'capstone-meet-app-app-chatroom',
@@ -27,20 +28,46 @@ export class AppChatroomComponent {
   messages:message[]=[];
   messages2:message[]=[];
   ref='createdTime';
+
   //
   //messages: any[] = [];
+  p='';
   newMessage = '';
   selectedImage: File | null = null;
   selectedImageURL: string | null = null;
   selectedVideo: File | null = null;
   selectedVideoURL: string | null = null;
 
-  constructor(private firestore: AngularFirestore,private storage:AngularFireStorage) {
+  //eventid
+  eventID='';
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    profilePicture:'',
+    exp:0,
+    iat: 0
+ }
+ profile:user={emailAddress:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region:'',interests: []};
+  constructor(private firestore: AngularFirestore,private serviceProvider: service,private storage:AngularFireStorage,private router: Router,private route: ActivatedRoute) {
     // Initialize the reference to the "eventChat" collection
     this.eventChatCollection = firestore.collection<message>('eventChat',(msg)=>msg.orderBy(this.ref));
     //this.loadMessages();
-    this.getMessages('eventChatId-Test-app');
+    this.getCurrentUser();
+    this.p='https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg';
+  
+    
     //this.sendMessageFuncton('Engineering building','12345user','4gy4hiridgdfgurg43');
+  }
+ 
+  async ngOnInit() {
+    this.route.params.subscribe(params => {
+      const eventId = params['eventId'];
+      this.eventID=eventId
+    });
+
+    console.log('profile',this.current_user.profilePicture);
+    this.getMessages(this.eventID);
   }
 
   loadMessages() {
@@ -80,19 +107,36 @@ export class AppChatroomComponent {
       });
   }
 
-  sendMessageFuncton(text: string, senderUid: string,eventChatId:string) {
-    const messageData = {
-      message: text,
-      userid: senderUid,
-      eventid:eventChatId,
-      createdTime: new Date()
-    };
-  
-    // Add a new document to the "messages" collection
-    this.firestore.collection('eventChat').doc(eventChatId)
-    .collection('messages').add(messageData);
-  }
+  async getCurrentUser()
+  {
+    await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
+      this.current_user=response;
+     
+      this.getProfile(this.current_user.username);
 
+      const username=this.serviceProvider.getUsername();
+     
+      if(username==null)
+      {
+        this.current_user=response;
+       
+        this.getProfile(this.current_user.username);
+      }
+      else
+      {
+        this.getProfile(username);
+      }
+      
+    });
+    
+
+  }
+  async getProfile(username :string|null){
+    await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{ 
+      this.profile = response;
+      console.log('profile',this.profile);
+    });
+  }
   openVideoPicker() {
     const videoInput = document.getElementById('videoInput');
     if (videoInput) {
@@ -131,13 +175,15 @@ export class AppChatroomComponent {
     // Send the new message to the server
     if (this.newMessage.trim() !== '') {
       const messageData = {
+       
         message: this.newMessage,
-        userid: 'senderUid',
-        eventid:'eventChatId-Test-app',
+        profilePicture:this.profile.profilePicture ?? '',
+        userid: this.current_user.username,
+        eventid:this.eventID,
         createdTime: new Date()
       };
       
-      this.firestore.collection('eventChat').doc('eventChatId-Test-app')
+      this.firestore.collection('eventChat').doc(this.eventID)
     .collection('messages').add(messageData);
        // Display the message immediately
      
@@ -145,12 +191,14 @@ export class AppChatroomComponent {
     }
     if (this.selectedImage) {
       const imageMessage = {
+        
         imageUrl: this.selectedImageURL,
-        userid:'senderid',
-        eventid:'eventChatId-Test-app',
+        profilePicture:this.profile.profilePicture ?? '',
+        userid:this.current_user.username,
+        eventid:this.eventID,
         createdTime: new Date(),
       };
-      this.firestore.collection('eventChat').doc('eventChatId-Test-app')
+      this.firestore.collection('eventChat').doc(this.eventID)
     .collection('messages').add(imageMessage);
 
       // Reset the selected image and its preview
@@ -184,6 +232,7 @@ export class AppChatroomComponent {
       console.log('File uploaded');
     });
   }
+  
   
   scrollToHiddenDiv() {
     const divElement = this.hiddenDiv?.nativeElement  as HTMLDivElement ;

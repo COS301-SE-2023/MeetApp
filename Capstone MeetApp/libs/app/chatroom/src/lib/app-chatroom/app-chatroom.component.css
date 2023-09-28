@@ -113,11 +113,6 @@ ion-icon {
   font-size: 1.2rem; /* Adjust the icon size */
 }
 
-.flex-grow{
-
-  margin-bottom: 60px;
-  width: 60%;
-}
 
 /* Optionally, adjust the input field size */
 .custom-footer ion-input {
@@ -148,4 +143,22 @@ ion-icon {
 .selected-video {
   width: 100px;
   height: auto;
+}
+.fa-file-video{
+  font-size: 30px; 
+  color: grey;
+  margin-right: 20px; 
+ 
+}
+.fa-paper-plane{
+  font-size: 30px; 
+  color: grey;
+  margin-right: 20px; 
+ 
+}
+.fa-file-image{
+  font-size: 30px; 
+  color: grey;
+  margin-right: 20px; 
+ 
 }
