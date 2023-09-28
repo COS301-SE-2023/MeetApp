@@ -35,7 +35,7 @@ jobs:
       - name: maps api environment
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API_KEY}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
-        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}',GOOGLE_APIKEY:'${{secrets.GOOGLE_APIKEY}}',GOOGLE_URL:'${{secrets.GOOGLE_URL}}'};" > libs/services/src/lib/environment.ts
+        run: touch libs/services/src/lib/environment.ts | printf   ${{secrets.SERVICE_FILE}} > libs/services/src/lib/environment.ts
       - name: initialising firebase variables
         run: touch apps/meet-app/src/environment.ts | printf "export const environment={firebase:${{secrets.FIREBASE}}}" > apps/meet-app/src/environment.ts
       - run: npm run build:app:development
