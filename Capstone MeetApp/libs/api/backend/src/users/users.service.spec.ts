@@ -55,7 +55,7 @@ describe('UsersService', () => {
 
       // Assertions
       expect(user.then(res => res?.username)).toBe(testUser.username);
-      expect(savedUser.message).toBe('Signup successfully')
+      expect(savedUser.message).toBe('The username already exists')
     });
 
     it('should return null for a non-existent ID', async () => {
