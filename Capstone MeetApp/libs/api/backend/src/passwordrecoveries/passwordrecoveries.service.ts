@@ -7,10 +7,11 @@ import { createTransport} from 'nodemailer';
 import {hash} from 'bcrypt'
 import { User } from '../users/schema';
 import { Organisation } from '../organisations/schema';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class PasswordRecoveriesService {
-  constructor(@InjectModel(PasswordRecovery.name) private passwordRecoveryModel: Model<PasswordRecovery>, @InjectModel(User.name) private userModel: Model<User>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>){
+  constructor(@InjectModel(PasswordRecovery.name) private passwordRecoveryModel: Model<PasswordRecovery>, @InjectModel(User.name) private userModel: Model<User>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>, private jwtService : JwtService){
     
   }
   async create(createPRDto: CreatePasswordRecoveryDto) {
@@ -107,5 +108,44 @@ export class PasswordRecoveriesService {
   getUserSalt(usermail : string){
     return (this.getAsciiSum(usermail) * usermail.length) % 5
   }
+  getUserSaltReset(username : string, plainPass : string){
+    return (this.getAsciiSum(username) * plainPass.length) % 8
+  }
 
+  async passwordrest(usermail : string, newPassword : string)
+  {
+  //createUserDto.password
+  //const user = await this.userModel.findOne({emailAddress: usermail}).exec();
+  const userExists = await this.userModel.find({emailAddress : usermail})
+  const orgExists = await this.orgModel.find({emailAddress : usermail})
+    if (!userExists && !orgExists)
+      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+  if (!orgExists){
+    const user = await this.userModel.findOne({emailAddress: usermail}).exec();
+    if (!user)
+      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+    const userSalt = this.getUserSaltReset(user.username, newPassword)
+    const hashedPass = await hash(newPassword, userSalt)
+    const userUpdated = await this.userModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
+    if (!userUpdated)
+      return {message : 'Password recovery failed', payload : 'null'}
+    const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
+  }
+
+  else
+  {
+    const user = await this.orgModel.findOne({emailAddress: usermail}).exec();
+    if (!user)
+      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+    const userSalt = this.getUserSaltReset(user.username, newPassword)
+    const hashedPass = await hash(newPassword, userSalt)
+    const userUpdated = await this.orgModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
+    if (!userUpdated)
+      return {message : 'Password recovery failed', payload : 'null'}
+    const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
+  }
+}
+  
 }
