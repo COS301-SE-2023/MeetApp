@@ -110,7 +110,7 @@ export class service{
 
     private readonly USERNAME = 'username';
 
-    /*
+    
     getCoordinates(address: string): Observable<any> {
       const googlebaseUrl = environment.GOOGLE_URL;
   
@@ -120,16 +120,16 @@ export class service{
   
       return this.http.get(googlebaseUrl, { params });
     }  
-    */
+    
 
     //FUNCTIONS  TO HANDLE HEADERS
 
-    private getCommonHeaders() {
+    getCommonHeaders() {
       return new HttpHeaders()
         .set('x-api-key', environment.BACKEND_API_KEY);
     }
 
-    private getAuthHeaders() {
+    getAuthHeaders() {
       const token = this.getToken();
         return this.getCommonHeaders()
           .set('Content-Type', 'application/json')
@@ -579,6 +579,12 @@ export class service{
     getAttandanceCountByID(id:string)
     {
       const url = `${this.baseURl}users/${id}/attendances/count`;
+      return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
+    }
+
+    getRecomendations(username:string|null)
+    {
+      const url = `${this.baseURl}recommendations/${username}`;
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
 }

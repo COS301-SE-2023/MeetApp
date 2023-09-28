@@ -48,7 +48,7 @@ jobs:
       - name: maps api environment
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API_KEY}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
-        run:  touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
+        run: touch libs/services/src/lib/environment.ts | printf "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}',GOOGLE_APIKEY:'${{secrets.GOOGLE_APIKEY}}',GOOGLE_URL:'${{secrets.GOOGLE_URL}}'};" > libs/services/src/lib/environment.ts
       - name: initialising firebase variables
         run: printf "export const environment={firebase:{apiKey:'${{secrets.FB_APIKEY}}',authDomain:'${{secrets.FB_AUTHDOMAIN}}',projectId:'${{secrets.FB_PROJECTID}}',storageBucket:'${{secrets.FB_STORAGEBUCKET}}',messagingSenderId:'${{secrets.FB_MESSAGINGSENDERID}}',appId:'${{secrets.FB_APPID}}',measurementId:'${{secrets.FB_MEASUREMENTID}}'}};" > apps/meet-app/src/environment.ts
       - name: env files
@@ -69,7 +69,7 @@ jobs:
       - name: maps api environment
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
-        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
+        run: touch libs/services/src/lib/environment.ts | printf "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}',GOOGLE_APIKEY:'${{secrets.GOOGLE_APIKEY}}',GOOGLE_URL:'${{secrets.GOOGLE_URL}}'};" > libs/services/src/lib/environment.ts
       - name: initialising firebase variables
         run: printf "export const environment={firebase:{apiKey:'${{secrets.FB_APIKEY}}',authDomain:'${{secrets.FB_AUTHDOMAIN}}',projectId:'${{secrets.FB_PROJECTID}}',storageBucket:'${{secrets.FB_STORAGEBUCKET}}',messagingSenderId:'${{secrets.FB_MESSAGINGSENDERID}}',appId:'${{secrets.FB_APPID}}',measurementId:'${{secrets.FB_MEASUREMENTID}}'}};" > apps/meet-app/src/environment.ts
       - run: npm run test
@@ -109,7 +109,7 @@ jobs:
       - name: maps api environment
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
-        run:  touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
+        run: touch libs/services/src/lib/environment.ts | printf "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}',GOOGLE_APIKEY:'${{secrets.GOOGLE_APIKEY}}',GOOGLE_URL:'${{secrets.GOOGLE_URL}}'};" > libs/services/src/lib/environment.ts
       - name: initialising firebase variables
         run:  printf "export const environment={firebase:{apiKey:'${{secrets.FB_APIKEY}}',authDomain:'${{secrets.FB_AUTHDOMAIN}}',projectId:'${{secrets.FB_PROJECTID}}',storageBucket:'${{secrets.FB_STORAGEBUCKET}}',messagingSenderId:'${{secrets.FB_MESSAGINGSENDERID}}',appId:'${{secrets.FB_APPID}}',measurementId:'${{secrets.FB_MEASUREMENTID}}'}};" > apps/meet-app/src/environment.ts
       - run: npm run e2e
