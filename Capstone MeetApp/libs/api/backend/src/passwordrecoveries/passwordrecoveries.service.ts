@@ -112,19 +112,19 @@ export class PasswordRecoveriesService {
     return (this.getAsciiSum(username) * plainPass.length) % 8
   }
 
-  async passwordrest(usermail : string)
+  async passwordrest(usermail : string, newPassword : string)
   {
   //createUserDto.password
   const user = await this.userModel.findOne({emailAddress: usermail}).exec();
   if (!user)
     return {message : 'user not found', payload : 'null'}
-  const userSalt = this.getUserSaltReset(user.username, user.password)
-  const hashedPass = await hash(user.password, userSalt)
+  const userSalt = this.getUserSaltReset(user.username, newPassword)
+  const hashedPass = await hash(newPassword, userSalt)
   const userUpdated = await this.userModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
   if (!userUpdated)
     return {message : 'Password recovery failed', payload : 'null'}
   const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
-  return {access_token: await this.jwtService.signAsync(payload),message : 'Signup successful'}
+  return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
   }
   
 }

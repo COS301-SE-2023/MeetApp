@@ -54,7 +54,7 @@ export class PasswordRecoveriesController {
   }
 
   @Patch('recover')
-  async recoverPassword(@Body('email') email: string){
-    return await this.passwordRecoveryService.passwordrest(email)
+  async recoverPassword(@Body('email') email: string, @Body('password') password: string){
+    return await this.passwordRecoveryService.passwordrest(email, password)
   }
 }
