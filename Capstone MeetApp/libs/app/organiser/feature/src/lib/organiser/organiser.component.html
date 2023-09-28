@@ -33,12 +33,7 @@
         <ion-label position="floating">Event Name</ion-label>
         <ion-input  [(ngModel)]="eventName" type="text" name="eventName" required></ion-input>
       </ion-item>
-       
-      <ion-item lines="full">
-        <ion-label position="floating">Organisation Name</ion-label>
-        <ion-input [(ngModel)]="OrganisationName" type="text" name="organisationName"required></ion-input>
-      </ion-item>
-
+    
       <ion-item lines="full">
         <ion-label position="floating">Event Date</ion-label>
         <ion-input [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" required></ion-input>
@@ -68,15 +63,6 @@
         <ion-label position="floating">Address</ion-label>
         <ion-input [(ngModel)]="address" type="text" placeholder="street address, city, country" name="address" required></ion-input>
       </ion-item >
-      <ion-item lines="full">
-        <ion-label position="floating">Latitude</ion-label>
-        <ion-input [(ngModel)]="location.latitude" type="text"  name="location.latitude" required></ion-input>
-      </ion-item>
-      <ion-item lines="full">
-        <ion-label position="floating">Longitude</ion-label>
-        <ion-input [(ngModel)]="location.longitude" type="text" name="location.longitude" required></ion-input>
-      </ion-item>
-
       <ion-item lines="full">
         <ion-label position="floating">category</ion-label>
         <ion-input [(ngModel)]="category" type="text" name="category" required></ion-input>
