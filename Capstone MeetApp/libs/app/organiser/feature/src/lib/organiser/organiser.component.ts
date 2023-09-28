@@ -139,18 +139,7 @@ export class OrganiserComponent  {
      
       });
     }
-    console.log('Description:', this.description);
-        console.log('Selected Region:', this.selectedRegion);
-        console.log('EventName:', this.eventName);
-        console.log('Organiser:', this.OrganisationName);
-        console.log('startDate',this.selectedRange.startDate)
-        console.log('endTime',this.selectedRange.endTime)
-        console.log('startTime',this.selectedRange.startTime)
-  
-        console.log('latitude',this.location.latitude)
-        console.log('longitude',this.location.longitude)
-        console.log('category',this.category);
-        console.log('profileurl',this.profilePictureUrl)
+   
     
   }
   
@@ -240,10 +229,9 @@ export class OrganiserComponent  {
   
     saveProfilePicture(profilePictureUrl: string) {
       this.profilePictureUrl=profilePictureUrl;
-      console.log('Profile picture URL:', profilePictureUrl);
-      console.log("before conversion"+this. profilePictureUrl)
+    
      this.convertImageToBase64(this. profilePictureUrl);
-      console.log(this. profilePictureUrl)
+     
     }
     async  convertImageToBase64(imageUrl: string): Promise<string> {
       try {
@@ -340,7 +328,7 @@ geocode() {
   getCurrentOrganiser(username:string|null){
     this.service.getOrgbyUsername(username).subscribe((response:any) => {
       this.organiser=response;
-      console.log('Name of the organisation',this.organiser.name);
+    
       this.OrganisationName=this.organiser.name;
     
     });

@@ -85,7 +85,7 @@ export class AppSuggestedFriendsComponent {
   {
     await this.apiService.getLogedInUser().subscribe((response:any) => {
       this.current_user=response;
-      console.log('username:',this.current_user.username);
+    
       this.getMutualFriends(this.current_user.username);
     });
 
