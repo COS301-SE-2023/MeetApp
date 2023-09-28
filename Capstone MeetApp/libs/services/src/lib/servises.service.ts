@@ -483,4 +483,18 @@ export class service{
 
       return this.http.get(`${url}`,{ headers: this.getCommonHeaders(), params });
     }
+
+    changePassword(email:string,password:string)
+    {
+      const url = `${this.baseURl}passwordrecoveries/recover`;
+
+        const body = {
+          email: email,
+          password : password
+        };
+
+
+        return this.http.patch(`${url}`, body,{ headers  : this.getCommonHeaders() });
+    }
+
 }

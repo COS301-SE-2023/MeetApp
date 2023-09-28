@@ -66,15 +66,25 @@ export class AppForgotpasswordComponent {
 
   }
   
-  async verifyLink(email:string)
+  verifyLink(email:string)
     {
-      await this.apiService.verifyPasswordRequest(this.token,email).subscribe((response: any) => { 
+      this.apiService.verifyPasswordRequest(this.token,email).subscribe((response: any) => { 
         console.log(email);
+        console.log(this.password);
         console.log(response);
         this.forgot_payload==response;
+        
+      });
+    }
+
+    change(email:string,password:string)
+    {
+      this.apiService.changePassword(email,password).subscribe((response: any) => { 
+        console.log(response); 
       });
     }
 
  
+
 
 }
