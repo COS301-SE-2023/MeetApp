@@ -115,36 +115,9 @@ export class OrganiserComponent  {
   goBack() {
     this.llocation.back();
   }
-
-  submitForm() {
-    if (this.eventName !== null && this.OrganisationName !== null && this.description !== null &&
-       this.profilePictureUrl !== null && this.selectedRange.startDate !== null
-        && this.selectedRange.startTime !== null && this.selectedRange.endTime !== null &&
-         this.location !== null && this.category !== null && this.selectedRegion !== null) {
-  
-      this.service.createEvents(
-        this.eventName,
-        this.OrganisationName,
-        this.description,
-        this.profilePictureUrl,
-        this.selectedRange.startDate,
-        this.selectedRange.startTime,
-        this.selectedRange.endTime,
-        this.location,
-        this.category,
-        this.selectedRegion
-        
-      ).subscribe((response) => {
-        console.log('API response:', response);
-     
-      });
-    }
-   
-    
-  }
   
 
-   /*
+  
   submitForm() {
     if (
       this.eventName !== null &&
@@ -154,7 +127,7 @@ export class OrganiserComponent  {
       this.selectedRange.startDate !== null &&
       this.selectedRange.startTime !== null &&
       this.selectedRange.endTime !== null &&
-      //this.address_location !== null &&
+      this.address !== null &&
       this.category !== null &&
       this.selectedRegion !== null
     ) {
@@ -170,8 +143,15 @@ export class OrganiserComponent  {
           this.callCreateEvents();
         } else {
           console.error('Geocoding failed. Status:', data.status);
+          const errorMessage = 'Invalid Address';
+          this.showErrorAlert(errorMessage); 
+         
         }
       });
+    }
+    else
+    {
+      this.showErrorAlertF();
     }
   }
  
@@ -197,10 +177,13 @@ export class OrganiserComponent  {
         )
         .subscribe((response) => {
           console.log('API response:', response);
+          const errorMessage = 'Event created successfully';
+          this.showErrorAlertCreation(errorMessage);
         });
     }
+   
   }
-  */
+ 
 
   changeProfilePicture() {
     const input = document.createElement('input');
@@ -332,6 +315,36 @@ geocode() {
       this.OrganisationName=this.organiser.name;
     
     });
+  }
+
+  async showErrorAlert(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Event not created',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async showErrorAlertCreation(message: string) {
+    const alert = await this.alertController.create({
+      header: 'Event Created',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
+  async showErrorAlertF() {
+    const alert = await this.alertController.create({
+      header: 'Incomplete Fields',
+      message: 'Please fill in all fields.',
+      buttons: ['OK'],
+
+    });
+    await alert.present();
   }
 
 }

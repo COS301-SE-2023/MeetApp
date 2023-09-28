@@ -48,7 +48,29 @@ export class HomepageComponent {
     
   }];
 
+  recommend= [{
+    _id:'',
+    name:'',
+    organisation: '',
+    description:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    eventDate: '',
+    location: {latitude:0 , longitude:0},
+    category:'',
+    region:'',
+    eventPoster:''
+    
+  }];
  
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
 
   attendanceData: { [_id: string]: number } = {};
 
@@ -87,6 +109,7 @@ export class HomepageComponent {
       for (let i = 0; i < this.data.length; i++) {
         this.getAttendance(this.data[i]._id);
       }
+      this.getCurrentUser();
       setTimeout(()=>{                           
         this.loader = false;
     }, 200);
@@ -152,4 +175,33 @@ export class HomepageComponent {
     this.router.navigateByUrl('/notifications');
   }
   
+  async getCurrentUser()
+  {
+    await this.service.getLogedInUser().subscribe((response:any) => {
+      
+      const username=this.service.getUsername();
+     
+      console.log(username);
+
+      if(username==null)
+      {
+        this.current_user=response;
+       
+        this.getProfile(this.current_user.username);
+      }
+      else
+      {
+        this.getProfile(username);
+      }
+      
+    });
+
+  }
+
+  async getProfile(username :string|null){
+    await this.service.getRecomendations(username).subscribe((response:any)=>{ 
+      this.recommend = response;
+      console.log(response);
+    });
+  }
 }

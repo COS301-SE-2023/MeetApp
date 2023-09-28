@@ -96,6 +96,15 @@ export class EventsService {
     return eventAttendanceCount;
   }
 
+  async getEventAttendanceAll() {
+    const eventAll = await this.eventModel.find({}).exec()
+    const AttendancePlusCount = eventAll.map(async cevent => {
+      const eventAttendanceCount = await this.attendanceModel.countDocuments({ eventID: cevent._id }); 
+      return {event : cevent, attendees : eventAttendanceCount }
+    })
+    return AttendancePlusCount;
+  }
+
   async getAttendingUsers(eventId: string){
     const attendance = await this.attendanceModel.find({ eventID: eventId }).exec();
     const attendingUserIds = attendance.map((a) => a.userID);

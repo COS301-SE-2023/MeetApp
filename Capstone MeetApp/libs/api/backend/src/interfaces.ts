@@ -194,3 +194,9 @@ export class AcceptFriendResponse{
   @ApiProperty({description: 'If changes were made to the friendship object', example: 'true'})
   readonly changes! : boolean
 }
+
+export class Weight {
+  parameter! : string
+  value! : number
+  rank! : number
+}
