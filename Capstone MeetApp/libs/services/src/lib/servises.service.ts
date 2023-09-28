@@ -581,4 +581,10 @@ export class service{
       const url = `${this.baseURl}users/${id}/attendances/count`;
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
+
+    getRecomendations(username:string|null)
+    {
+      const url = `${this.baseURl}recommendations/${username}`;
+      return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
+    }
 }
