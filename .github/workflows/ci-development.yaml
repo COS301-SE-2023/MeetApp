@@ -111,7 +111,7 @@ jobs:
       - name: backend setup
         run:  touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
       - name: initialising firebase variables
-        run: touch apps/meet-app/src/environment.ts | printf "export const environment={firebase:'${{secrets.FIREBASE}}'}" > apps/meet-app/src/environment.ts
+        run:  printf "export const environment={firebase:${{secrets.FIREBASE}}}" > apps/meet-app/src/environment.ts
       - run: npm run e2e
  
 
