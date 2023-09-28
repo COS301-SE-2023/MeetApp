@@ -93,19 +93,7 @@ export class SignupComponent {
   loader=true;
   ngOnInit() {
     
-    this.apiService.getAllUsers().subscribe((response: any) => { 
-      this.data_user = response;
-      for (let i = 0; i < this.data_user.length; i++) {
-        this.username_user[i]=this.data_user[i].username;
-      }
-    });
-  
-    this.apiService.getAllOrganisers().subscribe((response: any) => { 
-      this.data_organiser = response;
-      for (let i = 0; i < this.data_organiser.length; i++) {
-        this.username_org[i]=this.data_organiser[i].username;
-      }
-    }); 
+    
     
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
@@ -133,7 +121,7 @@ export class SignupComponent {
         });
     }
 
-
+    this.validateUsername();
     setTimeout(()=>{                           
       this.loader = false;
   }, 400);
@@ -161,7 +149,7 @@ export class SignupComponent {
   }
 
  
-  async signup(){
+  signup(){
     const password = this.loginForm.value.password;
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
@@ -170,6 +158,8 @@ export class SignupComponent {
     const confirmpassword = this.loginForm.value.confirmpassword;
 
 
+    
+    
     if(this.userType=='user' )
     {
 
@@ -383,6 +373,22 @@ export class SignupComponent {
     return passwordPattern.test(password);
   }
 
+  validateUsername()
+  {
+    this.apiService.getAllUsers().subscribe((response: any) => { 
+      this.data_user = response;
+      for (let i = 0; i < this.data_user.length; i++) {
+        this.username_user[i]=this.data_user[i].username;
+      }
+    });
+  
+    this.apiService.getAllOrganisers().subscribe((response: any) => { 
+      this.data_organiser = response;
+      for (let i = 0; i < this.data_organiser.length; i++) {
+        this.username_org[i]=this.data_organiser[i].username;
+      }
+    });  
+  }
 
 }
 
