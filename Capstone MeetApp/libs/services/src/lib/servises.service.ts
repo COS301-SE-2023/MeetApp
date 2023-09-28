@@ -110,7 +110,7 @@ export class service{
 
     private readonly USERNAME = 'username';
 
-    /*
+    
     getCoordinates(address: string): Observable<any> {
       const googlebaseUrl = environment.GOOGLE_URL;
   
@@ -120,7 +120,7 @@ export class service{
   
       return this.http.get(googlebaseUrl, { params });
     }  
-    */
+    
 
     //FUNCTIONS  TO HANDLE HEADERS
 
