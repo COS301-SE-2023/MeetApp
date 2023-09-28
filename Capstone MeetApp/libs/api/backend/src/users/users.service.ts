@@ -22,6 +22,9 @@ interface TimeOfDay {
 @Injectable()
 
 export class UsersService {
+  static findAll() {
+    throw new Error('Method not implemented.');
+  }
   constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>, @InjectModel(Friendship.name) private friendshipModel: Model<Friendship>){
     
   }
