@@ -204,7 +204,7 @@ export class SignupComponent {
 
           if(this.valid_pass && this.valid_user && this.valid_passregex)
           {
-            this.SignUpUser(email,username,password,'',region,this.selectedOptions);
+            this.SignUpUser(email,username,password,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfZCGFDrC8YeednlJC3mhxPfg_s4Pg8u7-kf6dy88&s',region,this.selectedOptions);
           }
       }
       else{
