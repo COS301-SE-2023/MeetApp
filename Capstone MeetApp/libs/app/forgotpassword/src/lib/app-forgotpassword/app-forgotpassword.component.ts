@@ -29,6 +29,13 @@ export class AppForgotpasswordComponent {
   userType:string|null = '';
   password = '';
   confirmPassword = '';
+  token :string|null= '';
+  email='';
+
+  forgot_payload={
+    message: '', 
+    payload: ''
+  }
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
     private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute) { 
   }
@@ -44,8 +51,13 @@ export class AppForgotpasswordComponent {
   }
   
   async ngOnInit(){
+
   this.activatedRoute.paramMap.subscribe(params => {
-    this.userType = params.get('userType');
+    this.token = params.get('anything'); // 'token' should be the parameter name in your route
+    if ( this.token) {
+      // Do something with the token, e.g., store it in a variable or use it in your component
+      console.log( this.token);
+    }
   });
 
   }
@@ -53,4 +65,26 @@ export class AppForgotpasswordComponent {
     this.router.navigate(['/login',{ userType: this.userType }]);
 
   }
+  
+  verifyLink(email:string)
+    {
+      this.apiService.verifyPasswordRequest(this.token,email).subscribe((response: any) => { 
+        console.log(email);
+        console.log(this.password);
+        console.log(response);
+        this.forgot_payload==response;
+        
+      });
+    }
+
+    change(email:string,password:string)
+    {
+      this.apiService.changePassword(email,password).subscribe((response: any) => { 
+        console.log(response); 
+      });
+    }
+
+ 
+
+
 }

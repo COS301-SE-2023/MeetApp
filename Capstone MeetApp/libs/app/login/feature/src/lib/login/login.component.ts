@@ -125,6 +125,8 @@ export class LoginComponent {
       this.userType = params.get('userType');
     });
 
+    //this.sendLink('akanihlungwani41@gmail.com');
+
     setTimeout(()=>{                           
       this.loader = false;
   }, 400);
@@ -237,5 +239,12 @@ export class LoginComponent {
   sendResetLink() {
       console.log("link is");
       //check if email exists then send email
+    }
+
+    sendLink(emailAddress:string)
+    {
+      this.apiService.sendPasswordRequest(emailAddress).subscribe((response: any) => { 
+        console.log(response);
+      });
     }
 }
