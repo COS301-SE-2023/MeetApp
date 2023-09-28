@@ -53,10 +53,10 @@ MeetApp is a location-powered, social-networking and event-planning application 
 * [User Manual](UserManual.md)
 * [Architectural Structural Design & Requirements](https://drive.google.com/drive/folders/1HtlHt38AoDzFUmQpi_i_lWsPaaEMfXUJ?usp=sharing)
 * [Coding and Testing Standards](https://docs.google.com/document/d/1ZUdV4XrxWqKKbb852i9F_gth-JWqUqO0vA69SMZdbGM/edit?usp=sharing)
-* [Project Management](#)
+* [Project Management](https://docs.google.com/document/d/1b-TxLGFcvEZIVab6uQByYlGtid-efm80gMe4njbe4I4/edit?usp=sharing)
 * [Techincal Installation](https://docs.google.com/document/d/1wIVKe186YWrC5ZPuYzKM9IK702IN-GFei8rRtxlBErg/edit?usp=sharing)
-* [Presentation & Videos](#)
-* [Deployment Model](#)
+* [Deployment Model](https://docs.google.com/document/d/1TuIg6rTReczlcEckygwnaLFZIxG6CO8mCOICHHEF9pM/edit?usp=sharing)
+* [Testing Policy](https://docs.google.com/document/d/1qoezdXvaon8oi9j7JwrGgByqfV4T352UjpdHbEzUyaQ/edit?usp=sharing)
 
 ## Team Profiles
 * [Team Profiles](https://github.com/COS301-SE-2023/MeetApp/wiki/Team-Profiles)
