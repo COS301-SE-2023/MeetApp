@@ -115,16 +115,37 @@ export class PasswordRecoveriesService {
   async passwordrest(usermail : string, newPassword : string)
   {
   //createUserDto.password
-  const user = await this.userModel.findOne({emailAddress: usermail}).exec();
-  if (!user)
-    return {message : 'user not found', payload : 'null'}
-  const userSalt = this.getUserSaltReset(user.username, newPassword)
-  const hashedPass = await hash(newPassword, userSalt)
-  const userUpdated = await this.userModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
-  if (!userUpdated)
-    return {message : 'Password recovery failed', payload : 'null'}
-  const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
-  return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
+  //const user = await this.userModel.findOne({emailAddress: usermail}).exec();
+  const userExists = await this.userModel.find({emailAddress : usermail})
+  const orgExists = await this.orgModel.find({emailAddress : usermail})
+    if (!userExists && !orgExists)
+      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+  if (!orgExists){
+    const user = await this.userModel.findOne({emailAddress: usermail}).exec();
+    if (!user)
+      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+    const userSalt = this.getUserSaltReset(user.username, newPassword)
+    const hashedPass = await hash(newPassword, userSalt)
+    const userUpdated = await this.userModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
+    if (!userUpdated)
+      return {message : 'Password recovery failed', payload : 'null'}
+    const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
   }
+
+  else
+  {
+    const user = await this.orgModel.findOne({emailAddress: usermail}).exec();
+    if (!user)
+      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+    const userSalt = this.getUserSaltReset(user.username, newPassword)
+    const hashedPass = await hash(newPassword, userSalt)
+    const userUpdated = await this.orgModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
+    if (!userUpdated)
+      return {message : 'Password recovery failed', payload : 'null'}
+    const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
+    return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
+  }
+}
   
 }
