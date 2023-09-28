@@ -42,5 +42,5 @@ export const appRoutes: Route[] = [
    {path:"suggestedfriends",component:AppSuggestedFriendsComponent},
    {path:"notifications",component:AppNotificationsComponent},
    {path:"analytics",component:AppAnalyticsComponent},
-   {path:"chatroom",component:AppChatroomComponent}
+   {path:"chatroom/:eventId",component:AppChatroomComponent}
 ];

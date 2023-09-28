@@ -73,7 +73,11 @@ export class EventComponent {
     this.router.navigateByUrl('/attendees');
     this.router.navigate(['attendees', this.eventID]);
   }
-
+  viewchat()
+  {
+    this.router.navigateByUrl('/chatroom');
+    this.router.navigate(['chatroom', this.eventID]);
+  }
   async getAttendance(id:string)
   {
     await this.apiService.getEventAttendanceCount(id).subscribe((response:any) => {
