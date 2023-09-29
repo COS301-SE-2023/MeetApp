@@ -3,6 +3,8 @@
 
 .env
 
+*-report.json
+
 *environment.ts
 # compiled output
 dist
