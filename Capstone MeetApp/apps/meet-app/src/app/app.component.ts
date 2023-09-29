@@ -27,7 +27,7 @@ import { HomepageComponent } from '@capstone-meet-app/app/home/feature';
 
 @Component({
   standalone: true,
-  imports: [HttpClientModule,ServicesModule,CalendarComponent,NxWelcomeComponent,FormsModule, RouterModule,AppAttendeesComponent,FriendsComponent,OrganiserComponent,EventComponent ,SettingsComponent,MapsComponent,ProfileComponent,LoginComponent,SignupComponent, IonicModule,WelcomepageComponent,HomepageComponent],
+  imports: [HttpClientModule,ServicesModule,IonicModule,CalendarComponent,NxWelcomeComponent,FormsModule, RouterModule,AppAttendeesComponent,FriendsComponent,OrganiserComponent,EventComponent ,SettingsComponent,MapsComponent,ProfileComponent,LoginComponent,SignupComponent, IonicModule,WelcomepageComponent,HomepageComponent],
   selector: "capstone-meet-app-root",
   templateUrl: './app.component.html',
   styleUrls: ["./app.component.scss"],

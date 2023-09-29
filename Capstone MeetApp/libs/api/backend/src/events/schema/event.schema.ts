@@ -10,7 +10,7 @@ export type EventDocument = HydratedDocument<Event>;
 export class Event {
   @ApiProperty({description: "The unique ID of the event.", example: "6494b7d2d53259fc23bc0cfd", required: true, type: "string"})
   @Prop()
-  ID!: mongoose.Schema.Types.ObjectId;
+  _id!: mongoose.Schema.Types.ObjectId;
   
   @ApiProperty({example: 'CyberSummit', description: 'The name of the event.', required: true})
   @Prop()
@@ -44,7 +44,7 @@ export class Event {
   @ApiProperty({example: {latitude : 51.5074, longitude : -0.1278}, description: 'The location of the event in longitude and latitude.', type : 'OrderedMap', required: true})
   @ApiProperty({description: "", example: "", required: true})
   @Prop(raw({
-  longatude: { type: Number },
+  longitude: { type: Number },
   latitude: { type: Number }
   }))
   location!: Record<number, unknown>;

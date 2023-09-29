@@ -32,7 +32,7 @@
 <ion-content>
 
 <div class="image">
-  <ion-img src="assets/profile.png"  width="300" height="300" alt="myimage">
+  <ion-img src="assets/logo.png"  width="300" height="300" alt="myimage">
   </ion-img>
  </div>
 <div>
@@ -53,7 +53,7 @@
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button class="submit" type="submit"  expand="block" (click)="login(username,password)"  >Sign In</ion-button>
+        <ion-button type="submit" color="dark" expand="block" (click)="login(username,password)"  >Sign In</ion-button>
         <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
         <a id="signup" class="small-text"  (click)="onCreate()">create an account</a>
       </ion-col>

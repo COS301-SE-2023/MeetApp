@@ -13,7 +13,7 @@
     left: 0;
     width: 100%;
     height: 20vh;
-    background-image: url(https://blog.hootsuite.com/wp-content/uploads/2021/07/free-stock-photos-02-scaled.jpg);
+   
     background-size: cover;
     background-position: center;
   }
@@ -42,7 +42,7 @@
   .profile {
     text-align: center;
     padding: 20px;
-    margin-top: 60px; 
+    
     font-family: sans-serif;
     
 }

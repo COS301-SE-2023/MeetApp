@@ -40,14 +40,14 @@ export class AppNotificationsComponent {
 
     await this.apiService.getFriendRequest().subscribe((response:any) =>{
       this.requesters=response;
-      console.log('FriendRequest List :',response);
+      
     });
   }
 
   
   async acceptRequest(requester: string,request:any){
      await this.apiService.acceptFriendRequest(requester).subscribe((response:any) =>{
-      console.log('Payload :',response);
+     
       this.getRequest();
     });
 

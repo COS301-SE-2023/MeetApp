@@ -25,7 +25,9 @@
       <ion-card-subtitle>{{event.organisation}}</ion-card-subtitle>
     </ion-card-header>
     
+
       <ion-img src="https://picsum.photos/200/200?random={{event.id+9}}" alt="Centered Image">
+
       </ion-img>
     
       <ion-item>
@@ -57,9 +59,12 @@
       
     <ion-card-content class="btn-bottom">
         
-        <ion-button class="left" (click)="addEvent()">  &nbsp; <i  class="fas fa-thumbs-up" ></i> &nbsp; Going  &nbsp;
+        <ion-button class="left" color="dark"  (click)="addEvent()">  &nbsp; <i  class="fas fa-thumbs-up" ></i> &nbsp; Going  &nbsp;
         </ion-button>
-        <ion-button class="left" (click)="viewAttendees()"> View Attendees
+        
+        <ion-button class="left" color="dark"  (click)="viewAttendees()"> Attendees
+        </ion-button>
+        <ion-button color="dark" class="left" (click)="viewchat()"> View chat
         </ion-button>
       </ion-card-content>
     

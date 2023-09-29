@@ -34,7 +34,7 @@ export class SignupComponent {
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, public loadingController: LoadingController) {}
     selectedOptions: string[] = [];
   options: string[] = ['Concert', 'Sports', 'Conference', 'Charity','Expos','Trade Shows']; 
-
+  user='Not set';
   events:any =[];
   firstname="";
   username='';
@@ -42,6 +42,36 @@ export class SignupComponent {
   email = ''; 
   password= '';   
   region='';
+
+  valid_user=false;
+  valid_pass=false;
+  valid_passregex=false;
+
+  data_organiser= [{
+    _id:'',
+    name:'',
+    surname:'',
+    username:'',
+    email:'',
+    password:'',
+    phoneNumber:'',
+    orgDescription:'',
+    events:[]
+  }];
+
+  data_user= [{
+    name:'',
+    surname:'',
+    username:'',
+    email:'',
+    password:'',
+    phoneNumber:'',
+    region:'',
+    profilePicture:''
+  }];
+
+  username_user=[''];
+  username_org=[''];
 
   userSignup_payload= {
     access_token:'',
@@ -62,19 +92,36 @@ export class SignupComponent {
   submitClicked = false;
   loader=true;
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-    username: ['', Validators.required],
-    region:['', Validators.required],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    confirmpassword: ['', Validators.required],
-    name:['', Validators.required]
-    });
-     
+    
+    
     
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
     });
 
+    if(this.userType=='user')
+    {
+      this.loginForm = this.formBuilder.group({
+        username: ['', Validators.required],
+       // region:['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmpassword: ['', Validators.required],
+        name:['', Validators.required],
+        email:['',Validators.required]
+        });
+        
+
+    }
+    else if(this.userType=='organiser')
+    {
+      this.loginForm = this.formBuilder.group({
+        username: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        name: ['', Validators.required]
+        });
+    }
+
+    this.validateUsername();
     setTimeout(()=>{                           
       this.loader = false;
   }, 400);
@@ -85,58 +132,140 @@ export class SignupComponent {
     this.location.back();
   }
 
-  async SignUpUser(username:string,password:string,profilePicture:string,region:string)
+  async SignUpUser(emailAddress:string,username:string,password:string,profilePicture:string,region:string,interests: string[])
   {
-    await this.apiService.createUser(username,password,profilePicture,region).subscribe((response:any) => {
+    await this.apiService.createUser(emailAddress,username,password,profilePicture,region,interests).subscribe((response:any) => {
       this.userSignup_payload=response;
       this.apiService.setToken(this.userSignup_payload.access_token);
     });
   }
 
-  async SignUpOrg(username:string,name:string,password:string,events:string[])
+  async SignUpOrg(emailAddress:string,username:string,name:string,password:string,events:string[])
   {
-    await this.apiService.createOrginiser(username,password,name,events).subscribe((response:any) => {
+    await this.apiService.createOrginiser(emailAddress,username,password,name,events).subscribe((response:any) => {
       this.orgSignup_payload=response;
       this.apiService.setToken(this.orgSignup_payload.access_token);
     });
   }
 
  
-  async signup(){
+  signup(){
     const password = this.loginForm.value.password;
     const username=this.loginForm.value.username;
     const region=this.loginForm.value.region;
     const name =this.loginForm.value.name;
+    const email=this.loginForm.value.email;
+    const confirmpassword = this.loginForm.value.confirmpassword;
+
+
     
+    
+    if(this.userType=='user' )
+    {
 
-    const loading = await this.loadingController.create({
-      message: 'Loading...',
-    });
-    await loading.present();
-
-    // Simulate some asynchronous operation
-    setTimeout(() => {
-      loading.dismiss();
-      if (this.valid==false ) {  
-        const errorMessage = 'choose a stronger password';
-        this.showErrorToast(errorMessage); 
-        this.valid=false;
-      }
-      else if(this.valid==true)
+      if(email!==null && username!==null && region!==null && password!==null && confirmpassword!==null && this.selectedOptions!==null)
       {
         this.valid=true;
-        if(this.userType=='user' )
-    {
-        this.SignUpUser(username,password,'',region);
-    }
-    else  if(this.userType=='organiser'){
-      this.SignUpOrg(username,name,password, this.events)
+            
+          if(this.username_user.includes(username)==false) 
+          {
+            this.valid_user=true;
+          }
+          }
+          else
+          {
+            this.valid_user=false;
+          }
+          console.log('password',password);
+          console.log('confirmpassword',confirmpassword);
+
+          if(password==confirmpassword)
+          {
+            this.valid_pass=true;
+          }
+          else
+          {
+            this.valid_pass=false;
+          }
+          
+
+          if(this.checkPasswordStrength(password)==true)
+          {
+            this.valid_passregex=true;
+          }
+          else
+          {
+            this.valid_passregex=false;
+          }
+
+          console.log('Password is equal to CP',this.valid_pass);
+          console.log('Regex',this.valid_passregex);
+          console.log('Valid User name ',this.valid_user);
+
+          if(this.valid_pass && this.valid_user && this.valid_passregex)
+          {
+            this.SignUpUser(email,username,password,'',region,this.selectedOptions);
+          }
+      }
+      else{
+        this.valid=false;
+      }
+
+    
+    if(this.userType=='organiser'){
+
+      if(email!==null && username!==null && region!==null && password!==null)
+      {
+        this.valid=true;
+          if(this.username_org.includes(username)==false) 
+          {
+            this.valid_user=true;
+          }
+          else
+          {
+            this.valid_user=false;
+          }
+
+          console.log('password',password);
+          console.log('confirmpassword',confirmpassword);
+
+          if(password)
+          {
+            this.valid_pass=true;
+          }
+          else
+          {
+            this.valid_pass=false;
+          }
+          
+
+          if(this.checkPasswordStrength(password)==true)
+          {
+            this.valid_passregex=true;
+          }
+          else
+          {
+            this.valid_passregex=false;
+          }
+
+          console.log('Password is equal to CP',this.valid_pass);
+          console.log('Regex',this.valid_passregex);
+          console.log('Valid User name ',this.valid_user);
+
+          if(this.valid_pass && this.valid_user && this.valid_passregex)
+          {
+          
+            this.SignUpOrg(email,username,name,password, this.events)
+          
+          }
+      }
+      else
+      {
+        this.valid=false;
+      }
+    
     }
   
-      }
-      
-    }, 100);
-    
   }
 
   async showErrorToast(message: string) {
@@ -160,24 +289,109 @@ export class SignupComponent {
     await alert.present();
   }
 
-  onCreate() {
-    this.router.navigate(['/login']);
+  async showErrorAlertVal(message: string) {
+    const alert = await this.alertController.create({
+      header: 'SignUp Error',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
   }
 
-  isvalid()
+  onCreate() {
+    this.router.navigate(['/signup', { userType: this.userType }]);
+  }
+
+  async isvalid()
   {
 
-    if (this.valid)
-    {
-      //const errorMessage = 'Account Created Successfully';
-      //this.showErrorAlert(errorMessage); 
-      
-    }
+    console.log('valid',this.valid);
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      });
+      await loading.present();
+
+      // Simulate some asynchronous operation
+      setTimeout(() => {
+      loading.dismiss();
+      if(this.valid)
+      {
+
+        if(this.valid_pass && this.valid_user && this.valid_passregex)
+        {
+          
+          const errorMessage = 'Account Created Successfully';
+          this.showErrorAlert(errorMessage); 
+          this.onSignUp();
+        }
+
+        if(this.valid_user==false)
+        {
+          const errorMessage = 'User Already Taken';
+          this.showErrorAlertVal(errorMessage); 
+          
+        }
+
+        if(this.valid_pass==false)
+        {
+          const errorMessage = 'Invalid Password';
+          this.showErrorAlertVal(errorMessage); 
+         
+        }
+        
+
+        if(this.valid_passregex==false)
+        {
+          const errorMessage = 'Password strength low. Need one Uppercase latter, atleast 3 lowercase , atleast 3 numbers and a special character [ @$!%*?& ]';
+          this.showErrorAlertVal(errorMessage); 
+         
+        }
+
+
+        
+      }
+      else
+      {
+        const errorMessage = 'incomplete form';
+        this.showErrorToast(errorMessage); 
+      }
+      }, 3000);
+
+    
+
 
   }
   
   onSignUp() {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home',{ userType: this.userType }]);
+  }
+
+  checkPasswordStrength(password:string)
+  {
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return passwordPattern.test(password);
+  }
+
+  setUserType(userType: string): void {
+    this.router.navigate(['/login', { userType }]);
+  }
+
+  validateUsername()
+  {
+    this.apiService.getAllUsers().subscribe((response: any) => { 
+      this.data_user = response;
+      for (let i = 0; i < this.data_user.length; i++) {
+        this.username_user[i]=this.data_user[i].username;
+      }
+    });
+  
+    this.apiService.getAllOrganisers().subscribe((response: any) => { 
+      this.data_organiser = response;
+      for (let i = 0; i < this.data_organiser.length; i++) {
+        this.username_org[i]=this.data_organiser[i].username;
+      }
+    });  
   }
 
 
