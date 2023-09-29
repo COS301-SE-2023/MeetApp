@@ -716,7 +716,7 @@ export class UsersService {
       }
     ])
   
-    return {ID : ID, username : "", password : "", region : region[0], interests : interests, profilePicture : ''}
+    return {ID : ID, username : "", emailAddress : "" ,password : "", region : region[0], interests : interests, profilePicture : ''}
 
   }
 
