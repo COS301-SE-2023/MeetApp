@@ -116,10 +116,7 @@ export class ProfileComponent {
   async getCurrentUser()
   {
     await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
-      this.current_user=response;
-     
-      this.getProfile(this.current_user.username);
-
+      
       const username=this.serviceProvider.getUsername();
      
       if(username==null)

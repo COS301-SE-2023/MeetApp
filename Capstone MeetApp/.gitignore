@@ -3,6 +3,8 @@
 
 .env
 
+*-report.json
+
 *environment.ts
 # compiled output
 dist
@@ -10,7 +12,6 @@ tmp
 /out-tsc
 json.txt
 yarn.txt
-
 *report.json
 # dependencies
 node_modules

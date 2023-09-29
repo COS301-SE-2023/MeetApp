@@ -84,7 +84,9 @@ export class LoginComponent {
     const alert = await this.alertController.create({
       header: 'login Successful',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
+      cssClass:'.custom-ok-button',
+      
     });
   
     await alert.present();
@@ -140,7 +142,7 @@ export class LoginComponent {
       if(this.userLogin_payload.message=='Login successful')
       {
         const errorMessage = 'you have succesfully logged in';
-        this.showErrorAlert(errorMessage); 
+        //this.showErrorAlert(errorMessage); 
         this.router.navigate(['/home',{ userType: this.userType }]);
         this.valid=false;
       }
@@ -148,8 +150,8 @@ export class LoginComponent {
 
       if(this.valid)
       {
-        const errorMessage = 'wrong username or password';
-        this.showErrorToast(errorMessage);
+        //const errorMessage = 'wrong username or password';
+        //this.showErrorToast(errorMessage);
       }
                     
   
@@ -171,7 +173,7 @@ export class LoginComponent {
       if(this.orgLogin_payload.message=='Login successful')
       {
           const errorMessage = 'you have succesfully logged in';
-          this.showErrorAlert(errorMessage); 
+          //this.showErrorAlert(errorMessage); 
           this.router.navigate(['/home',{ userType: this.userType }]);
           this.valid=false;
       }
@@ -179,8 +181,8 @@ export class LoginComponent {
       
       if(this.valid)
       {
-        const errorMessage = 'wrong username or password';
-          this.showErrorToast(errorMessage);
+        //const errorMessage = 'wrong username or password';
+          //this.showErrorToast(errorMessage);
       }
 
 
