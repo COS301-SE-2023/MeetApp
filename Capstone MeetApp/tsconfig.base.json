@@ -51,6 +51,12 @@
       ],
       "@capstone-meet-app/app/analytics": ["libs/app/analytics/src/index.ts"],
       "@capstone-meet-app/app/attendees": ["libs/app/attendees/src/index.ts"],
+
+      "@capstone-meet-app/app/chatroom": ["libs/app/chatroom/src/index.ts"],
+      "@capstone-meet-app/app/event/data-access": [
+        "libs/app/event/data-access/src/index.ts"
+      ],
+
       "@capstone-meet-app/app/event/feature": [
         "libs/app/event/feature/src/index.ts"
       ],

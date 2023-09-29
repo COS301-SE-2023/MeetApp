@@ -1,5 +1,5 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { environment } from './environment';
+import {environment } from "./environment";
 
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from "@angular/platform-browser";
@@ -136,7 +136,7 @@ export class MapsComponent implements AfterViewInit {
   }
   
   ngAfterViewInit() {
-    console.log(this.apikey);
+   
     setTimeout(() => {
       this.initializeMap(this.selectedRegion);
     }, 0);
@@ -145,7 +145,7 @@ export class MapsComponent implements AfterViewInit {
 
   async getEventsByDate(startDate?:string, endDate?:string){
 
-    console.log(startDate+" "+endDate)
+    
     await this.service.getEventsByRange(startDate,endDate).subscribe((response:any)=>{
        
       this.data=response;
@@ -176,7 +176,7 @@ export class MapsComponent implements AfterViewInit {
     
     this.getEventsByRegion(region)
       .then((events) => {
-        console.log(events);
+       
         for (let i = 0; i < events.length; i++) {
           //const event = this.events[i];
           const event: Event = events[i];
@@ -232,7 +232,7 @@ export class MapsComponent implements AfterViewInit {
       if(startDate===null&&endDate===null){
         this.fillEvents(this.selectedRegion,this.data);
       }else{
-        console.log(startDate?.slice(0,10),endDate?.slice(0,10));
+        
         this.getEventsByDate(`${startDate?.slice(0,10)}`,`${endDate?.slice(0,10)}`);
         this.fillEvents(this.selectedRegion,this.data);  
         //location.reload();

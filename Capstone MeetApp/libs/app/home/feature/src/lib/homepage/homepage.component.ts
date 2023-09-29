@@ -9,6 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterModule} from '@angular/router';
 import { service,ServicesModule} from '@capstone-meet-app/services';
 import { Platform } from '@ionic/angular'
+import { Injectable } from '@angular/core';
+import { IonicSlides } from '@ionic/angular';
+import { Observable } from 'rxjs'
 
 
 @Component({
@@ -20,7 +23,14 @@ import { Platform } from '@ionic/angular'
   providers: [service,HttpClient],
   
 })
+
 export class HomepageComponent {
+  slideOpts = {
+    slidesPerView: 'auto',
+    centeredSlides: true,
+    spaceBetween: 16
+  };
+  
   loader=true;
   data= [{
     _id:'',
@@ -38,7 +48,32 @@ export class HomepageComponent {
     
   }];
 
+  recommend= [{
+    _id:'',
+    name:'',
+    organisation: '',
+    description:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    eventDate: '',
+    location: {latitude:0 , longitude:0},
+    category:'',
+    region:'',
+    eventPoster:''
+    
+  }];
+ 
+  current_user={
+    id:'',
+    password:'',
+    username:'',
+    exp:0,
+    iat: 0
+ }
+
   attendanceData: { [_id: string]: number } = {};
+
   userType:string|null = '';
   attendance=0;
   
@@ -56,9 +91,12 @@ export class HomepageComponent {
     this.isLiked = !this.isLiked;
   }
   
- 
-  constructor(private service: service,private router: Router,private activatedRoute: ActivatedRoute,private platform: Platform) {
+
+  
+  constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
+  
   }
+  
   refreshPage() {
     
     this.platform.ready().then(() => {
@@ -71,9 +109,10 @@ export class HomepageComponent {
       for (let i = 0; i < this.data.length; i++) {
         this.getAttendance(this.data[i]._id);
       }
+      this.getCurrentUser();
       setTimeout(()=>{                           
         this.loader = false;
-    }, 400);
+    }, 200);
     }
     
     );
@@ -136,4 +175,33 @@ export class HomepageComponent {
     this.router.navigateByUrl('/notifications');
   }
   
+  async getCurrentUser()
+  {
+    await this.service.getLogedInUser().subscribe((response:any) => {
+      
+      const username=this.service.getUsername();
+     
+      console.log(username);
+
+      if(username==null)
+      {
+        this.current_user=response;
+       
+        this.getProfile(this.current_user.username);
+      }
+      else
+      {
+        this.getProfile(username);
+      }
+      
+    });
+
+  }
+
+  async getProfile(username :string|null){
+    await this.service.getRecomendations(username).subscribe((response:any)=>{ 
+      this.recommend = response;
+      console.log(response);
+    });
+  }
 }

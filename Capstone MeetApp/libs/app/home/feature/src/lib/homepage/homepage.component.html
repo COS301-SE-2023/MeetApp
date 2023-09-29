@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<div class="spin" *ngIf="loader">
+<div class="spin" *ngIf="!loader">
       
 </div>
 
@@ -19,8 +19,10 @@
   
 
 <ion-content class="font">
+  
   <div>
 
+    
   <div class="heading1">
     <h1>Recommended Events</h1>
   </div>
@@ -29,7 +31,8 @@
       <ion-card-header>
         <ion-card-title class="heading">{{ item.name }}</ion-card-title>
       </ion-card-header>
-      <ion-img alt="Silhouette of mountains" src="assets/eventTest.jpg" ></ion-img>
+      <ion-img alt="Silhouette of mountains" src="https://picsum.photos/200/200?random={{item._id}}" ></ion-img>
+
       <ion-card-content>
         {{ item.description }}
       </ion-card-content>
@@ -37,12 +40,14 @@
   </div>
 </div>
 
+
+
 <div>
 <ion-card *ngFor="let item of data | filter:searchQuery "  class="custom-card"   (click)="viewEvent(item._id)">
   <ion-card-content>
   <ion-card-title class="heading">{{ item.name}}</ion-card-title>
 </ion-card-content>
-  <ion-img src="assets/eventTest.jpg" alt="Silhouette of mountains" ></ion-img>
+  <ion-img src="https://picsum.photos/200/200?random={{item._id}}" alt="Silhouette of mountains" ></ion-img>
   <ion-card-header>
     
       <!--<ion-text class="bold-text">from &nbsp;{{ item.startTime}} &nbsp;to&nbsp; {{ item.endTime}} </ion-text>-->
@@ -89,24 +94,36 @@
     <i class="fas fa-home"></i>
    
   </div>
-  <div routerLink="/calendar" routerLinkActive="active"class="navigation-item">
+  <div id="calendar" routerLink="/calendar" routerLinkActive="active"class="navigation-item">
     <i class="fas fa-calendar"></i>
     
   </div>
-  <div (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
+  <div id="event" (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
     <i class=" fas fa-plus"></i>
   </div>
-  <div  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
+  <div id="settings" (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
     <i class="fas fa-cog" ></i>
     
   </div>
-  <div (click)=" gotonotifications()" routerLinkActive="active" class="navigation-item">
+  <div id="Notification" (click)=" gotonotifications()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-bell"></i>
   
   </div>
-  <div (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
+  <div id="profile" (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-user"></i>
   
   </div>
 </div>
 </div>
+
+<!--
+  <div class="video-container">
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/LIVE_STREAM_VIDEO_ID"
+      frameborder="0"
+      allowfullscreen
+    ></iframe>
+  </div>
+-->

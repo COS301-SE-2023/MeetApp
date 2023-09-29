@@ -72,16 +72,37 @@ export class EventsService {
   }
   
   async remove(id: string) {
-    const deletedEvent = await this.eventModel.findByIdAndDelete(id);
+    const deletedEvent = await this.eventModel.findById(id);
    if (!deletedEvent) {
-     throw new NotFoundException(`Student #${id} not found`);
+     throw new NotFoundException(`Event #${id} not found`);
    }
-   return deletedEvent;
+   const EventsAtt = await this.attendanceModel.find({eventID  : id}).exec()
+   const org = await this.orgModel.findOne({name : deletedEvent.organisation}).exec()
+   const payload =  {deleted_resources: {event : deletedEvent, Attendances: EventsAtt, removed_from : org}}
+   const resEventsArray = org?.events.filter (e =>  e != id)
+   if (resEventsArray){
+    const resEventsArrayMapped = resEventsArray.map (e =>  e.toString())
+    console.log(resEventsArrayMapped)
+    this.eventModel.deleteOne({_id: id}).exec()
+    this.attendanceModel.deleteMany({eventID : id}).exec()
+    this.orgModel.findByIdAndUpdate(org?._id, {events: resEventsArrayMapped}, { new: true });
+   }
+   
+   return payload;
   }
 
   async getEventAttendance(eventId: string): Promise<number> {
     const eventAttendanceCount = await this.attendanceModel.countDocuments({ eventID: eventId });
     return eventAttendanceCount;
+  }
+
+  async getEventAttendanceAll() {
+    const eventAll = await this.eventModel.find({}).exec()
+    const AttendancePlusCount = eventAll.map(async cevent => {
+      const eventAttendanceCount = await this.attendanceModel.countDocuments({ eventID: cevent._id }); 
+      return {event : cevent, attendees : eventAttendanceCount }
+    })
+    return AttendancePlusCount;
   }
 
   async getAttendingUsers(eventId: string){

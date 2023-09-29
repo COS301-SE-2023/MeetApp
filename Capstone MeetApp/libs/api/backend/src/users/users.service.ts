@@ -3,7 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './schema';
-import { FilterQuery, Model, ObjectId } from 'mongoose';
+import mongoose, { FilterQuery, Model, ObjectId } from 'mongoose';
 import { Attendance } from '../attendances/schema';
 import { JwtService } from '@nestjs/jwt';
 import { Organisation } from '../organisations/schema';
@@ -22,6 +22,9 @@ interface TimeOfDay {
 @Injectable()
 
 export class UsersService {
+  static findAll() {
+    throw new Error('Method not implemented.');
+  }
   constructor(@InjectModel(User.name) private userModel: Model<User>, @InjectModel(Attendance.name) private attendanceModel: Model<Attendance>,  private jwtService: JwtService, @InjectModel(Event.name) private eventModel: Model<Event>, @InjectModel(Organisation.name) private orgModel: Model<Organisation>, @InjectModel(Friendship.name) private friendshipModel: Model<Friendship>){
     
   }
@@ -29,7 +32,9 @@ export class UsersService {
   
   
   async create(createUserDto: CreateUserDto) {
-    createUserDto.password
+    const existingUser = await this.userModel.findOne({username : createUserDto.username}).exec();
+    if (existingUser)
+      return {error: 409, message: "The username already exists"}
     const newUser = await new this.userModel(createUserDto);
     const userSalt = this.getUserSalt(newUser.username, newUser.password)
     const hashedPass = await hash(newUser.password, userSalt)
@@ -262,9 +267,17 @@ export class UsersService {
     return eventsDetails;
   }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} user`;
-  // }
+  async remove(id: string) {
+    const user = await this.userModel.findOne({_id: id}).exec()
+    const friendships = await this.friendshipModel.find({ $or: [{ requester: id }, { requestee: id }] }).exec();
+    const UserEventsAtt = await this.attendanceModel.find({userID  : id}).exec()
+    const payload =  {deleted_resources: {account : user, friendships : friendships, Attendances: UserEventsAtt}}
+    this.userModel.deleteOne({_id: id}).exec()
+    this.friendshipModel.deleteMany({ $or: [{ requester: id }, { requestee: id }] }).exec()
+    this.attendanceModel.deleteMany({userID : id}).exec()
+    return payload
+    
+  }
 
   async attendEvent(userId: string, eventId: string) {
     const user = await this.userModel.findById(userId);
@@ -309,20 +322,22 @@ export class UsersService {
 
     const events = await this.eventModel.find();
 
-    const eventsWithAttending = events.map(async (event) => {
+    const eventsWithAttending = await Promise.all(events.map(async (event) => {
       const isAttending = await this.attendanceModel.exists({
         userID: userId,
         eventID: event._id,
       });
       const isAttendBool = isAttending ? true : false;
+      const eventObject = event.toObject({ transform: true, versionKey: false });
 
       return {
-        ...event.toObject(),
+        ...eventObject,
         attending: isAttendBool,
-      };
-    });
+    };
+    }));
+    
 
-    return Promise.all(eventsWithAttending);
+    return eventsWithAttending;
   }
 
   async getUserEvent(userId: string, eventId: string){
@@ -625,6 +640,118 @@ export class UsersService {
     
 
     return { total: mutualFriends.length, friends: mutualFriends };
+  }
+
+  /*async updateInterests() {
+    try {
+      // Find users without interests
+      const usersToUpdate = await this.userModel.find({ interests: { $exists: false } }).exec();
+
+      // Update each user document with the interests field
+      for (const user of usersToUpdate) {
+        user.interests = []; // Initialize with an empty array or add interests based on your logic
+        await user.save();
+      }
+
+      return { success: true, message: 'Users updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update users.' };
+    }
+  }*/
+
+  async getTopSupportedOrgs(userId: string) {
+    const events = (await this.getUserEvents(userId)).filter(obj => obj.attending);
+
+    if (!events) {
+      throw new NotFoundException('User events not found.');
+    }
+
+    const sortedEvents = await Promise.all(
+      events.map(async (event) => {
+        const attendanceCount = await this.attendanceModel.countDocuments({ userID: userId }).exec();
+        return { event, attendanceCount };
+      }),
+    );
+    sortedEvents.sort((a, b) => b.attendanceCount - a.attendanceCount);
+
+    const topOrganisations = sortedEvents.slice(0, 3).map((item) => item.event.organisation);
+
+    return topOrganisations
+  }
+
+  async generateDefaultUser() {
+    const interests = await this.userModel.aggregate([
+      {
+        $unwind: "$interests" 
+      },
+      {
+        $group: {
+          _id: "$interests", 
+          count: { $sum: 1 } 
+        }
+      },
+      {
+        $sort: { count: -1 } 
+      },
+      {
+        $limit: 3
+      }
+    ])
+
+    const ID = new mongoose.Schema.Types.ObjectId("")
+  
+
+    const region = await this.userModel.aggregate([
+      {
+        $group: {
+          _id: "$region", // Group by region
+          count: { $sum: 1 } // Count occurrences of each region
+        }
+      },
+      {
+        $sort: { count: -1 } // Sort by count in descending order
+      },
+      {
+        $limit: 1 // Limit the result to the top region
+      }
+    ])
+  
+    return {ID : ID, username : "", password : "", region : region[0], interests : interests, profilePicture : ''}
+
+  }
+
+  async TopRegionsAllUsers(){
+    return await this.userModel.aggregate([
+      {
+        $group: {
+          _id: "$region", // Group by region
+          count: { $sum: 1 } // Count occurrences of each region
+        }
+      },
+      {
+        $sort: { count: -1 } // Sort by count in descending order
+      },
+      {
+        $limit: 3 // Limit the result to the top region
+      }
+    ])
+  }
+
+  async TopCategoriesAllUsers(){
+    return await this.eventModel.aggregate([
+      {
+        $group: {
+          _id: "$category", // Group by region
+          count: { $sum: 1 } // Count occurrences of each region
+        }
+      },
+      {
+        $sort: { count: -1 } // Sort by count in descending order
+      },
+      {
+        $limit: 3 // Limit the result to the top region
+      }
+    ])
   }
 
   /*async updateEmails() {

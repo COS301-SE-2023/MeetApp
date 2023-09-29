@@ -1,5 +1,5 @@
 
-name: Continuous integration Development
+name: Continuous integration e2e Development
 
 on:
   workflow_dispatch:
@@ -7,28 +7,17 @@ on:
   push:
     branches:
       - 'development**'
-      - 'ui**'
-      - 'auth**'
-      - 'map**'
-      - 'profile**'
-      - 'home**'
-      - 'organiser**'
-      - 'settings**'
-      - 'events**'
+      - 'chat**'
       - 'friends**' 
-      - 'ForgotPassword**'
+      - 'chat**'
+      - 'testing**'
   pull_request:
     branches:
       - 'development**'
-      - 'ui**'
-      - 'auth**'
-      - 'map**'
-      - 'profile**'
-      - 'home**'
-      - 'organiser**'
-      - 'settings**'
-      - 'events**'
+      - 'chat**'
       - 'friends**'
+      - 'analytics**'
+      - 'testing'
       
 
 jobs:
@@ -47,8 +36,10 @@ jobs:
       - name: maps api environment
         run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API_KEY}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
-        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}'};" > libs/services/src/lib/environment.ts
-      - name: env file
+        run: touch libs/services/src/lib/environment.ts | printf "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}',GOOGLE_APIKEY:'${{secrets.GOOGLE_APIKEY}}',GOOGLE_URL:'${{secrets.GOOGLE_URL}}'};" > libs/services/src/lib/environment.ts
+      - name: initialising firebase variables
+        run: printf "export const environment={firebase:{apiKey:'${{secrets.FB_APIKEY}}',authDomain:'${{secrets.FB_AUTHDOMAIN}}',projectId:'${{secrets.FB_PROJECTID}}',storageBucket:'${{secrets.FB_STORAGEBUCKET}}',messagingSenderId:'${{secrets.FB_MESSAGINGSENDERID}}',appId:'${{secrets.FB_APPID}}',measurementId:'${{secrets.FB_MEASUREMENTID}}'}};" > apps/meet-app/src/environment.ts
+      - name: env files
         run: touch .env | printf "DB_CONNECTION_STRING_SEDI='${{secrets.DB_CONNECTION_STRING_SEDI}}'\nDB_NAME_SEDI='${{secrets.DB_NAME_SEDI}}'\nJWT_PRIVATE_KEY='${{secrets.JWT_PRIVATE_KEY}}'\nMEETAPP_API_KEY='${{secrets.MEETAPP_API_KEY}}'"> .env
       - run: npm run build
 
@@ -64,9 +55,11 @@ jobs:
           node-version: 18
       - run: npm install --legacy-peer-deps
       - name: maps api environment
-        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${MAPS_API}'};" > libs/app/map/feature/src/lib/maps/environment.ts
+        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
       - name: backend setup
-        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${API_BASE_URI}',BACKEND_API_KEY:'${API_KEY}'};" > libs/services/src/lib/environment.ts
+        run: touch libs/services/src/lib/environment.ts | printf "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}',GOOGLE_APIKEY:'${{secrets.GOOGLE_APIKEY}}',GOOGLE_URL:'${{secrets.GOOGLE_URL}}'};" > libs/services/src/lib/environment.ts
+      - name: initialising firebase variables
+        run: printf "export const environment={firebase:{apiKey:'${{secrets.FB_APIKEY}}',authDomain:'${{secrets.FB_AUTHDOMAIN}}',projectId:'${{secrets.FB_PROJECTID}}',storageBucket:'${{secrets.FB_STORAGEBUCKET}}',messagingSenderId:'${{secrets.FB_MESSAGINGSENDERID}}',appId:'${{secrets.FB_APPID}}',measurementId:'${{secrets.FB_MEASUREMENTID}}'}};" > apps/meet-app/src/environment.ts
       - run: npm run test
       - name: print out codeCov secret
         run: printf "${{secrets.CODECOV_TOKEN}}"
@@ -90,22 +83,7 @@ jobs:
       - run: npm install --legacy-peer-deps
       - run: npm run lint
 
-  e2e:
-    defaults:
-      run:
-        working-directory: Capstone MeetApp
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with: 
-          node-version: 18
-      - run: npm install --legacy-peer-deps
-      - name: maps api environment
-        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${MAPS_API}'};" > libs/app/map/feature/src/lib/maps/environment.ts
-      - name: backend setup
-        run: touch libs/services/src/lib/environment.ts | printf  "export const environment={BASE_URL:'${API_BASE_URI}',BACKEND_API_KEY:'${API_KEY}'};" > libs/services/src/lib/environment.ts
-      - run: npm run e2e
+  
  
 
     

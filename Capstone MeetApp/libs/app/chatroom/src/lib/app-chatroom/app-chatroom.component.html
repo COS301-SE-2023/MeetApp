@@ -1,0 +1,75 @@
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button  defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        
+        Chat Room
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="chat-content">
+    <div class="message-container">
+      <div class="message" *ngFor="let message of messages">
+        <!-- Left side: Profile picture -->
+        <div class="profile-picture">
+          <img [src]="message.profilePicture" alt="Profile Picture">
+        </div>
+  
+        
+        <div class="message-content">
+          <div class="message-header">
+            <span class="user">{{ message.userid }}</span>
+            <!--<span class="timestamp">{{ message.createdTime }}</span>-->
+          </div>
+          <div class="message-text" *ngIf="message.message">{{ message.message }}</div>
+          <img *ngIf="message.imageUrl" [src]="message.imageUrl" alt="Image" class="message-image-medium" >
+
+          <video *ngIf="message.videoUrl" controls class="message-video">
+            <source [src]="message.videoUrl" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+  <div #hiddenDiv>
+    <!-- Content of the hidden div goes here -->
+  </div>
+  
+  <ion-footer class="custom-footer">
+    <ion-input [(ngModel)]="newMessage"  style="color: black"     placeholder="Type your message..." class="flex-grow"></ion-input>
+  
+   
+      <i (click)="openImagePicker()" class="fas fa-file-image"></i>
+    
+    
+   
+    <input type="file" (change)="handleImageUpload($event)" accept="image/*" style="display: none;" id="imageInput">
+  
+    <img *ngIf="selectedImage" [src]="selectedImageURL" alt="Selected Image" class="selected-image-small">
+    <input type="file" (change)="handleVideoUpload($event)" accept="video/*" style="display: none;" id="videoInput">
+  
+   
+       <i (click)="openVideoPicker()"class="fas fa-file-video" ></i>
+    
+    <video *ngIf="selectedVideoURL" controls class="selected-video" class="selected-image-small">
+      <source [src]="selectedVideoURL" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  
+    <i (click)="sendMessage()" class="fas fa-paper-plane"></i>
+
+    
+  </ion-footer>
+  
+

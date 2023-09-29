@@ -60,7 +60,7 @@ filterEvents() {
   if (this.selectedDate) {
     
     const selectedDate = new Date(this.selectedDate).toISOString().split('T')[0];
-    console.log("fff",selectedDate)
+  
     // Filter events based on the selected date
     this.filteredEvents = this.data.filter(events => events.date === selectedDate);
   } else {
@@ -89,9 +89,9 @@ filterEvents() {
    async getUserEvents()
   {
     await this.service.getUserAttendances().subscribe((response:any)=>{
-      console.log(response);
+     
       this.events = response;
-      console.log(this.events);
+    
       this.populateDatesWithEvents();
     });
   }
@@ -103,8 +103,4 @@ filterEvents() {
     }
     this.formattedDates = Array.from(this.datesWithEvents); // Populate the array
   }
-  
-  
-  
-  
 }

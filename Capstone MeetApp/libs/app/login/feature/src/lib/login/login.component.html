@@ -32,43 +32,33 @@
 <ion-content>
 
 <div class="image">
-  <ion-img src="assets/profile.png"  width="300" height="300" alt="myimage">
+  <ion-img src="assets/logo.png"  width="300" height="300" alt="myimage">
   </ion-img>
  </div>
 <div>
   <form *ngIf="!isForgotPasswordMode && !isEditMode"> <!-- Added ngIf condition here -->
     <ion-item lines="full">
       <ion-label position="floating">Username</ion-label>
-      <ion-input type="username" [(ngModel)]="username" name="username" required></ion-input>
-     
+      <ion-input class="username" type="username"  [(ngModel)]="username" name="username" required></ion-input>
+      <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
+        Username is required.
+      </div>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name="password" required></ion-input>
-     
+      <ion-input class="password" type="password"  [(ngModel)]="password" name="password" required></ion-input>
+      <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+        Password is required.
+      </div>
     </ion-item>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="dark" expand="block" (click)="login(username,password)"  >Sign In</ion-button>
+        <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
+        <a id="signup" class="small-text"  (click)="onCreate()">create an account</a>
+      </ion-col>
+    </ion-row>
   </form>
-
-  <ion-row>
-    <ion-col>
-      <ion-button type="submit" expand="block" (click)="login(username,password)">Sign In</ion-button>
-      <a class="small-text" (click)="openForgotPasswordPopover()">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
-      <div *ngIf="isEditMode || isForgotPasswordMode" class="edit-profile-overlay" (click)="closePopover()"></div>
-      <div *ngIf="isEditMode" class="edit-profile-popover">
-        <!-- Edit Profile Content -->
-      </div>
-      <div *ngIf="isForgotPasswordMode" class="forgot-password-popover">
-        <h4>Forgot Password?</h4>
-        <div>
-          <label for="email" style="color:black;">Email:</label>
-          <input id="email" [(ngModel)]="forgotPasswordEmail"  style="color:black" Enter your email>
-        </div>
-        <button (click)="sendLink(forgotPasswordEmail)">Send Reset Link</button>
-      </div>
-      <a class="small-text" (click)="onCreate()">create an account</a>
-    </ion-col>
-  </ion-row>
-  
 </div>
 
 </ion-content>

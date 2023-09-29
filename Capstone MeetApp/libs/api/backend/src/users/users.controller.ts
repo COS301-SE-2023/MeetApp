@@ -338,6 +338,20 @@ export class UsersController {
     return await this.usersService.getMutualFriends(req.user.id, username)
   }
 
+  @UseGuards(AuthGuard)
+  @Delete('')
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Delete a logged-in user's account"})
+  remove(@Request() req : AuthenticatedRequest, ) {
+    
+    return this.usersService.remove(req.user.id);
+  }
+
+  /*@Post('addInterests')
+  async addInterests(){
+    return await this.usersService.updateInterests()
+  }*/
+
   /*@Post('addEmails')
   async addEmails(){
     return await this.usersService.updateEmails()

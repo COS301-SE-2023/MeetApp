@@ -9,6 +9,9 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema({collection : "Users"})
 export class User {
+  static insertMany(testUsers: User[]) {
+    throw new Error('Method not implemented.');
+  }
 
   @ApiProperty({example: "747223dedd65fc64879e13dc", description : "The user's ID as in the database.", type: "string", required: true})
   @Prop()
@@ -34,6 +37,9 @@ export class User {
   @Prop()
   region!: string;
   
+  @ApiProperty({example: ["Technology, Music, Art"], description : "A list of event categories a user is interested in", required: false})
+  @Prop({default: []})
+  interests?: string[];
 
  
 }
