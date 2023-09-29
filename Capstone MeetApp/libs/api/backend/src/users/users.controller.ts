@@ -61,10 +61,10 @@ export class UsersController {
     return this.usersService.getUserAttendances(req.user.id);
   }
 
-  @Get('attendances-other')
+  @Get('attendances-other/:username')
   @ApiOperation({summary: 'View list of events a specified user is attending'})
   @ApiResponse({type: [CreateEventDto], description: "A list of events attended by the user"})
-  getOtherAttendancesJWT(@Body() username : string, ) {
+  getOtherAttendancesJWT(@Param('username') username : string, ) {
     
     return this.usersService.getUserAttendancesUsername(username);
   }
