@@ -94,22 +94,22 @@
     <i class="fas fa-home"></i>
    
   </div>
-  <div routerLink="/calendar" routerLinkActive="active"class="navigation-item">
+  <div id="calendar" routerLink="/calendar" routerLinkActive="active"class="navigation-item">
     <i class="fas fa-calendar"></i>
     
   </div>
-  <div (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
+  <div id="event" (click)="gotoorganiser()"  routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'organiser'">
     <i class=" fas fa-plus"></i>
   </div>
-  <div  (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
+  <div id="settings" (click)="gotosettings()"  routerLinkActive="active" class="navigation-item">
     <i class="fas fa-cog" ></i>
     
   </div>
-  <div (click)=" gotonotifications()" routerLinkActive="active" class="navigation-item">
+  <div id="Notification" (click)=" gotonotifications()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-bell"></i>
   
   </div>
-  <div (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
+  <div id="profile" (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-user"></i>
   
   </div>
