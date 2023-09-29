@@ -44,7 +44,7 @@ MeetApp is a location-powered, social-networking and event-planning application 
 ## Demo
 * [Demo 1](https://drive.google.com/drive/folders/1ps4zFMsyaVffrnx9De-d89HhVjqKa4a8?usp=sharing)
 * [Demo 2](https://drive.google.com/drive/folders/1lhjC10czva_b4yBKryF5oluZXzLEgXGw?usp=sharing)
-* [Demo 3](https://drive.google.com/drive/folders/1453wSnG1ylgLTB513S1_4exm6wyxCFl_?usp=sharing)
+* [Demo 3](https://drive.google.com/drive/folders/10877WNUu53RTN3vDDCvJ8azz0lDuctlB?usp=sharing)
 * [Demo 4](https://drive.google.com/drive/folders/16xwQ6kkNhPFYnNHqJk9s1PFm1F6NmNd-?usp=sharing)
 
 ## Documentation
@@ -53,10 +53,10 @@ MeetApp is a location-powered, social-networking and event-planning application 
 * [User Manual](UserManual.md)
 * [Architectural Structural Design & Requirements](https://drive.google.com/drive/folders/1HtlHt38AoDzFUmQpi_i_lWsPaaEMfXUJ?usp=sharing)
 * [Coding and Testing Standards](https://docs.google.com/document/d/1ZUdV4XrxWqKKbb852i9F_gth-JWqUqO0vA69SMZdbGM/edit?usp=sharing)
-* [Project Management](#)
+* [Project Management](https://docs.google.com/document/d/1b-TxLGFcvEZIVab6uQByYlGtid-efm80gMe4njbe4I4/edit?usp=sharing)
 * [Techincal Installation](https://docs.google.com/document/d/1wIVKe186YWrC5ZPuYzKM9IK702IN-GFei8rRtxlBErg/edit?usp=sharing)
-* [Presentation & Videos](#)
-* [Deployment Model](#)
+* [Deployment Model](https://docs.google.com/document/d/1TuIg6rTReczlcEckygwnaLFZIxG6CO8mCOICHHEF9pM/edit?usp=sharing)
+* [Testing Policy](https://docs.google.com/document/d/1qoezdXvaon8oi9j7JwrGgByqfV4T352UjpdHbEzUyaQ/edit?usp=sharing)
 
 ## Team Profiles
 * [Team Profiles](https://github.com/COS301-SE-2023/MeetApp/wiki/Team-Profiles)
