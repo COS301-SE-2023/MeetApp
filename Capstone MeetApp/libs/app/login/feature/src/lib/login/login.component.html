@@ -36,7 +36,7 @@
   </ion-img>
  </div>
 <div>
-  <form>
+  <form *ngIf="!isForgotPasswordMode && !isEditMode"> <!-- Added ngIf condition here -->
     <ion-item lines="full">
       <ion-label position="floating">Username</ion-label>
       <ion-input class="username" type="username"  [(ngModel)]="username" name="username" required></ion-input>

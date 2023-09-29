@@ -582,6 +582,44 @@ export class service{
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
 
+    //SERVICES FOR PASSWORD RECOVERY
+
+    sendPasswordRequest(emailAddress:string)
+    {
+      const url=this.baseURl+'passwordrecoveries/send';
+
+        const body ={
+          emailAddress:emailAddress
+        }
+
+        return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+
+    verifyPasswordRequest(token:string|null,email:string)
+    {
+      const url=`${this.baseURl}passwordrecoveries/verify`;
+
+      const params = new HttpParams()
+      .set('token', token || '') 
+      .set('email', email);
+
+      return this.http.get(`${url}`,{ headers: this.getCommonHeaders(), params });
+    }
+
+    changePassword(email:string,password:string)
+    {
+      const url = `${this.baseURl}passwordrecoveries/recover`;
+
+        const body = {
+          email: email,
+          password : password
+        };
+
+
+        return this.http.patch(`${url}`, body,{ headers  : this.getCommonHeaders() });
+    }
+
+
     getRecomendations(username:string|null)
     {
       const url = `${this.baseURl}recommendations/${username}`;

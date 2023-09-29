@@ -359,4 +359,9 @@ export class UsersController {
   async addInterests(){
     return await this.usersService.updateInterests()
   }*/
+
+  /*@Post('addEmails')
+  async addEmails(){
+    return await this.usersService.updateEmails()
+  }*/
 }

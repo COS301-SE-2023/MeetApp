@@ -723,7 +723,9 @@ export class UsersService {
       }
     ])
   
+
     return {ID : ID, username : "", emailAddress : "", password : "", region : region[0], interests : interests, profilePicture : ''}
+
 
   }
 
@@ -760,5 +762,21 @@ export class UsersService {
       }
     ])
   }
+
+  /*async updateEmails() {
+    try {
+      const usersToUpdate = await this.userModel.find({ emailAddress: { $exists: false } }).exec();
+
+      
+      for (const user of usersToUpdate) {
+        user.emailAddress = ""; 
+        await user.save();
+      }
+
+      return { success: true, message: 'Users updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update users.' };
+    }
+  }*/
 
 }

@@ -160,3 +160,63 @@ ion-input:focus {
       transform: translate3d(-50%, -50%, 0) rotate(360deg);
     }
   }
+  .edit-profile-popover, .forgot-password-popover {
+    z-index: 9999;
+  }
+  .edit-profile-popover, .forgot-password-popover {
+    position: center;
+  }
+  .edit-profile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .edit-profile-popover,
+  .forgot-password-popover {
+    position: relative; 
+    background: #fff; 
+    border: 1px solid #ccc; 
+    margin: auto; /* Center horizontally and vertically */
+    max-width: 400px; /* Optional: Set a max width */
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .forgot-password-popover h4 {
+    font-size: 1.2em; 
+  }
+  
+  .forgot-password-popover label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .forgot-password-popover input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+  }
+
+  
+  .forgot-password-popover button {
+    background: #007bff; 
+    color: #fff; 
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1em;
+  }
+  
+  .forgot-password-popover button:hover {
+    background: #0056b3; 
+  }
+  .small-text {
+    text-decoration: underline;
+  }
