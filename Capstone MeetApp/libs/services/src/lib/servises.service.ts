@@ -626,4 +626,11 @@ export class service{
       const url = `${this.baseURl}recommendations/${username}`;
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
+
+    getEventsbyUsername(username:string|null)
+    {
+      const url = `${this.baseURl}users/attendances-other/${username}`;
+      return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
+    }
+
 }

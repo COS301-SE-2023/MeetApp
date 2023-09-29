@@ -48,9 +48,17 @@ export class AppProfile2Component {
 
   userEvents = [
     {
-      eventID:'',
-      organisationID:'',
-      userID:''
+      _id:'',
+      name:'',
+      organisation:'',
+      description:'',
+      eventPoster:'',
+      date: '',
+      startTime: '',
+      endTime: '',
+      location: {latitude: 0 , longitude:0},
+      category: '',
+      region: ''
     }
   ];
 
@@ -99,11 +107,20 @@ export class AppProfile2Component {
     });
   }
 
+  async getFriendAccountEvents(username:string|null){
+    await this.serviceProvider.getEventsbyUsername(username).subscribe((response:any)=>{
+      console.log(response);
+      this.userEvents=response;
+    });
+  }
   
   
   gotofriends() {
     this.router.navigate(['/friends']); 
   }
-
+  
+  viewEvent(eventId: string) {
+    this.router.navigate(['events', eventId]);
+  }
 
 }

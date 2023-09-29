@@ -53,12 +53,12 @@
     </div>
 
     <div class="part1">
-      <div class="image-container top-group" *ngFor="let imageUrl of imageList">
-          <a href="/event" routerLinkActive="active">
-            <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
-          </a>
-        </div> 
-    </div>
+      <div class="image-container top-group" *ngFor="let event of userEvents">
+        <a href="{{viewEvent(event._id)}}" routerLinkActive="active">
+          <img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)">
+        </a>
+          </div> 
+      </div>
     
     <!--<nav class="bottom-navbar">
         <ul>
