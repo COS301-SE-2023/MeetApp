@@ -67,7 +67,7 @@
     
     <div class="part1">
       <div class="image-container top-group" *ngFor="let event of events">
-        <a href="{{viewEvent(event._id)}}" routerLinkActive="active">
+        <a href="/events/{{event._id}}" routerLinkActive="active">
           <img [src]="event.eventPoster" [alt]="'Image ' + (events.indexOf(event) + 1)">
         </a>
           </div> 

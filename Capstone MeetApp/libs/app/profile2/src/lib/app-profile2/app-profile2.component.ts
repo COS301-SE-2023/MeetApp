@@ -118,9 +118,6 @@ export class AppProfile2Component {
   gotofriends() {
     this.router.navigate(['/friends']); 
   }
-  
-  viewEvent(eventId: string) {
-    this.router.navigate(['events', eventId]);
-  }
+
 
 }
