@@ -129,6 +129,13 @@ export class UsersService {
     return await this.eventModel.find({_id : {$in : Parsedattendanceslist}}).exec()
   }
 
+  async getUserAttendancesUsername(username: string) {
+    const user = await this.userModel.findOne({ username: username}).exec()
+    const attendanceslist = await this.attendanceModel.find({ userID: user?._id }).select('eventID -_id').exec();
+    const Parsedattendanceslist = attendanceslist.map( (attendance) => {return attendance.eventID})
+    return await this.eventModel.find({_id : {$in : Parsedattendanceslist}}).exec()
+  }
+
   async getUserFriendsCount(userId: string) {
     return this.friendshipModel.countDocuments({ $and: [{ $or: [{ requester: userId }, { requestee: userId }] }, { status: true }] }).exec();
   }
@@ -716,7 +723,9 @@ export class UsersService {
       }
     ])
   
-    return {ID : ID, username : "", emailAddress : "" ,password : "", region : region[0], interests : interests, profilePicture : ''}
+
+    return {ID : ID, username : "", emailAddress : "", password : "", region : region[0], interests : interests, profilePicture : ''}
+
 
   }
 
