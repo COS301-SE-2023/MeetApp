@@ -32,7 +32,14 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install --legacy-peer-deps
+      - name: maps api environment
+        run: touch libs/app/map/feature/src/lib/maps/environment.ts | printf "export const environment={API_KEY:'${{secrets.MAPS_API_KEY}}'};" > libs/app/map/feature/src/lib/maps/environment.ts
+      - name: backend setup
+        run: touch libs/services/src/lib/environment.ts | printf "export const environment={BASE_URL:'${{secrets.API_BASE_URI}}',BACKEND_API_KEY:'${{secrets.MEETAPP_API_KEY}}',GOOGLE_APIKEY:'${{secrets.GOOGLE_APIKEY}}',GOOGLE_URL:'${{secrets.GOOGLE_URL}}'};" > libs/services/src/lib/environment.ts
+      - name: initialising firebase variables
+        run: printf "export const environment={firebase:{apiKey:'${{secrets.FB_APIKEY}}',authDomain:'${{secrets.FB_AUTHDOMAIN}}',projectId:'${{secrets.FB_PROJECTID}}',storageBucket:'${{secrets.FB_STORAGEBUCKET}}',messagingSenderId:'${{secrets.FB_MESSAGINGSENDERID}}',appId:'${{secrets.FB_APPID}}',measurementId:'${{secrets.FB_MEASUREMENTID}}'}};" > apps/meet-app/src/environment.ts
       - run: npm run build:app:development
+      - run: cp ./tools/error.html ./dist/apps/meet-app
       - run: aws s3 sync ./dist/apps/meet-app s3://dev-meetapp
       
       
@@ -55,7 +62,22 @@ jobs:
           node-version: 18
           cache: 'npm'
       - run: npm install --legacy-peer-deps
-      - run: npm run build:api:development
+
+      #- name: set environment
+      #  run: >
+      #    aws elasticbeanstalk update-environment 
+      #    --environment-name Meetapp-env-1 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_CONNECTION_STRING_SEDI,Value='${{secrets.DB_CONNECTION_STRING_SEDI}}' 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=DB_NAME_SEDI,Value='${{secrets.DB_NAME_SEDI}}' 
+      #    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=JWT_PRIVATE_KEY,Value='${{secrets.JWT_PRIVATE_KEY}}' 
+      ##    --option-settings Namespace=aws:elasticbeanstalk:application:environment,OptionName=MEETAPP_API_KEY,Value='${{secrets.MEETAPP_API_KEY}}'
+      
+      #- name: wait environment update
+      #  run: aws elasticbeanstalk describe-environments --environment-names Meetapp-env-1
+      
+      - name: build api
+        run: npm run build:api:development
+  
       - run: cat ./tools/package.txt > package.json
       - name: Compress required files to deploy 
         run: Compress-Archive -Path './dist','./package.json' -DestinationPath ./api_deploy.zip
@@ -65,4 +87,5 @@ jobs:
         run: aws elasticbeanstalk create-application-version --application-name meetapp --source-bundle S3Bucket="dev-meet-app-api",S3Key="api_deploy.zip" --version-label "meetapp-version-${{ github.sha }}" 
       - name: deploy api to ebs
         run: aws elasticbeanstalk update-environment --environment-name Meetapp-env-1 --version-label "meetapp-version-${{github.sha}}"
-    
+      
+      

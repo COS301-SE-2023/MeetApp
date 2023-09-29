@@ -1,21 +1,18 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-//import { IonText } from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms'
 import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-//import {ApiService } from '@capstone-meet-app/app/shared service';
-//import { Injectable } from '@angular/core';
+import { Component} from '@angular/core';
+import { FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { user,organiser,service,ServicesModule} from '@capstone-meet-app/services';
-import { ConnectableObservable } from 'rxjs';
+import { HttpClient} from '@angular/common/http';
+import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
-
+import { LoadingController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -27,14 +24,17 @@ import { AlertController, ToastController } from '@ionic/angular';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
- email = ''; 
+  forgotPasswordEmail!: string;
+
+  email = ''; 
   password= ''; 
-username='';
-
+  username='';
+  isEditMode = false;
+  isForgotPasswordMode = false;
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
-    private toastController: ToastController, private authservice: service,private activatedRoute: ActivatedRoute) { 
+    private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute,private modalController: ModalController) { 
   }
-
+  
   
   //storing the users data
   data_user= [{
@@ -63,7 +63,7 @@ username='';
   //stores the login response for user
   loginData_user:any;
 
-    
+   
   //storing the organisers data  
   data_organiser= [{
     _id:'',
@@ -76,19 +76,20 @@ username='';
     orgDescription:'',
     events:[]
   }];
-
+  valid=true;
   //stores the login response for user
   loginData_organiser:any;
 
   userType:string|null = '';
-
- 
+  loader=true;
 
   async showErrorAlert(message: string) {
     const alert = await this.alertController.create({
       header: 'login Successful',
       message: message,
-      buttons: ['OK']
+      buttons: ['OK'],
+      cssClass:'.custom-ok-button',
+      
     });
   
     await alert.present();
@@ -105,103 +106,45 @@ username='';
     await toast.present();
   }
   
-  
-  //Initialise data for User and Organiser using the services 
-  async ngOnInit() {
-    
 
+  async ngOnInit() {
+  
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
 
-    await this.apiService.getAllUsers().subscribe((response: any) => { 
-      console.log(response);
-      this.data_user = response;  
-    });
+    // await this.apiService.getAllUsers().subscribe((response: any) => { 
+    //   this.data_user = response;
+    
+    // });
   
-    await this.apiService.getAllOrganisers().subscribe((response: any) => { 
-      console.log(response);
-      this.data_organiser = response;
-      console.log(this.data_organiser[0]._id);
-    });
+    // await this.apiService.getAllOrganisers().subscribe((response: any) => { 
+    //   this.data_organiser = response;
+    // });
 
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
-      console.log('User Type:', this.userType);
-    });
-    
-      
-      
-    
-    //this.LogInUser('jane_smith','bibo@gmail.com');
-
-    //this.LogInOrg('LTDProevents','marketspass');
-  }
-   
-    
-    
-  
-  valid=true;
-
-  //Login Function for User
-  async LogInUser(username:string,password:string)
-  {
-    await this.apiService.authUser(username,password ).subscribe((response) => {
-      console.log('API response:', response);
-      this.loginData_user=response;
-      this.userLogin_payload=this.loginData_user;
-      console.log('username:',this.userLogin_payload.user)
-      console.log('access token:',this.userLogin_payload.access_token)
-      this.authservice.setToken(this.userLogin_payload.access_token)
-      console.log('message:',this.userLogin_payload.message);
-      this.current(this.userLogin_payload.access_token);
-     
     });
 
-   
-   
+    //this.sendLink('akanihlungwani41@gmail.com');
 
-  for (let i = 0; i < this.data_user.length; i++) {
-
-    if((this.data_user[i].username==username ||this.data_user[i].email==this.email) && this.data_user[i].password==password)
-    {
-      const errorMessage = 'you have succesfully logged in';
-      this.showErrorAlert(errorMessage); 
-      this.router.navigate(['/home',{ userType: this.userType }]);
-      this.valid=false;
-    }
+    setTimeout(()=>{                           
+      this.loader = false;
+  }, 400);
     
   }
-  if(this.valid)
-  {
-    const errorMessage = 'wrong username or password';
-      this.showErrorToast(errorMessage);
-  }
-                   
-    
-
-  }
-
-  
+   
   
  
 
-  //Login Function for Organisation
-  async LogInOrg(username:string,password:string)
+  async LogInUser(username:string,password:string)
   {
-    await this.apiService.authOrganiser(username,password ).subscribe((response) => {
-      console.log('API response:', response);
-      this.loginData_organiser=response;
-      this.orgLogin_payload=this.loginData_organiser;
-      console.log('username:',this.orgLogin_payload.organisation)
-      console.log('access token:',this.orgLogin_payload.access_token)
-      console.log('message:',this.orgLogin_payload.message);
-    });
+    await this.apiService.authUser(username,password ).subscribe((response:any) => {
+      this.userLogin_payload=response;
+      this.authservice.setToken(this.userLogin_payload.access_token);
 
-    for (let i = 0; i < this.data_organiser.length; i++) {
-
-      if((this.data_organiser[i].username==username || this.data_organiser[i].email==this.email) && this.data_organiser[i].password==password)
+      if(this.userLogin_payload.message=='Login successful')
       {
         const errorMessage = 'you have succesfully logged in';
         this.showErrorAlert(errorMessage); 
@@ -209,20 +152,48 @@ username='';
         this.valid=false;
       }
       
-    }
-    if(this.valid)
-    {
-      const errorMessage = 'wrong username or password';
+
+      if(this.valid)
+      {
+        const errorMessage = 'wrong username or password';
         this.showErrorToast(errorMessage);
-    }
+      }
+                    
+  
+    });
+
+  
+      
   }
 
-
-  async current(token:string)
+  
+  async LogInOrg(username:string,password:string)
   {
-    await this.apiService.getLogedInUser(token).subscribe((response) => {
-      console.log('API response',response)
+    await this.apiService.authOrganiser(username,password ).subscribe((response:any) => {
+      this.orgLogin_payload=response;
+      
+      this.authservice.setToken(this.orgLogin_payload.access_token)
+
+      
+      if(this.orgLogin_payload.message=='Login successful')
+      {
+          const errorMessage = 'you have succesfully logged in';
+          this.showErrorAlert(errorMessage); 
+          this.router.navigate(['/home',{ userType: this.userType }]);
+          this.valid=false;
+      }
+        
+      
+      if(this.valid)
+      {
+        const errorMessage = 'wrong username or password';
+        this.showErrorToast(errorMessage);
+      }
+
+
     });
+
+    
   }
 
 
@@ -230,11 +201,15 @@ username='';
     this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
-  login(username: string,password: string) {
-    console.log('username:', username);
-    console.log('password',password);
+  async login(username: string,password: string) {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+    });
+    await loading.present();
 
-    if(this.userType=='user')
+    setTimeout(() => {
+      loading.dismiss();
+      if(this.userType=='user')
     {
       this.LogInUser(username,password);
       
@@ -244,40 +219,34 @@ username='';
     {
       this.LogInOrg(username,password);
     }
+
+    }, 3000);
+    
    
   }
- /* onSubmit() {
-    if (this.loginForm.valid) {
-      const loginInfo = {
-        username: this.loginForm.get('email')?.value,
-        password: this.loginForm.get('password')?.value,
-      };
-
-      console.log('Form values:', loginInfo);
-
-      const result = this.apiService.loginMock(loginInfo);
-
-      if (result) {
-        // Login success
-        console.log('Login successful');
-        console.log(result);
-        this.router.navigate(['/home']);
-       // this.router.navigate(['/signup']);
-      } else {
-        // Login failed
-        console.log('Login failed');
-      }
-    }
-  }
   
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-    });
+  openEditProfilePopover() {
+    this.isEditMode = true;
   }
 
-  onSignUp() {
-    this.router.navigate(['/signup']);
-  }*/
+  openForgotPasswordPopover() {
+    this.isForgotPasswordMode = true;
+  }
+
+  closePopover() {
+    this.isEditMode = false;
+    this.isForgotPasswordMode = false;
+  }
+ 
+  sendResetLink() {
+      console.log("link is");
+      //check if email exists then send email
+    }
+
+    sendLink(emailAddress:string)
+    {
+      this.apiService.sendPasswordRequest(emailAddress).subscribe((response: any) => { 
+        console.log(response);
+      });
+    }
 }

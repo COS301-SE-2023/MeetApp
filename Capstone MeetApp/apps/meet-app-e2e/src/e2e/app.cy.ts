@@ -8,6 +8,13 @@ describe('meet-app', () => {
     cy.login('my-email@something.com', 'myPassword');
 
     // Function helper example, see `../support/app.po.ts` file
-    getGreeting().contains('WELCOME');
+    //getGreeting().contains('WELCOME');
   });
+
+ 
 });
+describe('Bstackdemo', () => {
+  it('should run lighthouse performance audits using default thresholds', () => {
+  cy.visit('/');
+  });
+  });

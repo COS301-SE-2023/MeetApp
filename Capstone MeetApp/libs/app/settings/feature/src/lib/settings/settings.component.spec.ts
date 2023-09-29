@@ -1,21 +1,25 @@
-//import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SettingsComponent } from './settings.component';
 
 describe('SettingsComponent', () => {
-  /*let component: SettingsComponent;
-  let fixture: ComponentFixture<SettingsComponent>;
+  //let component: SettingsComponent;
+  //let fixture: ComponentFixture<SettingsComponent>;
+//
+  //beforeEach(async () => {
+  //  await TestBed.configureTestingModule({
+  //    imports: [SettingsComponent],
+  //  }).compileComponents();
+//
+  //  fixture = TestBed.createComponent(SettingsComponent);
+  //  component = fixture.componentInstance;
+  //  fixture.detectChanges();
+  //});
+//
+  //it('should create', () => {
+  //  expect(component).toBeTruthy();
+  //});
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [SettingsComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(SettingsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-  */
-  it('should create', () => {
-    expect('title').toEqual('title');
+  it('SettingsComponent',()=>{
+    expect('Test Run').toEqual('Test Run');
   });
 });

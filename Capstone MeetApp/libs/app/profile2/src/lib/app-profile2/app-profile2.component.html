@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button  defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+        <h1 class="heading" >
+          Profile
+      </h1>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<div id="body">
+   
+       
+    <div class="profile">
+      <div class="circle">
+        <ion-img src="{{profile.profilePicture}}" alt="Circle Image">
+        </ion-img>
+      </div>
+        <div class="profile-info">
+            <h3>{{ profile.username }}</h3>
+        <ion-list class="list">
+          <ion-item class="list">
+            <ion-label>Events</ion-label>
+            <ion-badge color="primary">{{eventCount}}</ion-badge>
+          </ion-item>
+  
+          <ion-item (click)="gotofriends()" class="list">
+            <ion-label>Friendships</ion-label>
+            <ion-badge color="primary">{{friendCount}}</ion-badge>
+          </ion-item>
+          
+        </ion-list>
+        
+            
+          
+        
+    
+        </div> 
+    
+        
+
+        
+    </div>
+
+    <div class="part1">
+      <div class="image-container top-group" *ngFor="let event of userEvents">
+        <a href="/events/{{event._id}}" routerLinkActive="active">
+          <img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)">
+        </a>
+          </div> 
+      </div>
+    
+    <!--<nav class="bottom-navbar">
+        <ul>
+          <li>
+            <a href="/home" routerLinkActive="active">
+              <i class="fas fa-home"></i>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="/profile">
+              <i class="fas fa-bell"></i>
+              Notification
+            </a>
+          </li>
+          <li>
+            <a href="/profile" >
+              <i class="fas fa-user"></i>
+              Profile
+            </a>
+          </li>
+        </ul>
+    </nav>-->
+
+  </div>
+</html>

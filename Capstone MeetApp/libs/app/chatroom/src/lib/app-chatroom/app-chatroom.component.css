@@ -1,0 +1,164 @@
+/* Add this CSS to your styles file */
+.message-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.profile-picture {
+  margin-right: 10px;
+}
+
+.profile-picture img {
+  width: 50px; /* Adjust the size as needed */
+  height: 50px; /* Adjust the size as needed */
+  border-radius: 50%;
+}
+
+.message-content {
+  background-color: #e0e0e0; /* Bubble background color */
+  border-radius: 10px;
+  margin-top: 10px;
+  padding: 10px;
+  max-width: 70%; /* Adjust as needed */
+  position: relative;
+}
+
+.message-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.user {
+  font-weight: bold;
+}
+
+.timestamp {
+  font-size: 12px;
+}
+
+.message-text {
+  margin-bottom: 5px;
+}
+
+.message-image-medium,
+.message-video {
+  max-width: 20%; /* Adjust as needed */
+  border-radius: 10px;
+}
+
+
+.selected-image-small { /* Adjust as needed */
+  border-radius: 10px;
+}
+
+.selected-video {
+  max-width: 200px; /* Adjust as needed */
+  border-radius: 10px;
+}
+.custom-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.add-media-icon {
+  cursor: pointer;
+}
+
+.media-buttons {
+  display: flex;
+}
+
+.media-buttons ion-button {
+  margin-right: 10px;
+}
+
+
+.message-content {
+  position: relative;
+}
+
+.timestamp {
+  position: absolute;
+  bottom: -20px;
+  right: 0;
+}
+
+
+ion-input,
+.send-button {
+  flex: 1;
+  margin: 0 10px;
+}
+
+
+ion-icon {
+  font-size: 14px;
+}
+.custom-footer ion-button {
+  min-width: 30px; /* Set a minimum width for the buttons */
+  flex: 1; /* Distribute available space evenly among buttons */
+  margin: 0.2rem; /* Add some margin between buttons */
+}
+
+.custom-footer ion-icon {
+  font-size: 1.2rem; /* Adjust the icon size */
+}
+
+
+/* Optionally, adjust the input field size */
+.custom-footer ion-input {
+  flex-grow: 1; /* Allow the input field to grow and take available space */
+}
+.media-buttons ion-button {
+  margin-right: 5px; /* Reduce the margin between buttons */
+  font-size: 12px; /* Adjust the font size as needed */
+  padding: 5px 10px; /* Adjust the padding as needed */
+}
+.popup-container {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  z-index: 1;
+}
+
+.popup-container.hidden {
+  display: none;
+}
+
+.popup-container button {
+  margin: 5px;
+}
+
+.selected-image-small,
+.selected-video {
+  width: 100px;
+  height: auto;
+}
+.fa-file-video{
+  font-size: 30px; 
+  color: grey;
+  margin-right: 20px; 
+ 
+}
+.fa-paper-plane{
+  font-size: 30px; 
+  color: grey;
+  margin-right: 20px; 
+ 
+}
+.fa-file-image{
+  font-size: 30px; 
+  color: grey;
+  margin-right: 20px; 
+ 
+}
