@@ -5,10 +5,15 @@
   "scripts": {
     "start": "node dist/apps/meet-app-api/main"
   },
+  "engines": {
+  "node": ">=14.0.0"
+  },
   "private": true,
   "dependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@nestjs/cli": "^9.5.0",
     "@nestjs/common": "^9.4.2",
+    "@nestjs/config": "^3.0.1",
     "@nestjs/core": "^9.4.2",
     "@nestjs/cqrs": "^9.0.4",
     "@nestjs/jwt": "^10.1.0",
@@ -16,14 +21,21 @@
     "@nestjs/mongoose": "^9.2.2",
     "@nestjs/passport": "^10.0.0",
     "@nestjs/platform-express": "^9.4.2",
+    "@nestjs/swagger": "^7.1.6",
     "axios": "^1.0.0",
     "dotenv": "^16.0.3",
+    "bcrypt": "^5.1.1",
     "mongoose": "^7.2.2",
     "ng-packagr": "^15.2.2",
+    "ngx-pipes": "^3.2.2",
+    "passport-jwt": "^4.0.1",
     "postcss-preset-env": "^8.5.1",
     "reflect-metadata": "^0.1.13",
+    "swagger-ui-express": "^5.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.5.2",
-    "zone.js": "^0.13.0"
+    "zone.js": "^0.13.0",
+    "@types/nodemailer": "^6.4.10",
+    "nodemailer": "^6.9.5",
   }
 }

@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';  // A
+import { IonicModule } from '@ionic/angular';  
 import { ModalController } from '@ionic/angular';
-import { RouterModule, Routes } from '@angular/router';
 import { user,service} from '@capstone-meet-app/services';
 import { Location } from '@angular/common';
 
@@ -35,7 +34,7 @@ export class ProfileComponent {
     // Add more image URLs as needed
   ];
   
-  profile:user={username:'',password:'',profilePicture:'',region:''};
+  profile:user={emailAddress:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region:'',interests: []};
   eventCount='';
   friendCount=0;
   userEvents = [
@@ -47,6 +46,7 @@ export class ProfileComponent {
   ];
 
   events=[{
+    _id:'',
     name:'',
     organisation:'',
     description:'',
@@ -79,100 +79,71 @@ export class ProfileComponent {
   
 
   async ngOnInit(){
-    const access_token=this.serviceProvider.getToken();
-    console.log(access_token);
-    this.getCurrentUser();
-    this.getEventCount(access_token);
-    //this.getEvents(access_token);
+    
+    this.getEventCount();
+    this.getUserEvents();
     this.getFriendCount();
+    this.getCurrentUser();
+    
   }
+
   goBack() {
     this.location.back();
   }
   
-  async getProfile(id :string){
-    await this.serviceProvider.getUserByID(id).subscribe((response:any)=>{ 
-      this.profile = response;
-      console.log(this.profile);
-    })
-  }
   gotofriends() {
     this.router.navigate(['/friends']);
     
   }
-  async getEventCount(token :string|null){
-    await this.serviceProvider.getUserAttendancesCount(token).subscribe((response:any)=>{
+
+  async getEventCount(){
+    await this.serviceProvider.getUserAttendancesCount().subscribe((response:any)=>{
       this.eventCount = response;
-      console.log(this.eventCount);
     });
   }
   
-  async updateProfile(token :string|null,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(token,username,password,profilePicture,region).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
+  async updateProfile(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string,interests?: string[]){
+    await this.serviceProvider.updateUser(emailAddress,username,password,profilePicture,region,interests).subscribe();
   }
 
-  async updateProfileID(id :string,username?:string ,password?:string,profilePicture?:string,region?:string){
-    await this.serviceProvider.updateUser(id,username,password,profilePicture,region).subscribe((response) => {
-      console.log('API response:', response);
-   
-    });
-  }
-
-
-  async getEvents(token :string|null){
-    await this.serviceProvider.getUserAttendances(token).subscribe((response:any)=>{
-      this.userEvents = response;
-      console.log(this.userEvents);
-
-      for(let i=0;i<this.userEvents.length;i++)
-      {
-        if(i==this.userEvents.length-1)
-        {
-          this.orgIDs+=this.userEvents[i].organisationID;
-        }
-        else
-        {
-          this.orgIDs+=this.userEvents[i].organisationID+',';
-        }
-        
-        
-        
-      }
-      console.log(this.orgIDs);
-      //this.fetchByIds('fetch-by-ids',this.orgIDs);
-    });
-  }
-
-  async fetchByIds(id:string ,eventIds:string)
+  async getUserEvents()
   {
-    await this.serviceProvider.getEventByIDs(id,eventIds).subscribe((response:any)=>{
-      console.log(response);
+    await this.serviceProvider.getUserAttendances().subscribe((response:any)=>{
       this.events = response;
-      console.log(this.events);
     });
   }
 
   async getCurrentUser()
   {
-    const access_token=this.serviceProvider.getToken();
-     await this.serviceProvider.getLogedInUser(access_token).subscribe((response) => {
-      console.log('API response:', response);
-      this.user_payload=response;
-      this.current_user=this.user_payload;
-      console.log('user ID',this.current_user.id);
-      this.getProfile(this.current_user.id);
+    await this.serviceProvider.getLogedInUser().subscribe((response:any) => {
+      
+      const username=this.serviceProvider.getUsername();
+     
+      if(username==null)
+      {
+        this.current_user=response;
+       
+        this.getProfile(this.current_user.username);
+      }
+      else
+      {
+        this.getProfile(username);
+      }
+      
     });
 
   }
 
+  async getProfile(username :string|null){
+    await this.serviceProvider.getUserByUsername(username).subscribe((response:any)=>{ 
+      this.profile = response;
+     
+    });
+  }
+
   async getFriendCount()
   {
-    const access_token=this.serviceProvider.getToken();
-    await this.serviceProvider.getFriendCount(access_token).subscribe((response:any) => {
-      console.log('API response:', response);
+    await this.serviceProvider.getFriendCount().subscribe((response:any) => {
       this.friendCount=response;
     });
   }
@@ -195,26 +166,32 @@ export class ProfileComponent {
   }
 
   saveProfile() {
-      console.log('THE FUNCTION IS RUNNING');
-      const access_token=this.serviceProvider.getToken();
+   
     if(this.newProfileName&&this.newProfilePicUrl){
       this.profileName = this.newProfileName;
       this. profilePictureUrl = this.newProfilePicUrl;
-      this.updateProfile(access_token,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
-      console.log(this. profilePictureUrl);
+      this.serviceProvider.setUsername(this.newProfileName);
+      this.convertImageToBase64(this.profilePictureUrl);
+      this.updateProfile(this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region);
+    
+      this.updateProfile(this.profile.emailAddress,this.newProfileName,this.profile.password,this.newProfilePicUrl,this.profile.region,this.profile.interests);
+    
     }else if(this.newProfileName){
       this.profileName = this.newProfileName;
-      this.updateProfile(access_token,this.newProfileName);
+      this.serviceProvider.setUsername(this.newProfileName);
+      this.updateProfile(this.profile.emailAddress,this.newProfileName,this.profile.password,this.profile.profilePicture,this.profile.region,this.profile.interests);
     }else if(this.newProfilePicUrl){
       this. profilePictureUrl = this.newProfilePicUrl;
-      this.convertImageToBase64(this. profilePictureUrl);
-      this.updateProfile(access_token,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
-      console.log(this. profilePictureUrl);
+      this.convertImageToBase64(this.profilePictureUrl);
+      this.updateProfile(this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region);
+    
+      this.updateProfile(this.profile.emailAddress,this.profile.username,this.profile.password,this.profilePictureUrl,this.profile.region,this.profile.interests);
+    
     }
 
     
     this.isEditMode = false;
-    this.refreshPageWithDelay(2000); 
+    this.refreshPageWithDelay(4000); 
 
     
   }
@@ -224,8 +201,8 @@ export class ProfileComponent {
   }
 
   refreshPageWithDelay(delayInMilliseconds: number) {
-    setTimeout(() => {
-      window.location.reload();
+    setTimeout(() => { 
+      this.getCurrentUser();
     }, delayInMilliseconds);
   }
   
@@ -260,4 +237,6 @@ export class ProfileComponent {
   closeEditProfilePopover() {
     this.isEditMode = false;
   }
+  
+
 }

@@ -1,94 +1,149 @@
 .heading {
-  margin-top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  color: black;
-  margin: 0 auto;
-  font-family: 'Roboto', serif;
-}
-.error-message {
-  color: red;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-
-       
-.scroll-container {
-  height: 700px; 
-  overflow-y: auto; 
-}
-.holder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid white;
-  padding: 16px;
-  margin-top:160px;
-  border-radius: 0%;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    color: black;
+    margin: 0 auto;
+    font-family: 'Roboto', serif;
+  }
+  .error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
   
-}
-.input-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 16px;
-  width: 100%;
-} 
-input {
-  background-color: transparent;
-  color: white;
-  border: none;
-  border-bottom: 2px solid white;
-  padding: 4px;
-  margin-top: 4px;
-  margin-right: 0%;
-  width: 100%;
-  box-sizing: border-box;
-  border-bottom: 3px solid #000000;
-  outline: none;
-}
-.label{
-
-
-  color :white;
-}
-
-
-.body.index-page {
-  height: 100vh; 
-  background-color: black;
-  margin: 0;
-  padding: 0;
-  overflow: hidden ! important;
-
-  /* Add specific styles for index.html here */
-}
-#index {
-background-color: white ;
-background-size: cover;
-background-position: center center;
-min-height: 100vh;
-margin: 0;
-padding: 0;
-}
-.left-image {
-      
-  margin-left: 40px;
-  margin-top:20px;
-}
-
-    body {
-  background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
+  
+  .image{
+    margin-top: 10px;
+  }    
+  .scroll-container {
+    height: 640px; 
+  }
+  .holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid white;
+    padding: 16px;
+    margin-top:160px;
+    border-radius: 0%;
+    
+  }
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    width: 100%;
+  } 
+  input {
+    background-color: transparent;
+    color: white;
+    border: none;
+    border-bottom: 2px solid white;
+    padding: 4px;
+    margin-top: 4px;
+    margin-right: 0%;
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 3px solid #000000;
+    outline: none;
+  }
+  .label{
+  
+  
+    color :white;
+  }
+  
+  
+  .body.index-page {
+    height: 100vh; 
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    overflow: hidden ! important;
+  
+    /* Add specific styles for index.html here */
+  }
+  #index {
+  background-color: white ;
   background-size: cover;
   background-position: center center;
   min-height: 100vh;
   margin: 0;
   padding: 0;
-}
-
-ion-img{
-  height: 300px;
-}
+  }
+  .left-image {
+        
+    margin-left: 40px;
+    margin-top:20px;
+  }
+  
+  body {
+    background-image: url('https://cdn.wallpapersafari.com/65/53/kg35EB.png');
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
+  ion-img{
+    height: 250px;
+  }
+  
+  /*loader*/
+  
+  @media screen and (max-width: 450px) {
+    .spin::before {
+      animation: 1.5s linear infinite spinner;
+      animation-play-state: inherit;
+      border: solid 5px #cfd0d1;
+      border-bottom-color: #1c87c9;
+      border-radius: 50%;
+      content: "";
+      height: 40px;
+      position:absolute;
+      top: 10%;
+      left: 10%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 40px;
+      will-change: transform;
+      margin-top:50%;
+      margin-left: 40%;
+    }
+  }
+  
+  @media screen and (min-width: 500px) {
+    
+  .spin::before {
+    animation: 1.5s linear infinite spinner;
+    animation-play-state: inherit;
+    border: solid 5px #cfd0d1;
+    border-bottom-color: #1c87c9;
+    border-radius: 50%;
+    content: "";
+    height: 40px;
+    position:absolute;
+    top: 10%;
+    left: 10%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 40px;
+    will-change: transform;
+    margin-top:400px;
+    margin-left: 500px;
+  }
+  
+  
+  }
+  
+  @keyframes spinner {
+    0% {
+      transform: translate3d(-50%, -50%, 0) rotate(0deg);
+    }
+    100% {
+      transform: translate3d(-50%, -50%, 0) rotate(360deg);
+    }
+  }

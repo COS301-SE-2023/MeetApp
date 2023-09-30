@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button  defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>
+        Notifications
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <ion-list>
+        <ion-item *ngFor="let request of requesters">
+          <ion-icon name="notifications"></ion-icon>
+          you have a new friend request from &nbsp; <a>{{ request.username }}</a>
+          <ion-button  class="add-friend-button" (click)="acceptRequest(request._id,request)" [disabled]="request.requestSent">{{ request.requestSent ? 'Accepted' : 'Accept' }}
+          </ion-button>
+          </ion-item>
+       
+
+        
+      </ion-list>
+      
+  </ion-content>
+  

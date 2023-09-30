@@ -3,9 +3,10 @@ import { ApiBackendModule } from '@capstone-meet-app/api/backend'
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
-  imports: [ApiBackendModule, MongooseModule.forRoot('mongodb+srv://u19007443:AGGGyM0C7n4VyBtN@cluster0.nh0ftux.mongodb.net/?retryWrites=true&w=majority', {dbName: 'MeetAppMockDB'})],
+  imports: [ApiBackendModule, ConfigModule.forRoot({envFilePath: '../../../../.env', isGlobal : true}), MongooseModule.forRoot(process.env.DB_CONNECTION_STRING_SEDI, {dbName: process.env.DB_NAME_SEDI})],
   controllers: [AppController],
   providers: [AppService],
 })

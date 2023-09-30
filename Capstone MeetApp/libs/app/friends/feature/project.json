@@ -2,25 +2,10 @@
   "name": "app-friends-feature",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "libs/app/friends/feature/src",
+  "prefix": "capstone-meet-app",
+  "tags": [],
   "projectType": "library",
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
-      "options": {
-        "outputPath": "dist/libs/app/friends/feature",
-        "main": "libs/app/friends/feature/src/index.ts",
-        "tsConfig": "libs/app/friends/feature/tsconfig.lib.json",
-        "assets": ["libs/app/friends/feature/*.md"]
-      }
-    },
-    "lint": {
-      "executor": "@nx/linter:eslint",
-      "outputs": ["{options.outputFile}"],
-      "options": {
-        "lintFilePatterns": ["libs/app/friends/feature/**/*.ts"]
-      }
-    },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
@@ -34,7 +19,16 @@
           "codeCoverage": true
         }
       }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/app/friends/feature/**/*.ts",
+          "libs/app/friends/feature/**/*.html"
+        ]
+      }
     }
-  },
-  "tags": []
+  }
 }

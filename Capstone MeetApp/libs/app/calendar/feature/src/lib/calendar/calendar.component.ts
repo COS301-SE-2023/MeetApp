@@ -19,6 +19,8 @@ import { Location } from '@angular/common';
 export class CalendarComponent {
 
   selectedDate!: string;
+  formattedDates: string[] = [];
+  datesWithEvents: Set<string> = new Set();
   constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
 
   }
@@ -35,9 +37,22 @@ export class CalendarComponent {
     region:'',
     description:'',
     eventPoster:''
-}
-  
-];
+  }];
+
+  events=[{
+    name:'',
+    organisation:'',
+    description:'',
+    eventPoster:'',
+    date: '',
+    startTime: '',
+    endTime: '',
+    location: {latitude: 0 , longitude:0},
+    category: '',
+    region: ''
+  }]
+
+
 filteredEvents: events[] = [];
 
 filterEvents() {
@@ -45,7 +60,7 @@ filterEvents() {
   if (this.selectedDate) {
     
     const selectedDate = new Date(this.selectedDate).toISOString().split('T')[0];
-    console.log("fff",selectedDate)
+  
     // Filter events based on the selected date
     this.filteredEvents = this.data.filter(events => events.date === selectedDate);
   } else {
@@ -66,5 +81,26 @@ filterEvents() {
       }
       this.data
     });
-}
+    
+    this.getUserEvents();
+
+  }
+
+   async getUserEvents()
+  {
+    await this.service.getUserAttendances().subscribe((response:any)=>{
+     
+      this.events = response;
+    
+      this.populateDatesWithEvents();
+    });
+  }
+  populateDatesWithEvents() {
+    this.datesWithEvents.clear();
+    for (const event of this.events) {
+      const eventDate = event.date; // Adjust this according to your event date structure
+      this.datesWithEvents.add(eventDate);
+    }
+    this.formattedDates = Array.from(this.datesWithEvents); // Populate the array
+  }
 }

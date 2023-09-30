@@ -7,13 +7,14 @@ import { getModelToken } from '@nestjs/mongoose';
 import { Attendance } from '../attendances/schema';
 import { JwtModule } from '@nestjs/jwt';
 import { Event } from '../events/schema';
+import { Organisation } from '../organisations/schema';
 
 describe('FriendshipsService', () => {
   let service: FriendshipsService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [FriendshipsService, UsersService, { provide: getModelToken(Friendship.name), useValue: jest.fn() }, { provide: getModelToken(User.name), useValue: jest.fn() }, { provide: getModelToken(Attendance.name), useValue: jest.fn() }, { provide: getModelToken(Event.name), useValue: jest.fn() }],
+      providers: [FriendshipsService, UsersService, { provide: getModelToken(Friendship.name), useValue: jest.fn() }, { provide: getModelToken(User.name), useValue: jest.fn() }, { provide: getModelToken(Attendance.name), useValue: jest.fn() }, { provide: getModelToken(Event.name), useValue: jest.fn() }, { provide: getModelToken(Organisation.name), useValue: jest.fn()}],
       imports: [
         JwtModule.register({
           global: true,

@@ -3,7 +3,7 @@
         margin-left:2%!important;
     }
 
-    /* Styles for iPhone 6/7/8 and similar devices */
+   
     
   }
 #body{
@@ -46,13 +46,21 @@
     color: black;
     
   }
-
+ 
   ion-datetime{
     margin-top:2%;
     height: 500px;
     width: 100%;
     margin-left: 7%;
-    --padding-end:50px
+    --padding-end:50px;
+    --color: red;
+    --color-primary: #007bff;
+    --color-secondary: #007bff;
+    
+    
+  }
+  :host ::ng-deep ion-datetime {
+    --color: red; 
   }
   ion-card-title{
     text-align: center;
@@ -68,5 +76,10 @@
   }
   h1{
     text-align: center;
+
 }
+ion-datetime {
+  --color: red; /* Change this to the desired color */
+}
+
 

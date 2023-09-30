@@ -8,10 +8,12 @@
     <link rel="icon" type="image/x-icon" href="favicon.ico" />
    
   </head>
-<div id="index" class="index-page" class="scroll-container">
-  
 
-  
+  <div class="spin" *ngIf="loader">
+      
+  </div>
+<div class="body" *ngIf="!loader">
+<div id="index" class="index-page" class="scroll-container"> 
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -25,36 +27,42 @@
   </ion-toolbar>
 </ion-header>
 
+
+
 <ion-content>
 
-<div >
-  <ion-img src="assets/profile.png"  width="300" height="300" alt="myimage">
+<div class="image">
+  <ion-img src="assets/logo.png"  width="300" height="300" alt="myimage">
   </ion-img>
  </div>
 <div>
-  <form>
+  <form *ngIf="!isForgotPasswordMode && !isEditMode"> <!-- Added ngIf condition here -->
     <ion-item lines="full">
       <ion-label position="floating">Username</ion-label>
-      <ion-input type="username"  [(ngModel)]="username" name="username" required></ion-input>
+      <ion-input class="username" type="username"  [(ngModel)]="username" name="username" required></ion-input>
       <div class="error-message" *ngIf="loginForm.controls['username'].touched && loginForm.controls['username'].hasError('required')">
         Username is required.
       </div>
     </ion-item>
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"  [(ngModel)]="password" name="password" required></ion-input>
+      <ion-input class="password" type="password"  [(ngModel)]="password" name="password" required></ion-input>
       <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
         Password is required.
       </div>
     </ion-item>
     <ion-row>
       <ion-col>
-        <ion-button type="submit"  expand="block" (click)="login(username,password)"  >Sign In</ion-button>
+        <ion-button type="submit" color="dark" expand="block" (click)="login(username,password)"  >Sign In</ion-button>
         <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
-        <a class="small-text"  (click)="onCreate()">create an account</a>
+        <a id="signup" class="small-text"  (click)="onCreate()">create an account</a>
       </ion-col>
     </ion-row>
   </form>
 </div>
+
 </ion-content>
+</div>
+
+  
 </div>
