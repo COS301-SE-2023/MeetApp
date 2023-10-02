@@ -19,7 +19,7 @@
   
   <ion-content class="chat-content">
     <div class="message-container">
-      <div class="message" *ngFor="let message of messages">
+      <div class="message" *ngFor="let message of messages" [ngClass]="{'sender-message': message.userid === current_user.username}">
         <!-- Left side: Profile picture -->
         <div class="profile-picture">
           <img [src]="message.profilePicture" alt="Profile Picture">
@@ -34,10 +34,7 @@
           <div class="message-text" *ngIf="message.message">{{ message.message }}</div>
           <img *ngIf="message.imageUrl" [src]="message.imageUrl" alt="Image" class="message-image-medium" >
 
-          <video *ngIf="message.videoUrl" controls class="message-video">
-            <source [src]="message.videoUrl" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
+         
         </div>
       </div>
     </div>
@@ -57,15 +54,7 @@
     <input type="file" (change)="handleImageUpload($event)" accept="image/*" style="display: none;" id="imageInput">
   
     <img *ngIf="selectedImage" [src]="selectedImageURL" alt="Selected Image" class="selected-image-small">
-    <input type="file" (change)="handleVideoUpload($event)" accept="video/*" style="display: none;" id="videoInput">
-  
-   
-       <i (click)="openVideoPicker()"class="fas fa-file-video" ></i>
     
-    <video *ngIf="selectedVideoURL" controls class="selected-video" class="selected-image-small">
-      <source [src]="selectedVideoURL" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
   
     <i (click)="sendMessage()" class="fas fa-paper-plane"></i>
 

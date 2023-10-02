@@ -393,8 +393,10 @@ export class SignupComponent {
       }
     });  
   }
-
-
+ /* user='Not set';
+  setUserType(userType: string): void {
+    this.router.navigate(['/login', { userType }]);
+  }*/
 }
 
 
