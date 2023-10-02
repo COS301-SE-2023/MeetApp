@@ -101,9 +101,19 @@ export class HomepageComponent {
   refreshPage() {
     
     this.platform.ready().then(() => {
-      const timestamp = new Date().getTime();
-      window.location.href = window.location.href + '?timestamp=' + timestamp;
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (const registration of registrations) {
+            registration.unregister();
+          }
+          window.location.reload();
+        });
+      } else {
+        window.location.reload();
+      }
+  
     });
+    
     
   }
   async ngOnInit() {
