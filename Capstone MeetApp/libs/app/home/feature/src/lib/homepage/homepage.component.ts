@@ -49,22 +49,27 @@ export class HomepageComponent {
     
   }];
 
+  
   recommend= [{
-    _id:'',
-    name:'',
-    organisation: '',
-    description:'',
-    date: '',
-    startTime: '',
-    endTime: '',
-    eventDate: '',
-    location: {latitude:0 , longitude:0},
-    category:'',
-    region:'',
-    eventPoster:''
-    
+     event:
+     {
+      _id:'',
+      name:'',
+      organisation: '',
+      description:'',
+      date: '',
+      startTime: '',
+      endTime: '',
+      eventDate: '',
+      location: {latitude:0 , longitude:0},
+      category:'',
+      region:'',
+      eventPoster:''
+     },
+     score:0
   }];
  
+
   current_user={
     id:'',
     password:'',
@@ -203,18 +208,18 @@ export class HomepageComponent {
       {
         this.current_user=response;
        
-        this.getProfile(this.current_user.username);
+        this.getRecomendations(this.current_user.username);
       }
       else
       {
-        this.getProfile(username);
+        this.getRecomendations(username);
       }
       
     });
 
   }
 
-  async getProfile(username :string|null){
+  async getRecomendations(username :string|null){
     await this.service.getRecomendations(username).subscribe((response:any)=>{ 
       this.recommend = response;
       console.log(response);
