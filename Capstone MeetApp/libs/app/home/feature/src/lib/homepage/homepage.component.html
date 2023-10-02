@@ -27,11 +27,11 @@
     <h1>Recommended Events</h1>
   </div>
   <div class="scroll-container1" >
-    <ion-card *ngFor="let item of data" class="card-first">
+    <ion-card *ngFor="let item of recommend" class="card-first" (click)="viewEvent(item._id)">
       <ion-card-header>
         <ion-card-title class="heading">{{ item.name }}</ion-card-title>
       </ion-card-header>
-      <ion-img alt="Silhouette of mountains" src="https://picsum.photos/200/200?random={{item._id}}" ></ion-img>
+      <ion-img alt="Silhouette of mountains" src={{item.eventPoster}} ></ion-img>
 
       <ion-card-content>
         {{ item.description }}
@@ -47,7 +47,7 @@
   <ion-card-content>
   <ion-card-title class="heading">{{ item.name}}</ion-card-title>
 </ion-card-content>
-  <ion-img src="https://picsum.photos/200/200?random={{item._id}}" alt="Silhouette of mountains" ></ion-img>
+  <ion-img src={{item.eventPoster}} alt="Silhouette of mountains" ></ion-img>
   <ion-card-header>
     
       <!--<ion-text class="bold-text">from &nbsp;{{ item.startTime}} &nbsp;to&nbsp; {{ item.endTime}} </ion-text>-->
@@ -112,6 +112,9 @@
   <div id="profile" (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
     <i class="fas fa-user"></i>
   
+  </div>
+  <div id="suggested-friends" (click)="gotoSuggestedFriends()" class="navigation-item">
+    <i class="fas fa-users"></i>
   </div>
 </div>
 </div>

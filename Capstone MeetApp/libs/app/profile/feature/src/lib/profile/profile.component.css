@@ -206,3 +206,23 @@
         --padding-bottom:2px;
         display: flex;
     }
+
+    
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+}
+
+.profile-card {
+  width: calc(33.33% - 10px); 
+  margin-bottom: 20px; 
+  box-sizing: border-box;
+  border: 1px solid #ddd; 
+}
+.profile-card img {
+  max-width: 100%;
+  height: auto;
+}
+
+

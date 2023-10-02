@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule} from '@angular/router';
@@ -11,6 +11,7 @@ import { service,ServicesModule} from '@capstone-meet-app/services';
 import { Platform } from '@ionic/angular'
 import { Injectable } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
+import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { Observable } from 'rxjs'
 
 
@@ -100,8 +101,10 @@ export class HomepageComponent {
   refreshPage() {
     
     this.platform.ready().then(() => {
-      window.location.reload();
+      const timestamp = new Date().getTime();
+      window.location.href = window.location.href + '?timestamp=' + timestamp;
     });
+    
   }
   async ngOnInit() {
     this.service.getAllEvents().subscribe((response: any) => { 
@@ -110,6 +113,17 @@ export class HomepageComponent {
         this.getAttendance(this.data[i]._id);
       }
       this.getCurrentUser();
+      setTimeout(()=>{                           
+        this.loader = false;
+    }, 200);
+    })
+    const currentUsername = await this.current_user.username
+    this.service.getRecomendations(currentUsername).subscribe((response: any) => { 
+      this.data = response;
+      for (let i = 0; i < this.data.length; i++) {
+        this.getAttendance(this.data[i]._id);
+      }
+      
       setTimeout(()=>{                           
         this.loader = false;
     }, 200);
@@ -167,7 +181,9 @@ export class HomepageComponent {
     this.router.navigateByUrl('/settings');
     
   }
-
+  gotoSuggestedFriends() {
+    this.router.navigate(['/suggestedfriends']);
+  }
   gotoorganiser() {
     this.router.navigateByUrl('/organisers');
   }

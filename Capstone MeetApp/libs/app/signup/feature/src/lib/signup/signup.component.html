@@ -117,14 +117,14 @@
         </div>
         <ion-row>
           <ion-col>
-            <ion-button type="submit"  expand="block" color="dark"   (click)="isvalid()" >Sign Up</ion-button>
+            <ion-button type="submit" color="dark"  expand="block"   (click)="isvalid()" >Sign Up</ion-button>
             <!--[disabled]="loginForm.invalid"-->
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col>
             <ion-text>Already have an account?&nbsp;</ion-text>
-            <a class="small-text"  (click)="onCreate()">Login</a>
+            <a class="small-text"  (click)="setUserType('organiser')">Login</a>
             <ion-text>&nbsp;instead</ion-text>
           </ion-col>
         </ion-row>

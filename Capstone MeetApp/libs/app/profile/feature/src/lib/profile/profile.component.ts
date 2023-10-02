@@ -34,7 +34,7 @@ export class ProfileComponent {
     // Add more image URLs as needed
   ];
   
-  profile:user={emailAddress:'',username:'',password:'',profilePicture:'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region:'',interests: []};
+  profile:user={emailAddress:'',username:'',password:'',profilePicture:'',region:'',interests: []};
   eventCount='';
   friendCount=0;
   userEvents = [
@@ -71,9 +71,7 @@ export class ProfileComponent {
 
   orgIDs='';
   profileId='';
-  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service,private location: Location) {
-    this.profileId='64722456cd65fc66879ed7ba';
-    this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
+  constructor(private router: Router,private modalController: ModalController,private serviceProvider: service,private location: Location) { 
     this.isEditMode = false;
   }
   
