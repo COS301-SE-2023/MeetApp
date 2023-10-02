@@ -9,6 +9,12 @@
   margin-bottom: 10px;
 }
 
+
+.sender-message {
+  align-self: flex-end;
+  /*background-color: #DCF8C6;  Background color for sender's messages */
+}
+
 .profile-picture {
   margin-right: 10px;
 }
