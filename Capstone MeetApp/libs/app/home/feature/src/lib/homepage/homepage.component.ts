@@ -49,22 +49,27 @@ export class HomepageComponent {
     
   }];
 
+  
   recommend= [{
-    _id:'',
-    name:'',
-    organisation: '',
-    description:'',
-    date: '',
-    startTime: '',
-    endTime: '',
-    eventDate: '',
-    location: {latitude:0 , longitude:0},
-    category:'',
-    region:'',
-    eventPoster:''
-    
+     event:
+     {
+      _id:'',
+      name:'',
+      organisation: '',
+      description:'',
+      date: '',
+      startTime: '',
+      endTime: '',
+      eventDate: '',
+      location: {latitude:0 , longitude:0},
+      category:'',
+      region:'',
+      eventPoster:''
+     },
+     score:0
   }];
  
+
   current_user={
     id:'',
     password:'',
@@ -101,9 +106,19 @@ export class HomepageComponent {
   refreshPage() {
     
     this.platform.ready().then(() => {
-      const timestamp = new Date().getTime();
-      window.location.href = window.location.href + '?timestamp=' + timestamp;
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (const registration of registrations) {
+            registration.unregister();
+          }
+          window.location.reload();
+        });
+      } else {
+        window.location.reload();
+      }
+  
     });
+    
     
   }
   async ngOnInit() {
@@ -203,18 +218,18 @@ export class HomepageComponent {
       {
         this.current_user=response;
        
-        this.getProfile(this.current_user.username);
+        this.getRecomendations(this.current_user.username);
       }
       else
       {
-        this.getProfile(username);
+        this.getRecomendations(username);
       }
       
     });
 
   }
 
-  async getProfile(username :string|null){
+  async getRecomendations(username :string|null){
     await this.service.getRecomendations(username).subscribe((response:any)=>{ 
       this.recommend = response;
       console.log(response);
