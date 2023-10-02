@@ -116,6 +116,17 @@ export class HomepageComponent {
       setTimeout(()=>{                           
         this.loader = false;
     }, 200);
+    })
+    const currentUsername = await this.current_user.username
+    this.service.getRecomendations(currentUsername).subscribe((response: any) => { 
+      this.data = response;
+      for (let i = 0; i < this.data.length; i++) {
+        this.getAttendance(this.data[i]._id);
+      }
+      
+      setTimeout(()=>{                           
+        this.loader = false;
+    }, 200);
     }
     
     );
