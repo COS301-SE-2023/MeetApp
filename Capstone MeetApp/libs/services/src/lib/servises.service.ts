@@ -18,6 +18,22 @@ export interface events{
     region: string;
 }
 
+export interface recommendedEvents{
+ event :{ id:string;
+    name:string;
+    organisation:string;
+    description:string;
+    eventPoster:string;
+    date: string;
+    startTime: string;
+    endTime: string;
+    location: {latitude: number , longitude:number};
+    category: string; 
+    region: string;
+  }
+  score: number;
+}
+
 export interface createEvents{
     name:string;
     organisation:string;
@@ -293,6 +309,13 @@ export class service{
     {
 
       const url=`${this.baseURl}users/username/${username}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+    }
+
+    getUserRecommendations(username:string|null)
+    {
+
+      const url=`${this.baseURl}recommendations/${username}`;
       return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
