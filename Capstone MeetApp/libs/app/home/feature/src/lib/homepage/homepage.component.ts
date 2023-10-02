@@ -18,7 +18,7 @@ import { Observable } from 'rxjs'
 @Component({
   selector: 'capstone-meet-app-homepage',
   standalone: true,
-  imports: [IonicModule,RouterModule,CommonModule,FormsModule,ServicesModule],
+  imports: [IonicModule,RouterModule,CommonModule,FormsModule,Ng2SearchPipeModule,ServicesModule],
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css'],
   providers: [service,HttpClient],
