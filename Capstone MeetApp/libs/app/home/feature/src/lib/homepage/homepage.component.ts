@@ -101,8 +101,10 @@ export class HomepageComponent {
   refreshPage() {
     
     this.platform.ready().then(() => {
-      window.location.reload();
+      const timestamp = new Date().getTime();
+      window.location.href = window.location.href + '?timestamp=' + timestamp;
     });
+    
   }
   async ngOnInit() {
     this.service.getAllEvents().subscribe((response: any) => { 
