@@ -168,7 +168,9 @@ export class HomepageComponent {
     this.router.navigateByUrl('/settings');
     
   }
-
+  gotoSuggestedFriends() {
+    this.router.navigate(['/suggestedfriends']);
+  }
   gotoorganiser() {
     this.router.navigateByUrl('/organisers');
   }
