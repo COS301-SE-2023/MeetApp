@@ -153,7 +153,7 @@ export const eventStubs: EventStub[] = [
 ];
 
 interface UserStub {
-    ID: ObjectId;
+    id: ObjectId;
     username: string;
     password: string;
     profilePicture: string;
@@ -164,7 +164,7 @@ interface UserStub {
   
   export const userStubs: UserStub[] = [
     {
-      ID: new ObjectId("64cbaf2f44224fc7644bdb86"),
+      id: new ObjectId("64cbaf2f44224fc7644bdb86"),
       username: 'johndoe',
       password: 'securepass1',
       profilePicture: 'john_profile.jpg',
@@ -173,7 +173,7 @@ interface UserStub {
       interests: ['Technology', 'Basketball', 'Movies'],
     },
     {
-      ID: new ObjectId("650beadc4e248638f32a1bfe"),
+      id: new ObjectId("650beadc4e248638f32a1bfe"),
       username: 'janedoe',
       password: 'mypassword123',
       profilePicture: 'jane_profile.jpg',
@@ -182,7 +182,7 @@ interface UserStub {
       interests: ['Music', 'Art', 'Travel'],
     },
     {
-      ID: new ObjectId("65052a0d5ccaa09b47d6ecf3"),
+      id: new ObjectId("65052a0d5ccaa09b47d6ecf3"),
       username: 'michael_smith',
       password: 'passw0rd!',
       profilePicture: 'michael_profile.jpg',
@@ -191,7 +191,7 @@ interface UserStub {
       interests: ['Cooking', 'Fashion', 'Soccer'],
     },
     {
-      ID: new ObjectId("6507eca15e1b4d6ccb246d96"),
+      id: new ObjectId("6507eca15e1b4d6ccb246d96"),
       username: 'susanwilliams',
       password: 'secretword321',
       profilePicture: 'susan_profile.jpg',
@@ -200,7 +200,7 @@ interface UserStub {
       interests: ['Gaming', 'Books', 'Hiking'],
     },
     {
-      ID: new ObjectId("6472240ecd65fc66879e647f"),
+      id: new ObjectId("6472240ecd65fc66879e647f"),
       username: 'davidbrown',
       password: 'myp@ssw0rd',
       profilePicture: 'david_profile.jpg',
@@ -209,7 +209,7 @@ interface UserStub {
       interests: ['Photography', 'Fitness', 'Camping'],
     },
     {
-        ID: new ObjectId(),
+        id: new ObjectId(),
         username: 'alice_smith',
         password: 'myp@ssword',
         profilePicture: 'alice_profile.jpg',
@@ -218,7 +218,7 @@ interface UserStub {
         interests: ['Art', 'Travel', 'Fashion'],
       },
       {
-        ID: new ObjectId(),
+        id: new ObjectId(),
         username: 'robert_jones',
         password: 'secure123',
         profilePicture: 'robert_profile.jpg',
@@ -227,7 +227,7 @@ interface UserStub {
         interests: ['Music', 'Cooking', 'Hiking'],
       },
       {
-        ID: new ObjectId(),
+        id: new ObjectId(),
         username: 'lisa_wilson',
         password: 'password123',
         profilePicture: 'lisa_profile.jpg',
@@ -236,7 +236,7 @@ interface UserStub {
         interests: ['Technology', 'Books', 'Gaming'],
       },
       {
-        ID: new ObjectId(),
+        id: new ObjectId(),
         username: 'kevin_davis',
         password: 'letmein',
         profilePicture: 'kevin_profile.jpg',
@@ -245,7 +245,7 @@ interface UserStub {
         interests: ['Fitness', 'Soccer', 'Photography'],
       },
       {
-        ID: new ObjectId(),
+        id: new ObjectId(),
         username: 'emily_martin',
         password: 'emily123',
         profilePicture: 'emily_profile.jpg',
