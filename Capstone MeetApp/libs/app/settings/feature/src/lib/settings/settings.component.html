@@ -143,7 +143,7 @@
     <ion-card-content> 
       
 
-          <ion-button color="dark" (click)="gotoorganiser()" >
+          <ion-button color="dark" expand="block"(click)="gotoorganiser()" >
 
               Analytics
          </ion-button>
@@ -152,12 +152,14 @@
     
   <ion-card-header>
     <ion-card-title>
-      Help menu
+      Help Menu
+    </ion-card-title>
+  </ion-card-header>
   <ion-card-content> 
     
-    <ion-card>
+    
       <!-- Your card content goes here -->
-      <ion-button id="open-modal" expand="block">Help</ion-button>
+      <ion-button id="open-modal" expand="block" color="dark">Help</ion-button>
     
       <!-- Modal code -->
       <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
@@ -383,7 +385,7 @@ Yours truly, The Tech Titans!
           </ion-footer>
         </ng-template>
       </ion-modal>
-    </ion-card>
+
     
     
     
@@ -395,8 +397,7 @@ Yours truly, The Tech Titans!
       
   
   </ion-card-content>
-</ion-card-title>
-  </ion-card-header>
+
 
 </ion-card>
   <ion-card class="card" >
@@ -409,7 +410,7 @@ Yours truly, The Tech Titans!
     <ion-card-content>Support</ion-card-content>
 
 
-    <ion-button class="logout" color="dark" (click)="nagivateToHome()" >Logout</ion-button>
+    <ion-button  color="dark" expand="block" (click)="nagivateToHome()" >Logout</ion-button>
   </ion-card >
  
     

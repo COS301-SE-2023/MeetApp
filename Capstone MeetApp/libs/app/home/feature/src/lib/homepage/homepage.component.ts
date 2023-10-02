@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { IonicModule } from '@ionic/angular';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule} from '@angular/router';
@@ -11,6 +11,7 @@ import { service,ServicesModule} from '@capstone-meet-app/services';
 import { Platform } from '@ionic/angular'
 import { Injectable } from '@angular/core';
 import { IonicSlides } from '@ionic/angular';
+import { Ng2SearchPipeModule} from 'ng2-search-filter';
 import { Observable } from 'rxjs'
 
 

@@ -273,7 +273,8 @@ export class OrganiserComponent  {
   }
   gotohome()
   {
-    this.router.navigate(['/home']);
+    this.router.navigate(['/home',{ userType: 'organiser' }]);
+   
   }
   toggleForm() {
    
