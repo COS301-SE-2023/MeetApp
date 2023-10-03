@@ -100,7 +100,10 @@ export class HomepageComponent {
 
   
   constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
-    
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+    });
+    console.log('test',this.userType)
   }
   
   refreshPage() {
@@ -146,9 +149,7 @@ export class HomepageComponent {
     
     );
 
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.userType = params.get('userType');
-    });
+   
     
   
   }
@@ -194,7 +195,8 @@ export class HomepageComponent {
   }
 
   gotosettings() {
-    this.router.navigateByUrl('/settings');
+   
+    this.router.navigate(['/settings',{ userType: this.userType }]);
     
   }
   gotoSuggestedFriends() {
