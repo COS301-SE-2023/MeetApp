@@ -238,5 +238,8 @@ export class ProfileComponent {
     this.isEditMode = false;
   }
   
+  viewEvent(eventId: string) {
+    this.router.navigate(['events', eventId]);
+  }
 
 }
