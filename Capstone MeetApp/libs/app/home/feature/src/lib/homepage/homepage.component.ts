@@ -100,7 +100,7 @@ export class HomepageComponent {
 
   
   constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
-  
+    
   }
   
   refreshPage() {
@@ -149,6 +149,7 @@ export class HomepageComponent {
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
     });
+    
   
   }
  
