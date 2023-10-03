@@ -219,9 +219,5 @@ export class OrganisationsController {
     return await this.organisationsService.updateAllPasswords()
   }
   
-  /*@Post('addEmails')
-  async addEmails(){
-    return await this.organisationsService.updateEmails()
-  }*/
   
 }

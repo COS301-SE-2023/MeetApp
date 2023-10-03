@@ -1,17 +1,9 @@
 ![](https://digiday.com/wp-content/uploads/sites/3/2015/06/DonkeyKong-banner2.gif?w=1030&h=440&crop=1)
-
-
 <p><h1 align='center'>Tech Titans<br><br></h1>
 <h1 align='center'>MeetApp<br><br></h1>
 </p>
 
 <div align="left">
-  <a href="https://github.com/COS301-SE-2023/MeetApp/actions/workflows/cd-development.yml">
-  <img src="https://github.com/COS301-SE-2023/MeetApp/actions/workflows/cd-development.yml/badge.svg">
-</a>
-<a href= "(https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml">
-  <img alt="GitHub Pull Requests" src="https://github.com/COS301-SE-2023/MeetApp/actions/workflows/ci-development.yaml/badge.svg">
-</a>
 <a href= "https://github.com/COS301-SE-2023/MeetApp/pulls">
   <img alt="GitHub Pull Requests" src="https://img.shields.io/github/issues-pr/COS301-SE-2023/MeetApp?style=plastic">
 </a>
@@ -23,9 +15,7 @@
 </a>
 <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/COS301-SE-2023/MeetApp?style=plastic">
 <img alt="GitHub Repository size" src="https://img.shields.io/github/repo-size/COS301-SE-2023/MeetApp?style=plastic">
-<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/COS301-SE-2023/MeetApp?color=orange&style=plastic">
-
-</div>
+<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/COS301-SE-2023/MeetApp?color=orange&style=plastic"></div>
 
 <div align='left'>
 <h3 align="left">Languages and Tools:</h3>
@@ -44,19 +34,18 @@ MeetApp is a location-powered, social-networking and event-planning application 
 ## Demo
 * [Demo 1](https://drive.google.com/drive/folders/1ps4zFMsyaVffrnx9De-d89HhVjqKa4a8?usp=sharing)
 * [Demo 2](https://drive.google.com/drive/folders/1lhjC10czva_b4yBKryF5oluZXzLEgXGw?usp=sharing)
-* [Demo 3](https://drive.google.com/drive/folders/10877WNUu53RTN3vDDCvJ8azz0lDuctlB?usp=sharing)
+* [Demo 3](https://drive.google.com/drive/folders/1453wSnG1ylgLTB513S1_4exm6wyxCFl_?usp=sharing)
 * [Demo 4](https://drive.google.com/drive/folders/16xwQ6kkNhPFYnNHqJk9s1PFm1F6NmNd-?usp=sharing)
 
 ## Documentation
 
 * [Requirements and Design (SRS) Document](https://docs.google.com/document/d/1EHkrakkAeITL3uzxEYB2qK57-l74RdiUYAZXCMUeUTg/edit?usp=sharing)
 * [User Manual](UserManual.md)
-* [Architectural Structural Design & Requirements](https://drive.google.com/drive/folders/1HtlHt38AoDzFUmQpi_i_lWsPaaEMfXUJ?usp=sharing)
-* [Coding and Testing Standards](https://docs.google.com/document/d/1ZUdV4XrxWqKKbb852i9F_gth-JWqUqO0vA69SMZdbGM/edit?usp=sharing)
-* [Project Management](https://docs.google.com/document/d/1b-TxLGFcvEZIVab6uQByYlGtid-efm80gMe4njbe4I4/edit?usp=sharing)
-* [Techincal Installation](https://docs.google.com/document/d/1wIVKe186YWrC5ZPuYzKM9IK702IN-GFei8rRtxlBErg/edit?usp=sharing)
-* [Deployment Model](https://docs.google.com/document/d/1TuIg6rTReczlcEckygwnaLFZIxG6CO8mCOICHHEF9pM/edit?usp=sharing)
-* [Testing Policy](https://docs.google.com/document/d/1qoezdXvaon8oi9j7JwrGgByqfV4T352UjpdHbEzUyaQ/edit?usp=sharing)
+* [Coding Standards](#)
+* [Testing Standards](#)
+* [Project Management](#)
+* [Presentation & Videos](#)
+* [Deployment Model](#)
 
 ## Team Profiles
 * [Team Profiles](https://github.com/COS301-SE-2023/MeetApp/wiki/Team-Profiles)

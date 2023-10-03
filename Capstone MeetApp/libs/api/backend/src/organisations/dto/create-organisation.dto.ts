@@ -1,10 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateOrganisationDto {
-
-    @ApiProperty({example: "org_man23@gmail.com", description : "The organisation's email address.", required: true})
-    readonly emailAddress!: string;
-
+    
     @ApiProperty({description: "The chosen username of the organisation", example: "techTuks", required: true})
     readonly username!: string;
 

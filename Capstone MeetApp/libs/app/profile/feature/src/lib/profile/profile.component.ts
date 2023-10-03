@@ -199,8 +199,8 @@ export class ProfileComponent {
   }
 
   refreshPageWithDelay(delayInMilliseconds: number) {
-    setTimeout(() => { 
-      this.getCurrentUser();
+    setTimeout(() => {
+      window.location.reload();
     }, delayInMilliseconds);
   }
   
@@ -235,6 +235,5 @@ export class ProfileComponent {
   closeEditProfilePopover() {
     this.isEditMode = false;
   }
-  
 
 }
