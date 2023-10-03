@@ -27,14 +27,14 @@
     <h1>Recommended Events</h1>
   </div>
   <div class="scroll-container1" >
-    <ion-card *ngFor="let item of reccomenddata" class="card-first" (click)="viewEvent(item._id)">
+    <ion-card *ngFor="let item of recommend" class="card-first" (click)="viewEvent(item.event._id)">
       <ion-card-header>
-        <ion-card-title class="heading">{{ item.organisation }}</ion-card-title>
+        <ion-card-title class="heading">{{ item.event.name }}</ion-card-title>
       </ion-card-header>
-      <ion-img alt="Silhouette of mountains" src={{item.eventPoster}} ></ion-img>
+      <ion-img alt="Silhouette of mountains" src={{item.event.eventPoster}} ></ion-img>
 
       <ion-card-content>
-        {{ item.description }}
+        {{ item.event.description }}
       </ion-card-content>
     </ion-card>
   </div>

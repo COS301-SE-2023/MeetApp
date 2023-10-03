@@ -315,8 +315,8 @@ export class service{
     getUserRecommendations(username:string|null)
     {
 
-      const url=`${this.baseURl}users/recommendations/category`;
-      return this.http.get(`${url}`,{headers : this.getAuthHeaders()});
+      const url=`${this.baseURl}recommendations/${username}`;
+      return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
     
     updateUser(emailAddress?:string,username?:string ,password?:string,profilePicture?:string,region?:string,interests?: string[]){
@@ -646,8 +646,8 @@ export class service{
 
     getRecomendations(username:string|null)
     {
-      const url = `${this.baseURl}users/recommendations/category`;
-      return this.http.get(`${url}`,{ headers : this.getAuthHeaders()});
+      const url = `${this.baseURl}recommendations/${username}`;
+      return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
 
     getEventsbyUsername(username:string|null)
