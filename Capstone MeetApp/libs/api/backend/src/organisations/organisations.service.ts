@@ -66,7 +66,7 @@ export class OrganisationsService {
     
   
     const eventPromises = eventsArr.map((currentEventID) =>
-      this.eventService.findOne(currentEventID.toString())
+      this.eventService.findOne(currentEventID)
     );
   
     const eventInfoArr = await Promise.all(eventPromises);
