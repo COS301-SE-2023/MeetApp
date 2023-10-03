@@ -49,21 +49,6 @@ export class HomepageComponent {
     
   }];
 
-  reccomenddata= [{
-    _id:'',
-    name:'',
-    organisation: '',
-    description:'',
-    date: '',
-    startTime: '',
-    endTime: '',
-    eventDate: '',
-    location: {latitude:0 , longitude:0},
-    category:'',
-    region:'',
-    eventPoster:''
-    
-  }];
   
   recommend= [{
      event:
@@ -249,7 +234,7 @@ export class HomepageComponent {
 
   async getRecomendations(username :string|null){
     await this.service.getRecomendations(username).subscribe((response:any)=>{ 
-      this.reccomenddata = response;
+      this.recommend = response;
       console.log(response);
     });
   }
