@@ -36,9 +36,17 @@ export class AppProfile2Component {
 
   userEvents = [
     {
-      eventID:'',
-      organisationID:'',
-      userID:''
+      _id:'',
+      name:'',
+      organisation:'',
+      description:'',
+      eventPoster:'',
+      date: '',
+      startTime: '',
+      endTime: '',
+      location: {latitude: 0 , longitude:0},
+      category: '',
+      region: ''
     }
   ];
 

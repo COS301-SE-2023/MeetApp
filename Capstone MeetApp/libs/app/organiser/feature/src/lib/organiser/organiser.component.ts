@@ -127,7 +127,7 @@ export class OrganiserComponent  {
       this.selectedRange.startDate !== null &&
       this.selectedRange.startTime !== null &&
       this.selectedRange.endTime !== null &&
-      this.address !== null &&
+      //this.address !== null &&
       this.category !== null &&
       this.selectedRegion !== null
     ) {

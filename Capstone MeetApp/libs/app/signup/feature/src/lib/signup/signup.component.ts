@@ -205,7 +205,7 @@ export class SignupComponent {
 
           if(this.valid_pass && this.valid_user && this.valid_passregex)
           {
-            this.SignUpUser(email,username,password,'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region,this.selectedOptions);
+            this.SignUpUser(email,username,password,'',region,this.selectedOptions);
           }
       }
       else{
@@ -412,6 +412,13 @@ export class SignupComponent {
     this.router.navigate(['/login', { userType }]);
   }*/
 }
+
+
+
+
+
+
+  
 
 
 

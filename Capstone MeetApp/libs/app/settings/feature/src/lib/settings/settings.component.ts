@@ -124,6 +124,7 @@ export class SettingsComponent {
     this.modal.dismiss(null, 'cancel');
   }
 
+
   confirm() {
     this.modal.dismiss(this.name, 'confirm');
   }
