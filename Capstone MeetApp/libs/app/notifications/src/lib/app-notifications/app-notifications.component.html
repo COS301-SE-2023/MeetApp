@@ -14,7 +14,7 @@
         <ion-item *ngFor="let request of requesters">
           <ion-icon name="notifications"></ion-icon>
           you have a new friend request from &nbsp; <a>{{ request.username }}</a>
-          <ion-button  class="add-friend-button" (click)="acceptRequest(request._id,request)" [disabled]="request.requestSent">{{ request.requestSent ? 'Accepted' : 'Accept' }}
+          <ion-button  class="add-friend-button" color="black" (click)="acceptRequest(request._id,request)" [disabled]="request.requestSent">{{ request.requestSent ? 'Accepted' : 'Accept' }}
           </ion-button>
           </ion-item>
        
