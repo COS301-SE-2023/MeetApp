@@ -40,25 +40,15 @@
           </ion-item>
           
         </ion-list>
-        
-            
-          
-        
-    
         </div> 
-    
-        
-
-        
+  
     </div>
 
     <div class="part1">
-      <div class="image-container top-group" *ngFor="let imageUrl of imageList">
-          <a href="/event" routerLinkActive="active">
-            <img [src]="imageUrl" [alt]="'Image ' + (imageList.indexOf(imageUrl) + 1)">
-          </a>
-        </div> 
-    </div>
+      <div class="image-container top-group" *ngFor="let event of userEvents">
+          <img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)" (click)="viewEvent(event._id)">
+          </div> 
+      </div>
     
     <!--<nav class="bottom-navbar">
         <ul>

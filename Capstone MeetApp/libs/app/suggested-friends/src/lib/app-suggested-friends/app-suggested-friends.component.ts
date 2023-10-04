@@ -7,11 +7,14 @@ import {IonicModule } from '@ionic/angular';
 import {service,events} from '@capstone-meet-app/app/services'
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'capstone-meet-app-app-suggested-friends',
   standalone: true,
-  imports: [CommonModule,Ng2SearchPipeModule,FormsModule,IonicModule],
+  imports: [CommonModule,Ng2SearchPipeModule,FormsModule,IonicModule,RouterModule],
   templateUrl: './app-suggested-friends.component.html',
   styleUrls: ['./app-suggested-friends.component.css'],
 })
@@ -38,7 +41,7 @@ export class AppSuggestedFriendsComponent {
       profilepicture:'assets/profile.png'
     }
   ];
-
+  eventID='';
 
   suggested_friends = [
     {
@@ -73,10 +76,16 @@ export class AppSuggestedFriendsComponent {
   }
 
   
-  constructor(private apiService: service) { 
+  constructor(private apiService: service,private route: ActivatedRoute) { 
   }
 
   async ngOnInit() {
+    
+      this.route.params.subscribe(params => {
+        const eventId = params['eventId'];
+        this.eventID=eventId
+      });
+    
     this.getSuggestedFriends();
     this.getCurrentUser();
   }
@@ -96,6 +105,21 @@ export class AppSuggestedFriendsComponent {
     await this.apiService.getSuggestedFriends().subscribe((response:any) =>{
       this.suggested_friends=response;
       console.log('Friend Suggestion List :',response);
+    });
+  }
+  sendRequest(requestee:string, friend: any)
+  {
+    this.apiService.sendfriendrequest(requestee).subscribe((response:any) =>{
+      console.log('Send Request :',response);
+    });
+    friend.requestSent = true;
+  }
+  
+  async getRequest(){
+
+    await this.apiService.getFriendRequest().subscribe((response:any) =>{
+      //this.requesters=response;
+      console.log('FriendRequest List :',response);
     });
   }
 

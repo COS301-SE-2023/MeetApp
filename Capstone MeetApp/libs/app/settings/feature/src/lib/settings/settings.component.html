@@ -132,21 +132,23 @@
       </ion-accordion-group>
   </ion-card  >
 <ion-card class="card">
-  <ion-card-header>
   
-    <ion-card-title>
-
-        Insights
-        
-    </ion-card-title>
-  </ion-card-header>
-    <ion-card-content> 
+    <ion-card-content *ngIf=" userType === 'organiser'"> 
       
-
+          
+            <ion-card-header>
+  
+              <ion-card-title>
+          
+                  Insights
+                  
+              </ion-card-title>
+            </ion-card-header>
           <ion-button color="dark" expand="block"(click)="gotoorganiser()" >
 
               Analytics
          </ion-button>
+        
     
     </ion-card-content>
     
@@ -409,8 +411,8 @@ Yours truly, The Tech Titans!
     <ion-card-content>Privacy Policy</ion-card-content>
     <ion-card-content>Support</ion-card-content>
 
-    <ion-button class="logout" color="dark" (click)="nagivateToHome()" >Logout</ion-button>
 
+    <ion-button  color="dark" expand="block" (click)="nagivateToHome()" >Logout</ion-button>
   </ion-card >
  
     

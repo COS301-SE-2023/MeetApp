@@ -7,12 +7,14 @@ import { Location } from '@angular/common';
 import { IonModal } from '@ionic/angular';
 
 import { ActivatedRoute } from '@angular/router';
+import { RouterModule} from '@angular/router';
+
 import { FormsModule } from '@angular/forms';
 import { OverlayEventDetail } from '@ionic/core/components';
 @Component({
   standalone:true,
   selector: 'capstone-meet-app-settings',
-  imports: [ IonicModule,FormsModule,CommonModule],
+  imports: [ IonicModule,FormsModule,CommonModule,RouterModule],
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
   providers:[service],
@@ -37,7 +39,7 @@ export class SettingsComponent {
     exp:0,
     iat: 0
   }
- 
+  userType:string|null = '';
   profile:user={emailAddress:'',username:'',password:'',profilePicture:'',region:'',interests: []};
 
   user_payload:any;
@@ -49,6 +51,9 @@ export class SettingsComponent {
 
   async ngOnInit(){
     this.getCurrentUser();
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+    });
   }
   
   navigateToProfile(){
@@ -118,6 +123,7 @@ export class SettingsComponent {
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
+
 
   confirm() {
     this.modal.dismiss(this.name, 'confirm');

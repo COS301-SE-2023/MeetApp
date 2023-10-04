@@ -1,6 +1,6 @@
 # Meet App User Manual
 
-Welcome to Meet App, a social networking app that allows users and organizations to connect, create events, and stay informed about activities happening in their region. This user manual will guide you through the features and functionalities of the app, helping you make the most of your Meet App experience.
+Welcome to Meet App, a social networking app that allows users and organisations to connect, create events, and stay informed about activities happening in their region. This user manual will guide you through the features and functionalities of the app, helping you make the most of your Meet App experience.
 
 Table of Contents
 
@@ -53,7 +53,10 @@ Table of Contents
    - [Protecting Your Account](#protecting-your-account)
    - [Logout When Not in Use](#logout-when-not-in-use)
 
-10. [Providing Feedback](#providing-feedback)
+10. [Calendar View](#calendar-view)
+    - [View Events On Your Own Calendar](#view-events-on-your-own-calendar)
+      
+11. [Providing Feedback](#providing-feedback)
     - [Help Us Improve](#help-us-improve)
 
 <br/>
@@ -92,11 +95,11 @@ On your profile page, scroll down to the "Friends' Attended Events" section to s
 
 ### 3. Creating and Managing Events <a name="creating-and-managing-events"></a>
 
-Organizations: Creating Events
-If you are an organization, you can create events for users to attend. To create an event, log in using your organization's account, and navigate to the "Create Event" section. Provide the necessary details, such as event name, description, date, time, location, category, and region. Click "Create Event" to publish the event.
+Organisations: Creating Events
+If you are an organisation, you can create events for users to attend. To create an event, log in using your organisation's account, and navigate to the "Create Event" section. Provide the necessary details, such as event name, description, date, time, location, category, and region. Click "Create Event" to publish the event.
 
 Analyzing Event Attendance
-Organizations can track event analytics on their profile page. View the most attended events, the most used event category, and the region where most events are hosted.
+Organisations can track event analytics on their profile page. View the most attended events, the most used event category, and the region where most events are hosted.
 
 ### 4. Event Map <a name="event-map"></a>
 
@@ -153,7 +156,13 @@ To maintain the security of your account, avoid sharing your login credentials w
 
 To prevent unauthorized access to your account, remember to log out of the app when you are not actively using it. This ensures that your account remains secure, especially on shared or public devices.
 
-### 10. Providing Feedback <a name="providing-feedback"></a>
+### 10. Calendar View <a name="calendar-view"></a>
+
+#### View Events On Your Own Calendar <a name="view-events-on-your-own-calendar"></a>
+
+The calendar icon navigates you to a calendar view where events you have clicked "attend" on will appear on their respective dates.
+
+### 11. Providing Feedback <a name="providing-feedback"></a>
 
 #### Help Us Improve <a name="help-us-improve"></a>
 
@@ -162,3 +171,5 @@ We value your feedback and suggestions! If you encounter any issues, have ideas 
 Remember, Meet App is continually evolving, and we appreciate your active involvement in making it a thriving and enjoyable social networking platform.
 
 Thank you for being part of the Meet App community! Happy networking and attending exciting events!
+
+Yours truly, The Tech Titans!

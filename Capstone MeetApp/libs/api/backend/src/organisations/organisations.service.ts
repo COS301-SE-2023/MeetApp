@@ -66,7 +66,7 @@ export class OrganisationsService {
     
   
     const eventPromises = eventsArr.map((currentEventID) =>
-      this.eventService.findOne(currentEventID.toString())
+      this.eventService.findOne(currentEventID)
     );
   
     const eventInfoArr = await Promise.all(eventPromises);
@@ -448,4 +448,20 @@ export class OrganisationsService {
     })
     return orgsUpdatedPasswords
   }
+
+  /*async updateEmails() {
+    try {
+      const OrgToUpdate = await this.organisationModel.find({ emailAddress: { $exists: false } }).exec();
+
+      
+      for (const org of OrgToUpdate) {
+        org.emailAddress = ""; 
+        await org.save();
+      }
+
+      return { success: true, message: 'Organisations updated successfully.' };
+    } catch (error) {
+      return { success: false, message: 'Failed to update organisations.' };
+    }
+  }*/
 }

@@ -36,7 +36,7 @@
   </ion-img>
  </div>
 <div>
-  <form>
+  <form *ngIf="!isForgotPasswordMode && !isEditMode"> <!-- Added ngIf condition here -->
     <ion-item lines="full">
       <ion-label position="floating">Username</ion-label>
       <ion-input class="username" type="username"  [(ngModel)]="username" name="username" required></ion-input>
@@ -54,15 +54,26 @@
     <ion-row>
       <ion-col>
         <ion-button type="submit" color="dark" expand="block" (click)="login(username,password)"  >Sign In</ion-button>
-        <a class="small-text">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
+        <a class="small-text" id="click-trigger">Forgot Password?</a><b>&nbsp;&nbsp;&nbsp;or&nbsp;</b>
         <a id="signup" class="small-text"  (click)="onCreate()">create an account</a>
       </ion-col>
     </ion-row>
   </form>
 </div>
-
+<div class="div-popover">
+  <ion-popover class="popover" trigger="click-trigger" triggerAction="click" side="top" alignment="center">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <ion-card class="popover-card">
+          <ion-card-header>
+            <ion-card-title class="heading">Recover password</ion-card-title>
+          </ion-card-header>
+        <ion-label>Enter recovery email</ion-label>
+        <ion-input class="email" type="email"  [(ngModel)]="email" name="email" required></ion-input>
+        <ion-button color="dark" expand="block" (click)="sendLink(email)">Send email</ion-button>
+        </ion-card>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</div>
 </ion-content>
-</div>
-
-  
-</div>

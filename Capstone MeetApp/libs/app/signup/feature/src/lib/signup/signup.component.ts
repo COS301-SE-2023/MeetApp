@@ -46,6 +46,7 @@ export class SignupComponent {
   valid_user=false;
   valid_pass=false;
   valid_passregex=false;
+  valid_email=false;
 
   data_organiser= [{
     _id:'',
@@ -204,7 +205,7 @@ export class SignupComponent {
 
           if(this.valid_pass && this.valid_user && this.valid_passregex)
           {
-            this.SignUpUser(email,username,password,'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region,this.selectedOptions);
+            this.SignUpUser(email,username,password,'',region,this.selectedOptions);
           }
       }
       else{
@@ -248,11 +249,16 @@ export class SignupComponent {
             this.valid_passregex=false;
           }
 
+          if(this.checkEmail(email)==true){
+            this.valid_email=true;
+          }else{
+            this.valid_email=false;
+          }
           console.log('Password is equal to CP',this.valid_pass);
           console.log('Regex',this.valid_passregex);
           console.log('Valid User name ',this.valid_user);
-
-          if(this.valid_pass && this.valid_user && this.valid_passregex)
+          console.log('valid email',this.valid_email);
+          if(this.valid_pass && this.valid_user && this.valid_passregex &&this.valid_email)
           {
           
             this.SignUpOrg(email,username,name,password, this.events)
@@ -348,6 +354,11 @@ export class SignupComponent {
          
         }
 
+        if(this.valid_email==false){
+          const errorMessage="One or more characters for the (username) before the @ symbol. should contain domain e.g. com , org etc...";
+          this.showErrorAlertVal(errorMessage);
+        }
+
 
         
       }
@@ -372,7 +383,10 @@ export class SignupComponent {
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordPattern.test(password);
   }
-
+  checkEmail(mail:string){
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(mail);
+  }
   setUserType(userType: string): void {
     this.router.navigate(['/login', { userType }]);
   }
@@ -398,6 +412,13 @@ export class SignupComponent {
     this.router.navigate(['/login', { userType }]);
   }*/
 }
+
+
+
+
+
+
+  
 
 
 

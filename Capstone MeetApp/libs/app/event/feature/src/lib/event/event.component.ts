@@ -59,7 +59,9 @@ export class EventComponent {
 
   async attendEvent(eventID: string)
   {
-    await this.apiService.attendEventUser(eventID).subscribe();
+    await this.apiService.attendEventUser(eventID).subscribe(()=>{
+      this.getAttendance(this.eventID);
+    });
   }
 
 

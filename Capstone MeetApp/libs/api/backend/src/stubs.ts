@@ -5,7 +5,7 @@ interface Location {
   longitude: number;
 }
 
-interface Event {
+interface EventStub {
   _id: ObjectId;
   organisation: string;
   description: string;
@@ -19,7 +19,7 @@ interface Event {
   region : string;
 }
 
-export const eventStubs: Event[] = [
+export const eventStubs: EventStub[] = [
   {
     _id: new ObjectId("6472247ecd65fc66879f1909"),
     organisation: 'HubnTub',
@@ -255,7 +255,7 @@ interface UserStub {
       },
   ];
 
-  interface Organization {
+  interface OrganizationStub {
     _id: ObjectId;
     username: string;
     password: string;
@@ -265,7 +265,7 @@ interface UserStub {
     name: string;
   }
   
-  export const organisationStubs: Organization[] = [
+  export const organisationStubs: OrganizationStub[] = [
     {
       _id: new ObjectId("64aaf1ae79fdf7e618f8e3e9"),
       username: 'art_foundation',
@@ -314,14 +314,14 @@ interface UserStub {
     
   ];
 
-  interface Friendship {
+  interface FriendshipStub {
     _id: ObjectId;
     requesterID: ObjectId;
     requesteeID: ObjectId;
     status: boolean;
   }
   
-  export const friendshipsStubs: Friendship[] = [
+  export const friendshipsStubs: FriendshipStub[] = [
     {
       _id: new ObjectId(),
       requesterID: new ObjectId("64cbaf2f44224fc7644bdb86"),

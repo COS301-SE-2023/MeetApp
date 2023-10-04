@@ -1,3 +1,4 @@
+import { ObjectId, Schema } from "mongoose";
 import { Event } from "../events/schema";
 import { Weight } from "../interfaces";
 import { User } from "../users/schema";
@@ -27,6 +28,7 @@ export class RecommendationAlgorithm {
     private TopSupportedOrganisations : string[]
     private MostPopularEvents : {event : Event, attendees : number}[]
     private threshold : number
+    private friendEventCount : number
 
 
     constructor(userId : string, userFriends : User[],userFriendsEvents : Event[], user : User, rate : number, userWeights : Weight[], userEvents : Event[], otherEvents : {event : Event, attendees : number}[], topCategory : Event[], topRegion : Event[], topOrgs : string[]) {
@@ -37,6 +39,7 @@ export class RecommendationAlgorithm {
         this.rate = rate
         this.userWeights = userWeights
         this.userAttendances = userEvents
+        this.friendEventCount = 0
         this.otherEvents = otherEvents
         this.userFriends = userFriends
         this.TopCategoryEvents = topCategory
@@ -115,6 +118,7 @@ export class RecommendationAlgorithm {
         const totalEventsCount = this.userAttendances.length
         console.log(`Total events count: ${totalEventsCount}`)
         console.log(`Total friends count: ${totalFriendsCount}`)
+        console.log(`Total friends events count: ${this.userFriendsEvents.length}`)
         
 
         const eventsAndScores = this.otherEvents.map((otherEvent) => {
@@ -153,10 +157,10 @@ export class RecommendationAlgorithm {
             }
             
             if (totalFriendsCount > 2 && totalFriendsCount)
-                score += this.influenceLayer(otherEvent.event._id.toString())*this.FriendsInfluenceWeight
+                score += this.influenceLayer(otherEvent.event.id)*this.FriendsInfluenceWeight
 
             score += this.chatRoomLayer()*this.ChatRoomWeight
-            score += this.popularityLayer(otherEvent.event._id.toString())*this.PopularityWeight
+            score += this.popularityLayer(otherEvent.event.id)*this.PopularityWeight
             score /= 10
             
             return {event : otherEvent.event, score : score}
@@ -232,11 +236,14 @@ export class RecommendationAlgorithm {
         
     }
 
-    private influenceLayer(EventID : string){
+    private influenceLayer(EventID : ObjectId){
         let runningTotal = 0
         this.userFriendsEvents.forEach(event => {
-            if (event._id.toString() == EventID)
+            if (event.id == EventID){
+                this.friendEventCount += 1
+                console.log(this.friendEventCount)
                 runningTotal += 0.20
+            }
             if (this.user.interests?.includes(event.category))
                 runningTotal += 0.15
             if (this.user.region == event.region)
@@ -301,18 +308,18 @@ export class RecommendationAlgorithm {
     }
 
     //if event is popular throughout app (total event attendances)
-    private popularityLayer(eventID : string){
-        if (this.MostPopularEvents[0].event._id.toString() == eventID)
+    private popularityLayer(eventID : ObjectId){
+        if (this.MostPopularEvents[0].event.id == eventID)
             return 1
-        if (this.MostPopularEvents[1].event._id.toString() == eventID)
+        if (this.MostPopularEvents[1].event.id == eventID)
             return 0.5
-        if (this.MostPopularEvents[2].event._id.toString() == eventID)
+        if (this.MostPopularEvents[2].event.id == eventID)
             return 0.25
-        if (this.MostPopularEvents[3].event._id.toString() == eventID)
+        if (this.MostPopularEvents[3].event.id == eventID)
             return 0.125
-        if (this.MostPopularEvents[4].event._id.toString() == eventID)
+        if (this.MostPopularEvents[4].event.id == eventID)
             return 0.0625
-        if (this.MostPopularEvents[5].event._id.toString() == eventID)
+        if (this.MostPopularEvents[5].event.id == eventID)
             return 0.03125
         return 0
     }

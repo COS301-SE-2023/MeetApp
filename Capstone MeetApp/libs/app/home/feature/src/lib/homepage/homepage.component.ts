@@ -100,7 +100,10 @@ export class HomepageComponent {
 
   
   constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
-  
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+    });
+    console.log('test',this.userType)
   }
   
   refreshPage() {
@@ -122,16 +125,19 @@ export class HomepageComponent {
     
   }
   async ngOnInit() {
+       
     this.service.getAllEvents().subscribe((response: any) => { 
+      
       this.data = response;
       for (let i = 0; i < this.data.length; i++) {
         this.getAttendance(this.data[i]._id);
       }
       this.getCurrentUser();
-      setTimeout(()=>{                           
+      setTimeout(()=>{                       
         this.loader = false;
-    }, 200);
+    },5);
     })
+
     const currentUsername = await this.current_user.username
     this.service.getRecomendations(currentUsername).subscribe((response: any) => { 
       this.data = response;
@@ -141,15 +147,10 @@ export class HomepageComponent {
       
       setTimeout(()=>{                           
         this.loader = false;
-    }, 200);
+    }, 10);
     }
-    
+     
     );
-
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.userType = params.get('userType');
-    });
-  
   }
  
   async getAttendance(id:string,)
@@ -193,7 +194,8 @@ export class HomepageComponent {
   }
 
   gotosettings() {
-    this.router.navigateByUrl('/settings');
+   
+    this.router.navigate(['/settings',{ userType: this.userType }]);
     
   }
   gotoSuggestedFriends() {

@@ -12,7 +12,7 @@ import { service} from '@capstone-meet-app/services';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
 import { LoadingController } from '@ionic/angular';
-
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'capstone-meet-app-login',
@@ -24,12 +24,15 @@ import { LoadingController } from '@ionic/angular';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  forgotPasswordEmail!: string;
+  valid_email=false;
   email = ''; 
   password= ''; 
   username='';
-
+  isEditMode = false;
+  isForgotPasswordMode = false;
   constructor( private router: Router, private formBuilder: FormBuilder, private apiService: service,  private alertController: AlertController,
-    private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute) { 
+    private toastController: ToastController, private loadingController: LoadingController,private authservice: service,private activatedRoute: ActivatedRoute,private modalController: ModalController) { 
   }
   
   
@@ -124,6 +127,8 @@ export class LoginComponent {
       this.userType = params.get('userType');
     });
 
+    //this.sendLink('akanihlungwani41@gmail.com');
+
     setTimeout(()=>{                           
       this.loader = false;
   }, 400);
@@ -142,7 +147,7 @@ export class LoginComponent {
       if(this.userLogin_payload.message=='Login successful')
       {
         const errorMessage = 'you have succesfully logged in';
-        //this.showErrorAlert(errorMessage); 
+        this.showErrorAlert(errorMessage); 
         this.router.navigate(['/home',{ userType: this.userType }]);
         this.valid=false;
       }
@@ -150,8 +155,8 @@ export class LoginComponent {
 
       if(this.valid)
       {
-        //const errorMessage = 'wrong username or password';
-        //this.showErrorToast(errorMessage);
+        const errorMessage = 'wrong username or password';
+        this.showErrorToast(errorMessage);
       }
                     
   
@@ -173,7 +178,7 @@ export class LoginComponent {
       if(this.orgLogin_payload.message=='Login successful')
       {
           const errorMessage = 'you have succesfully logged in';
-          //this.showErrorAlert(errorMessage); 
+          this.showErrorAlert(errorMessage); 
           this.router.navigate(['/home',{ userType: this.userType }]);
           this.valid=false;
       }
@@ -181,8 +186,8 @@ export class LoginComponent {
       
       if(this.valid)
       {
-        //const errorMessage = 'wrong username or password';
-          //this.showErrorToast(errorMessage);
+        const errorMessage = 'wrong username or password';
+        this.showErrorToast(errorMessage);
       }
 
 
@@ -219,6 +224,41 @@ export class LoginComponent {
     
    
   }
- 
+  
+  openEditProfilePopover() {
+    this.isEditMode = true;
+  }
 
+  openForgotPasswordPopover() {
+    this.isForgotPasswordMode = true;
+  }
+
+  closePopover() {
+    this.isEditMode = false;
+    this.isForgotPasswordMode = false;
+  }
+ 
+  sendResetLink() {
+      console.log("link is");
+      //check if email exists then send email
+    }
+
+    sendLink(emailAddress:string)
+    {
+      if(this.checkEmail(emailAddress)==true){
+      this.apiService.sendPasswordRequest(emailAddress).subscribe((response: any) => { 
+        console.log(response);
+      });
+    }else{
+      const errorMessage="One or more characters for the (username) before the @ symbol. should contain domain e.g. com , org etc...";
+      this.showErrorToast(errorMessage);
+    }
+
+    }
+
+
+    checkEmail(mail:string){
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(mail);
+    }
 }
