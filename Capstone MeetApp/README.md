@@ -37,9 +37,10 @@
 
 ## Documentation
 
-* [Requirements and Design (SRS) Document](https://docs.google.com/document/d/1LVQGD6UJUvJMjcmKO46BsNEzi5rPzzj-Fq2H5QIl1PY/edit?usp=sharing)
-* [Architectural Structural Design & Requirements](https://docs.google.com/document/d/1J3FmlNKdudMaqJPbmeI3oQyDNWp0ZnSCNGyAKdsBnkE/edit?usp=sharing)
-* [Coding and Testing Standards](https://docs.google.com/document/d/1ZUdV4XrxWqKKbb852i9F_gth-JWqUqO0vA69SMZdbGM/edit?usp=sharing)
+* [Requirements and Design (SRS) Document](#)
+* [Architectural Structural Design & Requirements](#)
+* [Coding Standards](#)
+* [Testing Standards](#)
 * [Project Management](#)
 * [Manuals & Tutorials](#)
 * [Presentation & Videos](#)

@@ -23,8 +23,8 @@
        
     <div class="profile">
         <div class="circle">
-          <img [src]=" profile.profilePicture" alt="Circle Image">
-          <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
+          <img [src]=" profile.profilePicture" alt="Profile Picture">
+          <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)" style="display: none;">
         </div>
         <div class="profile-info">
             <h3>{{ profile.username }}</h3>
