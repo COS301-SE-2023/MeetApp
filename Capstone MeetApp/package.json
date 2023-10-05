@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "result":"cd tools && node lighthouse.config",
+    "result": "cd tools && node lighthouse.config",
     "test:script": "npm run test && npm run e2e && npm run lighthouse-audit && npm run test && npm run result",
     "lighthouse-audit": "lighthouse http://dev-meetapp.s3-website.af-south-1.amazonaws.com --output json --output-path lighthouse-report.json",
     "serve:api:dev": "nx run meet-app-api:serve:development",

@@ -66,7 +66,7 @@
 
         <ion-item lines="full">
           <ion-label>Select Region:</ion-label>
-          <ion-select [(ngModel)]="region" class="select-region" name="region">
+          <ion-select  class="select-region" formControlName="region" name="region">
             <ion-select-option value="">-- Select Region --</ion-select-option>
             <ion-select-option value="Pretoria">Pretoria</ion-select-option>
             <ion-select-option value="Joburg">Johannesburg</ion-select-option>
@@ -81,7 +81,7 @@
         
           <ion-item>
             <ion-label>Select Interests:</ion-label>
-            <ion-select [(ngModel)]="selectedOptions" multiple="true">
+            <ion-select  multiple="true" formControlName="selectedOptions" name="selectedOptions">
               <ion-select-option *ngFor="let option of options" [value]="option">{{ option }}</ion-select-option>
             </ion-select>
           </ion-item>

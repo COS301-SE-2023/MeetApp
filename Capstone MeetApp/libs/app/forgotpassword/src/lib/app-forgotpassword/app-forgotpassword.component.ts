@@ -62,7 +62,7 @@ export class AppForgotpasswordComponent {
 
   }
   cancel(){
-    this.router.navigate(['/login',{ userType: this.userType }]);
+    this.router.navigate(['']);
 
   }
   

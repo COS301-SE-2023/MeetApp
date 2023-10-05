@@ -29,7 +29,8 @@ export class SignupComponent {
   
   loginForm!: FormGroup;
   valid=true;
-
+  emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, public loadingController: LoadingController) {}
     selectedOptions: string[] = [];
@@ -90,6 +91,7 @@ export class SignupComponent {
   
   access:string|null='';
   
+  default_pp='https://images-ext-1.discordapp.net/external/P8I_PanYzrNyOtLaGFi2svOw_odBwa1eNGDXVBvTOVc/https/www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png?width=672&height=589'
   submitClicked = false;
   loader=true;
   ngOnInit() {
@@ -103,12 +105,14 @@ export class SignupComponent {
     if(this.userType=='user')
     {
       this.loginForm = this.formBuilder.group({
-        username: ['', Validators.required],
-       // region:['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmpassword: ['', Validators.required],
         name:['', Validators.required],
-        email:['',Validators.required]
+        username: ['', Validators.required],
+        region:['', Validators.required],
+        selectedOptions: [[]],
+        password: ['', [Validators.required, Validators.minLength(8),Validators.pattern(this.passwordPattern)]],
+        confirmpassword: ['', Validators.required],
+        email:['',Validators.pattern(this.emailPattern)]
+
         });
         
 
@@ -153,13 +157,21 @@ export class SignupComponent {
   signup(){
     const password = this.loginForm.value.password;
     const username=this.loginForm.value.username;
-    const region=this.loginForm.value.region;
+   
     const name =this.loginForm.value.name;
     const email=this.loginForm.value.email;
     const confirmpassword = this.loginForm.value.confirmpassword;
-
-
+   
+    const regionControl = this.loginForm.get('region');
+    const selectedOptionsControl = this.loginForm.get('selectedOptions');
+  
     
+    if (regionControl && selectedOptionsControl) {
+      
+      const region = regionControl.value;
+      const selectedOptions = selectedOptionsControl.value;
+  
+     
     
     if(this.userType=='user' )
     {
@@ -198,14 +210,21 @@ export class SignupComponent {
           {
             this.valid_passregex=false;
           }
+          if(this.checkEmail(email)==true){
+            this.valid_email=true;
+          }else{
+            this.valid_email=false;
+          }
 
           console.log('Password is equal to CP',this.valid_pass);
           console.log('Regex',this.valid_passregex);
           console.log('Valid User name ',this.valid_user);
 
-          if(this.valid_pass && this.valid_user && this.valid_passregex)
+          if(this.valid_pass && this.valid_user && this.valid_passregex && this.valid_email)
           {
-            this.SignUpUser(email,username,password,'',region,this.selectedOptions);
+            console.log(region);
+            console.log(this.selectedOptions);
+            this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions);
           }
       }
       else{
@@ -249,16 +268,16 @@ export class SignupComponent {
             this.valid_passregex=false;
           }
 
-          if(this.checkEmail(email)==true){
-            this.valid_email=true;
-          }else{
-            this.valid_email=false;
-          }
+          // if(this.checkEmail(email)==true){
+          //   this.valid_email=true;
+          // }else{
+          //   this.valid_email=false;
+          // }
           console.log('Password is equal to CP',this.valid_pass);
           console.log('Regex',this.valid_passregex);
           console.log('Valid User name ',this.valid_user);
           console.log('valid email',this.valid_email);
-          if(this.valid_pass && this.valid_user && this.valid_passregex &&this.valid_email)
+          if(this.valid_pass && this.valid_user && this.valid_passregex )
           {
           
             this.SignUpOrg(email,username,name,password, this.events)
@@ -271,6 +290,7 @@ export class SignupComponent {
       }
     
     }
+  }
   
   }
 

@@ -83,7 +83,7 @@ export class OrganiserComponent  {
     endTime= this.selectedRange.endTime;
     category='';
   //FORM FUNCTIONALITY
-  selectedOptions: string[] = [];
+  selectedOptions='';
   options: string[] = ['Music', 'Technology', 'Art', 'Charity','Expos','Trade Shows']; 
   // eslint-disable-next-line @angular-eslint/contextual-lifecycle
   ngOnInit() {
@@ -100,7 +100,7 @@ export class OrganiserComponent  {
     this.eventName='';
     this.OrganisationName='';
     this.address = '';
-  
+    this.selectedOptions=''
     this.formGroup = new FormGroup({
       startDate: new FormControl(this.selectedRange.startDate),
       startTime: new FormControl(this.selectedRange.startTime),
@@ -129,7 +129,7 @@ export class OrganiserComponent  {
       this.selectedRange.startTime !== null &&
       this.selectedRange.endTime !== null &&
       //this.address !== null &&
-      this.category !== null &&
+      this.selectedOptions !== null &&
       this.selectedRegion !== null
     ) {
       this.service.getCoordinates(this.address).subscribe((data: any) => {
@@ -157,6 +157,7 @@ export class OrganiserComponent  {
   }
  
   callCreateEvents() {
+    console.log('hetye',this.selectedOptions);
     // Make sure that the location object has both latitude and longitude values
     if (
       this.location.latitude !== undefined &&
@@ -173,7 +174,7 @@ export class OrganiserComponent  {
           this.selectedRange.startTime,
           this.selectedRange.endTime,
           this.location,
-          this.category,
+          this.selectedOptions,
           this.selectedRegion
         )
         .subscribe((response) => {
