@@ -347,6 +347,14 @@ export class UsersService {
     return eventsWithAttending;
   }
 
+  async getIsAttending(eventID : string, userID : string){
+    const attendance = await this.attendanceModel.find({userID : userID, eventID : eventID}).exec()
+    if (attendance)
+      return true
+    else 
+      return false
+  }
+
   async getUserEvent(userId: string, eventId: string){
     const user = await this.userModel.findById(userId);
     if (!user) {

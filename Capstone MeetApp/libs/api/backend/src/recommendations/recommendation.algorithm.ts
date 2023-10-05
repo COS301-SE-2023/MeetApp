@@ -1,4 +1,4 @@
-import { ObjectId, Schema } from "mongoose";
+import { ObjectId } from "mongoose";
 import { Event } from "../events/schema";
 import { Weight } from "../interfaces";
 import { User } from "../users/schema";
