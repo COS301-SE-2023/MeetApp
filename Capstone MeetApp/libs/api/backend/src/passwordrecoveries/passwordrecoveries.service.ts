@@ -82,12 +82,13 @@ export class PasswordRecoveriesService {
   }
 
   async verifyEmailToken(email: string, token : string){
-    const PR = await this.passwordRecoveryModel.findOne({emailAddress: email})
+    const PR = await this.passwordRecoveryModel.find({emailAddress: email})
     if (!PR)
       return {message: 'unsuccessful', payload: 'Password recovery not requested'}
-    if (PR.token != token)
+  const latestPR = PR[PR.length -1]
+    if (latestPR.token != token)
       return {message: 'unsuccessful', payload: 'Invalid token'}
-    if (PR.expiration < Date.now())
+    if (latestPR.expiration < Date.now())
       return {message: 'unsuccessful', payload: 'Token expired'}
     return {message: 'successful', payload: 'Request accepted'}
 
@@ -118,9 +119,7 @@ export class PasswordRecoveriesService {
   //const user = await this.userModel.findOne({emailAddress: usermail}).exec();
   const userExists = await this.userModel.find({emailAddress : usermail})
   const orgExists = await this.orgModel.find({emailAddress : usermail})
-    if (!userExists && !orgExists)
-      return {message : 'Unsuccessful', payload : 'Account does not exist'}
-  if (!orgExists){
+  if (!orgExists && userExists){
     const user = await this.userModel.findOne({emailAddress: usermail}).exec();
     if (!user)
       return {message : 'Unsuccessful', payload : 'Account does not exist'}
@@ -133,7 +132,7 @@ export class PasswordRecoveriesService {
     return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
   }
 
-  else
+  else if (!userExists && orgExists)
   {
     const user = await this.orgModel.findOne({emailAddress: usermail}).exec();
     if (!user)
@@ -146,6 +145,8 @@ export class PasswordRecoveriesService {
     const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
     return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
   }
+  else
+    return {message : 'Unsuccessful', payload : 'Account does not exist'}
 }
   
 }
