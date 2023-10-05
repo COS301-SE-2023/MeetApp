@@ -104,13 +104,13 @@ export class SignupComponent {
     if(this.userType=='user')
     {
       this.loginForm = this.formBuilder.group({
+        name:['', Validators.required],
         username: ['', Validators.required],
-        region:['', Validators.required],
-        selectedOptions:['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmpassword: ['', Validators.required],
-        name:['', Validators.required],
-        email:['',Validators.required]
+        email:['',Validators.required],
+        region: ['', Validators.required], 
+      selectedOptions: [[]]
         });
         
 
@@ -155,13 +155,21 @@ export class SignupComponent {
   signup(){
     const password = this.loginForm.value.password;
     const username=this.loginForm.value.username;
-    const region=this.loginForm.value.region;
+   
     const name =this.loginForm.value.name;
     const email=this.loginForm.value.email;
     const confirmpassword = this.loginForm.value.confirmpassword;
-
-
+   
+    const regionControl = this.loginForm.get('region');
+    const selectedOptionsControl = this.loginForm.get('selectedOptions');
+  
     
+    if (regionControl && selectedOptionsControl) {
+      
+      const region = regionControl.value;
+      const selectedOptions = selectedOptionsControl.value;
+  
+     
     
     if(this.userType=='user' )
     {
@@ -209,7 +217,7 @@ export class SignupComponent {
           {
             console.log(region);
             console.log(this.selectedOptions);
-            this.SignUpUser(email,username,password,this.default_pp,region,this.selectedOptions);
+            this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions);
           }
       }
       else{
@@ -275,6 +283,7 @@ export class SignupComponent {
       }
     
     }
+  }
   
   }
 
