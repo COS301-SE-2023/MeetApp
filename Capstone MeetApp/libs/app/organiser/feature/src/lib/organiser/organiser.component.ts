@@ -83,7 +83,8 @@ export class OrganiserComponent  {
     endTime= this.selectedRange.endTime;
     category='';
   //FORM FUNCTIONALITY
-  
+  selectedOptions: string[] = [];
+  options: string[] = ['Music', 'Technology', 'Art', 'Charity','Expos','Trade Shows']; 
   // eslint-disable-next-line @angular-eslint/contextual-lifecycle
   ngOnInit() {
     

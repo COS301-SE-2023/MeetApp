@@ -55,17 +55,30 @@
       </ion-item>
       
       
+      
       <ion-item lines="full">
-        <ion-label position="floating">Region</ion-label>
-        <ion-input class="region" [(ngModel)]="selectedRegion" type="text" name="region" required></ion-input>
+        <ion-label>Select Region:</ion-label>
+        <ion-select [(ngModel)]="selectedRegion" class="select-region" name="region">
+          <ion-select-option value="">-- Select Region --</ion-select-option>
+          <ion-select-option value="Pretoria">Pretoria</ion-select-option>
+          <ion-select-option value="Joburg">Johannesburg</ion-select-option>
+          <ion-select-option value="UCT">Cape Town</ion-select-option>
+          <ion-select-option value="Durban">Durban</ion-select-option>
+          <ion-select-option value="ELondon">East London</ion-select-option>
+          <ion-select-option value="Polokwane">Polokwane</ion-select-option>
+          <ion-select-option value="Mbombela">Mbombela</ion-select-option>
+          <ion-select-option value="Bloemfontein">Bloemfontein</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item lines="full">
         <ion-label position="floating">Address</ion-label>
         <ion-input [(ngModel)]="address" type="text" placeholder="street address, city, country" name="address" required></ion-input>
       </ion-item >
-      <ion-item lines="full">
-        <ion-label position="floating">category</ion-label>
-        <ion-input class="category" [(ngModel)]="category" type="text" name="category" required></ion-input>
+      <ion-item>
+        <ion-label>Select Category:</ion-label>
+        <ion-select [(ngModel)]="selectedOptions" multiple="false">
+          <ion-select-option *ngFor="let option of options" [value]="option">{{ option }}</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-row>

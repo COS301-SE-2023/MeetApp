@@ -97,7 +97,12 @@ export class HomepageComponent {
     this.isLiked = !this.isLiked;
   }
   
-
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  }
   
   constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
     this.activatedRoute.paramMap.subscribe(params => {

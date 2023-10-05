@@ -369,7 +369,7 @@ export class SignupComponent {
       }
       }, 3000);
 
-    
+      loading.present();
 
 
   }
