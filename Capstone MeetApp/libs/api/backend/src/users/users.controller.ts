@@ -69,6 +69,16 @@ export class UsersController {
     return this.usersService.getUserAttendancesUsername(username);
   }
 
+  @Get('isAttending/:eventID')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'Check if the user is attending a certain event'})
+  @ApiResponse({type: Boolean, description: "True or false"})
+  isAttending(@Param('eventID') eventID : string, @Request() req : AuthenticatedRequest ) {
+    
+    return this.usersService.getIsAttending(eventID, req.user.id);
+  }
+
   @UseGuards(AuthGuard)
   @Get('attendances/count')
   @ApiBearerAuth()
