@@ -90,6 +90,7 @@ export class SignupComponent {
   
   access:string|null='';
   
+  default_pp='https://images-ext-1.discordapp.net/external/P8I_PanYzrNyOtLaGFi2svOw_odBwa1eNGDXVBvTOVc/https/www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png?width=672&height=589'
   submitClicked = false;
   loader=true;
   ngOnInit() {
@@ -104,7 +105,8 @@ export class SignupComponent {
     {
       this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
-       // region:['', Validators.required],
+        region:['', Validators.required],
+        selectedOptions:['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(8)]],
         confirmpassword: ['', Validators.required],
         name:['', Validators.required],
@@ -205,7 +207,9 @@ export class SignupComponent {
 
           if(this.valid_pass && this.valid_user && this.valid_passregex)
           {
-            this.SignUpUser(email,username,password,'',region,this.selectedOptions);
+            console.log(region);
+            console.log(this.selectedOptions);
+            this.SignUpUser(email,username,password,this.default_pp,region,this.selectedOptions);
           }
       }
       else{
