@@ -29,7 +29,8 @@ export class SignupComponent {
   
   loginForm!: FormGroup;
   valid=true;
-
+  emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, public loadingController: LoadingController) {}
     selectedOptions: string[] = [];
@@ -106,11 +107,12 @@ export class SignupComponent {
       this.loginForm = this.formBuilder.group({
         name:['', Validators.required],
         username: ['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]],
+        region:['', Validators.required],
+        selectedOptions: [[]],
+        password: ['', [Validators.required, Validators.minLength(8),Validators.pattern(this.passwordPattern)]],
         confirmpassword: ['', Validators.required],
-        email:['',Validators.required],
-        region: ['', Validators.required], 
-      selectedOptions: [[]]
+        email:['',Validators.pattern(this.emailPattern)]
+
         });
         
 
@@ -208,12 +210,17 @@ export class SignupComponent {
           {
             this.valid_passregex=false;
           }
+          if(this.checkEmail(email)==true){
+            this.valid_email=true;
+          }else{
+            this.valid_email=false;
+          }
 
           console.log('Password is equal to CP',this.valid_pass);
           console.log('Regex',this.valid_passregex);
           console.log('Valid User name ',this.valid_user);
 
-          if(this.valid_pass && this.valid_user && this.valid_passregex)
+          if(this.valid_pass && this.valid_user && this.valid_passregex && this.valid_email)
           {
             console.log(region);
             console.log(this.selectedOptions);
@@ -261,16 +268,16 @@ export class SignupComponent {
             this.valid_passregex=false;
           }
 
-          if(this.checkEmail(email)==true){
-            this.valid_email=true;
-          }else{
-            this.valid_email=false;
-          }
+          // if(this.checkEmail(email)==true){
+          //   this.valid_email=true;
+          // }else{
+          //   this.valid_email=false;
+          // }
           console.log('Password is equal to CP',this.valid_pass);
           console.log('Regex',this.valid_passregex);
           console.log('Valid User name ',this.valid_user);
           console.log('valid email',this.valid_email);
-          if(this.valid_pass && this.valid_user && this.valid_passregex &&this.valid_email)
+          if(this.valid_pass && this.valid_user && this.valid_passregex )
           {
           
             this.SignUpOrg(email,username,name,password, this.events)
