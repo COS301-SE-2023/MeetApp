@@ -12,5 +12,5 @@ export class CreatePendingAccountDto {
   readonly type!: string;
 
   @ApiProperty({description: "Whether the account has been verified or not", example: "false", required: true, type: "boolean"})
-  readonly verfied!: boolean;
+  readonly verified!: boolean;
 }
