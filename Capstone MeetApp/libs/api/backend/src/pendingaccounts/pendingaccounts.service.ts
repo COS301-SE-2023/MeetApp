@@ -16,8 +16,8 @@ export class PendingAccountsService {
 
     if (checkPA){
 
-      if (checkPA.verfied)
-        return {payload: "", message : "Account has already been verified"}
+      if (checkPA.verified)
+        return {payload: null, message : "Account has already been verified"}
 
       const code = Math.floor(Math.random() * 900000) + 100000;
       const pendingAccountUpdate = await this.pendingAccountModel.findByIdAndUpdate(checkPA._id, {OTP : code}, { new: true }).exec();
@@ -48,7 +48,7 @@ export class PendingAccountsService {
           return {message: 'Email failed to send, try again later', payload: null}
         } else {
           Logger.log("Email sent successfully \n" + info)
-            return {message: 'OTP resent successfully', payload : pendingAccountUpdate}   
+            return {message: 'OTP resent successfully', payload : pendingAccountUpdate.toObject()}   
         }
 
       })
@@ -82,7 +82,7 @@ export class PendingAccountsService {
         return {message: 'Email failed to send, try again later', payload: null}
       } else {
           Logger.log("Email sent successfully \n" + info)
-          return {message: 'OTP resent successfully', payload : savedNewPA}   
+          return {message: 'OTP resent successfully', payload : await savedNewPA.toObject()}   
       }
 
     })
@@ -116,7 +116,7 @@ export class PendingAccountsService {
       const userCheckName = await this.userModel.findOne({username: username}).exec()
       if (userCheckName)
         return {payload : true, message : 'Username already exists'}
-      return {payload : false, message : 'Username and email address are uqniue'}
+      return {payload : false, message : 'Username and email address are unique. Account creation allowed'}
       
     }
     else if (type == 'Organisation'){
@@ -126,7 +126,7 @@ export class PendingAccountsService {
       const orgCheckName = await this.orgModel.findOne({username: username}).exec()
       if (orgCheckName)
         return {payload : true, message : 'Username already exists'}
-      return {payload : false, message : 'Username and email address are uqniue'}
+      return {payload : false, message : 'Username and email address are unique. Account creation allowed'}
 
     }
     return {payload : null, message : "Invalid account type"}
@@ -137,7 +137,7 @@ export class PendingAccountsService {
     const pendingAccount = await this.pendingAccountModel.findOne({ emailAddress: emailAddress, type : type}).exec()
     if (!pendingAccount)
       return {payload: null, message: 'Account not found'}
-    if (pendingAccount.verfied)
+    if (pendingAccount.verified)
       return {payload: null, message: 'Email address already verified'}
     if (pendingAccount.OTP != code)
       return {payload: null, message: 'Invalid pin'}
