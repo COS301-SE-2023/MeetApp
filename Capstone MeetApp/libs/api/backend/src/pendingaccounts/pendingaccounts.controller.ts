@@ -1,6 +1,5 @@
 import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
 import { PendingAccountsService } from './pendingaccounts.service';
-import { CreatePendingAccountDto } from './dto/create-pendingaccount.dto';
 import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiSecurity } from '@nestjs/swagger';
 
 @Controller('attendances')
@@ -12,9 +11,9 @@ export class PendingAccountsController {
   @Post()
   @ApiOperation({ summary: 'Create a new pending account' }) 
   @ApiResponse({ status: 201, description: 'Pending account created successfully' })
-  create(@Body() createPendingAccount: CreatePendingAccountDto ) {
+  sendEmail(@Body('emailAddress') emailAddress : string, @Body('type') type : string ) {
     
-    return this.pendingAccountsService.create(createPendingAccount);
+    return this.pendingAccountsService.sendEmail(emailAddress, type);
   }
 
   @Get()
@@ -24,6 +23,25 @@ export class PendingAccountsController {
     
     return this.pendingAccountsService.findAll();
   }
+
+  @Get('isTaken')
+  @ApiOperation({ summary: 'Check if the username or email address is taken' }) 
+  @ApiResponse({ status: 201, description: 'A payload with the result of the response alongside a message' })
+  isTaken(@Body('username') username : string, @Body('emailAddress') emailAddress : string, @Body('type') type : string) {
+    
+    return this.pendingAccountsService.isTaken(username, emailAddress, type);
+  }
+
+  @Get('verify')
+  @ApiOperation({ summary: 'Check if the OTP is correct or not' }) 
+  @ApiResponse({ status: 201, description: 'A payload with the result of the response alongside a message' })
+  verify(@Body('emailAddress') emailAddress : string, @Body('code') code : number, @Body('type') type : string) {
+    
+    return this.pendingAccountsService.verify(emailAddress, code, type);
+  }
+
+
+  
 
   @Get(':id')
   @ApiOperation({ summary: 'Get a specific pending account' }) 
