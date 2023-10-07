@@ -1,10 +1,10 @@
-import { Controller, Get, Param, Delete, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch } from '@nestjs/common';
 import { PendingAccountsService } from './pendingaccounts.service';
-import { ApiOperation, ApiResponse, ApiParam, ApiTags, ApiSecurity } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags, ApiSecurity } from '@nestjs/swagger';
 
-@Controller('attendances')
+@Controller('pendingaccounts')
 @ApiSecurity('Api-Key')
-@ApiTags('Attendances')
+@ApiTags('PendingAccounts')
 export class PendingAccountsController {
   constructor(private readonly pendingAccountsService: PendingAccountsService) {}
 
@@ -32,7 +32,7 @@ export class PendingAccountsController {
     return this.pendingAccountsService.isTaken(username, emailAddress, type);
   }
 
-  @Get('verify')
+  @Patch('verify')
   @ApiOperation({ summary: 'Check if the OTP is correct or not' }) 
   @ApiResponse({ status: 201, description: 'A payload with the result of the response alongside a message' })
   verify(@Body('emailAddress') emailAddress : string, @Body('code') code : number, @Body('type') type : string) {
@@ -43,21 +43,21 @@ export class PendingAccountsController {
 
   
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Get a specific pending account' }) 
-  @ApiResponse({ status: 201, description: 'Specified pending account' })
-  @ApiParam({name : 'id', description: 'The pending account id to find', required: true})
-  findOne(@Param('id') id: string, ) {
+  // @Get(':id')
+  // @ApiOperation({ summary: 'Get a specific pending account' }) 
+  // @ApiResponse({ status: 201, description: 'Specified pending account' })
+  // @ApiParam({name : 'id', description: 'The pending account id to find', required: true})
+  // findOne(@Param('id') id: string, ) {
     
-    return this.pendingAccountsService.findOne(id);
-  }
+  //   return this.pendingAccountsService.findOne(id);
+  // }
 
-  @Delete(':id')
-  @ApiOperation({ summary: 'Delete a specific pending account' }) 
-  @ApiResponse({ status: 201, description: 'Deleted pending account' })
-  @ApiParam({name : 'id', description: 'The pending account id to delete', required: true})
-  remove(@Param('id') id: string, ) {
+  // @Delete(':id')
+  // @ApiOperation({ summary: 'Delete a specific pending account' }) 
+  // @ApiResponse({ status: 201, description: 'Deleted pending account' })
+  // @ApiParam({name : 'id', description: 'The pending account id to delete', required: true})
+  // remove(@Param('id') id: string, ) {
     
-    return this.pendingAccountsService.remove(id);
-  }
+  //   return this.pendingAccountsService.remove(id);
+  // }
 }
