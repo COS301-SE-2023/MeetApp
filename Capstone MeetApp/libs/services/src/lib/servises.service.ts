@@ -215,7 +215,7 @@ export class service{
 
     createEvents(name: string | null,organisation: string | null,description: string | null,eventPoster:string | null, date: string,
          startTime: string,endTime: string,location: {latitude:number , longitude:number},
-         category: string,region: string | null)
+         category: string| null,region: string | null)
     {
       const url=this.baseURl+'events';
         
