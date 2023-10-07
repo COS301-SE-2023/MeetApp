@@ -31,7 +31,9 @@ export class AppForgotpasswordComponent {
   confirmPassword = '';
   token :string|null= '';
   email='';
-
+  loginForm!: FormGroup;
+  emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   forgot_payload={
     message: '', 
     payload: ''
@@ -51,6 +53,10 @@ export class AppForgotpasswordComponent {
   }
   
   async ngOnInit(){
+    this.loginForm = this.formBuilder.group({
+      email:['',Validators.pattern(this.emailPattern)],
+      password: ['', [Validators.required, Validators.minLength(8),Validators.pattern(this.passwordPattern)]]
+      });
 
   this.activatedRoute.paramMap.subscribe(params => {
     this.token = params.get('anything'); // 'token' should be the parameter name in your route
