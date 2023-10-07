@@ -809,7 +809,7 @@ export class UsersService {
     const AllEvents = await this.eventModel.find({}).exec()
     return AllEvents.filter(evt => {
       const EventCoords = evt.location as Record<string,number>
-      const EventsCoordsParsed = ({latitude : EventCoords['latitude'], longitude : EventCoords['longitude']})
+      const EventsCoordsParsed = ({longitude : EventCoords['longitude'], latitude : EventCoords['latitude']})
       console.log(EventsCoordsParsed)
       const distance = this.getDistance(EventsCoordsParsed,userLocation)
       console.log(evt.name, distance)
