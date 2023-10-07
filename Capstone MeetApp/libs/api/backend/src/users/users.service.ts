@@ -804,6 +804,19 @@ export class UsersService {
         return distance;
   }
 
+  async getDistanceRange(range : number, userLocation : {longitude : number, latitude : number})
+  {
+    const AllEvents = await this.eventModel.find({}).exec()
+    return AllEvents.filter(evt => {
+      const EventCoords = evt.location as Record<string,number>
+      const EventsCoordsParsed = ({latitude : EventCoords['latitude'], longitude : EventCoords['longitude']})
+      console.log(EventsCoordsParsed)
+      const distance = this.getDistance(EventsCoordsParsed,userLocation)
+      console.log(evt.name, distance)
+      return distance <= range
+    })
+  }
+
   toRadians(degrees: number): number {
     return degrees * (Math.PI / 180);
   }
