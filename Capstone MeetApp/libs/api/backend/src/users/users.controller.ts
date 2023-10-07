@@ -373,6 +373,15 @@ export class UsersController {
     return this.usersService.getDistance(eventLocation,userLocation)
   }
 
+  @UseGuards(AuthGuard)
+  @Get('events/distance/:range')
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Get the distance between the user's location and the event"})
+  @ApiResponse({status: 200, description: "The distance in km", type: "number"})
+  async getDistanceRange(@Param('range') range : number, @Body('userLocation') userLocation : {longitude : number, latitude : number}){
+    return await this.usersService.getDistanceRange(range,userLocation)
+  }
+
   
 
   /*@Post('addInterests')
