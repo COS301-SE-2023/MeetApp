@@ -261,7 +261,6 @@ export class UsersController {
   @ApiResponse({type: Event, description: "An event"})
   @ApiParam({name: 'eventID', description: 'The id of the event'})
   async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string, ){
-    
     return await this.usersService.getUserEvent(req.user.id, eventID)
   }
 
@@ -364,6 +363,17 @@ export class UsersController {
     
     return this.usersService.remove(req.user.id);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('events/distance')
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Get the distance between the user's location and the event"})
+  @ApiResponse({status: 200, description: "The distance in km", type: "number"})
+  async getDistance(@Body('eventLocation') eventLocation : {latitude : number, longitude: number}, @Body('userLocation') userLocation : {longitude : number, latitude : number}){
+    return this.usersService.getDistance(eventLocation,userLocation)
+  }
+
+  
 
   /*@Post('addInterests')
   async addInterests(){
