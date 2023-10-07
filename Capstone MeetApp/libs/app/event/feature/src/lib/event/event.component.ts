@@ -33,6 +33,8 @@ export class EventComponent {
 
 
   attendance=0;
+
+  isAttending=false;
   
   constructor(private apiService: service,private route: ActivatedRoute,private router: Router) { 
   }
@@ -75,17 +77,27 @@ export class EventComponent {
     this.router.navigateByUrl('/attendees');
     this.router.navigate(['attendees', this.eventID]);
   }
+
   viewchat()
   {
     this.router.navigateByUrl('/chatroom');
     this.router.navigate(['chatroom', this.eventID]);
   }
+
   async getAttendance(id:string)
   {
     await this.apiService.getEventAttendanceCount(id).subscribe((response:any) => {
       this.attendance=response;
     });
   }
+
+  async getAttendanceStatus(eventID:string)
+  {
+    await this.apiService.getAttendanceStatus(eventID).subscribe((response:any) => {
+      this.isAttending=response;
+    });
+  }
+
 
 }
 

@@ -687,6 +687,24 @@ describe('Service', () => {
     req.flush(fakeFriends);
   });
 
+  it('should get attendance status with correct headers', () => {
+    const eventID = '1'; // Replace with the event ID you want to test
+
+    const dummyStatus = true; // Replace with the expected status (true or false)
+
+    myService.getAttendanceStatus(eventID).subscribe((status) => {
+      expect(status).toEqual(dummyStatus);
+    });
+
+    const expectedUrl = `${environment.BASE_URL}users/isAttending/${eventID}`; // Replace with your actual API endpoint URL
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('GET');
+    expect(req.request.headers.get('Authorization')).toContain('Bearer '); // Adjust this as per your implementation
+
+    req.flush(dummyStatus);
+  });
+  
   //TEST FOR ORGANISER
   it('should create an organiser with the correct headers and data', () => {
     const emailAddress = 'organiser@example.com';

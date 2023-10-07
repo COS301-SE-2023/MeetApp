@@ -367,6 +367,12 @@ export class service{
       return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
     }
 
+    getAttendanceStatus(eventID:string)
+    {
+      const url=`${this.baseURl}users/isAttending/${eventID}`;
+      return this.http.get(`${url}`,{ headers  : this.getAuthHeaders()});
+    }
+
     //SERVICES FOR ORGANISER
 
     createOrginiser(emailAddress:string,username:string,password:string,name:string,events:string[])

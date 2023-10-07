@@ -8,8 +8,7 @@ import { AlertController } from '@ionic/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import {service,ServicesModule} from '@capstone-meet-app/services';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 
 
 @Component({
@@ -40,6 +39,8 @@ export class OrganiserComponent  {
     startTime: '',
     endTime: '',
   };
+
+
   showForm: |boolean = false;
   address: string ;
   showDateTimeFields = false;
@@ -54,56 +55,34 @@ export class OrganiserComponent  {
     username:'',
     exp:0,
     iat: 0
- }
+  }
 
- organiser={
-  _id:'',
-  username:'',
-  password:'',
-  name:'',
-  events:[]
- }
+  organiser={
+    _id:'',
+    username:'',
+    password:'',
+    name:'',
+    events:[]
+  }
 
   errorMessage='';
-  //get lat and long
+ 
+  location: {latitude :number , longitude:number  }=
+  {
+    latitude:0,
+    longitude:0
+  }
   
-  //services
-    address_location = { latitude: 0, longitude: 0 } 
+  startDate=this.selectedRange.startDate;
+  startTime= this.selectedRange.startTime;
+  endTime= this.selectedRange.endTime;
     
-    location: {latitude :number , longitude:number  }=
-    {
-      latitude:0,
-      longitude:0
-    }
-    myLocation = {
-      latitude: 40.7128,
-      longitude: -74.0060,
-    };
-
-    startDate=this.selectedRange.startDate;
-    startTime= this.selectedRange.startTime;
-    endTime= this.selectedRange.endTime;
-    
-  //FORM FUNCTIONALITY
   
   options: string[] = ['Music', 'Technology', 'Art', 'Charity','Expos','Trade Shows']; 
+
   // eslint-disable-next-line @angular-eslint/contextual-lifecycle
-  ngOnInit() {
-    
+  ngOnInit() {  
     this.getOrganiserName();
-
-    
-      
-console.log('Description:', this.description);
-console.log('Selected Region:', this.selectedRegion);
-console.log('EventName:', this.eventName);
-console.log('Organiser:', this.OrganisationName);
-console.log('startDate',this.selectedRange.startDate)
-console.log('endTime',this.selectedRange.endTime)
-console.log('startTime',this.selectedRange.startTime)
-
-
-console.log('category',this.category)
   }
 
   constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient) {
@@ -134,7 +113,6 @@ console.log('category',this.category)
   
   submitForm() {
     
-//this.router.navigate(['/home']);
     if (
       this.eventName !== null &&
       this.OrganisationName !== null &&
@@ -143,7 +121,6 @@ console.log('category',this.category)
       this.selectedRange.startDate !== null &&
       this.selectedRange.startTime !== null &&
       this.selectedRange.endTime !== null &&
-      //this.address !== null &&
       this.category !== null &&
       this.selectedRegion !== null
     ) {
@@ -166,25 +143,14 @@ console.log('category',this.category)
     {
       this.showErrorAlertF();
     }
+
   }
  
   callCreateEvents() {
-    console.log('Description:', this.description);
-console.log('Selected Region:', this.selectedRegion);
-console.log('EventName:', this.eventName);
-console.log('Organiser:', this.OrganisationName);
-console.log('startDate',this.selectedRange.startDate)
-console.log('endTime',this.selectedRange.endTime)
-console.log('startTime',this.selectedRange.startTime)
-console.log('latitude',this.location.latitude)
-      console.log('longitude',this.location.longitude)
-console.log('category',this.category)
-    // Make sure that the location object has both latitude and longitude values
     if (
       this.location.latitude !== undefined &&
       this.location.longitude !== undefined
     ) {
-      //const location = { latitude: this.location.latitude, longitude: this.location.longitude};
       this.service
         .createEvents(
           this.eventName,
@@ -233,31 +199,31 @@ console.log('category',this.category)
   }
   
   
-    saveProfilePicture(profilePictureUrl: string) {
-      this.profilePictureUrl=profilePictureUrl;
-    
-     this.convertImageToBase64(this. profilePictureUrl);
-     
+  saveProfilePicture(profilePictureUrl: string) {
+    this.profilePictureUrl=profilePictureUrl;
+  
+   this.convertImageToBase64(this. profilePictureUrl);
+   
+  }
+  async  convertImageToBase64(imageUrl: string): Promise<string> {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result as string;
+          resolve(base64String);
+          this.profilePictureUrl=base64String;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
     }
-    async  convertImageToBase64(imageUrl: string): Promise<string> {
-      try {
-        const response = await fetch(imageUrl);
-        const blob = await response.blob();
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const base64String = reader.result as string;
-            resolve(base64String);
-            this.profilePictureUrl=base64String;
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(blob);
-        });
-      } catch (error) {
-        console.error('Error:', error);
-        throw error;
-      }
-    }
+  }
     
   async saveProfile() {
     if (
@@ -300,28 +266,16 @@ console.log('category',this.category)
    
   }
   toggleForm() {
-   
-    this.showForm = !this.showForm;
-        
-  if (!this.showForm) {
-    // Reset the form or perform any necessary actions after submitting
-    // For example, you can reset the form controls to their initial values
-    // or clear the form data.
-    this.myForm.reset(); // Assuming `myForm` is the form instance name
-
-    // Navigate to '/home' when hiding the form
-    this.router.navigate(['/home']);
-  }
- 
-}
-
-/*
-geocode() {
- 
   
+    this.showForm = !this.showForm;
 
+    if (!this.showForm) {
+      this.myForm.reset();
+      this.router.navigate(['/home']);
+    }
+ 
 }
-*/
+
 
   getOrganiserName(){
     this.service.getLogedInOrg().subscribe((response:any) => {
