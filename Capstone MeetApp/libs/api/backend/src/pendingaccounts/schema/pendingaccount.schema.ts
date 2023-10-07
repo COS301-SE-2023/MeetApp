@@ -30,7 +30,7 @@ export class PendingAccount {
 
   @ApiProperty({description: "Whether the account has been verified or not", example: "false", required: true, type: "boolean"})
   @Prop()
-  readonly verfied!: boolean;
+  readonly verified!: boolean;
 
 }
 
