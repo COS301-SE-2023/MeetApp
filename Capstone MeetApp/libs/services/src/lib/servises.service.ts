@@ -662,4 +662,20 @@ export class service{
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
 
+    //EMAIL AND OTP
+    sendEmailVerification(emailAddress:string,type:string)
+    {
+      const url=this.baseURl+'pendingaccounts';
+
+        const body ={
+          emailAddress:emailAddress,
+          type:type
+        }
+
+        return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+    
+    
+
+
 }
