@@ -675,6 +675,19 @@ export class service{
         return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
     }
     
+    verifyEmailVerification(emailAddress:string,code:number,type:string)
+    {
+      const url=this.baseURl+'pendingaccounts/verify';
+
+        const body ={
+          emailAddress:emailAddress,
+          code:code,
+          type:type
+        }
+
+        return this.http.patch(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+
     
 
 
