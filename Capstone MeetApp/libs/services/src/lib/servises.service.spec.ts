@@ -1686,6 +1686,35 @@ describe('Service', () => {
   });
 
 
+  
+  it('should send email verification with correct headers and body', () => {
+    const emailAddress = 'test@example.com'; // Replace with the email address you want to test
+    const type = 'user'; // Replace with the type you want to test
+
+    myService.sendEmailVerification(emailAddress, type).subscribe(() => {
+      // This test is only checking the request, so no need for further expectations
+    });
+
+    const expectedUrl = `${environment.BASE_URL}pendingaccounts`; // Replace with your actual API endpoint URL
+    const req = httpTestingController.expectOne(expectedUrl);
+
+    expect(req.request.method).toEqual('POST');
+    expect(req.request.headers.get('x-api-key')).toEqual(environment.BACKEND_API_KEY); // Adjust this as per your implementation
+
+    // Check the request body
+    const requestBody = req.request.body;
+    expect(requestBody).toBeDefined();
+    expect(requestBody.emailAddress).toEqual(emailAddress);
+    expect(requestBody.type).toEqual(type);
+
+    // Respond with an empty object to simulate a successful response
+    req.flush({});
+  });
+
+  
+
+
+
 });
 
 
