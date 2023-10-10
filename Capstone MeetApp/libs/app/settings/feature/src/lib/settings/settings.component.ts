@@ -8,7 +8,7 @@ import { IonModal } from '@ionic/angular';
 
 import { ActivatedRoute } from '@angular/router';
 import { RouterModule} from '@angular/router';
-
+import { MenuController } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { OverlayEventDetail } from '@ionic/core/components';
 @Component({
@@ -43,10 +43,11 @@ export class SettingsComponent {
   profile:user={emailAddress:'',username:'',password:'',profilePicture:'',region:'',interests: []};
 
   user_payload:any;
+  
  
   
-  constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
-    this.service.checkTokenAndRedirect();
+  constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute, private menuCtrl: MenuController){
+
   }
 
   async ngOnInit(){
@@ -135,9 +136,66 @@ export class SettingsComponent {
       this.message = `Hello, ${ev.detail.data}!`;
     }
   }
-}
+   
+  openhome() {
+     
+    this.menuCtrl.enable(true, 'home');
+    this.menuCtrl.open('home');
+
+  }
+  
+  openWelcome() {
+     
+    this.menuCtrl.enable(true, 'Welcome');
+    this.menuCtrl.open('Welcome');
+
+  }
+  openlogin() {
+     
+    this.menuCtrl.enable(true, 'login');
+    this.menuCtrl.open('login');
+
+  }
+  opensignup() {
+   
+    this.menuCtrl.enable(true, 'signup');
+    this.menuCtrl.open('signup');
+  }
+  openchats() {
+   
+    this.menuCtrl.enable(true, 'chats');
+    this.menuCtrl.open('chats');
+  }
+  
+  openopenWelcome() {
+    this.menuCtrl.enable(true, 'Welcome');
+    this.menuCtrl.open('Welcome');
+  }
+
+  openevents() {
+    this.menuCtrl.enable(true, 'events');
+    this.menuCtrl.open('events');
+  }
+  openData() {
+    this.menuCtrl.enable(true, 'Data');
+    this.menuCtrl.open('Data');
+  }
+ 
+  openprofile() {
+     
+    this.menuCtrl.enable(true, 'profile');
+    this.menuCtrl.open('profile');
+
+  }
+  openfriendship() {
+     
+    this.menuCtrl.enable(true, 'friendship');
+    this.menuCtrl.open('friendship');
+
+  }
   
 
+}
 
 
 
