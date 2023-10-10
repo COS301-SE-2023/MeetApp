@@ -46,7 +46,7 @@ export class SettingsComponent {
  
   
   constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
-
+    this.service.checkTokenAndRedirect();
   }
 
   async ngOnInit(){

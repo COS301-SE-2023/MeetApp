@@ -99,8 +99,7 @@ export class OrganiserComponent  {
       endTime: new FormControl(this.selectedRange.endTime)
     });
 
-      
-  
+    this.service.checkTokenAndRedirect();
   }
   
   

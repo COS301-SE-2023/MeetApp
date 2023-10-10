@@ -192,8 +192,9 @@ export class service{
 
       const token = this.getToken();
   
-      if (!token) {
-        this.router.navigate(['/welcome']);
+      if (token==null) {
+        console.log(token);
+        this.router.navigate(['']);
       }
     }
 

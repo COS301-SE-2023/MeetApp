@@ -30,6 +30,7 @@ export class AppNotificationsComponent {
   }];
 
   constructor(private apiService: service) { 
+    this.apiService.checkTokenAndRedirect();
   }
 
   async ngOnInit() {

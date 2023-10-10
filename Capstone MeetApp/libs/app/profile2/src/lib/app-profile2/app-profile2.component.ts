@@ -18,7 +18,10 @@ export class AppProfile2Component {
 
 
   constructor(private router: Router,private serviceProvider: service,private activatedRoute: ActivatedRoute)
-  {}
+  {
+    this.serviceProvider.checkTokenAndRedirect();
+  }
+
 
 
   profile={_id:'',username:'',password:'',profilePicture:'', region:''};

@@ -109,6 +109,9 @@ export class HomepageComponent {
       this.userType = params.get('userType');
     });
     console.log('test',this.userType)
+
+    this.service.checkTokenAndRedirect();
+    
   }
   
   refreshPage() {
@@ -130,6 +133,7 @@ export class HomepageComponent {
     
   }
   async ngOnInit() {
+    
        
     this.service.getAllEvents().subscribe((response: any) => { 
       
@@ -242,4 +246,6 @@ export class HomepageComponent {
       console.log(response);
     });
   }
+ 
+
 }
