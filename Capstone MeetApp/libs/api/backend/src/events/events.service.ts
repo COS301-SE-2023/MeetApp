@@ -114,6 +114,6 @@ export class EventsService {
     const attendingUserIds = attendance.map((a) => a.userID);
     const users = await this.userModel.find({ _id: { $in: attendingUserIds } }).exec();
 
-    return users.map((user) => ({ id: user._id, username: user.username }));
+    return users.map((user) => ({ id: user._id, username: user.username, profilePicture:user.profilePicture }));
   }
 }

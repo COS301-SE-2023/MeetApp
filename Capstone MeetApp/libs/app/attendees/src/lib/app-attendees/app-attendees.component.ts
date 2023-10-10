@@ -17,8 +17,9 @@ import { RouterModule } from '@angular/router';
 export class AppAttendeesComponent {
    
   attandance_list=[{
-    id:'',
-    username:''
+    _id:'',
+      username:'',
+      profilePicture:'' ,
   }]
 
   eventID='';
@@ -49,6 +50,8 @@ export class AppAttendeesComponent {
 
   filteredData: any[] = [];
   searchQuery = '';
+  constructor(private apiService: service,private route: ActivatedRoute) { 
+  }
   search(): void {
     if (this.searchQuery.trim() === '') {
       this.filteredData = this.followers;
@@ -59,8 +62,7 @@ export class AppAttendeesComponent {
     }
   }
 
-  constructor(private apiService: service,private route: ActivatedRoute) { 
-  }
+  
 
   async ngOnInit() {
     this.route.params.subscribe(params => {
@@ -76,7 +78,7 @@ export class AppAttendeesComponent {
   {
     await this.apiService.getEventAttendance(id).subscribe((response:any) =>{
       this.attandance_list=response;
-      console.log('Attendace List :',this.attandance_list[0].id);
+      console.log('Attendace List :',response);
     });
   }
 
