@@ -117,7 +117,7 @@
         </div>
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="dark"  expand="block"   (click)="isvalid()" >Sign Up</ion-button>
+            <ion-button type="submit" color="dark"  expand="block" id="click2-trigger"    >Sign Up</ion-button>
             <ion-ripple-effect></ion-ripple-effect>
             <!--[disabled]="loginForm.invalid"-->
           </ion-col>
@@ -131,6 +131,22 @@
         </ion-row>
       </form>
    
+  </div>
+  <div class="div-popover">
+    <ion-popover class="popover" trigger="click2-trigger" triggerAction="click" side="top" alignment="center">
+      <ng-template>
+        <ion-content class="ion-padding">
+          <ion-card class="popover-card">
+            <ion-card-header>
+              <ion-card-title class="heading">Verify Email</ion-card-title>
+            </ion-card-header>
+          <ion-label>Enter the OTP sent to your email</ion-label>
+          <ion-input class="email" type="email"  [(ngModel)]="email" name="email" required></ion-input>
+          <ion-button color="dark" expand="block"  (click)="isvalid()">Send OTP</ion-button>
+          </ion-card>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
   </div>
 </ion-content>
   </div>
