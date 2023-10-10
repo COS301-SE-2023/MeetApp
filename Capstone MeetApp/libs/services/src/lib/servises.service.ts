@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import {HttpClient, HttpHeaders ,HttpParams} from "@angular/common/http";
 import {environment } from "./environment";
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 // EVENT INTERFACES //
 export interface events{
@@ -118,14 +119,14 @@ export interface createAttendance{
     providedIn:'root'
 })
 export class service{
-    constructor(private http:HttpClient){}
+    constructor(private http:HttpClient,private router: Router){}
 
     private baseURl=environment.BASE_URL;
 
 
-    private readonly TOKEN_KEY = 'access_token';
+    private  TOKEN_KEY:string|null = null;
 
-    private readonly USERNAME = 'username';
+    private  USERNAME:string|null = null;
 
     
     getCoordinates(address: string): Observable<any> {
@@ -157,36 +158,43 @@ export class service{
       
     setToken(token: string) 
     {
-        localStorage.setItem(this.TOKEN_KEY, token);
-      
+      this.TOKEN_KEY=token;
     }
     
     getToken(): string | null 
     {
-        return localStorage.getItem(this.TOKEN_KEY);
+      return this.TOKEN_KEY;
     }
     
     removeToken() 
     {
-        localStorage.removeItem(this.TOKEN_KEY);
+      this.TOKEN_KEY=null;
     }
 
     //FUNCTIONS TO ACCESS THE TOKEN
       
     setUsername(username: string) 
     {
-        localStorage.setItem(this.USERNAME, username);
-      
+      this.USERNAME=username
     }
     
     getUsername(): string | null 
     {
-        return localStorage.getItem(this.USERNAME);
+      return this.USERNAME
     }
     
     removeUsername() 
     {
-        localStorage.removeItem(this.USERNAME);
+      this.USERNAME=null;
+    }
+
+    checkTokenAndRedirect(){
+
+      const token = this.getToken();
+  
+      if (!token) {
+        this.router.navigate(['/welcome']);
+      }
     }
 
     //SERVICES FOR EVENTS

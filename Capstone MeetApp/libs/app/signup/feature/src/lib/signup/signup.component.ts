@@ -96,8 +96,6 @@ export class SignupComponent {
   loader=true;
   ngOnInit() {
     
-    
-    
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
     });
