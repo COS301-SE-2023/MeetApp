@@ -110,7 +110,7 @@ export class HomepageComponent {
     });
     console.log('test',this.userType)
 
-    this.service.checkTokenAndRedirect();
+   
     
   }
   
@@ -134,7 +134,7 @@ export class HomepageComponent {
   }
   async ngOnInit() {
     
-       
+    this.service.checkTokenAndRedirect();
     this.service.getAllEvents().subscribe((response: any) => { 
       
       this.data = response;
