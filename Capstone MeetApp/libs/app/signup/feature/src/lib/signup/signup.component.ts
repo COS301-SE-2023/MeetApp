@@ -433,10 +433,14 @@ export class SignupComponent {
       }
     });  
   }
- /* user='Not set';
-  setUserType(userType: string): void {
-    this.router.navigate(['/login', { userType }]);
-  }*/
+ 
+  sendEmailVerification(emailAddress:string,type:string)
+  {
+    this.apiService.sendEmailVerification(emailAddress,type).subscribe((response: any) => { 
+     console.log(response);
+    });
+  }
+
 }
 
 
