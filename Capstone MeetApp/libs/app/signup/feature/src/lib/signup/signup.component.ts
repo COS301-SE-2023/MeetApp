@@ -441,6 +441,13 @@ export class SignupComponent {
     });
   }
 
+  verifyEmailVerification(emailAddress:string,code:number,type:string)
+  {
+    this.apiService.verifyEmailVerification(emailAddress,code,type).subscribe((response: any) => { 
+      console.log(response);
+     });
+  }
+
 }
 
 
