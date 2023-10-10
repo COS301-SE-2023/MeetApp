@@ -51,6 +51,7 @@ export class AppAttendeesComponent {
   filteredData: any[] = [];
   searchQuery = '';
   constructor(private apiService: service,private route: ActivatedRoute) { 
+    this.apiService.checkTokenAndRedirect();
   }
   search(): void {
     if (this.searchQuery.trim() === '') {
