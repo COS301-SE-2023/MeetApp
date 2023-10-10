@@ -33,6 +33,7 @@
         <ion-label position="floating">Event Name</ion-label>
         <ion-input class="Ename" [(ngModel)]="eventName" type="text" name="eventName" required></ion-input>
       </ion-item>
+      
     
       <ion-item lines="full">
         <ion-label position="floating">Event Date</ion-label>
@@ -74,10 +75,18 @@
         <ion-label position="floating">Address</ion-label>
         <ion-input [(ngModel)]="address" type="text" placeholder="street address, city, country" name="address" required></ion-input>
       </ion-item >
-      <ion-item>
+      <ion-item lines="full">
         <ion-label>Select Category:</ion-label>
-        <ion-select [(ngModel)]="selectedOptions" multiple="false">
-          <ion-select-option *ngFor="let option of options" [value]="option">{{ option }}</ion-select-option>
+        <ion-select [(ngModel)]="category" class="select-region" name="category">
+          <ion-select-option value="">-- Select category --</ion-select-option>
+          <ion-select-option value="Charirity">Charirity</ion-select-option>
+          <ion-select-option value="Music">Music</ion-select-option>
+          <ion-select-option value="Sports">Sports</ion-select-option>
+          <ion-select-option value="Festivals">Festivals</ion-select-option>
+          <ion-select-option value=">Expos">Expos</ion-select-option>
+          <ion-select-option value="Conferences">Conferences</ion-select-option>
+          <ion-select-option value="Workshops">Workshops</ion-select-option>
+          <ion-select-option value="Summits">Summits</ion-select-option>
         </ion-select>
       </ion-item>
 

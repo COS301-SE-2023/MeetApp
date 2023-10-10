@@ -8,8 +8,7 @@ import { AlertController } from '@ionic/angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import {service,ServicesModule} from '@capstone-meet-app/services';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+
 
 
 @Component({
@@ -33,11 +32,15 @@ export class OrganiserComponent  {
   selectedRegion:string | null = null;
   eventName :string | null = null;
   OrganisationName:string| null=null;
+  category :string| null=null;
+
   selectedRange: { startDate: string; startTime: string , endTime: string} = {
     startDate: '',
     startTime: '',
     endTime: '',
   };
+
+
   showForm: |boolean = false;
   address: string ;
   showDateTimeFields = false;
@@ -52,45 +55,34 @@ export class OrganiserComponent  {
     username:'',
     exp:0,
     iat: 0
- }
+  }
 
- organiser={
-  _id:'',
-  username:'',
-  password:'',
-  name:'',
-  events:[]
- }
+  organiser={
+    _id:'',
+    username:'',
+    password:'',
+    name:'',
+    events:[]
+  }
 
   errorMessage='';
-  //get lat and long
+ 
+  location: {latitude :number , longitude:number  }=
+  {
+    latitude:0,
+    longitude:0
+  }
   
-  //services
-    address_location = { latitude: 0, longitude: 0 } 
+  startDate=this.selectedRange.startDate;
+  startTime= this.selectedRange.startTime;
+  endTime= this.selectedRange.endTime;
     
-    location: {latitude :number , longitude:number  }=
-    {
-      latitude:0,
-      longitude:0
-    }
-    myLocation = {
-      latitude: 40.7128,
-      longitude: -74.0060,
-    };
-
-    startDate=this.selectedRange.startDate;
-    startTime= this.selectedRange.startTime;
-    endTime= this.selectedRange.endTime;
-    category='';
-  //FORM FUNCTIONALITY
-  selectedOptions='';
+  
   options: string[] = ['Music', 'Technology', 'Art', 'Charity','Expos','Trade Shows']; 
-  // eslint-disable-next-line @angular-eslint/contextual-lifecycle
-  ngOnInit() {
-    
-    this.getOrganiserName();
 
-  
+  // eslint-disable-next-line @angular-eslint/contextual-lifecycle
+  ngOnInit() {  
+    this.getOrganiserName();
   }
 
   constructor(private alertController: AlertController,private router: Router,private service:service,private llocation: Location,private http:HttpClient) {
@@ -100,7 +92,7 @@ export class OrganiserComponent  {
     this.eventName='';
     this.OrganisationName='';
     this.address = '';
-    this.selectedOptions=''
+    this.category=''
     this.formGroup = new FormGroup({
       startDate: new FormControl(this.selectedRange.startDate),
       startTime: new FormControl(this.selectedRange.startTime),
@@ -120,6 +112,7 @@ export class OrganiserComponent  {
 
   
   submitForm() {
+    
     if (
       this.eventName !== null &&
       this.OrganisationName !== null &&
@@ -128,8 +121,7 @@ export class OrganiserComponent  {
       this.selectedRange.startDate !== null &&
       this.selectedRange.startTime !== null &&
       this.selectedRange.endTime !== null &&
-      //this.address !== null &&
-      this.selectedOptions !== null &&
+      this.category !== null &&
       this.selectedRegion !== null
     ) {
       this.service.getCoordinates(this.address).subscribe((data: any) => {
@@ -137,9 +129,6 @@ export class OrganiserComponent  {
           const location = data.results[0].geometry.location;
           this.location.latitude = location.lat;
           this.location.longitude = location.lng;
-          console.log('latitude: ', this.address_location.latitude);
-          console.log('longitude', this.address_location.longitude);
-  
           // After getting the coordinates, call createEvents
           this.callCreateEvents();
         } else {
@@ -154,16 +143,14 @@ export class OrganiserComponent  {
     {
       this.showErrorAlertF();
     }
+
   }
  
   callCreateEvents() {
-    console.log('hetye',this.selectedOptions);
-    // Make sure that the location object has both latitude and longitude values
     if (
       this.location.latitude !== undefined &&
       this.location.longitude !== undefined
     ) {
-      //const location = { latitude: this.location.latitude, longitude: this.location.longitude};
       this.service
         .createEvents(
           this.eventName,
@@ -174,7 +161,7 @@ export class OrganiserComponent  {
           this.selectedRange.startTime,
           this.selectedRange.endTime,
           this.location,
-          this.selectedOptions,
+          this.category,
           this.selectedRegion
         )
         .subscribe((response) => {
@@ -212,31 +199,31 @@ export class OrganiserComponent  {
   }
   
   
-    saveProfilePicture(profilePictureUrl: string) {
-      this.profilePictureUrl=profilePictureUrl;
-    
-     this.convertImageToBase64(this. profilePictureUrl);
-     
+  saveProfilePicture(profilePictureUrl: string) {
+    this.profilePictureUrl=profilePictureUrl;
+  
+   this.convertImageToBase64(this. profilePictureUrl);
+   
+  }
+  async  convertImageToBase64(imageUrl: string): Promise<string> {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64String = reader.result as string;
+          resolve(base64String);
+          this.profilePictureUrl=base64String;
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+      });
+    } catch (error) {
+      console.error('Error:', error);
+      throw error;
     }
-    async  convertImageToBase64(imageUrl: string): Promise<string> {
-      try {
-        const response = await fetch(imageUrl);
-        const blob = await response.blob();
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            const base64String = reader.result as string;
-            resolve(base64String);
-            this.profilePictureUrl=base64String;
-          };
-          reader.onerror = reject;
-          reader.readAsDataURL(blob);
-        });
-      } catch (error) {
-        console.error('Error:', error);
-        throw error;
-      }
-    }
+  }
     
   async saveProfile() {
     if (
@@ -279,28 +266,16 @@ export class OrganiserComponent  {
    
   }
   toggleForm() {
-   
-    this.showForm = !this.showForm;
-        
-  if (!this.showForm) {
-    // Reset the form or perform any necessary actions after submitting
-    // For example, you can reset the form controls to their initial values
-    // or clear the form data.
-    this.myForm.reset(); // Assuming `myForm` is the form instance name
-
-    // Navigate to '/home' when hiding the form
-    this.router.navigate(['/home']);
-  }
- 
-}
-
-/*
-geocode() {
- 
   
+    this.showForm = !this.showForm;
 
+    if (!this.showForm) {
+      this.myForm.reset();
+      this.router.navigate(['/home']);
+    }
+ 
 }
-*/
+
 
   getOrganiserName(){
     this.service.getLogedInOrg().subscribe((response:any) => {

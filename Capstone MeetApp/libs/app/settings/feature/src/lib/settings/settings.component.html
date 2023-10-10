@@ -160,10 +160,10 @@
   <ion-card-content> 
     
     
-      <!-- Your card content goes here -->
+     
       <ion-button id="open-modal" expand="block" color="dark">Help</ion-button>
     
-      <!-- Modal code -->
+     
       <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
         <ng-template>
           <ion-header>
@@ -173,30 +173,36 @@
             </ion-toolbar>
           </ion-header>
           <ion-content class="ion-padding">
-            <!-- Your content goes here -->
-            <div class="userhelp">
+         
+            <div class="userhelp" style="margin-top: 30px;">
               Welcome to Meet App, a social networking app that allows users and organizations to connect, create events, and stay informed about activities happening in their region. This user manual will guide you through the features and functionalities of the app, helping you make the most of your Meet App experience.
     
              <h5> Table of Contents  </h5>
              <div>
-              1. [Getting Started]( <br>getting-started)
+              <ion-accordion value="second">
+              1.  Getting Started
               <img src="assets/welcome.png" alt="myimage">
-              - [Signing Up]
+              </ion-accordion>
+              - Signing Up
                     <br>
               <br> 
               
                 <img src="assets/signup.png" alt="myimage">
-                - [Logging In]( logging-in)
+                - Logging In
                 <img src="assets/login.png" alt="myimage">
               </div>
               <br> <br>
               <div>
-              2. [User Profile]( <br> user-profile)
-                - [Viewing Your Profile]
-                - [Editing Your Profile]
-                - [Managing Friend Requests]
-                - [Viewing Events in Your Region]
-                - [Viewing Friends' Attended Events]
+              2. User Profile <br>
+                - Viewing Your Profile
+                <br>
+                - Editing Your Profile
+                <br>
+                - Managing Friend Requests
+                <br>
+                -Viewing Events in Your Region
+                <br>
+                - Viewing Friends' Attended Events
                 
               </div>
               <br> <br>
@@ -204,56 +210,77 @@
               <br> <br>
               <div>
                 <br> <br>
-                3. [Creating and Managing Events]
-
-   - [Organizations: Creating Events]
-   - [Analyzing Event Attendance]
+                3. Creating and Managing Events
+                <br>
+             - Organizations: Creating Events
+             <br>
+               - Analyzing Event Attendance
    <img src="assets/addevent.png" alt="myimage">
    <br> <br>
   </div>
   <br> <br>
-  4.      [Event Map]
-
-      - [Using the Interactive Map]
+  4.      Event Map
+  <br>
+      - Using the Interactive Map
    <img src="assets/map.png" alt="myimage">
    <br> <br>
-5. [Attending Events](#attending-events)
-
-   - [Clicking "Attend" on an Event]
-   - [Viewing Your Attended Events]
-6. [Managing Friendships](
-  
-    managing-friendships)
-
-   - [Ending a Friendship]
+5. Attending Events
+<br>
+  - attending-events
+  <br>
+ - Clicking "Attend" on an Event
+ <br>
+   - Viewing Your Attended Events
+     
+   <br>
+   - Using the Interactive Map
+<img src="assets/event.png" alt="myimage">
+   <br>
+6. Managing Friendships
+<br>
+   - creating friendships
+   <br>
+   - Ending a Friendship
    <br>
   <img src="assets/friendship.png" alt="myimage">
    <br> <br>
-7. [Event Analytics for Organizations]
+7. Event Analytics for Organizations
 
-   - [Viewing Event Statistics]
-   - [Understanding Event Categories]
-
-   - [Analyzing Event Locations]
+   - Viewing Event Statistics
+   <br>
+   - Understanding Event Categories
+   <br>
+   - Analyzing Event Locations
    <img src="assets/analytics.png" alt="myimage">
    <br> <br>
-8. [Event Map](#event-map)
+   8. Event Chat
 
-   - [Filter by Category and Region]
-   - [Event Details on the Map]
+   - Enable multiple users to chat under a specific event
+   <br>
+   - Understanding Event Categories
+   <br>
+   - Analyzing Event Locations
+   <img src="assets/chat.png" alt="myimage">
+   <br> <br>
+9. Event Map
+ 
+ -Filter by Category and Region
+ <br>
+   - Event Details on the Map
+   <br>
    <img src="assets/map.png" alt="myimage">
    <br> <br>
-9. [Account Security]
+10. Account Security
 
-   - [Protecting Your Account
-   - [Logout When Not in Use]
+   - Protecting Your Account
+   - Logout When Not in Use
    <br> <br>
-10. [Calendar View](#calendar-view)
-    - [View Events On Your Own Calendar]
+11. Calendar View
+    - View Events On Your Own Calendar
     <img src="assets/calendar.png" alt="myimage">
     <br> <br>
-11. [Providing Feedback]
-    - [Help Us Improve]
+12. Providing Feedback
+    - Help Us Improve
 
 <br/>
 

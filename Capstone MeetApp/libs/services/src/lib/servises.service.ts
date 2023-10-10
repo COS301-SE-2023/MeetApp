@@ -215,7 +215,7 @@ export class service{
 
     createEvents(name: string | null,organisation: string | null,description: string | null,eventPoster:string | null, date: string,
          startTime: string,endTime: string,location: {latitude:number , longitude:number},
-         category: string,region: string | null)
+         category: string| null,region: string | null)
     {
       const url=this.baseURl+'events';
         
@@ -365,6 +365,12 @@ export class service{
     {
       const url=`${this.baseURl}users/${username}/friends`;
       return this.http.get(`${url}`,{headers : this.getCommonHeaders()});
+    }
+
+    getAttendanceStatus(eventID:string)
+    {
+      const url=`${this.baseURl}users/isAttending/${eventID}`;
+      return this.http.get(`${url}`,{ headers  : this.getAuthHeaders()});
     }
 
     //SERVICES FOR ORGANISER
@@ -655,5 +661,34 @@ export class service{
       const url = `${this.baseURl}users/attendances-other/${username}`;
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
+
+    //EMAIL AND OTP
+    sendEmailVerification(emailAddress:string,type:string)
+    {
+      const url=this.baseURl+'pendingaccounts';
+
+        const body ={
+          emailAddress:emailAddress,
+          type:type
+        }
+
+        return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+    
+    verifyEmailVerification(emailAddress:string,code:number,type:string)
+    {
+      const url=this.baseURl+'pendingaccounts/verify';
+
+        const body ={
+          emailAddress:emailAddress,
+          code:code,
+          type:type
+        }
+
+        return this.http.patch(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+
+    
+
 
 }

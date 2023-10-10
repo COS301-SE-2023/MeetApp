@@ -21,7 +21,8 @@
         "tsConfig": "apps/meet-app/tsconfig.app.json",
         "assets": [
           "apps/meet-app/src/favicon.ico",
-          "apps/meet-app/src/assets"
+          "apps/meet-app/src/assets",
+          "apps/meet-app/src/web.config"
         ],
         "styles": [
           "apps/meet-app/src/styles.scss",
@@ -55,7 +56,7 @@
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true
+          "namedChunks": true,
           /*"fileReplacements": [
             {
               "replace": "apps/meet-app/src/environments/environment.ts",

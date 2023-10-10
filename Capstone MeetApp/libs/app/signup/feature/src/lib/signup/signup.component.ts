@@ -173,68 +173,72 @@ export class SignupComponent {
   
      
     
-    if(this.userType=='user' )
-    {
-
-      if(email!==null && username!==null && region!==null && password!==null && confirmpassword!==null && this.selectedOptions!==null)
+      if(this.userType=='user' )
       {
-        this.valid=true;
+
+        if(email!==null && username!==null && region!==null && password!==null && confirmpassword!==null && this.selectedOptions!==null)
+        {
+          this.valid=true;
+              
+            if(this.username_user.includes(username)==false) 
+            {
+              this.valid_user=true;
+            }
+            }
+            else
+            {
+              this.valid_user=false;
+            }
+            console.log('password',password);
+            console.log('confirmpassword',confirmpassword);
+
+            if(password==confirmpassword)
+            {
+              this.valid_pass=true;
+            }
+            else
+            {
+              this.valid_pass=false;
+            }
             
-          if(this.username_user.includes(username)==false) 
-          {
-            this.valid_user=true;
-          }
-          }
-          else
-          {
-            this.valid_user=false;
-          }
-          console.log('password',password);
-          console.log('confirmpassword',confirmpassword);
 
-          if(password==confirmpassword)
-          {
-            this.valid_pass=true;
-          }
-          else
-          {
-            this.valid_pass=false;
-          }
-          
+            if(this.checkPasswordStrength(password)==true)
+            {
+              this.valid_passregex=true;
+            }
+            else
+            {
+              this.valid_passregex=false;
+            }
+            if(this.checkEmail(email)==true){
+              this.valid_email=true;
+            }else{
+              this.valid_email=false;
+            }
 
-          if(this.checkPasswordStrength(password)==true)
-          {
-            this.valid_passregex=true;
-          }
-          else
-          {
-            this.valid_passregex=false;
-          }
-          if(this.checkEmail(email)==true){
-            this.valid_email=true;
-          }else{
-            this.valid_email=false;
-          }
+            console.log('Password is equal to CP',this.valid_pass);
+            console.log('Regex',this.valid_passregex);
+            console.log('Valid User name ',this.valid_user);
 
-          console.log('Password is equal to CP',this.valid_pass);
-          console.log('Regex',this.valid_passregex);
-          console.log('Valid User name ',this.valid_user);
+            if(this.valid_pass && this.valid_user && this.valid_passregex && this.valid_email)
+            {
+              console.log(region);
+              console.log(this.selectedOptions);
+              this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions);
+            }
+        }
+        else{
+          this.valid=false;
+        }
 
-          if(this.valid_pass && this.valid_user && this.valid_passregex && this.valid_email)
-          {
-            console.log(region);
-            console.log(this.selectedOptions);
-            this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions);
-          }
-      }
-      else{
-        this.valid=false;
-      }
-
+  }
+  else
+  {
+    
     
     if(this.userType=='organiser'){
 
-      if(email!==null && username!==null && region!==null && password!==null)
+      if(username!==null && name!==null && password!==null)
       {
         this.valid=true;
           if(this.username_org.includes(username)==false) 
@@ -290,6 +294,7 @@ export class SignupComponent {
       }
     
     }
+    
   }
   
   }
@@ -374,12 +379,13 @@ export class SignupComponent {
          
         }
 
+        
         if(this.valid_email==false){
           const errorMessage="One or more characters for the (username) before the @ symbol. should contain domain e.g. com , org etc...";
           this.showErrorAlertVal(errorMessage);
         }
 
-
+        
         
       }
       else
@@ -427,10 +433,21 @@ export class SignupComponent {
       }
     });  
   }
- /* user='Not set';
-  setUserType(userType: string): void {
-    this.router.navigate(['/login', { userType }]);
-  }*/
+ 
+  sendEmailVerification(emailAddress:string,type:string)
+  {
+    this.apiService.sendEmailVerification(emailAddress,type).subscribe((response: any) => { 
+     console.log(response);
+    });
+  }
+
+  verifyEmailVerification(emailAddress:string,code:number,type:string)
+  {
+    this.apiService.verifyEmailVerification(emailAddress,code,type).subscribe((response: any) => { 
+      console.log(response);
+     });
+  }
+
 }
 
 
