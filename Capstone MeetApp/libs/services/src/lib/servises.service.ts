@@ -124,9 +124,9 @@ export class service{
     private baseURl=environment.BASE_URL;
 
 
-    private  TOKEN_KEY:string|null = null;
+    private readonly TOKEN_KEY = 'access_token';
 
-    private  USERNAME:string|null = null;
+    private readonly USERNAME = 'username';
 
     
     getCoordinates(address: string): Observable<any> {
@@ -158,34 +158,34 @@ export class service{
       
     setToken(token: string) 
     {
-      this.TOKEN_KEY=token;
+        localStorage.setItem(this.TOKEN_KEY, token);
+      
     }
     
     getToken(): string | null 
     {
-      return this.TOKEN_KEY;
+        return localStorage.getItem(this.TOKEN_KEY);
     }
     
     removeToken() 
     {
-      this.TOKEN_KEY=null;
+        localStorage.removeItem(this.TOKEN_KEY);
     }
-
     //FUNCTIONS TO ACCESS THE TOKEN
       
     setUsername(username: string) 
     {
-      this.USERNAME=username
+      localStorage.setItem(this.USERNAME, username);
     }
     
     getUsername(): string | null 
     {
-      return this.USERNAME
+      return localStorage.getItem(this.USERNAME);
     }
     
     removeUsername() 
     {
-      this.USERNAME=null;
+      localStorage.removeItem(this.USERNAME);
     }
 
     checkTokenAndRedirect(){
