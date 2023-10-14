@@ -22,10 +22,10 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <div *ngIf=" userType === 'user'">
-
+  <div *ngIf=" userType === 'user' && recommend && recommend.length > 1">
     
-  <div class="heading1">
+    
+  <div class="heading1" >
     <h1>Recommended Events</h1>
   </div>
   <div class="scroll-container1" >
@@ -33,7 +33,7 @@
       <ion-card-header>
         <ion-card-title class="heading">{{ item.event.name }}</ion-card-title>
       </ion-card-header>
-      <ion-img alt="Silhouette of mountains" src={{item.event.eventPoster}} ></ion-img>
+      <ion-img *ngIf="item.event.eventPoster" alt="Silhouette of mountains" src={{item.event.eventPoster}} ></ion-img>
 
       <ion-card-content>
         {{ item.event.description }}
