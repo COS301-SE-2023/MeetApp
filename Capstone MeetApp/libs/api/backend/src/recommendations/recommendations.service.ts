@@ -157,5 +157,40 @@ export class RecommendationsService {
   }));
     return resolvedEvents;
   }
+
+  async updateDocsSingle(username : string){
+    
+    try {
+      // Find users without interests
+      const WeightGroups = getWeightGroups()
+      const weightGroupsArray = await Object.keys(WeightGroups).map((key) => ({
+        key: key,
+        value: WeightGroups[key]
+      }))
+
+
+
+      const usersToUpdate = await this.userService.getByUsername(username)
+      if (!usersToUpdate)
+        return {message: "user not found", payload: null}
+        const randomIndex = Math.floor(Math.random() * 10);
+        const weights = await weightGroupsArray[randomIndex].value; 
+        
+        const recommendationdto : CreateRecommendationDto= {
+          userID: usersToUpdate.id,
+          weights: weights.map(weight => ({ parameter: weight.parameter, value: weight.value, rank : weight.rank })),
+          rate: 0.001,
+        
+      }
+
+      const recommendationToSave = new this.recommendationModel(recommendationdto);
+      await recommendationToSave.save();
+
+      return { success: true, message: 'Populated updated successfully.' };
+    } catch (error) {
+      console.error('Error in updateDocs:', error);
+      return { success: false, message: 'Failed to update users.' };
+    }
+  }
   
 }
