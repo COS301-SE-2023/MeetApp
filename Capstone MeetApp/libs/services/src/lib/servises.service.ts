@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import {HttpClient, HttpHeaders ,HttpParams} from "@angular/common/http";
 import {environment } from "./environment";
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 // EVENT INTERFACES //
 export interface events{
@@ -118,7 +119,7 @@ export interface createAttendance{
     providedIn:'root'
 })
 export class service{
-    constructor(private http:HttpClient){}
+    constructor(private http:HttpClient,private router: Router){}
 
     private baseURl=environment.BASE_URL;
 
@@ -170,23 +171,31 @@ export class service{
     {
         localStorage.removeItem(this.TOKEN_KEY);
     }
-
     //FUNCTIONS TO ACCESS THE TOKEN
       
     setUsername(username: string) 
     {
-        localStorage.setItem(this.USERNAME, username);
-      
+      localStorage.setItem(this.USERNAME, username);
     }
     
     getUsername(): string | null 
     {
-        return localStorage.getItem(this.USERNAME);
+      return localStorage.getItem(this.USERNAME);
     }
     
     removeUsername() 
     {
-        localStorage.removeItem(this.USERNAME);
+      localStorage.removeItem(this.USERNAME);
+    }
+
+    checkTokenAndRedirect(){
+
+      const token = this.getToken();
+  
+      if (token==null) {
+        console.log(token);
+        this.router.navigate(['']);
+      }
     }
 
     //SERVICES FOR EVENTS
@@ -661,5 +670,34 @@ export class service{
       const url = `${this.baseURl}users/attendances-other/${username}`;
       return this.http.get(`${url}`,{ headers : this.getCommonHeaders()});
     }
+
+    //EMAIL AND OTP
+    sendEmailVerification(emailAddress:string,type:string)
+    {
+      const url=this.baseURl+'pendingaccounts';
+
+        const body ={
+          emailAddress:emailAddress,
+          type:type
+        }
+
+        return this.http.post(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+    
+    verifyEmailVerification(emailAddress:string,code:number,type:string)
+    {
+      const url=this.baseURl+'pendingaccounts/verify';
+
+        const body ={
+          emailAddress:emailAddress,
+          code:code,
+          type:type
+        }
+
+        return this.http.patch(`${url}`,body,{ headers  : this.getCommonHeaders() });
+    }
+
+    
+
 
 }

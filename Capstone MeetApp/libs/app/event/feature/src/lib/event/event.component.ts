@@ -37,6 +37,7 @@ export class EventComponent {
   isAttending=false;
   
   constructor(private apiService: service,private route: ActivatedRoute,private router: Router) { 
+    this.apiService.checkTokenAndRedirect();
   }
   
 

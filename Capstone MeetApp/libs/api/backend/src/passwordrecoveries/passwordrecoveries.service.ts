@@ -50,7 +50,7 @@ export class PasswordRecoveriesService {
     const userSalt = this.getUserSalt(userEmail)
     const hashToken = (await hash(userEmail, userSalt)).replace(regexSlash,'x')
     const hashTokenParse = hashToken.replace(regexDollar, 'd')
-    const recoveryLink = 'http://localhost:4200/forgotpassword/' + hashTokenParse
+    const recoveryLink = 'http://dev-meetapp.s3-website.af-south-1.amazonaws.com/forgotpassword/' + hashTokenParse
     const transporter = createTransport({
       host: process.env['SMTP_HOST'],
     port: 2525,

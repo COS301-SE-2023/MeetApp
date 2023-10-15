@@ -164,6 +164,7 @@ export class AppAnalyticsComponent  implements AfterViewInit {
   this.getTop3Events();
   this.getEventRegionCount();
   this.getTop3Categories();
+  this.apiService.checkTokenAndRedirect();
  }
 
  

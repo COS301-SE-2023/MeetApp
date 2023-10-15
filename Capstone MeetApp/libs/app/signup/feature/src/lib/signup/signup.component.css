@@ -14,7 +14,14 @@
     margin-top: 5px;
   }
   
-  
+  .popover{
+    padding: 3px;
+    justify-content: center;
+    overflow: hidden; 
+    --width: 395px;
+    --offset-y:-20%;
+   
+  }
   .image{
     margin-top: 10px;
   }    

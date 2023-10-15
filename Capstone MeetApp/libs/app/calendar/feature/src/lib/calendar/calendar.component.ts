@@ -22,7 +22,7 @@ export class CalendarComponent {
   formattedDates: string[] = [];
   datesWithEvents: Set<string> = new Set();
   constructor(private service:service,private router:Router,private location: Location,private activatedRoute: ActivatedRoute){
-
+    this.service.checkTokenAndRedirect();
   }
 
   data= [{

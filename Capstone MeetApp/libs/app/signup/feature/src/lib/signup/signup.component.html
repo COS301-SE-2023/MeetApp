@@ -29,7 +29,7 @@
         <ion-img src="assets/logo.png" width="300" height="300" alt="myimage">
         </ion-img>
        </div>
-      <form [formGroup]="loginForm" (ngSubmit)="signup()">
+      <form [formGroup]="loginForm" (ngSubmit)="signup()" (ngSubmit)="presentPopover($event)">
         <div *ngIf=" userType === 'user'">
        <ion-item lines="full">
           <ion-label position="floating">Username</ion-label>
@@ -117,7 +117,7 @@
         </div>
         <ion-row>
           <ion-col>
-            <ion-button type="submit" color="dark"  expand="block"   (click)="isvalid()" >Sign Up</ion-button>
+            <ion-button type="submit" color="dark"  expand="block" >Sign Up</ion-button>
             <ion-ripple-effect></ion-ripple-effect>
             <!--[disabled]="loginForm.invalid"-->
           </ion-col>
@@ -131,6 +131,22 @@
         </ion-row>
       </form>
    
+  </div>
+  <div class="div-popover">
+    <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false" side="top" alignment="center">
+      <ng-template>
+        <ion-content class="ion-padding">
+          <ion-card class="popover-card">
+            <ion-card-header>
+              <ion-card-title class="heading">Verify Email</ion-card-title>
+            </ion-card-header>
+          <ion-label>Enter the OTP sent to your email</ion-label>
+          <ion-input class="number" type="number"  [(ngModel)]="OTP" name="otp" required></ion-input>
+          <ion-button color="dark" expand="block"  (click)="verify()">Send OTP</ion-button>
+          </ion-card>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
   </div>
 </ion-content>
   </div>

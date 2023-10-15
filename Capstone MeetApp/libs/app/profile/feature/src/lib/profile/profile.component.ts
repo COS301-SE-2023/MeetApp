@@ -63,6 +63,7 @@ export class ProfileComponent {
     this.profileId='64722456cd65fc66879ed7ba';
     this. profilePictureUrl = 'https://t3.ftcdn.net/jpg/02/99/04/20/360_F_299042079_vGBD7wIlSeNl7vOevWHiL93G4koMM967.jpg';
     this.isEditMode = false;
+    this.serviceProvider.checkTokenAndRedirect();
   }
   
 
