@@ -121,7 +121,7 @@ export class MapsComponent implements AfterViewInit {
 
   constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
     //this.getData();
-    
+    this.service.checkTokenAndRedirect();
   }
   async ngOnInit() {
     await this.service.getAllEvents().subscribe((response: any) => { 

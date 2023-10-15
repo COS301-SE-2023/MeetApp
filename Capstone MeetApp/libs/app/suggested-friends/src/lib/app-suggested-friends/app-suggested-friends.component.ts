@@ -77,6 +77,7 @@ export class AppSuggestedFriendsComponent {
 
   
   constructor(private apiService: service,private route: ActivatedRoute) { 
+    this.apiService.checkTokenAndRedirect();
   }
 
   async ngOnInit() {

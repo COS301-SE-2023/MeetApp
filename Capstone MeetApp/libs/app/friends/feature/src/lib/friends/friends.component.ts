@@ -63,7 +63,10 @@ export class FriendsComponent {
 
 
   
-  constructor(private servicesService: service,private serviceProvider: service) {}
+  constructor(private servicesService: service,private serviceProvider: service) {
+    this.servicesService.checkTokenAndRedirect();
+  }
+
    ngOnInit()
   {
     this.getFriends();

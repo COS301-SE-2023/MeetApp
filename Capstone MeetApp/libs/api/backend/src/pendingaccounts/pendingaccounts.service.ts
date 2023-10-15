@@ -144,7 +144,7 @@ export class PendingAccountsService {
     const pendingAccountUpdate = await this.pendingAccountModel.findByIdAndUpdate(pendingAccount._id, {verified : true}, { new: true }).exec();
     if (!pendingAccountUpdate)
       return {payload: null, message: 'Verification failed, try again later'}
-    return {payload: pendingAccountUpdate, message: 'Account verfied!'}
+    return {payload: pendingAccountUpdate, message: 'Account verified!'}
       
   }
 }

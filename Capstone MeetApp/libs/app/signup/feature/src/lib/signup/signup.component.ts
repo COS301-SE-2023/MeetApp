@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'
 import { FormBuilder,  Validators } from '@angular/forms';
@@ -26,6 +26,7 @@ import { LoadingController } from '@ionic/angular';
 })
 
 export class SignupComponent {
+  @ViewChild('popover') Popover: any;
   
   loginForm!: FormGroup;
   valid=true;
@@ -43,6 +44,9 @@ export class SignupComponent {
   email = ''; 
   password= '';   
   region='';
+  OTP = 0;
+
+  isOpen=false;
 
   valid_user=false;
   valid_pass=false;
@@ -85,6 +89,11 @@ export class SignupComponent {
     message:''
   };
 
+  verify_payload={
+    payload: null, 
+    message: ''
+  }
+
   userType:string|null = '';
 
   confirmpassword="";
@@ -95,8 +104,6 @@ export class SignupComponent {
   submitClicked = false;
   loader=true;
   ngOnInit() {
-    
-    
     
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
@@ -184,7 +191,7 @@ export class SignupComponent {
             {
               this.valid_user=true;
             }
-            }
+            
             else
             {
               this.valid_user=false;
@@ -210,6 +217,7 @@ export class SignupComponent {
             {
               this.valid_passregex=false;
             }
+
             if(this.checkEmail(email)==true){
               this.valid_email=true;
             }else{
@@ -224,13 +232,19 @@ export class SignupComponent {
             {
               console.log(region);
               console.log(this.selectedOptions);
-              this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions);
+              //this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions);
+              this.sendEmailVerification(email,'User');
             }
+
+            
+          }
         }
         else{
           this.valid=false;
         }
 
+        this.isvalid();
+        
   }
   else
   {
@@ -272,11 +286,7 @@ export class SignupComponent {
             this.valid_passregex=false;
           }
 
-          // if(this.checkEmail(email)==true){
-          //   this.valid_email=true;
-          // }else{
-          //   this.valid_email=false;
-          // }
+          
           console.log('Password is equal to CP',this.valid_pass);
           console.log('Regex',this.valid_passregex);
           console.log('Valid User name ',this.valid_user);
@@ -284,18 +294,23 @@ export class SignupComponent {
           if(this.valid_pass && this.valid_user && this.valid_passregex )
           {
           
-            this.SignUpOrg(email,username,name,password, this.events)
+            //this.SignUpOrg(email,username,name,password, this.events)
+            this.sendEmailVerification(email,'Organiser');
           
           }
+
       }
       else
       {
         this.valid=false;
       }
+
+      this.isvalid();
     
     }
     
   }
+
   
   }
 
@@ -334,27 +349,18 @@ export class SignupComponent {
     this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
-  async isvalid()
+   async isvalid()
   {
 
     console.log('valid',this.valid);
-    const loading = await this.loadingController.create({
-      message: 'Loading...',
-      });
-      await loading.present();
-
-      // Simulate some asynchronous operation
-      setTimeout(() => {
-      loading.dismiss();
+    
       if(this.valid)
       {
 
         if(this.valid_pass && this.valid_user && this.valid_passregex)
         {
+          //this.showPopover = true;
           
-          const errorMessage = 'Account Created Successfully';
-          this.showErrorAlert(errorMessage); 
-          this.onSignUp();
         }
 
         if(this.valid_user==false)
@@ -393,13 +399,47 @@ export class SignupComponent {
         const errorMessage = 'incomplete form';
         this.showErrorToast(errorMessage); 
       }
-      }, 3000);
-
-      loading.present();
+      
 
 
   }
   
+  async verify()
+  {
+    const email=this.loginForm.value.email;
+    if(this.OTP==0)
+    {
+      const errorMessage = 'Please Enter OTP';
+      this.showErrorAlertVal(errorMessage); 
+    }
+    else
+    {
+      const loading = await this.loadingController.create({
+        message: 'Loading...',
+        });
+        await loading.present();
+  
+        // Simulate some asynchronous operation
+        setTimeout(() => {
+          loading.dismiss();
+  
+          if(this.userType=='organiser'){
+            this.verifyEmailVerificationOrg(email,this.OTP);
+
+          }
+  
+          if(this.userType=='user'){
+            this.verifyEmailVerificationUser(email,this.OTP);
+  
+        }
+      
+        }, 3000);
+  
+      loading.present();
+    }
+
+  }
+
   onSignUp() {
     this.router.navigate(['/home',{ userType: this.userType }]);
   }
@@ -441,11 +481,70 @@ export class SignupComponent {
     });
   }
 
-  verifyEmailVerification(emailAddress:string,code:number,type:string)
+  verifyEmailVerificationUser(emailAddress:string,code:number)
   {
-    this.apiService.verifyEmailVerification(emailAddress,code,type).subscribe((response: any) => { 
+    this.apiService.verifyEmailVerification(emailAddress,code,'User').subscribe((response: any) => { 
       console.log(response);
+      this.verify_payload=response;
+
+      const password = this.loginForm.value.password;
+      const username=this.loginForm.value.username;
+      const email=this.loginForm.value.email;
+
+      const regionControl = this.loginForm.get('region');
+      const selectedOptionsControl = this.loginForm.get('selectedOptions');
+  
+  
+      if(this.verify_payload.message=='Account verified!')
+      {
+        this.Popover.dismiss();
+        if (regionControl && selectedOptionsControl) {
+      
+          const region = regionControl.value;
+          const selectedOptions = selectedOptionsControl.value;
+          this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions); 
+          this.onSignUp();
+        }
+      }
+
      });
+  }
+
+  verifyEmailVerificationOrg(emailAddress:string,code:number,)
+  {
+    this.apiService.verifyEmailVerification(emailAddress,code,'Organiser').subscribe((response: any) => { 
+      console.log(response);
+      this.verify_payload=response;
+
+      const password = this.loginForm.value.password;
+      const username=this.loginForm.value.username;
+    
+      const name =this.loginForm.value.name;
+      const email=this.loginForm.value.email;
+   
+   
+
+      if(this.verify_payload.message=='Account verified!')
+      {
+        this.Popover.dismiss();
+        this.SignUpOrg(email,username,name,password, this.events);
+        this.onSignUp();
+      }
+     });
+  }
+  
+
+  presentPopover(e: Event) {
+    if(this.valid)
+      {
+
+        if(this.valid_pass && this.valid_user && this.valid_passregex)
+        {
+          this.Popover.event = e;
+          this.isOpen = true;       
+        }
+      }
+    
   }
 
 }

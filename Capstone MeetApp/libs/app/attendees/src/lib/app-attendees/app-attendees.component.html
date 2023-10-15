@@ -19,7 +19,7 @@
       <ion-item *ngFor="let friend of attandance_list | filter:searchQuery; let i = index">
        
         <ion-avatar slot="start">
-          <img src="assets/profile.png" alt="Profile Picture">
+          <img [src]="friend.profilePicture" alt="Profile Picture">
         </ion-avatar>
         <ion-label [routerLink]="['/profileusers', friend.username]"><ion-label>   {{ friend.username }}</ion-label></ion-label>
         <ion-button color="dark" class="add-friend-button"  (click)="sendRequest(friend.id,friend)" [disabled]="friend.requestSent">{{ friend.requestSent ? 'Request Sent' : 'Add friend' }}</ion-button>

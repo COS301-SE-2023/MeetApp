@@ -56,7 +56,7 @@ export class AppChatroomComponent {
     this.getCurrentUser();
     this.p='https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg';
   
-    
+    this.serviceProvider.checkTokenAndRedirect();
     //this.sendMessageFuncton('Engineering building','12345user','4gy4hiridgdfgurg43');
   }
  
