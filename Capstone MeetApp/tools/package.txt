@@ -6,7 +6,7 @@
     "start": "node dist/apps/meet-app-api/main"
   },
   "engines": {
-  "node": ">=14.0.0"
+  "node": ">14.0.0"
   },
   "private": true,
   "dependencies": {
