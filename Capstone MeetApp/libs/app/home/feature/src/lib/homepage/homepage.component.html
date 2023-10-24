@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<div class="spin" *ngIf="!loader">
+<div class="spin" *ngIf="loader">
       
 </div>
 
@@ -19,22 +19,24 @@
   
 
 <ion-content class="font">
-  
-  <div>
-
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf=" userType === 'user' && recommend && recommend.length > 1">
     
-  <div class="heading1">
+    
+  <div class="heading1" >
     <h1>Recommended Events</h1>
   </div>
   <div class="scroll-container1" >
-    <ion-card *ngFor="let item of recommend" class="card-first" (click)="viewEvent(item._id)">
+    <ion-card *ngFor="let item of recommend" class="card-first" (click)="viewEvent(item.event._id)">
       <ion-card-header>
-        <ion-card-title class="heading">{{ item.name }}</ion-card-title>
+        <ion-card-title class="heading">{{ item.event.name }}</ion-card-title>
       </ion-card-header>
-      <ion-img alt="Silhouette of mountains" src={{item.eventPoster}} ></ion-img>
+      <ion-img *ngIf="item.event.eventPoster" alt="Silhouette of mountains" src={{item.event.eventPoster}} ></ion-img>
 
       <ion-card-content>
-        {{ item.description }}
+        {{ item.event.description }}
       </ion-card-content>
     </ion-card>
   </div>
@@ -90,7 +92,8 @@
 
 </div>
 <div class="navigation-bar">
-  <div  (click)="refreshPage()" routerLinkActive="active" class="navigation-item">
+  <div   routerLinkActive="active" class="navigation-item">
+    
     <i class="fas fa-home"></i>
    
   </div>
@@ -109,11 +112,11 @@
     <i class="fas fa-bell"></i>
   
   </div>
-  <div id="profile" (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
+  <div id="profile" (click)="gotoprofile()" routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'user'">
     <i class="fas fa-user"></i>
   
   </div>
-  <div id="suggested-friends" (click)="gotoSuggestedFriends()" class="navigation-item">
+  <div id="suggested-friends" (click)="gotoSuggestedFriends()" class="navigation-item" *ngIf=" userType === 'user'">
     <i class="fas fa-users"></i>
   </div>
 </div>

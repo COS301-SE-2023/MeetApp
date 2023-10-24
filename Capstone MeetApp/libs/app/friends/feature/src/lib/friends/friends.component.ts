@@ -42,33 +42,50 @@ export class FriendsComponent {
   ];
   
   status: string|undefined
-  friends:any =[];
+  friends = [
+    {
+      _id:'',
+      username:'',
+      profilePicture:'' 
+    }
+  ];
   filteredData: any[] = [];
       searchQuery = '';
   search(): void {
     if (this.searchQuery.trim() === '') {
-      this.filteredData = this.followers;
+      this.filteredData = this.friends;
     } else {
-      this.filteredData = this.followers.filter((item) =>
-        item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+      this.filteredData = this.friends.filter((item ) =>
+        item.username.toLowerCase().includes(this.searchQuery.toLowerCase())
       );
     }
   }
 
 
   
-  constructor(private servicesService: service) {}
+  constructor(private servicesService: service,private serviceProvider: service) {
+    this.servicesService.checkTokenAndRedirect();
+  }
+
    ngOnInit()
   {
     this.getFriends();
   }
-
+  async getFriendAccountFriends(username:string|null){
+    await this.serviceProvider.getFriendsbyUsername(username).subscribe((response:any)=>{
+      console.log(response);
+      this.friends=response;
+     
+    });
+  }
+  
   async getFriends()
   {
       
     this.servicesService.getFriends().subscribe((response:any)=>{
      
       this.friends=response;
+      console.log(response);
     
      
     });

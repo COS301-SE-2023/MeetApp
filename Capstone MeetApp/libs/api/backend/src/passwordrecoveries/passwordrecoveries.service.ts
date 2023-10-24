@@ -50,7 +50,7 @@ export class PasswordRecoveriesService {
     const userSalt = this.getUserSalt(userEmail)
     const hashToken = (await hash(userEmail, userSalt)).replace(regexSlash,'x')
     const hashTokenParse = hashToken.replace(regexDollar, 'd')
-    const recoveryLink = 'http://localhost:4200/forgotpassword/' + hashTokenParse
+    const recoveryLink = 'http://dev-meetapp.s3-website.af-south-1.amazonaws.com/forgotpassword/' + hashTokenParse
     const transporter = createTransport({
       host: process.env['SMTP_HOST'],
     port: 2525,
@@ -82,12 +82,13 @@ export class PasswordRecoveriesService {
   }
 
   async verifyEmailToken(email: string, token : string){
-    const PR = await this.passwordRecoveryModel.findOne({emailAddress: email})
+    const PR = await this.passwordRecoveryModel.find({emailAddress: email})
     if (!PR)
       return {message: 'unsuccessful', payload: 'Password recovery not requested'}
-    if (PR.token != token)
+  const latestPR = PR[PR.length -1]
+    if (latestPR.token != token)
       return {message: 'unsuccessful', payload: 'Invalid token'}
-    if (PR.expiration < Date.now())
+    if (latestPR.expiration < Date.now())
       return {message: 'unsuccessful', payload: 'Token expired'}
     return {message: 'successful', payload: 'Request accepted'}
 
@@ -116,14 +117,15 @@ export class PasswordRecoveriesService {
   {
   //createUserDto.password
   //const user = await this.userModel.findOne({emailAddress: usermail}).exec();
-  const userExists = await this.userModel.find({emailAddress : usermail})
-  const orgExists = await this.orgModel.find({emailAddress : usermail})
-    if (!userExists && !orgExists)
-      return {message : 'Unsuccessful', payload : 'Account does not exist'}
-  if (!orgExists){
+  const userExists = await this.userModel.find({emailAddress : usermail}).exec()
+  console.log(userExists)
+  
+  const orgExists = await this.orgModel.find({emailAddress : usermail}).exec()
+  console.log(orgExists)
+  if (orgExists.length==0 && userExists){
     const user = await this.userModel.findOne({emailAddress: usermail}).exec();
     if (!user)
-      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+      return {message : 'Unsuccessful', payload : 'Account does not exist, er'}
     const userSalt = this.getUserSaltReset(user.username, newPassword)
     const hashedPass = await hash(newPassword, userSalt)
     const userUpdated = await this.userModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
@@ -133,19 +135,25 @@ export class PasswordRecoveriesService {
     return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
   }
 
-  else
+
+  else if (userExists.length==0 && orgExists)
+
   {
     const user = await this.orgModel.findOne({emailAddress: usermail}).exec();
     if (!user)
-      return {message : 'Unsuccessful', payload : 'Account does not exist'}
+      return {message : 'Unsuccessful', payload : 'Account does not exist, Org'}
     const userSalt = this.getUserSaltReset(user.username, newPassword)
     const hashedPass = await hash(newPassword, userSalt)
     const userUpdated = await this.orgModel.findOneAndUpdate({emailAddress: user.emailAddress},{password : hashedPass}).exec()
     if (!userUpdated)
       return {message : 'Password recovery failed', payload : 'null'}
     const payload = {id : (await userUpdated).id, username : (await userUpdated).username, password: (await userUpdated).password}
+    console.log("succes")
     return {access_token: await this.jwtService.signAsync(payload),message : 'Recovery successful'}
   }
+  else
+    return {message : 'Unsuccessful', payload : 'Account does not exist, Both'}
+
 }
   
 }

@@ -24,7 +24,7 @@
         <ion-avatar>
           <img [src]="profilePictureUrl" alt="Profile Picture" (click)="changeProfilePicture()">
         </ion-avatar>
-        <ion-button fill="clear" size="small" (click)="changeProfilePicture()">
+        <ion-button fill="clear" size="small" (click)="changeProfilePicture()" style="color: black;">
           Add image
           <ion-icon name="camera-outline" style="color: white;"></ion-icon>
         </ion-button>
@@ -33,10 +33,11 @@
         <ion-label position="floating">Event Name</ion-label>
         <ion-input class="Ename" [(ngModel)]="eventName" type="text" name="eventName" required></ion-input>
       </ion-item>
+      
     
       <ion-item lines="full">
         <ion-label position="floating">Event Date</ion-label>
-        <ion-input class="Edate" [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" required></ion-input>
+        <ion-input class="Edate" [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" min="{{ getCurrentDate() }}" required></ion-input>
       </ion-item>
     
       <ion-item lines="full">
@@ -55,22 +56,43 @@
       </ion-item>
       
       
+      
       <ion-item lines="full">
-        <ion-label position="floating">Region</ion-label>
-        <ion-input class="region" [(ngModel)]="selectedRegion" type="text" name="region" required></ion-input>
+        <ion-label>Select Region:</ion-label>
+        <ion-select [(ngModel)]="selectedRegion" class="select-region" name="region">
+          <ion-select-option value="">-- Select Region --</ion-select-option>
+          <ion-select-option value="Pretoria">Pretoria</ion-select-option>
+          <ion-select-option value="Joburg">Johannesburg</ion-select-option>
+          <ion-select-option value="UCT">Cape Town</ion-select-option>
+          <ion-select-option value="Durban">Durban</ion-select-option>
+          <ion-select-option value="ELondon">East London</ion-select-option>
+          <ion-select-option value="Polokwane">Polokwane</ion-select-option>
+          <ion-select-option value="Mbombela">Mbombela</ion-select-option>
+          <ion-select-option value="Bloemfontein">Bloemfontein</ion-select-option>
+        </ion-select>
       </ion-item>
       <ion-item lines="full">
         <ion-label position="floating">Address</ion-label>
         <ion-input [(ngModel)]="address" type="text" placeholder="street address, city, country" name="address" required></ion-input>
       </ion-item >
       <ion-item lines="full">
-        <ion-label position="floating">category</ion-label>
-        <ion-input class="category" [(ngModel)]="category" type="text" name="category" required></ion-input>
+        <ion-label>Select Category:</ion-label>
+        <ion-select [(ngModel)]="category" class="select-region" name="category">
+          <ion-select-option value="">-- Select category --</ion-select-option>
+          <ion-select-option value="Charirity">Charirity</ion-select-option>
+          <ion-select-option value="Music">Music</ion-select-option>
+          <ion-select-option value="Sports">Sports</ion-select-option>
+          <ion-select-option value="Festivals">Festivals</ion-select-option>
+          <ion-select-option value=">Expos">Expos</ion-select-option>
+          <ion-select-option value="Conferences">Conferences</ion-select-option>
+          <ion-select-option value="Workshops">Workshops</ion-select-option>
+          <ion-select-option value="Summits">Summits</ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-row>
     <ion-col>
-      <ion-button class="submit" type="submit"  expand="block" (click)="gotohome()">Create Event</ion-button>
+      <ion-button   color="dark" class="submit" type="submit"  expand="block" (click)="gotohome()">Create Event</ion-button>
     </ion-col>
   </ion-row>
 </form>

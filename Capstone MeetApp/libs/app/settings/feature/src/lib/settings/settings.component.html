@@ -31,7 +31,7 @@
           </ion-item>
           <ion-item class="ion-padding" slot="content">
             <ion-input class="padding1"  [(ngModel)]="newEmail" type="email" fill="outline" label="Email" labelPlacement="floating" helperText="Enter a valid email" errorText="Invalid email" ngModel email></ion-input>
-            <ion-button size="medium" (click)="saveEmail()" >Save</ion-button>
+            <ion-button color="dark" size="medium" (click)="saveEmail()" >Save</ion-button>
           </ion-item>
           
         </ion-accordion>
@@ -44,7 +44,7 @@
             <ion-item class="ion-padding" slot="content">
               <ion-input class="padding1" [(ngModel)]="newPassword" label="New password" label-placement="floating" fill="outline" placeholder="Enter new password"></ion-input>
               <ion-input class="padding1" [(ngModel)]="confirmPassword" label="Confirm password" label-placement="floating" fill="outline" placeholder="Confirm Password"></ion-input>
-              <ion-button size="medium" (click)="savePassword()">Save</ion-button>
+              <ion-button color="dark" size="medium" (click)="savePassword()">Save</ion-button>
             </ion-item>
             
           </ion-accordion>
@@ -58,7 +58,7 @@
             </ion-item>
             <ion-item class="ion-padding" slot="content">
               <ion-input class="padding1" [(ngModel)]="NewLocation" label="Enter Location" label-placement="floating" fill="outline" placeholder="Enter Location"></ion-input>
-              <ion-button size="medium" (click)="saveRegion()">Save</ion-button>
+              <ion-button color="dark" size="medium" (click)="saveRegion()">Save</ion-button>
             </ion-item>
           
           </ion-accordion>
@@ -94,7 +94,7 @@
               </ion-item>
             </ion-list>
             <ion-item>
-              <ion-button size="medium">Save</ion-button>
+              <ion-button color="dark" size="medium">Save</ion-button>
             </ion-item>
           </ion-item>
         </ion-accordion>
@@ -123,7 +123,7 @@
                   <ion-input type="text" fill="outline"></ion-input>
                   </ion-item>
                   <ion-item>
-                    <ion-button size="medium">Delete Account</ion-button>
+                    <ion-button color="danger" size="medium">Delete Account</ion-button>
                   </ion-item>
                 </ion-list>
               
@@ -132,21 +132,23 @@
       </ion-accordion-group>
   </ion-card  >
 <ion-card class="card">
-  <ion-card-header>
   
-    <ion-card-title>
-
-        Insights
-        
-    </ion-card-title>
-  </ion-card-header>
-    <ion-card-content> 
+    <ion-card-content *ngIf=" userType === 'organiser'"> 
       
-
+          
+            <ion-card-header>
+  
+              <ion-card-title>
+          
+                  Insights
+                  
+              </ion-card-title>
+            </ion-card-header>
           <ion-button color="dark" expand="block"(click)="gotoorganiser()" >
 
               Analytics
          </ion-button>
+        
     
     </ion-card-content>
     
@@ -158,219 +160,232 @@
   <ion-card-content> 
     
     
-      <!-- Your card content goes here -->
-      <ion-button id="open-modal" expand="block" color="dark">Help</ion-button>
+     
+      <ion-button id="open-modal" expand="block" style="padding: 0 ; " color="dark">Help</ion-button>
     
-      <!-- Modal code -->
+      
+        
       <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
         <ng-template>
           <ion-header>
             <ion-toolbar>
-              <ion-buttons slot="start">
-                <ion-button (click)="cancel()">Cancel</ion-button>
-              </ion-buttons>
-              <ion-title>Welcome</ion-title>
+              
+              <ion-title>Meet App User Manual</ion-title>
             </ion-toolbar>
           </ion-header>
           <ion-content class="ion-padding">
-            <!-- Your content goes here -->
-            <div class="userhelp">
-              Welcome to Meet App, a social networking app that allows users and organizations to connect, create events, and stay informed about activities happening in their region. This user manual will guide you through the features and functionalities of the app, helping you make the most of your Meet App experience.
+         
+            <div class="userhelp" style="margin-top: 30px;">
+             
+            
     
-             <h5> Table of Contents  </h5>
-             <div>
-              1. [Getting Started]( <br>getting-started)
+           
+             
+             <ion-menu menuId="Welcome" contentId="main-content">
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title> WELCOME PAGE  </ion-title>
+                </ion-toolbar>
+              </ion-header>
+              <ul style="list-style-type: disc; margin-left: 20px;">
+                <li>Role Based Access Signup as:</li>
+                <ul style="list-style-type: circle;">
+                    <li>User:</li>
+                    <li>organiser:</li>
+                </ul>
+            </ul>
+            
               <img src="assets/welcome.png" alt="myimage">
-              - [Signing Up]
-                    <br>
-              <br> 
               
-                <img src="assets/signup.png" alt="myimage">
-                - [Logging In]( logging-in)
-                <img src="assets/login.png" alt="myimage">
-              </div>
-              <br> <br>
-              <div>
-              2. [User Profile]( <br> user-profile)
-                - [Viewing Your Profile]
-                - [Editing Your Profile]
-                - [Managing Friend Requests]
-                - [Viewing Events in Your Region]
-                - [Viewing Friends' Attended Events]
-                
-              </div>
-              <br> <br>
-              <img src="assets/profiles.png" alt="myimage">
-              <br> <br>
-              <div>
-                <br> <br>
-                3. [Creating and Managing Events]
+              <ion-content class="ion-padding"></ion-content>
+            </ion-menu>    
+  <ion-menu menuId="home" contentId="main-content" style="height: 120%;">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>HOME PAGE</ion-title>
 
-   - [Organizations: Creating Events]
-   - [Analyzing Event Attendance]
-   <img src="assets/addevent.png" alt="myimage">
-   <br> <br>
-  </div>
-  <br> <br>
-  4.      [Event Map]
+    </ion-toolbar>
 
-      - [Using the Interactive Map]
-   <img src="assets/map.png" alt="myimage">
-   <br> <br>
-5. [Attending Events](#attending-events)
+  </ion-header>
+ 
+  <ion-content class="ion-padding">
+     <p style="margin-left: 10px;">
+     
+      VIEW  ALL EVENTS 
 
-   - [Clicking "Attend" on an Event]
-   - [Viewing Your Attended Events]
-6. [Managing Friendships](
+     </p>
   
-    managing-friendships)
+    <img src="assets/home.png" alt="myimage">
 
-   - [Ending a Friendship]
-   <br>
+
+  </ion-content>
+</ion-menu>
+ 
+
+
+<ion-menu menuId="login" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title> LOGIN  PAGE </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ul style="list-style-type: disc; margin-left: 20px;">
+    <li>If you  already have  an account :</li>
+    <ul style="list-style-type: circle;">
+        <li>Enter Username</li>
+        <li>Enter  Password</li>
+    </ul>
+</ul>
+
+  <img src="assets/login.png" alt="myimage">
+  <ion-content class="ion-padding"></ion-content>
+</ion-menu>
+
+<ion-menu menuId="signup" contentId="main-content" style="height: 150%;">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title> SIGNUP </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ul style="list-style-type: disc; margin-left: 20px;">
+    <li>First  Time  user?</li>
+    <ul style="list-style-type: circle;">
+        <li>Enter Required Fields To  Sign  Up</li>
+    </ul>
+</ul>
+
+  <img src="assets/signup.png" alt="myimage">
+ 
+  <ion-content class="ion-padding"> </ion-content>
+</ion-menu>
+  
+<ion-menu menuId="events" contentId="main-content" style="height: 120%;">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title> EVENTS </ion-title>
+
+    </ion-toolbar>
+  </ion-header>
+     
+  <ul style="list-style-type: disc; margin-left: 20px;">
+    <li>Event Information With Option:</li>
+    <ul style="list-style-type: circle;">
+        <li>Indicate if  going  To event</li>
+        <li>View Attendees</li>
+        <li>View Event Chat</li>
+    </ul>
+</ul>
+
+   
+  <img src="assets/event.png" alt="myimage">
+  <ion-content class="ion-padding"></ion-content>
+</ion-menu>
+<ion-menu menuId="chats" contentId="main-content" style="height: 120%;" >
+  <ion-header>
+    <ion-toolbar>
+       
+      <ion-title style="margin-top: 10px;"> CHAT PAGE </ion-title>
+      <p style="margin-left: 10px;">
+        Event  Chat With Multiple  Users 
+       </p>
+    </ion-toolbar>
+  </ion-header>
+  <img src="assets/chat.png" alt="myimage">
+  <ion-content class="ion-padding"></ion-content>
+</ion-menu>
+<ion-menu menuId="Data" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title> DATA ANALYTICS PAGE</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <P style="margin-left: 10px;">   Organisers Can View Analytics Related Events They Setup </P>  
+  <img src="assets/analytics.png" alt="myimage">
+  <ion-content class="ion-padding"></ion-content>
+</ion-menu>
+<ion-menu menuId="profile" contentId="main-content" style="height: 120%;">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title> PROFILE</ion-title>
+
+    </ion-toolbar>
+  </ion-header>
+  <ul style="list-style-type: disc; margin-left: 20px;">
+    <li>Profile Options:</li>
+    <ul style="list-style-type: circle;">
+        <li>View Events</li>
+        <li>View Friends</li>
+        <li>View Event Posters</li>
+    </ul>
+</ul>
+
+  <img src="assets/profiles.png" alt="myimage">
+     
+      
+  <ion-content class="ion-padding"></ion-content>
+</ion-menu>
+<ion-menu menuId="friendship" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title style="margin-top: 10px;"> FRIENDSHIP</ion-title>
+      <p style="margin-left: 10px;">
+
+        ABILITY TO ADD FRIENDS 
+      </p>
+    </ion-toolbar>
+  </ion-header>
   <img src="assets/friendship.png" alt="myimage">
-   <br> <br>
-7. [Event Analytics for Organizations]
+  <ion-content class="ion-padding">.</ion-content>
+</ion-menu>
 
-   - [Viewing Event Statistics]
-   - [Understanding Event Categories]
+<ion-menu side="end" contentId="main-content">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>End Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding"></ion-content>
+</ion-menu>
 
-   - [Analyzing Event Locations]
-   <img src="assets/analytics.png" alt="myimage">
-   <br> <br>
-8. [Event Map](#event-map)
+<div class="ion-page" id="main-content">
+  <ion-header>
+    <ion-toolbar>
+    
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    
+    <ion-button expand="block" color="dark"  (click)="openWelcome()" style="padding: 1px 19px; margin-top: 40px;">WELCOME</ion-button>
 
-   - [Filter by Category and Region]
-   - [Event Details on the Map]
-   <img src="assets/map.png" alt="myimage">
-   <br> <br>
-9. [Account Security]
+   
+    
+    <ion-button expand="block"  color="dark" (click)="openlogin()" style="padding: 1px 19px;"> LOGIN</ion-button>
+   
 
-   - [Protecting Your Account
-   - [Logout When Not in Use]
-   <br> <br>
-10. [Calendar View](#calendar-view)
-    - [View Events On Your Own Calendar]
-    <img src="assets/calendar.png" alt="myimage">
-    <br> <br>
-11. [Providing Feedback]
-    - [Help Us Improve]
+    <ion-button expand="block"  color="dark" (click)="opensignup()" style="padding: 1px 19px;" >SIGNUP</ion-button>
+     
+    <ion-button expand="block"  color="dark" (click)="openhome()" style="padding: 1px 19px;">HOME </ion-button>
 
-<br/>
+    <ion-button expand="block"  color="dark" (click)="openevents()"  style="padding: 1px 19px;" >EVENTS</ion-button>
 
-<br> <br> 1. Getting Started <a name="getting-started"></a>
+    <ion-button expand="block" color="dark"  (click)="openprofile()" style="padding: 1px 19px;" >PROFILE</ion-button>
+   
+    <ion-button expand="block"  color="dark" (click)="openchats()" style="padding: 1px 19px;" >CHATS</ion-button>
+    
+    <ion-button expand="block" color="dark"  (click)="openData()" style="padding: 1px 19px;" >DATA ANALYTICS</ion-button>
 
-<br> <br> Signing Up <a name="signing-up"></a>
-
-To get started with Meet App, visit the app's website or install the Progressive Web Application (PWA) on your device. Click on "Sign Up" and provide the required details, such as your username, password, profile picture, and region.
-
-<br> <br> Logging In<a name="logging-in"></a>
-
-If you already have an account, click on "Login" and enter your username and password. Upon successful login, you will be redirected to your homepage.
-
-<br> <br> 2. User Profile <a name="user-profile"></a>
-
-<br> <br> Viewing Your Profile <a name="viewing-your-profile"></a>
-
-After logging in, click on your profile picture or username to access your profile page. Here, you can view your profile information, including your profile picture, username, and region.
-
-<br> <br> Editing Your Profile <a name="editing-your-profile"></a>
-
-To update your profile information, click on the "Edit Profile" button on your profile page. You can change your profile picture, username, and region as desired. Click "Save" to update your changes.
-
-<br> <br> Managing Friend Requests <a name="managing-friend-requests"></a>
-
-To send a friend request, navigate to the profile of the user you want to add as a friend. Click on the "Add Friend" button to send a friend request. You can view pending friend requests under the "Friend Requests" section of your profile and accept or decline requests.
-
-<br> <br> Viewing Events in Your Region <a name="viewing-events-in-your-region"></a>
-
-On your homepage, you will find a list of events happening in your region. These events are curated based on your selected region during sign-up.
-
-<br> <br> Viewing Friends' Attended Events <a name="viewing-friends-attended-events"></a>
-
-On your profile page, scroll down to the "Friends' Attended Events" section to see the events your friends have clicked "Attend" on. This feature keeps you updated on your friends' interests and activities.
-
-<br> <br> 3. Creating and Managing Events <a name="creating-and-managing-events"></a>
-
-Organisations: Creating Events
-If you are an organisation, you can create events for users to attend. To create an event, log in using your organisation's account, and navigate to the "Create Event" section. Provide the necessary details, such as event name, description, date, time, location, category, and region. Click "Create Event" to publish the event.
-
-Analyzing Event Attendance
-Organisations can track event analytics on their profile page. View the most attended events, the most used event category, and the region where most events are hosted.
-
-<br> <br> 4. Event Map <a name="event-map"></a>
-
-Using the Interactive Map
-Access the "Event Map" section from the app's menu. Enter a date range to filter events hosted within that period. The map will display interactive pins indicating event locations. Click on a pin to view event details.
-
-<br> <br>5. Attending Events <a name="attending-events"></a>
-
-<br> <br> Clicking "Attend" on an Event <a name="clicking-attend-on-a-event"></a>
-
-To show your interest in attending an event, click on the event's card on your homepage or in the "Events" section. This will take you to the event details page. Click the "Attend" button to register your interest in attending the event.
-
-<br> <br> Viewing Your Attended Events <a name="viewing-your-attended-events"></a>
-
-On your profile page, under the "My Attended Events" section, you can view a grid of events that you have clicked "Attend" on. This feature helps you keep track of the events you plan to attend.
-
-<br> <br> 6. Managing Friendships <a name="managing-friendships"></a>
-
-<br> <br> Ending a Friendship <a name="ending-a-friendship"></a>
-
-If you wish to end a friendship with another user, go to their profile page and click the "End Friendship" button. Confirm the action, and the friendship will be terminated. You can also view your current friends under the "Friends" section on your profile.
-
-<br> <br> 7. Event Analytics for Organisations <a name="event-analytics-for-organisations"></a>
-
-<br> <br> Viewing Event Statistics <a name="viewing-event-statistics"></a>
-
-As an organization, you can access valuable event analytics on your profile page. This data includes the number of attendees for each event, helping you gauge the popularity of your hosted events.
-
-<br> <br> Understanding Event Categories <a name="understanding-event-categories"></a>
-
-The app tracks the category of events you create. This allows you to identify which types of events attract the most attendees and tailor your future events accordingly.
-
-<br> <br> Analyzing Event Locations <a name="analyzing-event-locations"></a>
-
-The event analytics section also provides insights into the regions where you typically host events. Use this information to optimize your event planning and target specific areas.
-
-<br> <br>8. Event Map <a name="event-map"></a>
-
-<br> <br> Filter by Category and Region <a name="filter-by-category-and-region"></a>
-
-In the "Event Map" section, you can apply additional filters to find specific events. Use the filter options to search for events by category and region, narrowing down your search to events that match your preferences.
-
-<br> <br> Event Details on the Map <a name="event-details-on-the-map"></a>
-
-When you click on a pin on the interactive map, a pop-up will display key details about the event, including the event name, date, time, and location. This feature enables you to explore events conveniently directly from the map.
-
-<br> <br> 9. Account Security <a name="account-security"></a>
-
-<br> <br> Protecting Your Account <a name="protecting-your-account"></a>
-
-To maintain the security of your account, avoid sharing your login credentials with others. If you suspect any unauthorized activity, change your password immediately.
-
-<br> <br>Logout When Not in Use <a name="logout-when-not-in-use"></a>
-
-To prevent unauthorized access to your account, remember to log out of the app when you are not actively using it. This ensures that your account remains secure, especially on shared or public devices.
-
-<br> <br> 10. Calendar View <a name="calendar-view"></a>
-
-<br> <br> View Events On Your Own Calendar <a name="view-events-on-your-own-calendar"></a>
-
-The calendar icon navigates you to a calendar view where events you have clicked "attend" on will appear on their respective dates.
-
-<br> <br> 11. Providing Feedback <a name="providing-feedback"></a>
-<section class="section">
-<br> <br> Help Us Improve <a name="help-us-improve"></a>
-</section>
-We value your feedback and suggestions! If you encounter any issues, have ideas for new features, or require assistance, please contact our support team or open an issue on our GitHub repository. Your input helps us enhance Meet App and create a better experience for all users.
+    <ion-button expand="block" color="dark"  (click)="openfriendship()" style="padding: 1px 19px;">FRIENDSHIP</ion-button>
+    
+    
+  </ion-content>
+    
+</div>
 <br> <br>
-Remember, Meet App is continually evolving, and we appreciate your active involvement in making it a thriving and enjoyable social networking platform.
-<br> <br>
-Thank you for being part of the Meet App community! Happy networking and attending exciting events!
-<br> <br>
-Yours truly, The Tech Titans!
-<br> <br>
+
+         
             </div>
+
+            
           </ion-content>
           <ion-footer>
             <ion-toolbar>
@@ -379,9 +394,10 @@ Yours truly, The Tech Titans!
               </ion-buttons>
               <ion-title>Meet App User Manual</ion-title>
               <ion-buttons slot="end">
-                <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+                
               </ion-buttons>
             </ion-toolbar>
+          
           </ion-footer>
         </ng-template>
       </ion-modal>

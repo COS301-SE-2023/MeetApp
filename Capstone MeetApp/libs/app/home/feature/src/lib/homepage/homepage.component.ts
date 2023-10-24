@@ -49,22 +49,27 @@ export class HomepageComponent {
     
   }];
 
+  
   recommend= [{
-    _id:'',
-    name:'',
-    organisation: '',
-    description:'',
-    date: '',
-    startTime: '',
-    endTime: '',
-    eventDate: '',
-    location: {latitude:0 , longitude:0},
-    category:'',
-    region:'',
-    eventPoster:''
-    
+     event:
+     {
+      _id:'',
+      name:'',
+      organisation: '',
+      description:'',
+      date: '',
+      startTime: '',
+      endTime: '',
+      eventDate: '',
+      location: {latitude:0 , longitude:0},
+      category:'',
+      region:'',
+      eventPoster:''
+     },
+     score:0
   }];
  
+
   current_user={
     id:'',
     password:'',
@@ -92,31 +97,56 @@ export class HomepageComponent {
     this.isLiked = !this.isLiked;
   }
   
-
+  handleRefresh(event:any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+    }, 2000);
+  }
   
   constructor(private service: service,private router: Router,private http: HttpClient,private activatedRoute: ActivatedRoute,private platform: Platform) {
-  
+    this.activatedRoute.paramMap.subscribe(params => {
+      this.userType = params.get('userType');
+    });
+    console.log('test',this.userType)
+
+   
+    
   }
   
   refreshPage() {
     
     this.platform.ready().then(() => {
-      const timestamp = new Date().getTime();
-      window.location.href = window.location.href + '?timestamp=' + timestamp;
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(registrations => {
+          for (const registration of registrations) {
+            registration.unregister();
+          }
+          window.location.reload();
+        });
+      } else {
+        window.location.reload();
+      }
+  
     });
+    
     
   }
   async ngOnInit() {
+    
+    this.service.checkTokenAndRedirect();
     this.service.getAllEvents().subscribe((response: any) => { 
+      
       this.data = response;
       for (let i = 0; i < this.data.length; i++) {
         this.getAttendance(this.data[i]._id);
       }
       this.getCurrentUser();
-      setTimeout(()=>{                           
+      setTimeout(()=>{                       
         this.loader = false;
-    }, 200);
+    },5);
     })
+
     const currentUsername = await this.current_user.username
     this.service.getRecomendations(currentUsername).subscribe((response: any) => { 
       this.data = response;
@@ -126,15 +156,10 @@ export class HomepageComponent {
       
       setTimeout(()=>{                           
         this.loader = false;
-    }, 200);
+    }, 10);
     }
-    
+     
     );
-
-    this.activatedRoute.paramMap.subscribe(params => {
-      this.userType = params.get('userType');
-    });
-  
   }
  
   async getAttendance(id:string,)
@@ -178,7 +203,8 @@ export class HomepageComponent {
   }
 
   gotosettings() {
-    this.router.navigateByUrl('/settings');
+   
+    this.router.navigate(['/settings',{ userType: this.userType }]);
     
   }
   gotoSuggestedFriends() {
@@ -203,21 +229,23 @@ export class HomepageComponent {
       {
         this.current_user=response;
        
-        this.getProfile(this.current_user.username);
+        this.getRecomendations(this.current_user.username);
       }
       else
       {
-        this.getProfile(username);
+        this.getRecomendations(username);
       }
       
     });
 
   }
 
-  async getProfile(username :string|null){
+  async getRecomendations(username :string|null){
     await this.service.getRecomendations(username).subscribe((response:any)=>{ 
       this.recommend = response;
       console.log(response);
     });
   }
+ 
+
 }

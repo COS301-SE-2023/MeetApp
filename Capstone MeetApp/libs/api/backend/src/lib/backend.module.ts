@@ -8,10 +8,10 @@ import { FriendshipsModule } from '../friendships/friendships.module';
 import { ApiKeyMiddleware } from './api-keyMiddleware';
 import { PasswordRecoveriesModule } from '../passwordrecoveries/passwordrecoveries.module';
 import { RecommendationModule } from '../recommendations/recommendations.module';
-
+import { PendingAccountsModule } from '../pendingaccounts/pendingaccounts.module';
 
 @Module({
-  imports: [FriendshipsModule,RecommendationModule, AttendancesModule, PasswordRecoveriesModule, UsersModule, EventsModule, UsersModule, OrganisationsModule, MongooseModule.forRoot('mongodb+srv://u19007443:AGGGyM0C7n4VyBtN@cluster0.nh0ftux.mongodb.net/?retryWrites=true&w=majority', {dbName: 'MeetAppMockDB'})],
+  imports: [FriendshipsModule,RecommendationModule,PendingAccountsModule, AttendancesModule, PasswordRecoveriesModule, UsersModule, EventsModule, UsersModule, OrganisationsModule, MongooseModule.forRoot(process.env['DB_CONNECTION_STRING_SEDI'] || '', {dbName: process.env['DB_NAME_SEDI']})],
   controllers: [],
   providers: [ApiKeyMiddleware],
 })

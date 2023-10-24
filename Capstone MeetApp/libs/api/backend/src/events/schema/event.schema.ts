@@ -10,7 +10,7 @@ export type EventDocument = HydratedDocument<Event>;
 export class Event {
   @ApiProperty({description: "The unique ID of the event.", example: "6494b7d2d53259fc23bc0cfd", required: true, type: "string"})
   @Prop()
-  _id!: mongoose.Schema.Types.ObjectId;
+  id!: mongoose.Schema.Types.ObjectId;
   
   @ApiProperty({example: 'CyberSummit', description: 'The name of the event.', required: true})
   @Prop()

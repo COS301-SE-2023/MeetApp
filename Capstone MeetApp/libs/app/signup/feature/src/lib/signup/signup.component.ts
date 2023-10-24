@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'
 import { FormBuilder,  Validators } from '@angular/forms';
@@ -26,10 +26,12 @@ import { LoadingController } from '@ionic/angular';
 })
 
 export class SignupComponent {
+  @ViewChild('popover') Popover: any;
   
   loginForm!: FormGroup;
   valid=true;
-
+  emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+  passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   constructor(private router: Router, private formBuilder: FormBuilder, private apiService: service,private alertController: AlertController,
     private toastController: ToastController,private activatedRoute: ActivatedRoute,private location: Location, public loadingController: LoadingController) {}
     selectedOptions: string[] = [];
@@ -42,10 +44,14 @@ export class SignupComponent {
   email = ''; 
   password= '';   
   region='';
+  OTP = 0;
+
+  isOpen=false;
 
   valid_user=false;
   valid_pass=false;
   valid_passregex=false;
+  valid_email=false;
 
   data_organiser= [{
     _id:'',
@@ -83,17 +89,21 @@ export class SignupComponent {
     message:''
   };
 
+  verify_payload={
+    payload: null, 
+    message: ''
+  }
+
   userType:string|null = '';
 
   confirmpassword="";
   
   access:string|null='';
   
+  default_pp='https://images-ext-1.discordapp.net/external/P8I_PanYzrNyOtLaGFi2svOw_odBwa1eNGDXVBvTOVc/https/www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png?width=672&height=589'
   submitClicked = false;
   loader=true;
   ngOnInit() {
-    
-    
     
     this.activatedRoute.paramMap.subscribe(params => {
       this.userType = params.get('userType');
@@ -102,12 +112,14 @@ export class SignupComponent {
     if(this.userType=='user')
     {
       this.loginForm = this.formBuilder.group({
-        username: ['', Validators.required],
-       // region:['', Validators.required],
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmpassword: ['', Validators.required],
         name:['', Validators.required],
-        email:['',Validators.required]
+        username: ['', Validators.required],
+        region:['', Validators.required],
+        selectedOptions: [[]],
+        password: ['', [Validators.required, Validators.minLength(8),Validators.pattern(this.passwordPattern)]],
+        confirmpassword: ['', Validators.required],
+        email:['',Validators.pattern(this.emailPattern)]
+
         });
         
 
@@ -152,69 +164,95 @@ export class SignupComponent {
   signup(){
     const password = this.loginForm.value.password;
     const username=this.loginForm.value.username;
-    const region=this.loginForm.value.region;
+   
     const name =this.loginForm.value.name;
     const email=this.loginForm.value.email;
     const confirmpassword = this.loginForm.value.confirmpassword;
-
-
+   
+    const regionControl = this.loginForm.get('region');
+    const selectedOptionsControl = this.loginForm.get('selectedOptions');
+  
     
+    if (regionControl && selectedOptionsControl) {
+      
+      const region = regionControl.value;
+      const selectedOptions = selectedOptionsControl.value;
+  
+     
     
-    if(this.userType=='user' )
-    {
-
-      if(email!==null && username!==null && region!==null && password!==null && confirmpassword!==null && this.selectedOptions!==null)
+      if(this.userType=='user' )
       {
-        this.valid=true;
+
+        if(email!==null && username!==null && region!==null && password!==null && confirmpassword!==null && this.selectedOptions!==null)
+        {
+          this.valid=true;
+              
+            if(this.username_user.includes(username)==false) 
+            {
+              this.valid_user=true;
+            }
             
-          if(this.username_user.includes(username)==false) 
-          {
-            this.valid_user=true;
-          }
-          }
-          else
-          {
-            this.valid_user=false;
-          }
-          console.log('password',password);
-          console.log('confirmpassword',confirmpassword);
+            else
+            {
+              this.valid_user=false;
+            }
+            console.log('password',password);
+            console.log('confirmpassword',confirmpassword);
 
-          if(password==confirmpassword)
-          {
-            this.valid_pass=true;
-          }
-          else
-          {
-            this.valid_pass=false;
-          }
-          
+            if(password==confirmpassword)
+            {
+              this.valid_pass=true;
+            }
+            else
+            {
+              this.valid_pass=false;
+            }
+            
 
-          if(this.checkPasswordStrength(password)==true)
-          {
-            this.valid_passregex=true;
-          }
-          else
-          {
-            this.valid_passregex=false;
-          }
+            if(this.checkPasswordStrength(password)==true)
+            {
+              this.valid_passregex=true;
+            }
+            else
+            {
+              this.valid_passregex=false;
+            }
 
-          console.log('Password is equal to CP',this.valid_pass);
-          console.log('Regex',this.valid_passregex);
-          console.log('Valid User name ',this.valid_user);
+            if(this.checkEmail(email)==true){
+              this.valid_email=true;
+            }else{
+              this.valid_email=false;
+            }
 
-          if(this.valid_pass && this.valid_user && this.valid_passregex)
-          {
-            this.SignUpUser(email,username,password,'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg',region,this.selectedOptions);
+            console.log('Password is equal to CP',this.valid_pass);
+            console.log('Regex',this.valid_passregex);
+            console.log('Valid User name ',this.valid_user);
+
+            if(this.valid_pass && this.valid_user && this.valid_passregex && this.valid_email)
+            {
+              console.log(region);
+              console.log(this.selectedOptions);
+              //this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions);
+              this.sendEmailVerification(email,'User');
+            }
+
+            
           }
-      }
-      else{
-        this.valid=false;
-      }
+        }
+        else{
+          this.valid=false;
+        }
 
+        this.isvalid();
+        
+  }
+  else
+  {
+    
     
     if(this.userType=='organiser'){
 
-      if(email!==null && username!==null && region!==null && password!==null)
+      if(username!==null && name!==null && password!==null)
       {
         this.valid=true;
           if(this.username_org.includes(username)==false) 
@@ -248,23 +286,31 @@ export class SignupComponent {
             this.valid_passregex=false;
           }
 
+          
           console.log('Password is equal to CP',this.valid_pass);
           console.log('Regex',this.valid_passregex);
           console.log('Valid User name ',this.valid_user);
-
-          if(this.valid_pass && this.valid_user && this.valid_passregex)
+          console.log('valid email',this.valid_email);
+          if(this.valid_pass && this.valid_user && this.valid_passregex )
           {
           
-            this.SignUpOrg(email,username,name,password, this.events)
+            //this.SignUpOrg(email,username,name,password, this.events)
+            this.sendEmailVerification(email,'Organiser');
           
           }
+
       }
       else
       {
         this.valid=false;
       }
+
+      this.isvalid();
     
     }
+    
+  }
+
   
   }
 
@@ -303,27 +349,18 @@ export class SignupComponent {
     this.router.navigate(['/signup', { userType: this.userType }]);
   }
 
-  async isvalid()
+   async isvalid()
   {
 
     console.log('valid',this.valid);
-    const loading = await this.loadingController.create({
-      message: 'Loading...',
-      });
-      await loading.present();
-
-      // Simulate some asynchronous operation
-      setTimeout(() => {
-      loading.dismiss();
+    
       if(this.valid)
       {
 
         if(this.valid_pass && this.valid_user && this.valid_passregex)
         {
+          //this.showPopover = true;
           
-          const errorMessage = 'Account Created Successfully';
-          this.showErrorAlert(errorMessage); 
-          this.onSignUp();
         }
 
         if(this.valid_user==false)
@@ -348,7 +385,13 @@ export class SignupComponent {
          
         }
 
+        
+        if(this.valid_email==false){
+          const errorMessage="One or more characters for the (username) before the @ symbol. should contain domain e.g. com , org etc...";
+          this.showErrorAlertVal(errorMessage);
+        }
 
+        
         
       }
       else
@@ -356,13 +399,47 @@ export class SignupComponent {
         const errorMessage = 'incomplete form';
         this.showErrorToast(errorMessage); 
       }
-      }, 3000);
-
-    
+      
 
 
   }
   
+  async verify()
+  {
+    const email=this.loginForm.value.email;
+    if(this.OTP==0)
+    {
+      const errorMessage = 'Please Enter OTP';
+      this.showErrorAlertVal(errorMessage); 
+    }
+    else
+    {
+      const loading = await this.loadingController.create({
+        message: 'Loading...',
+        });
+        await loading.present();
+  
+        // Simulate some asynchronous operation
+        setTimeout(() => {
+          loading.dismiss();
+  
+          if(this.userType=='organiser'){
+            this.verifyEmailVerificationOrg(email,this.OTP);
+
+          }
+  
+          if(this.userType=='user'){
+            this.verifyEmailVerificationUser(email,this.OTP);
+  
+        }
+      
+        }, 3000);
+  
+      loading.present();
+    }
+
+  }
+
   onSignUp() {
     this.router.navigate(['/home',{ userType: this.userType }]);
   }
@@ -372,7 +449,10 @@ export class SignupComponent {
     const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
     return passwordPattern.test(password);
   }
-
+  checkEmail(mail:string){
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(mail);
+  }
   setUserType(userType: string): void {
     this.router.navigate(['/login', { userType }]);
   }
@@ -393,10 +473,80 @@ export class SignupComponent {
       }
     });  
   }
- /* user='Not set';
-  setUserType(userType: string): void {
-    this.router.navigate(['/login', { userType }]);
-  }*/
+ 
+  sendEmailVerification(emailAddress:string,type:string)
+  {
+    this.apiService.sendEmailVerification(emailAddress,type).subscribe((response: any) => { 
+     console.log(response);
+    });
+  }
+
+  verifyEmailVerificationUser(emailAddress:string,code:number)
+  {
+    this.apiService.verifyEmailVerification(emailAddress,code,'User').subscribe((response: any) => { 
+      console.log(response);
+      this.verify_payload=response;
+
+      const password = this.loginForm.value.password;
+      const username=this.loginForm.value.username;
+      const email=this.loginForm.value.email;
+
+      const regionControl = this.loginForm.get('region');
+      const selectedOptionsControl = this.loginForm.get('selectedOptions');
+  
+  
+      if(this.verify_payload.message=='Account verified!')
+      {
+        this.Popover.dismiss();
+        if (regionControl && selectedOptionsControl) {
+      
+          const region = regionControl.value;
+          const selectedOptions = selectedOptionsControl.value;
+          this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions); 
+          this.onSignUp();
+        }
+      }
+
+     });
+  }
+
+  verifyEmailVerificationOrg(emailAddress:string,code:number,)
+  {
+    this.apiService.verifyEmailVerification(emailAddress,code,'Organiser').subscribe((response: any) => { 
+      console.log(response);
+      this.verify_payload=response;
+
+      const password = this.loginForm.value.password;
+      const username=this.loginForm.value.username;
+    
+      const name =this.loginForm.value.name;
+      const email=this.loginForm.value.email;
+   
+   
+
+      if(this.verify_payload.message=='Account verified!')
+      {
+        this.Popover.dismiss();
+        this.SignUpOrg(email,username,name,password, this.events);
+        this.onSignUp();
+      }
+     });
+  }
+  
+
+  presentPopover(e: Event) {
+    if(this.valid)
+      {
+
+        if(this.valid_pass && this.valid_user && this.valid_passregex)
+        {
+          this.Popover.event = e;
+          this.isOpen = true;       
+        }
+      }
+    
+  }
+
 }
 
 

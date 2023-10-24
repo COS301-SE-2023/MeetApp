@@ -35,8 +35,13 @@ export class RecommendationsController {
     return this.recommendationsService.remove(id);
   }
 
-  @Post()
+  @Post('initialise')
   async initialiseDocs(){
     return this.recommendationsService.updateDocs()
+  }
+
+  @Post('initialise/:username')
+  async initialiseDocsSignle(@Param('username') username : string){
+    return this.recommendationsService.updateDocsSingle(username)
   }
 }

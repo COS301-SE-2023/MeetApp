@@ -121,7 +121,7 @@ export class MapsComponent implements AfterViewInit {
 
   constructor(private m: GoogleMapsModule,private router: Router,private service: service) {
     //this.getData();
-    
+    this.service.checkTokenAndRedirect();
   }
   async ngOnInit() {
     await this.service.getAllEvents().subscribe((response: any) => { 
@@ -248,6 +248,18 @@ export class MapsComponent implements AfterViewInit {
         return { lat: -25.7479, lng: 28.2293 };
       case 'Joburg':
         return { lat: -26.2444, lng: 28.2316 };
+      case 'UCT':
+        return { lat: -33.918861, lng: 18.423300 };
+        case 'Durban':
+        return { lat: -29.883333, lng: 31.049999 };
+        case 'ELondon':
+        return { lat: -33.0153, lng: 27.9116 };
+        case 'Polokwane':
+        return { lat: -23.9045, lng: 29.4689 };
+        case 'Bloemfontein':
+        return { lat: -29.087217, lng: 26.154898 };
+        case 'Mbombela':
+          return { lat: -25.461651, lng: 30.929186 };
       default:
         return null;
     }

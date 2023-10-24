@@ -25,7 +25,7 @@ import { ModalController } from '@ionic/angular';
 export class LoginComponent {
   loginForm!: FormGroup;
   forgotPasswordEmail!: string;
-
+  valid_email=false;
   email = ''; 
   password= ''; 
   username='';
@@ -245,8 +245,20 @@ export class LoginComponent {
 
     sendLink(emailAddress:string)
     {
+      if(this.checkEmail(emailAddress)==true){
       this.apiService.sendPasswordRequest(emailAddress).subscribe((response: any) => { 
         console.log(response);
       });
+    }else{
+      const errorMessage="One or more characters for the (username) before the @ symbol. should contain domain e.g. com , org etc...";
+      this.showErrorToast(errorMessage);
+    }
+
+    }
+
+
+    checkEmail(mail:string){
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return emailPattern.test(mail);
     }
 }

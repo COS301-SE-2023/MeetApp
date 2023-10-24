@@ -69,6 +69,16 @@ export class UsersController {
     return this.usersService.getUserAttendancesUsername(username);
   }
 
+  @Get('isAttending/:eventID')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({summary: 'Check if the user is attending a certain event'})
+  @ApiResponse({type: Boolean, description: "True or false"})
+  isAttending(@Param('eventID') eventID : string, @Request() req : AuthenticatedRequest ) {
+    
+    return this.usersService.getIsAttending(eventID, req.user.id);
+  }
+
   @UseGuards(AuthGuard)
   @Get('attendances/count')
   @ApiBearerAuth()
@@ -251,7 +261,6 @@ export class UsersController {
   @ApiResponse({type: Event, description: "An event"})
   @ApiParam({name: 'eventID', description: 'The id of the event'})
   async getEvent(@Request() req : AuthenticatedRequest, @Param('eventID') eventID :  string, ){
-    
     return await this.usersService.getUserEvent(req.user.id, eventID)
   }
 
@@ -354,6 +363,26 @@ export class UsersController {
     
     return this.usersService.remove(req.user.id);
   }
+
+  @UseGuards(AuthGuard)
+  @Get('events/distance')
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Get the distance between the user's location and the event"})
+  @ApiResponse({status: 200, description: "The distance in km", type: "number"})
+  async getDistance(@Body('eventLocation') eventLocation : {latitude : number, longitude: number}, @Body('userLocation') userLocation : {longitude : number, latitude : number}){
+    return this.usersService.getDistance(eventLocation,userLocation)
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('events/distance/:range')
+  @ApiBearerAuth()
+  @ApiOperation({summary: "Get the distance between the user's location and the event"})
+  @ApiResponse({status: 200, description: "The distance in km", type: "number"})
+  async getDistanceRange(@Param('range') range : number, @Body('userLocation') userLocation : {longitude : number, latitude : number}){
+    return await this.usersService.getDistanceRange(range,userLocation)
+  }
+
+  
 
   /*@Post('addInterests')
   async addInterests(){

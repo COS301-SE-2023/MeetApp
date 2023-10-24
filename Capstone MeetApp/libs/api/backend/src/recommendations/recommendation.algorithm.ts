@@ -1,3 +1,4 @@
+import { ObjectId } from "mongoose";
 import { Event } from "../events/schema";
 import { Weight } from "../interfaces";
 import { User } from "../users/schema";
@@ -27,6 +28,7 @@ export class RecommendationAlgorithm {
     private TopSupportedOrganisations : string[]
     private MostPopularEvents : {event : Event, attendees : number}[]
     private threshold : number
+    private friendEventCount : number
 
 
     constructor(userId : string, userFriends : User[],userFriendsEvents : Event[], user : User, rate : number, userWeights : Weight[], userEvents : Event[], otherEvents : {event : Event, attendees : number}[], topCategory : Event[], topRegion : Event[], topOrgs : string[]) {
@@ -37,6 +39,7 @@ export class RecommendationAlgorithm {
         this.rate = rate
         this.userWeights = userWeights
         this.userAttendances = userEvents
+        this.friendEventCount = 0
         this.otherEvents = otherEvents
         this.userFriends = userFriends
         this.TopCategoryEvents = topCategory
@@ -115,12 +118,13 @@ export class RecommendationAlgorithm {
         const totalEventsCount = this.userAttendances.length
         console.log(`Total events count: ${totalEventsCount}`)
         console.log(`Total friends count: ${totalFriendsCount}`)
+        console.log(`Total friends events count: ${this.userFriendsEvents.length}`)
         
 
         const eventsAndScores = this.otherEvents.map((otherEvent) => {
             let score = 1;
             const clocation = otherEvent.event.location  as Record<string,number>
-            const ParsedLocation = {lat : clocation['latitude'], lon : clocation['longitude']}
+            const ParsedLocation = {latitude : clocation['latitude'], longitude : clocation['longitude']}
             if (totalEventsCount > 2 && totalEventsCount) {
                 if (otherEvent.event.date){
                     score += this.dayLayer(otherEvent.event.date)*this.DayWeight
@@ -153,10 +157,10 @@ export class RecommendationAlgorithm {
             }
             
             if (totalFriendsCount > 2 && totalFriendsCount)
-                score += this.influenceLayer(otherEvent.event._id.toString())*this.FriendsInfluenceWeight
+                score += this.influenceLayer(otherEvent.event.id)*this.FriendsInfluenceWeight
 
             score += this.chatRoomLayer()*this.ChatRoomWeight
-            score += this.popularityLayer(otherEvent.event._id.toString())*this.PopularityWeight
+            score += this.popularityLayer(otherEvent.event.id)*this.PopularityWeight
             score /= 10
             
             return {event : otherEvent.event, score : score}
@@ -172,9 +176,9 @@ export class RecommendationAlgorithm {
     }
     
 
-    private rangeLayer(eventLocation : {lat : number, lon : number}){
+    private rangeLayer(eventLocation : {latitude : number, longitude : number}){
         const AttendingCoords = this.userAttendances.map(uevent => uevent.location  as Record<string,number>)
-        const AttendingCoordsParsed = AttendingCoords.map(ulocation => ({lat : ulocation['latitude'], lon : ulocation['longitude']}))
+        const AttendingCoordsParsed = AttendingCoords.map(ulocation => ({latitude : ulocation['latitude'], longitude : ulocation['longitude']}))
 
         const averageRange = this.getAverageRange(AttendingCoordsParsed);
 
@@ -232,11 +236,14 @@ export class RecommendationAlgorithm {
         
     }
 
-    private influenceLayer(EventID : string){
+    private influenceLayer(EventID : ObjectId){
         let runningTotal = 0
         this.userFriendsEvents.forEach(event => {
-            if (event._id.toString() == EventID)
+            if (event.id == EventID){
+                this.friendEventCount += 1
+                console.log(this.friendEventCount)
                 runningTotal += 0.20
+            }
             if (this.user.interests?.includes(event.category))
                 runningTotal += 0.15
             if (this.user.region == event.region)
@@ -301,18 +308,18 @@ export class RecommendationAlgorithm {
     }
 
     //if event is popular throughout app (total event attendances)
-    private popularityLayer(eventID : string){
-        if (this.MostPopularEvents[0].event._id.toString() == eventID)
+    private popularityLayer(eventID : ObjectId){
+        if (this.MostPopularEvents[0].event.id == eventID)
             return 1
-        if (this.MostPopularEvents[1].event._id.toString() == eventID)
+        if (this.MostPopularEvents[1].event.id == eventID)
             return 0.5
-        if (this.MostPopularEvents[2].event._id.toString() == eventID)
+        if (this.MostPopularEvents[2].event.id == eventID)
             return 0.25
-        if (this.MostPopularEvents[3].event._id.toString() == eventID)
+        if (this.MostPopularEvents[3].event.id == eventID)
             return 0.125
-        if (this.MostPopularEvents[4].event._id.toString() == eventID)
+        if (this.MostPopularEvents[4].event.id == eventID)
             return 0.0625
-        if (this.MostPopularEvents[5].event._id.toString() == eventID)
+        if (this.MostPopularEvents[5].event.id == eventID)
             return 0.03125
         return 0
     }
@@ -323,11 +330,11 @@ export class RecommendationAlgorithm {
     }
 
 
-    private isWithinLocationRange(coordinates: { lat: number; lon: number }, range : number){
+    private isWithinLocationRange(coordinates: { latitude: number; longitude: number }, range : number){
         const AttendingCoords = this.userAttendances.map(uevent => uevent.location  as Record<string,number>)
-        const AttendingCoordsParsed = AttendingCoords.map(ulocation => ({lat : ulocation['latitude'], lon : ulocation['longitude']}))
+        const AttendingCoordsParsed = AttendingCoords.map(ulocation => ({latitude : ulocation['latitude'], longitude : ulocation['longitude']}))
         return AttendingCoordsParsed.some(coord => {
-            const distance = this.calculateDistance(coord.lat, coord.lon, coordinates.lat, coordinates.lon);
+            const distance = this.calculateDistance(coord.latitude, coord.longitude, coordinates.latitude, coordinates.longitude);
             return distance <= range;
         })
     }
@@ -348,15 +355,15 @@ export class RecommendationAlgorithm {
   
     
 
-    private getAverageRange(coordinates: { lat: number; lon: number }[]){
+    private getAverageRange(coordinates: { latitude: number; longitude: number }[]){
         let totalDistance = 0
         for (let i = 0; i < coordinates.length - 1; i++) {
             for (let j = i + 1; j < coordinates.length; j++) {
               const distance = this.calculateDistance(
-                coordinates[i].lat,
-                coordinates[i].lon,
-                coordinates[j].lat,
-                coordinates[j].lon
+                coordinates[i].latitude,
+                coordinates[i].longitude,
+                coordinates[j].latitude,
+                coordinates[j].longitude
               );
               totalDistance += distance;
             }

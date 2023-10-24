@@ -6,7 +6,7 @@
     "start": "node dist/apps/meet-app-api/main"
   },
   "engines": {
-  "node": ">=14.0.0"
+  "node": ">14.0.0"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +36,6 @@
     "tslib": "^2.5.2",
     "zone.js": "^0.13.0",
     "@types/nodemailer": "^6.4.10",
-    "nodemailer": "^6.9.5",
+    "nodemailer": "^6.9.5"
   }
 }

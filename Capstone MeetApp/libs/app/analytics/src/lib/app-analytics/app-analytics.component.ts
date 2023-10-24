@@ -163,11 +163,11 @@ export class AppAnalyticsComponent  implements AfterViewInit {
  constructor(private zone: NgZone, private apiService: service) { 
   this.getTop3Events();
   this.getEventRegionCount();
+  this.getTop3Categories();
+  this.apiService.checkTokenAndRedirect();
  }
 
- ngOnInit() {
-  this.getTop3Categories();
-}
+ 
 
   ngAfterViewInit() {
     this.zone.run(() => {

@@ -40,23 +40,13 @@
           </ion-item>
           
         </ion-list>
-        
-            
-          
-        
-    
         </div> 
-    
-        
-
-        
+  
     </div>
 
     <div class="part1">
       <div class="image-container top-group" *ngFor="let event of userEvents">
-        <a href="/events/{{event._id}}" routerLinkActive="active">
-          <img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)">
-        </a>
+          <img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)" (click)="viewEvent(event._id)">
           </div> 
       </div>
     

@@ -19,10 +19,10 @@
       <ion-item *ngFor="let friend of friends | filter:searchQuery; let i = index">
        
         <ion-avatar slot="start">
-          <img src="assets/profile.png" alt="Profile Picture">
+          <img [src]="friend.profilePicture" alt="Profile Picture">
         </ion-avatar>
         
-         <a [routerLink]="['/profileusers', friend.username]"><ion-label>   {{ friend.username }}</ion-label></a>
+         <a [routerLink]="['/profileusers', friend.username]" style="all:unset"  (click)=getFriendAccountFriends(friend.username)><ion-label>   {{ friend.username }}</ion-label></a>
       </ion-item>
     </ion-list>
   </ion-content>

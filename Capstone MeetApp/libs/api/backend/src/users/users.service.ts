@@ -347,6 +347,14 @@ export class UsersService {
     return eventsWithAttending;
   }
 
+  async getIsAttending(eventID : string, userID : string){
+    const attendance = await this.attendanceModel.find({userID : userID, eventID : eventID}).exec()
+    if (attendance)
+      return true
+    else 
+      return false
+  }
+
   async getUserEvent(userId: string, eventId: string){
     const user = await this.userModel.findById(userId);
     if (!user) {
@@ -778,5 +786,39 @@ export class UsersService {
       return { success: false, message: 'Failed to update users.' };
     }
   }*/
+
+  getDistance(eventLocation : {longitude : number, latitude : number}, userLocation : {longitude : number, latitude : number}){
+    const earthRadiusKm = 6371; // Radius of the Earth in kilometers
+        const lat1Rad = this.toRadians(eventLocation.latitude);
+        const lat2Rad = this.toRadians(userLocation.latitude);
+        const latDiff = this.toRadians(userLocation.latitude - eventLocation.latitude);
+        const lonDiff = this.toRadians(userLocation.longitude - eventLocation.longitude);
+      
+        const a = Math.sin(latDiff / 2) * Math.sin(latDiff / 2) +
+          Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+          Math.sin(lonDiff / 2) * Math.sin(lonDiff / 2);
+      
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      
+        const distance = earthRadiusKm * c;
+        return distance;
+  }
+
+  async getDistanceRange(range : number, userLocation : {longitude : number, latitude : number})
+  {
+    const AllEvents = await this.eventModel.find({}).exec()
+    return AllEvents.filter(evt => {
+      const EventCoords = evt.location as Record<string,number>
+      const EventsCoordsParsed = ({latitude : EventCoords['longitude'], longitude : EventCoords['latitude']})
+      console.log(EventsCoordsParsed)
+      const distance = this.getDistance(EventsCoordsParsed,userLocation)
+      console.log(evt.name, distance)
+      return distance <= range
+    })
+  }
+
+  toRadians(degrees: number): number {
+    return degrees * (Math.PI / 180);
+  }
 
 }

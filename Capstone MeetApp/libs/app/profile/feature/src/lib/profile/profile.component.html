@@ -23,8 +23,8 @@
        
     <div class="profile">
         <div class="circle">
-          <img [src]=" profile.profilePicture" alt="Profile Picture">
-          <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)" style="display: none;">
+          <img [src]=" profile.profilePicture" alt="Circle Image">
+          <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
         </div>
         <div class="profile-info">
             <h3>{{ profile.username }}</h3>
@@ -68,9 +68,7 @@
 
     <div class="card-grid" class="part1">
       <div class="profile-card" *ngFor="let event of events">
-        <a href="/events/{{event._id}}" routerLinkActive="active">
-          <img [src]="event.eventPoster" [alt]="'Image ' + (events.indexOf(event) + 1)">
-        </a>
+          <img [src]="event.eventPoster" [alt]="'Image ' + (events.indexOf(event) + 1)" (click)="viewEvent(event._id)" >
       </div>
     </div>
     
