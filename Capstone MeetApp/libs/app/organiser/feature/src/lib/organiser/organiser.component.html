@@ -37,7 +37,7 @@
     
       <ion-item lines="full">
         <ion-label position="floating">Event Date</ion-label>
-        <ion-input class="Edate" [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" required></ion-input>
+        <ion-input class="Edate" [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" min="{{ getCurrentDate() }}" required></ion-input>
       </ion-item>
     
       <ion-item lines="full">
