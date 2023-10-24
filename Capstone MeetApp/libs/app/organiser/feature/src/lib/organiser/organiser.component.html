@@ -24,7 +24,7 @@
         <ion-avatar>
           <img [src]="profilePictureUrl" alt="Profile Picture" (click)="changeProfilePicture()">
         </ion-avatar>
-        <ion-button fill="clear" size="small" (click)="changeProfilePicture()">
+        <ion-button fill="clear" size="small" (click)="changeProfilePicture()" style="color: black;">
           Add image
           <ion-icon name="camera-outline" style="color: white;"></ion-icon>
         </ion-button>
@@ -37,7 +37,7 @@
     
       <ion-item lines="full">
         <ion-label position="floating">Event Date</ion-label>
-        <ion-input class="Edate" [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" required></ion-input>
+        <ion-input class="Edate" [(ngModel)]="this.selectedRange.startDate"  type="date" name="this.selectedRange.startDate" min="{{ getCurrentDate() }}" required></ion-input>
       </ion-item>
     
       <ion-item lines="full">
@@ -92,7 +92,7 @@
 
       <ion-row>
     <ion-col>
-      <ion-button class="submit" type="submit"  expand="block" (click)="gotohome()">Create Event</ion-button>
+      <ion-button   color="dark" class="submit" type="submit"  expand="block" (click)="gotohome()">Create Event</ion-button>
     </ion-col>
   </ion-row>
 </form>

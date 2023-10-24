@@ -112,7 +112,7 @@
     <i class="fas fa-bell"></i>
   
   </div>
-  <div id="profile" (click)="gotoprofile()" routerLinkActive="active" class="navigation-item">
+  <div id="profile" (click)="gotoprofile()" routerLinkActive="active" class="navigation-item" *ngIf=" userType === 'user'">
     <i class="fas fa-user"></i>
   
   </div>
