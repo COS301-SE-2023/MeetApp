@@ -46,8 +46,7 @@
 
     <div class="part1">
       <div class="image-container top-group" *ngFor="let event of userEvents">
-          <ion-img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)" (click)="viewEvent(event._id)">
-          </ion-img>
+          <img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)" (click)="viewEvent(event._id)">
           </div> 
       </div>
     
