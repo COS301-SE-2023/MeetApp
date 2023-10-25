@@ -20,7 +20,7 @@
 
 <div id="body">
    
-       
+       <ion-content>
     <div class="profile">
       <div class="circle">
         <ion-img src="{{profile.profilePicture}}" alt="Circle Image">
@@ -46,7 +46,8 @@
 
     <div class="part1">
       <div class="image-container top-group" *ngFor="let event of userEvents">
-          <img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)" (click)="viewEvent(event._id)">
+          <ion-img [src]="event.eventPoster" [alt]="'Image ' + (userEvents.indexOf(event) + 1)" (click)="viewEvent(event._id)">
+          </ion-img>
           </div> 
       </div>
     
@@ -72,6 +73,6 @@
           </li>
         </ul>
     </nav>-->
-
+</ion-content>
   </div>
 </html>

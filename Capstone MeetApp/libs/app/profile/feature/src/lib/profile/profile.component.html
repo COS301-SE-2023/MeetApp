@@ -20,10 +20,10 @@
 
 <div id="body">
    
-       
+       <ion-content>
     <div class="profile">
         <div class="circle">
-          <img [src]=" profile.profilePicture" alt="Circle Image">
+          <ion-img [src]=" profile.profilePicture" alt="Circle Image"></ion-img>
           <input type="file" id="newProfilePic" (change)="onProfilePicChange($event)">
         </div>
         <div class="profile-info">
@@ -68,7 +68,7 @@
 
     <div class="card-grid" class="part1">
       <div class="profile-card" *ngFor="let event of events">
-          <img [src]="event.eventPoster" [alt]="'Image ' + (events.indexOf(event) + 1)" (click)="viewEvent(event._id)" >
+          <ion-img [src]="event.eventPoster" [alt]="'Image ' + (events.indexOf(event) + 1)" (click)="viewEvent(event._id)" ></ion-img>
       </div>
     </div>
     
@@ -101,6 +101,6 @@
           </li>
         </ul>
     </nav>-->
-
+  </ion-content>
   </div>
 </html>
