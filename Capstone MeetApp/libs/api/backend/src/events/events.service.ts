@@ -116,4 +116,26 @@ export class EventsService {
 
     return users.map((user) => ({ id: user._id, username: user.username, profilePicture:user.profilePicture }));
   }
+
+  async getFeed(){
+    const events = await this.eventModel.aggregate([
+      {
+        $match: {
+          $expr: {
+            $gte: [
+              { $dateFromString: { dateString: "$date", format: "%Y-%m-%d" } },
+              new Date()
+            ]
+          }
+        }
+      },
+      {
+        $sort: {
+          date: 1
+        }
+      }
+    ]).exec()
+
+    return events
+  }
 }

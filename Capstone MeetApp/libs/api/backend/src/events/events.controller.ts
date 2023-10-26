@@ -264,5 +264,12 @@ async deleteEvent(@Res() response: Response, @Param('id') eventId: string, )
     
     return this.eventsService.getAttendingUsers(eventId);
   }
+
+  @Get('feed/sort')
+  @ApiOperation({ summary: 'Find sorted events starting from today' })
+  @ApiResponse({ status: 200, description: 'list of events', type: Event})
+  getFeed(){
+    return this.eventsService.getFeed()
+  }
 }
 
