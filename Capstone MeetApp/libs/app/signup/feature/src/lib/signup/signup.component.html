@@ -105,6 +105,14 @@
           </ion-item>
 
           <ion-item lines="full">
+            <ion-label position="floating">Email</ion-label>
+            <ion-input class="rounded-input" type="text" name="email" formControlName="email"required></ion-input>
+            <div class="error-message" *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
+              email is required.
+            </div>
+          </ion-item>
+          
+          <ion-item lines="full">
             <ion-label position="floating">Password</ion-label>
             <ion-input id="Opasswd" type="password" name="password" formControlName="password" required></ion-input>
             <div class="error-message" *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">

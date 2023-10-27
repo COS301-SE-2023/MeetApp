@@ -129,7 +129,8 @@ export class SignupComponent {
       this.loginForm = this.formBuilder.group({
         username: ['', Validators.required],
         password: ['', [Validators.required, Validators.minLength(8)]],
-        name: ['', Validators.required]
+        name: ['', Validators.required],
+        email:['',Validators.pattern(this.emailPattern)]
         });
     }
 
@@ -262,6 +263,12 @@ export class SignupComponent {
           else
           {
             this.valid_user=false;
+          }
+
+          if(this.checkEmail(email)==true){
+            this.valid_email=true;
+          }else{
+            this.valid_email=false;
           }
 
           console.log('password',password);
@@ -503,6 +510,7 @@ export class SignupComponent {
           const region = regionControl.value;
           const selectedOptions = selectedOptionsControl.value;
           this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions); 
+          this.initialiseRecommendation(username);
           this.onSignUp();
         }
       }
@@ -545,6 +553,13 @@ export class SignupComponent {
         }
       }
     
+  }
+
+  initialiseRecommendation(username:string)
+  {
+    this.apiService.initialiseRecommendation(username).subscribe((response: any) => { 
+      console.log(response);
+    });
   }
 
 }
