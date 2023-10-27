@@ -1,7 +1,7 @@
 ![](https://digiday.com/wp-content/uploads/sites/3/2015/06/DonkeyKong-banner2.gif?w=1030&h=440&crop=1)
 
 
-<p><h1 align='center'>Tech Titans<br><br></h1>
+<p><h1 align='center'>Tech Titans Team<br><br></h1>
 <h1 align='center'>MeetApp<br><br></h1>
 </p>
 
