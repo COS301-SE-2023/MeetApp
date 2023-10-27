@@ -510,6 +510,7 @@ export class SignupComponent {
           const region = regionControl.value;
           const selectedOptions = selectedOptionsControl.value;
           this.SignUpUser(email,username,password,this.default_pp,region,selectedOptions); 
+          this.initialiseRecommendation(username);
           this.onSignUp();
         }
       }
@@ -552,6 +553,13 @@ export class SignupComponent {
         }
       }
     
+  }
+
+  initialiseRecommendation(username:string)
+  {
+    this.apiService.initialiseRecommendation(username).subscribe((response: any) => { 
+      console.log(response);
+    });
   }
 
 }

@@ -697,7 +697,11 @@ export class service{
         return this.http.patch(`${url}`,body,{ headers  : this.getCommonHeaders() });
     }
 
-    
+    initialiseRecommendation(username:string)
+    {
+      const url = `${this.baseURl}recommendations/initialise/${username}`;
+      return this.http.post(`${url}`,{ headers : this.getCommonHeaders()});
+    }
 
 
 }
